@@ -1,22 +1,23 @@
-User
++ User
   Index
   Show
   New
   Create
-  Edit?
-  Update?
+  Edit
+  Update
 
-Post
++ Post
   Index
   Show
   New
   Create
-  Edit?
-  Update?
-
-Message
-
-
-Vote
-
-
+  Edit
+  Update
+  + Message
+    (nothing that's its own route)
+  + Vote
+    Index
+    New
+    Create
+    Edit
+    Update
