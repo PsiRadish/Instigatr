@@ -1,2 +1,0 @@
-# Instigatr
-Debate app
