@@ -19,18 +19,20 @@
 </head>
 <body>
 
-<div class="ink-drawer">
-  <div class="left-drawer" style="background:gray">
-    Want to join the debate?
+<div class="ink-drawer" data-sides="both" data-content-drawer="#choose-side" data-left-drawer="for-drawer">
+  <div class="for-drawer" style="background:gray">
+    <p>Want to join the debate?</p>
+    <a href="#"><h4>Tag In</h4></a>
   </div>
-  <!-- <div class="right-drawer" style="background:blue">
-    Right drawer content...
-  </div> -->
-  <div id="main-content" class="content-drawer ink-grid">
-    <h1>Choose your side.</h1>
+  <div class="against-drawer" style="background:blue">
+    <p>Want to join the debate?</p>
+    <a href="#"><h4>Tag In</h4></a>
+  </div>
+  <div id="choose-side" class="content-drawer ink-grid">
+    <h1>What side are you on?</h1>
     <p>
-      <a class="left-drawer-trigger" href="#"><h3>For</h3></a>
-      <a class="right-drawer-trigger push-right" href="#"><h3>Against</h3></a>
+      <a class="left-drawer-trigger choose-for" href="#"><h3>For</h3></a>
+      <a class="right-drawer-trigger push-right choose-against" href="#"><h3>Against</h3></a>
     </p>
   </div>
 </div>
