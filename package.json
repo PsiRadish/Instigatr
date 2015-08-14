@@ -23,6 +23,7 @@
     "body-parser": "^1.13.3",
     "express": "^4.13.3",
     "express-ejs-layouts": "^1.1.0",
+    "express-session": "^1.11.3",
     "sequelize": "^3.5.1"
   }
 }
