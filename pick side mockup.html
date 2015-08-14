@@ -5,11 +5,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
-  <!-- <link rel="stylesheet" media="screen" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
   <script src="//code.jquery.com/jquery.min.js"></script>
   <!-- <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script> -->
   <!-- <link rel="stylesheet" media="screen" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.min.css"> -->
-  <!--script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script-->
+  <link rel="stylesheet" type="text/css" href="http://fastly.ink.sapo.pt/3.1.10/css/ink.css"> <!-- inks css file -->
+  <script type="text/javascript" src="http://fastly.ink.sapo.pt/3.1.10/js/ink-all.js"></script> <!-- inks js bundle -->
+  <!-- <link rel="stylesheet" media="screen" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+  <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
   
   <link rel="stylesheet" href="style.css">
   <script src="script.js"></script>
@@ -18,20 +20,19 @@
 <body>
 
 <div class="ink-drawer">
-    <div class="left-drawer" style="background:gray">
-        Left drawer content...
-    </div>
-    <div class="right-drawer" style="background:blue">
-        Right drawer content...
-    </div>
-    <div id="main-content" class="content-drawer ink-grid">
-        <h1>Choose your side.</h1>
-        <!-- <p>
-            
-        </p> -->
-        <a class="left-drawer-trigger" href="#">Open left drawer</a>
-        <a class="right-drawer-trigger push-right" href="#">Open right drawer</a>
-    </div>
+  <div class="left-drawer" style="background:gray">
+    Want to join the debate?
+  </div>
+  <!-- <div class="right-drawer" style="background:blue">
+    Right drawer content...
+  </div> -->
+  <div id="main-content" class="content-drawer ink-grid">
+    <h1>Choose your side.</h1>
+    <p>
+      <a class="left-drawer-trigger" href="#"><h3>For</h3></a>
+      <a class="right-drawer-trigger push-right" href="#"><h3>Against</h3></a>
+    </p>
+  </div>
 </div>
 
 </body>
