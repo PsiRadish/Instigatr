@@ -1,3 +1,7 @@
+# Kyle: This is the Compass SCSS build system config file.
+# So if you'r wondering, "Why is there a ruby file in our Node.js project?" well, stop it.
+# It's rude.
+
 require 'compass/import-once/activate'
 # Require any additional compass plugins here.
 
@@ -15,7 +19,7 @@ javascripts_dir = "public/js"
 # relative_assets = true
 
 # To disable debugging comments that display the original location of your selectors. Uncomment:
-# line_comments = false
+line_comments = false
 
 
 # If you prefer the indented syntax, you might want to regenerate this
