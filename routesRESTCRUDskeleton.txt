@@ -1,0 +1,22 @@
+User
+  Index
+  Show
+  New
+  Create
+  Edit?
+  Update?
+
+Post
+  Index
+  Show
+  New
+  Create
+  Edit?
+  Update?
+
+Message
+
+
+Vote
+
+
