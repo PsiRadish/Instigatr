@@ -17,9 +17,10 @@
   <script src="script.js"></script>
   
 </head>
-<body>
+<body class="ink-drawer ink-grid">
+<!-- <body class="ink-drawer" data-sides="both" data-content-drawer="#choose-side" data-left-drawer=".for-drawer" data-right-drawer=".against-drawer" data-left-trigger=".choose-for" data-right-trigger=".choose-against"> -->
 
-<div class="ink-drawer" data-sides="both" data-content-drawer="#choose-side" data-left-drawer=".for-drawer" data-right-drawer=".against-drawer" data-right-trigger=".choose-for" data-right-trigger=".choose-against">
+<!-- <div>
   <div class="for-drawer" style="background: #DDD">
     <p>Want to join the debate?</p>
     <a href="#"><h4>Tag In</h4></a>
@@ -35,24 +36,26 @@
       <a class="choose-against push-right" href="#"><h3>Against</h3></a>
     </p>
   </div>
-</div>
+</body> -->
 
-<div class="ink-drawer">
-    <div class="left-drawer" style="background:gray">
-        Left drawer content...
+<div class="column-group">
+  <div class="all-30">
+    <div class="left-drawer center-text" style="background:#DDD">
+        <p>Want to join the debate?</p>
+        <a href="#"><h4>Tag in!</h4></a>
     </div>
-    <div class="right-drawer" style="background:blue">
-        Right drawer content...
+    <div class="right-drawer" style="background:#DDD">
+        <p>Want to join the debate?</p>
+        <a href="#"><h4>Tag in!</h4></a>
     </div>
     <div id="main-content" class="content-drawer ink-grid">
-        <a class="left-drawer-trigger" href="#">Open left drawer</a>
-        <a class="right-drawer-trigger push-right" href="#">Open right drawer</a>
-
-        <h1>My page</h1>
+        <h1>What side are you on?</h1>
         <p>
-            Content of my page...
+            <a class="left-drawer-trigger" href="#">For!</a>
+            <a class="right-drawer-trigger push-right" href="#">Against!</a>
         </p>
     </div>
+  </div>
 </div>
 
 </body>
