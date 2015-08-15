@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html<head>
   <title></title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,6 +9,7 @@
   <!-- <link rel="stylesheet" media="screen" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.min.css"> -->
   <link rel="stylesheet" type="text/css" href="http://fastly.ink.sapo.pt/3.1.10/css/ink.css"> <!-- inks css file -->
   <script type="text/javascript" src="http://fastly.ink.sapo.pt/3.1.10/js/ink-all.js"></script> <!-- inks js bundle -->
+  <script type="text/javascript" src="http://fastly.ink.sapo.pt/3.1.10/js/autoload.js"></script>
   <!-- <link rel="stylesheet" media="screen" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
   <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
   
@@ -19,22 +19,40 @@
 </head>
 <body>
 
-<div class="ink-drawer" data-sides="both" data-content-drawer="#choose-side" data-left-drawer="for-drawer">
-  <div class="for-drawer" style="background:gray">
+<div class="ink-drawer" data-sides="both" data-content-drawer="#choose-side" data-left-drawer=".for-drawer" data-right-drawer=".against-drawer" data-right-trigger=".choose-for" data-right-trigger=".choose-against">
+  <div class="for-drawer" style="background: #DDD">
     <p>Want to join the debate?</p>
     <a href="#"><h4>Tag In</h4></a>
   </div>
-  <div class="against-drawer" style="background:blue">
+  <div class="against-drawer" style="background:DDD">
     <p>Want to join the debate?</p>
     <a href="#"><h4>Tag In</h4></a>
   </div>
   <div id="choose-side" class="content-drawer ink-grid">
     <h1>What side are you on?</h1>
     <p>
-      <a class="left-drawer-trigger choose-for" href="#"><h3>For</h3></a>
-      <a class="right-drawer-trigger push-right choose-against" href="#"><h3>Against</h3></a>
+      <a class="choose-for" href="#"><h3>For</h3></a>
+      <a class="choose-against push-right" href="#"><h3>Against</h3></a>
     </p>
   </div>
+</div>
+
+<div class="ink-drawer">
+    <div class="left-drawer" style="background:gray">
+        Left drawer content...
+    </div>
+    <div class="right-drawer" style="background:blue">
+        Right drawer content...
+    </div>
+    <div id="main-content" class="content-drawer ink-grid">
+        <a class="left-drawer-trigger" href="#">Open left drawer</a>
+        <a class="right-drawer-trigger push-right" href="#">Open right drawer</a>
+
+        <h1>My page</h1>
+        <p>
+            Content of my page...
+        </p>
+    </div>
 </div>
 
 </body>
