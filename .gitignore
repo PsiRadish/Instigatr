@@ -1,4 +1,5 @@
 node_modules
+dbtest.js
 *.env
 *.sublime-project
 *.sublime-workspace
