@@ -20,5 +20,9 @@ app.get("/", function(req, res){
 	res.send("yo this is our instigatr app!")
 });
 
+app.get("/post/:id/show", function(req, res)
+{
+    res.render("posts/show.ejs");
+});
 
 app.listen(3000);
