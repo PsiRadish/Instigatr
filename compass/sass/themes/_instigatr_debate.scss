@@ -1,32 +1,6 @@
 
-.back-fill.white
-{
-    background-color: white;
-}
-.back-fill.black
-{
-    background-color: black;
-}
-.back-fill.orange
-{
-    background-color: #ff9c00;
-}
-.back-fill.red
-{
-    background-color: #c91111;
-}
-.back-fill.green
-{
-    background-color: #4a9b17;
-}
-.back-fill.blue
-{
-    background-color: #0f75da;
-}
-.back-fill.yellow
-{
-    background-color: #ffd500;
-}
+
+$debate-msg-border-radius:      3px;
 
 .debate-message
 {
@@ -43,6 +17,8 @@
     position: absolute;
     top: 43%;
     left: 50%;
+    
+    // copied blindly from font-awesome CSS
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
@@ -61,10 +37,10 @@
 .debate-message.message-for
 {
     float: left;
-    margin-left: -0.5em;
+    margin-left:                (-$gutter-width / 2);
     border-left: none;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
+    border-top-right-radius:     $debate-msg-border-radius;
+    border-bottom-right-radius:  $debate-msg-border-radius;
 }
 .debate-message.message-for::before
 {   
@@ -104,18 +80,18 @@
     width: 108px;
 }
 
-.column-group.xlarge-half-horizontal-gutters,
-.column-group.large-half-horizontal-gutters
-{
-    margin-left: 0;
-}
-.column-group.xlarge-half-horizontal-gutters > .all-auto,
-.column-group.xlarge-half-horizontal-gutters > [class*="all-"],
-.column-group.xlarge-half-horizontal-gutters > [class*="xlarge-"],
-.column-group.large-half-horizontal-gutters > .all-auto,
-.column-group.large-half-horizontal-gutters > [class*="all-"],
-.column-group.large-half-horizontal-gutters > [class*="xlarge-"]
-{
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-}
+// .column-group.xlarge-half-horizontal-gutters,
+// .column-group.large-half-horizontal-gutters
+// {
+//     margin-left: 0;
+// }
+// .column-group.xlarge-half-horizontal-gutters > .all-auto,
+// .column-group.xlarge-half-horizontal-gutters > [class*="all-"],
+// .column-group.xlarge-half-horizontal-gutters > [class*="xlarge-"],
+// .column-group.large-half-horizontal-gutters > .all-auto,
+// .column-group.large-half-horizontal-gutters > [class*="all-"],
+// .column-group.large-half-horizontal-gutters > [class*="xlarge-"]
+// {
+//     padding-left: 0.5em;
+//     padding-right: 0.5em;
+// }

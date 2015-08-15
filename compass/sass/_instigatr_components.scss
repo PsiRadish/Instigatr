@@ -1,2 +1,31 @@
-// Someday this file may have content.
-// That day is not today.
+// link-colors($normal, $hover: false, $active: false, $visited: false, $focus: false)
+
+.back-fill.white
+{
+    background-color: $white;
+}
+.back-fill.black
+{
+    
+    background-color: $black;
+}
+.back-fill.orange
+{
+    background-color: $orange;
+}
+.back-fill.red
+{
+    background-color: $red;
+}
+.back-fill.green
+{
+    background-color: $green;
+}
+.back-fill.blue
+{
+    background-color: $blue;
+}
+.back-fill.yellow
+{
+    background-color: $yellow;
+}

@@ -20,6 +20,9 @@
 // Import Font Awesome
 // @import "contrib/font-awesome/font-awesome";
 
+// -- Instigatr variables and variable overrides
+@import "instigatr_vars";
+
 // IMPORT CONFIG FILES (THESE CONTAIN VARIABLE DEFINITIONS)
 @import "config/common";
 @import "config/typography";
@@ -36,14 +39,11 @@
 @import "config/images";
 @import "config/js";
 
-// -- Instigatr variables and variable overrides
-@import "instigatr_vars";
-
 // IMPORT MIXINS FILES (THESE CONTAIN HELPER FUNCTIONS)
 @import "functions/_js-bridge.scss";
 @import "mixins/alerts";
 @import "mixins/buttons";
-@import "mixins/grid";
+@import "mixins/flex-grid";
 @import "mixins/forms";
 @import "mixins/nav.pills";
 @import "mixins/nav.breadcrumbs";
@@ -52,16 +52,16 @@
 @import "mixins/nav.dropdown";
 @import "mixins/themeing";
 @import "mixins/typography";
-@import "mixins/utils";
+@import "mixins/flex-utils";
 
 // IMPORT MODULE DEFINITION FILES
 @import "modules/normalize";
 @import "modules/alerts";
 @import "modules/badges";
 @import "modules/buttons";
+@import "modules/flex-forms";
+@import "modules/flex-grid";
 @import "modules/fonts";
-@import "modules/forms";
-@import "modules/grid";
 @import "modules/labels";
 @import "modules/nav.core";
 @import "modules/nav.breadcrumbs";
@@ -89,9 +89,10 @@
 // IMPORT JS COMPONENTS STYLING
 @import "modules/js/animate";
 @import "modules/js/carousel";
+@import "modules/js/flex-carousel";
 @import "modules/js/datepicker";
 @import "modules/js/drawer";
-@import "modules/js/modal";
+@import "modules/js/flex-modal";
 @import "modules/js/progressbar";
 @import "modules/js/sortable.list";
 @import "modules/js/sticky";
@@ -104,5 +105,5 @@
 @import "instigatr_components";
 
 // -- Instigatr random other styling bits that we happen to need as we need them
-//@import "placeholder_for_soren_stuff.scss"
-//@import "instigatr_debate"
+//@import "placeholder_for_soren_stuff"
+@import "instigatr_debate"

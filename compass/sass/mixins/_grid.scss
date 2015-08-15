@@ -9,208 +9,355 @@
 }
 
 // generates the grid column grouping container
-@mixin generate-column-group-container($gutter-width, $class-name) {
+@mixin generate-column-group-container($gutter-width, $class-name)
+{
 
     .#{$grid-column-group-class-name} {
         @include pie-clearfix;
     }
 
-    .#{$grid-column-group-class-name}.#{$grid-gutters-class-name} {
-        margin-left: $gutter-width * -1;
+    .#{$grid-column-group-class-name}.#{$grid-gutters-class-name}
+    {
+        &:not(".back-fill")
+        {
+            margin-left: ($gutter-width * -1) / 2;
+        }
+        
         & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            padding-left: $gutter-width;
+        & > [class*=all-]
+        {
+            //padding-left: $gutter-width;
+            margin-bottom: $gutter-width;
+            // RADISH:
+            padding-left: $gutter-width / 2;
+            padding-right: $gutter-width / 2;
+        }
+    }
+    
+    .#{$grid-column-group-class-name}.#{$grid-horizontal-gutters-class-name}
+    {
+        &:not(".back-fill")
+        {
+            margin-left: ($gutter-width * -1) / 2;
+        }
+        & > [class*=#{$class-name}-],
+        & > [class*=all-]
+        {
+            //padding-left: $gutter-width;
+            // RADISH:
+            padding-left: $gutter-width / 2;
+            padding-right: $gutter-width / 2;
+        }
+    }
+
+    .#{$grid-column-group-class-name}.#{$grid-vertical-gutters-class-name}
+    {
+        & > [class*=#{$class-name}-],
+        & > [class*=all-] 
+        {
             margin-bottom: $gutter-width;
         }
     }
 
-    .#{$grid-column-group-class-name}.#{$grid-horizontal-gutters-class-name} {
-        margin-left: $gutter-width * -1;
+    .#{$grid-column-group-class-name}.#{$grid-double-gutters-class-name}
+    {
+        &:not(".back-fill")
+        {
+            margin-left: $gutter-width * -1;
+        }
         & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            padding-left: $gutter-width;
+        & > [class*=all-]
+        {
+            // padding-left: ($gutter-width * 2);
+            margin-bottom: ($gutter-width * 2);
+            // RADISH:
+            padding-left: ($gutter-width);
+            padding-right: ($gutter-width);
+        }
+    }
+    
+    .#{$grid-column-group-class-name}.#{$grid-double-horizontal-gutters-class-name}
+    {
+        &:not(".back-fill")
+        {
+            margin-left: $gutter-width * -1;
+        }
+        & > [class*=#{$class-name}-],
+        & > [class*=all-]
+        {
+            // padding-left: ($gutter-width * 2);
+            // RADISH:
+            padding-left: ($gutter-width);
+            padding-right: ($gutter-width);
         }
     }
 
-    .#{$grid-column-group-class-name}.#{$grid-vertical-gutters-class-name} {
+    .#{$grid-column-group-class-name}.#{$grid-double-vertical-gutters-class-name}
+    {
         & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            margin-bottom: $gutter-width;
-        }
-    }
-
-    .#{$grid-column-group-class-name}.#{$grid-double-gutters-class-name} {
-        margin-left: ($gutter-width * 2) * -1;
-        & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            padding-left: ($gutter-width * 2);
+        & > [class*=all-] 
+        {
             margin-bottom: ($gutter-width * 2);
         }
     }
 
-    .#{$grid-column-group-class-name}.#{$grid-double-horizontal-gutters-class-name} {
-        margin-left: ($gutter-width * 2) * -1;
-        & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            padding-left: ($gutter-width * 2);
+    .#{$grid-column-group-class-name}.#{$grid-half-gutters-class-name}
+    {
+        &:not(".back-fill")
+        {
+            margin-left: ( $gutter-width / 4 ) * -1;
         }
-    }
-
-    .#{$grid-column-group-class-name}.#{$grid-double-vertical-gutters-class-name} {
         & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            margin-bottom: ($gutter-width * 2);
-        }
-    }
-
-    .#{$grid-column-group-class-name}.#{$grid-half-gutters-class-name} {
-        margin-left: ( $gutter-width / 2 ) * -1;
-        & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            padding-left: ( $gutter-width / 2);
+        & > [class*=all-]
+        {
+            // padding-left: ( $gutter-width / 2);
             margin-bottom: ( $gutter-width / 2);
+            // RADISH
+            padding-left: ( $gutter-width / 4);
+            padding-right: ( $gutter-width / 4);
         }
     }
 
-    .#{$grid-column-group-class-name}.#{$grid-half-horizontal-gutters-class-name} {
-        margin-left: ( $gutter-width / 2 ) * -1;
+    .#{$grid-column-group-class-name}.#{$grid-half-horizontal-gutters-class-name}
+    {
+        &:not(".back-fill")
+        {
+            margin-left: ( $gutter-width / 4 ) * -1;
+        }
         & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            padding-left: ( $gutter-width / 2);
+        & > [class*=all-]
+        {
+            // padding-left: ( $gutter-width / 2);
+            // RADISH
+            padding-left: ( $gutter-width / 4);
+            padding-right: ( $gutter-width / 4);
         }
     }
 
-    .#{$grid-column-group-class-name}.#{$grid-half-vertical-gutters-class-name} {
+    .#{$grid-column-group-class-name}.#{$grid-half-vertical-gutters-class-name}
+    {
         & > [class*=#{$class-name}-],
-        & > [class*=all-] {
+        & > [class*=all-] 
+        {
             margin-bottom: ( $gutter-width / 2);
         }
     }
 
     .#{$grid-column-group-class-name}.#{$grid-quarter-gutters-class-name} {
-        margin-left: ( $gutter-width / 4 ) * -1;
+        &:not(".back-fill")
+        {
+            margin-left: ( $gutter-width / 8 ) * -1;
+        }
         & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            padding-left: ( $gutter-width / 4);
+        & > [class*=all-] 
+        {
+            // padding-left: ( $gutter-width / 4);
+            margin-bottom: ( $gutter-width / 4);
+            // RADISH:
+            padding-left: ( $gutter-width / 8);
+            padding-right: ( $gutter-width / 8);
+        }
+    }
+
+    .#{$grid-column-group-class-name}.#{$grid-quarter-horizontal-gutters-class-name}
+    {
+        &:not(".back-fill")
+        {
+            margin-left: ( $gutter-width / 8 ) * -1;
+        }
+        & > [class*=#{$class-name}-],
+        & > [class*=all-] 
+        {
+            // padding-left: ( $gutter-width / 4);
+            // RADISH:
+            padding-left: ( $gutter-width / 8);
+            padding-right: ( $gutter-width / 8);
+        }
+    }
+
+    .#{$grid-column-group-class-name}.#{$grid-quarter-vertical-gutters-class-name}
+    {
+        & > [class*=#{$class-name}-],
+        & > [class*=all-] 
+        {
             margin-bottom: ( $gutter-width / 4);
         }
     }
 
-    .#{$grid-column-group-class-name}.#{$grid-quarter-horizontal-gutters-class-name} {
-        margin-left: ( $gutter-width / 4 ) * -1;
+    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-gutters-class-name}
+    {
+        &:not(".back-fill")
+        {
+            margin-left: ($gutter-width * -1) / 2;
+        }
         & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            padding-left: ( $gutter-width / 4);
+        & > [class*=all-]
+        {
+            //padding-left: ($gutter-width);
+            margin-bottom: ($gutter-width);
+            // RADISH:
+            padding-left: ($gutter-width / 2);
+            padding-right: ($gutter-width / 2);
         }
     }
 
-    .#{$grid-column-group-class-name}.#{$grid-quarter-vertical-gutters-class-name} {
+    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-horizontal-gutters-class-name}
+    {
+        &:not(".back-fill")
+        {
+            margin-left: ($gutter-width * -1) / 2;
+        }
         & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            margin-bottom: ( $gutter-width / 4);
+        & > [class*=all-] 
+        {
+            //padding-left: $gutter-width;
+            // RADISH:
+            padding-left: $gutter-width / 2;
+            padding-right: $gutter-width / 2;
         }
     }
 
-    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-gutters-class-name} {
-        margin-left: $gutter-width * -1;
+    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-vertical-gutters-class-name}
+    {
         & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            padding-left: ( $gutter-width );
-            margin-bottom: ( $gutter-width );
-        }
-    }
-
-    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-horizontal-gutters-class-name} {
-        margin-left: $gutter-width * -1;
-        & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            padding-left: $gutter-width ;
-        }
-    }
-
-    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-vertical-gutters-class-name} {
-        & > [class*=#{$class-name}-],
-        & > [class*=all-] {
+        & > [class*=all-] 
+        {
             margin-bottom: $gutter-width;
         }
     }
 
-    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-double-gutters-class-name} {
-        margin-left: ($gutter-width * 2) * -1;
+    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-double-gutters-class-name}
+    {
+        &:not(".back-fill")
+        {
+            margin-left: $gutter-width * -1;
+        }
         & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            padding-left: ( $gutter-width * 2);
+        & > [class*=all-]
+        {
+            // padding-left: ( $gutter-width * 2);
+            margin-bottom: ( $gutter-width * 2);
+            // RADISH:
+            padding-left: ($gutter-width);
+            padding-right: ($gutter-width);
+        }
+    }
+
+    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-double-horizontal-gutters-class-name}
+    {
+        &:not(".back-fill")
+        {
+            margin-left: $gutter-width * -1;
+        }
+        & > [class*=#{$class-name}-],
+        & > [class*=all-] 
+        {
+            // padding-left: ( $gutter-width * 2);
+            // RADISH:
+            padding-left: ($gutter-width);
+            padding-right: ($gutter-width);
+        }
+    }
+
+    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-double-vertical-gutters-class-name}
+    {
+        & > [class*=#{$class-name}-],
+        & > [class*=all-] 
+        {
             margin-bottom: ( $gutter-width * 2);
         }
     }
 
-    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-double-horizontal-gutters-class-name} {
-        margin-left: ($gutter-width * 2) * -1;
+    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-half-gutters-class-name}
+    {
+        &:not(".back-fill")
+        {
+            margin-left: ( $gutter-width / 4 ) * -1;
+        }
         & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            padding-left: ( $gutter-width * 2);
+        & > [class*=all-] 
+        {
+            // padding-left: ( $gutter-width / 2);
+            margin-bottom: ( $gutter-width / 2);
+            // RADISH
+            padding-left: ( $gutter-width / 4);
+            padding-right: ( $gutter-width / 4);
         }
     }
 
-    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-double-vertical-gutters-class-name} {
+    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-half-horizontal-gutters-class-name}
+    {
+        &:not(".back-fill")
+        {
+            margin-left: ( $gutter-width / 4 ) * -1;
+        }
         & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            margin-bottom: ( $gutter-width * 2);
+        & > [class*=all-] 
+        {
+            // padding-left: ( $gutter-width / 2);
+            // RADISH
+            padding-left: ( $gutter-width / 4);
+            padding-right: ( $gutter-width / 4);
         }
     }
 
-    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-half-gutters-class-name} {
-        margin-left: ( $gutter-width / 2 ) * -1;
+    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-half-vertical-gutters-class-name}
+    {
         & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            padding-left: ( $gutter-width / 2);
+        & > [class*=all-] 
+        {
             margin-bottom: ( $gutter-width / 2);
         }
     }
 
-    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-half-horizontal-gutters-class-name} {
-        margin-left: ( $gutter-width / 2 ) * -1;
+    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-quarter-gutters-class-name}
+    {
+        &:not(".back-fill")
+        {
+            margin-left: ( $gutter-width / 8 ) * -1;
+        }
         & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            padding-left: ( $gutter-width / 2);
+        & > [class*=all-] 
+        {
+            // padding-left: ( $gutter-width / 4);
+            margin-bottom: ( $gutter-width / 4);
+            // RADISH:
+            padding-left: ( $gutter-width / 8);
+            padding-right: ( $gutter-width / 8);
+        }
+    }
+    
+    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-quarter-horizontal-gutters-class-name}
+    {
+        &:not(".back-fill")
+        {
+            margin-left: ( $gutter-width / 8 ) * -1;
+        }
+        & > [class*=#{$class-name}-],
+        & > [class*=all-] 
+        {
+            // padding-left: ( $gutter-width / 4);
+            // RADISH:
+            padding-left: ( $gutter-width / 8);
+            padding-right: ( $gutter-width / 8);
         }
     }
 
-    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-half-vertical-gutters-class-name} {
+    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-quarter-vertical-gutters-class-name}
+    {
         & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            margin-bottom: ( $gutter-width / 2);
-        }
-    }
-
-    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-quarter-gutters-class-name} {
-        margin-left: ( $gutter-width / 4 ) * -1;
-        & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            padding-left: ( $gutter-width / 4);
+        & > [class*=all-] 
+        {
             margin-bottom: ( $gutter-width / 4);
         }
     }
 
-    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-quarter-horizontal-gutters-class-name} {
-        margin-left: ( $gutter-width / 4 ) * -1;
-        & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            padding-left: ( $gutter-width / 4);
-        }
-    }
-
-    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-quarter-vertical-gutters-class-name} {
-        & > [class*=#{$class-name}-],
-        & > [class*=all-] {
-            margin-bottom: ( $gutter-width / 4);
-        }
-    }
-
-    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-no-gutters-class-name} {
+    .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-no-gutters-class-name}
+    {
         margin-left: 0;
         & > [class*=#{$class-name}-],
-        & > [class*=all-] {
+        & > [class*=all-] 
+        {
             padding-left: 0;
             margin-bottom: 0;
         }
