@@ -3,6 +3,7 @@
 var bcrypt = require('bcrypt');
 
 module.exports = function(sequelize, DataTypes) {
+
   var user = sequelize.define("user", {
     email: {
       type: DataTypes.STRING,
@@ -17,11 +18,17 @@ module.exports = function(sequelize, DataTypes) {
         notEmpty: true
       }
     },
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    score: { type: DataTypes.INTEGER, defaultValue: 0 }
   }, {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
+
+        models.user.hasMany(models.post);
+        models.user.belongsToMany(models.post, {through: "usersForPosts", as: "postsFor"});
+        models.user.belongsToMany(models.post, {through: "usersAgainstPosts", as: "postsAgainst"});
+
       },
       authenticate: function(email,password,callback){
         this.find({where:{email:email}}).then(function(user){
@@ -59,13 +66,5 @@ module.exports = function(sequelize, DataTypes) {
 
 
 
-  {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-        models.user.hasMany(models.post);
-      }
-    }
-  });
-  return user;
- };
+
+
