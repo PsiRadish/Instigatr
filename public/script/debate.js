@@ -50,6 +50,7 @@ $(function()
         var rslts = $.get(url,function(){
         }).done(function(rslts){
             console.log(rslts);
+            $('#news-column').append(rslts);
         })
     })
 
