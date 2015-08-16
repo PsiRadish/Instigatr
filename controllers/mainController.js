@@ -3,7 +3,9 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/',function(req, res){
-	res.render('main/home.ejs');
+	db.post.findAll({include:[db.user]}).then(function(posts){
+			res.render('main/home.ejs',{posts:posts});
+	});
 });
 
 
