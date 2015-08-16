@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+	<title>Instigatr</title>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>
 	<title>
       Instigatr
       <% if (typeof titleSuffix != 'undefined'){ %>
@@ -9,28 +12,39 @@
   </title>
     
     <link rel="stylesheet" type="text/css" href="/style/instigatr-ink-main.css">
-	  <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.9/css/ink.min.css"> -->
-  <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>-->
   <script src="//code.jquery.com/jquery.js"></script>
   
   <!-- scrollbar plugin http://manos.malihu.gr/jquery-custom-content-scroller/ -->
   <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.concat.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.min.css">
-  
 	<script type="text/javascript" src="http://fastly.ink.sapo.pt/3.1.9/js/ink-all.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">   
     <link rel="stylesheet" type="text/css" href="/style/instigatr-debate.css">
   <script type="text/javascript" src="/script/debate.js"></script>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/homepagestyle.css">
 </head>
 <body>
 <div class="ink-grid">
-	<nav class="ink-navigation">
+	<nav class="ink-navigation css-navBar">
 	  <ul class="horizontal menu black">
-		<li class="heading"><a href="/">INSTIGATR</a></li>	  	
+		<li class="heading"><a class="ink-label red css-label" href="/"><strong>INSTIGATR</strong></a></li>	  	
 	    <li><a href="/">Popular</a></li>
-	    <li><a href="/">Random</a></li>
+	    <li><a href="/" class="css-nBLink">Random</a></li>
 	    <li><a href="/archive">Archive</a></li>
+	    <ul class="push-right css-dropdownLogin">
+	    <li><a href="#"><em>Login/Signup</em></a>
+	    	<ul class="submenu css-loginDDItems">
+	    	<form class="ink-form">
+	    	<li><input type="text" name="email" placeholder="E-mail"></li>
+	    	<li><input type="text" name="password" placeholder="Password"></li>
+	    	<li class="separator-above">
+	    	<button class="ink-button blue css-loginBtn">Login!</button>
+	    	<button class="ink-button blue css-loginBtn">Signup!</button>
+	    	</li>
+	    	</form>
+	    </ul>
+	    </li>
+	    </ul>
 	  </ul>
 	</nav>
 
