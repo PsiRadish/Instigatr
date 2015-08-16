@@ -7,7 +7,7 @@
 // vars
 $debate-msg-border-radius           : 4px;
 $debate-msg-padding                 : 6px;
-$debate-msg-watermark-opacity       : 0.1;
+$debate-msg-watermark-opacity       : 0.05;
 $debate-msg-watermark-size          : 8px; // small font size for centering purposes, will use transform: scale to enlarge
 $debate-msg-watermark-scale         : 6.25;
 // watermarks in the center of their box
@@ -230,6 +230,11 @@ $argue-grey-background              : #505050;
         left: 50%;
         padding-left: 2em;
         
+        .choose-side
+        {
+            pointer-events: none;
+        }
+        
         .change-mind
         {
             visibility: visible;
@@ -263,6 +268,11 @@ $argue-grey-background              : #505050;
     {
         left: 0%;
         padding-right: 2em;
+        
+        .choose-side
+        {
+            pointer-events: none;
+        }
         
         .change-mind
         {

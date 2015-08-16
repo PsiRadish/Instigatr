@@ -273,6 +273,9 @@
   left: 50%;
   padding-left: 2em;
 }
+#choices.side-chosen-for #side-for .choose-side {
+  pointer-events: none;
+}
 #choices.side-chosen-for #side-for .change-mind {
   visibility: visible;
 }
@@ -296,6 +299,9 @@
 #choices.side-chosen-against #side-against {
   left: 0%;
   padding-right: 2em;
+}
+#choices.side-chosen-against #side-against .choose-side {
+  pointer-events: none;
 }
 #choices.side-chosen-against #side-against .change-mind {
   visibility: visible;
@@ -353,7 +359,7 @@
   color: #f20000;
 }
 #argue-column #chat-output .debate-message::before {
-  opacity: 0.1;
+  opacity: 0.05;
   position: absolute;
   top: 43%;
   font-family: FontAwesome;
