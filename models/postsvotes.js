@@ -1,15 +1,14 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var post = sequelize.define('post', {
-    userId: DataTypes.INTEGER,
-    text: DataTypes.TEXT
+  var postsVotes = sequelize.define('postsVotes', {
+    postId: DataTypes.INTEGER,
+    voteId: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
-        models.post.belongsTo(models.user);
       }
     }
   });
-  return post;
+  return postsVotes;
 };
