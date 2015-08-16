@@ -1,0 +1,2 @@
+    error compass/sass/instigatr_debate.scss (Line 6: Invalid CSS after "// vars": expected selector or at-rule, was "$debate-msg-bor...")
+Compilation failed in 1 files.
