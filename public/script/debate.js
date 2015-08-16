@@ -30,22 +30,37 @@ $(function()
         var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
         var navHeight = $('nav').outerHeight();
         
-        console.log('viewHeight', viewHeight);
-        console.log('navHeight', navHeight);
+        // console.log('viewHeight', viewHeight);
+        // console.log('navHeight', navHeight);
         
         var debatePage = $('#debate-page');
+        
+        var postStuff = $('#post-stuff');
+        var choices = $('#choices');
+        var yourSide = $('#hows-my-arguing');
+        
         var chatOutput = $('#chat-output');
         var chatBox = $('#chat-box-container');
         
         debatePage.height(viewHeight - navHeight);
-        console.log("debate page height", debatePage.outerHeight());
-        console.log("chatbox height", chatBox.outerHeight());
-        chatOutput.height(debatePage.outerHeight() - chatBox.outerHeight());
-        console.log("chat output height", chatOutput.outerHeight());
+        var contentHeight = debatePage.outerHeight();
+        
+        console.log(contentHeight);
+        console.log(postStuff.outerHeight(), choices.outerHeight(), yourSide.outerHeight());
+        
+        var freeSpace = contentHeight - (postStuff.outerHeight() + choices.outerHeight() + yourSide.outerHeight());
+        console.log(freeSpace);
+        var vertMargin = freeSpace / 2;
+        
+        postStuff.css("margin-bottom", vertMargin.toString()+"px");
+        choices.css("margin-bottom", vertMargin.toString()+"px");
+        
+        chatOutput.height(contentHeight - chatBox.outerHeight());
+        
     }
     
     sizeChat();
     
     // do it again on resize
     $(window).resize(sizeChat);
-})
+});

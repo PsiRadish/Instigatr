@@ -45,7 +45,7 @@ $argue-grey-background              : #505050;
 
 #take-sides-column
 {
-    background: linear-gradient(10deg, $blue, shade($blue, 15%));
+    background: linear-gradient(10deg, $blue, shade($blue, 30%));
     overflow: hidden;
 }
 
@@ -57,7 +57,7 @@ $argue-grey-background              : #505050;
     
     padding: $debate-msg-padding;
     // margin-bottom: 24px;
-    margin-bottom: 35%;
+    // margin-bottom: 35%;
     
     font-size: $h5-font-size;
     p { font-size: $h5-font-size; }
@@ -373,7 +373,7 @@ $argue-grey-background              : #505050;
             span
             {
                 // sent font to Roboto Light Condensed
-                font-weight: 300;
+                font-weight: 400;
                 font-family: $condensed-font-stack;
             }
         }

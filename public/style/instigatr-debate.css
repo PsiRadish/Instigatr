@@ -148,7 +148,7 @@
 }
 
 #take-sides-column {
-  background: linear-gradient(10deg, #0047a6, #003c8d);
+  background: linear-gradient(10deg, #003985, #00285d);
   overflow: hidden;
 }
 
@@ -157,7 +157,6 @@
   border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.1);
   padding: 6px;
-  margin-bottom: 35%;
   font-size: 15.4px;
 }
 #post-content-box p {
@@ -383,7 +382,7 @@
   margin-bottom: 9px;
 }
 #argue-column #chat-output .debate-message span {
-  font-weight: 300;
+  font-weight: 400;
   font-family: Roboto_condensed, Arial, Helvetica, sans-serif;
 }
 #argue-column #chat-output .debate-message.message-for {
