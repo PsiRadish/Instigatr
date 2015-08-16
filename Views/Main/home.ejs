@@ -2,9 +2,14 @@
 	<div class="all-80">
 <% posts.forEach(function(post){ %>
 	<div class="css-mainPagePostDiv">
-	<p><%= post.user.name %></p>
+	<span class="push-right goToLink"><i class="fa fa-arrow-right"></i></span>
+	<span class="push-left">
+	<h4>9000</h4>
+	</span>
+	<span>
 	<p><%= post.text %></p>
-	
+	<p class="css-usrNm"><%= post.user.name %></p>
+	</span>
 	</div>
 <% }) %>
 </div>

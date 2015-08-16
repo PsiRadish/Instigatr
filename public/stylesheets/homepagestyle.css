@@ -6,6 +6,15 @@
 	font-size:16px;
 	border-radius: 0px 40px 40px 0px;
 }
+.css-mainPagePostDiv .css-usrNm{
+	font-size: 18px;
+	text-decoration: underline;
+}
+.css-mainPagePostDiv h4{
+	color:white;
+	display:inline-block;
+	margin-right:20px;
+}
 .css-label{
 	font-size: 16px;
 }
@@ -22,4 +31,8 @@
 }
 .css-loginDDItems{
 	right:0;
+}
+.goToLink{
+	font-size: 40px;
+	margin-right: 20px;
 }
