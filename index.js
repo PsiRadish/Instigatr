@@ -16,6 +16,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended:false}));
 //controllers
 app.use('/', require('./controllers/mainController.js'));
+
 app.use(session({
   secret:'hdsvhioadfgnioadfgnoidfagoibna',
   resave: false,
@@ -47,10 +48,11 @@ app.use('/',require('./controllers/mainController.js'));
 app.use('/auth',require('./controllers/auth.js'));
 
 
+app.use('/posts', require('./controllers/postsController.js'));
 
-app.get("/", function(req, res){
-	res.send("yo this is our instigatr app!")
-});
 
+// app.get("/", function(req, res){
+// 	res.send("yo this is our instigatr app!")
+// });
 
 app.listen(3000);

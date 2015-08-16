@@ -1,0 +1,61 @@
+/**
+ * Instigatr Mixins
+ **/
+
+@mixin set-text-for-dark-background()
+{
+    color: $text-color-dark-bg;
+    
+    h1, h2, h3, h4, h5, h6
+    {
+        color: $headings-color-dark-bg;
+    }
+    
+    a:not(.ink-button)
+    {
+        @include link-colors($link-color-dark-bg, $link-hover-color-dark-bg, $link-active-color-dark-bg, $link-visited-color-dark-bg, $link-focus-color-dark-bg);
+    }
+}
+
+@mixin set-text-for-light-background()
+{
+    color: $text-color;
+    
+    h1, h2, h3, h4, h5, h6
+    {
+        color: $headings-color;
+    }
+    
+    a:not(.ink-button)
+    {
+        @include link-colors($link-color, $link-hover-color, $link-active-color, $link-visited-color, $link-focus-color);
+    }
+}
+
+// TODO: Ink typography classes converted to mixins
+// .fw-100, .fw-light { font-weight: 100; }
+// .fw-300, .fw-thin { font-weight: 300; }
+// .fw-400, .fw-regular { font-weight: 400; }
+// .fw-500, .fw-medium { font-weight: 500; }
+// .fw-700, .fw-bold { font-weight: 700; }
+// .fw-900, .fw-black { font-weight: 900; }
+
+// .condensed-300, .condensed-thin { font-weight: 300; font-family: $condensed-font-stack; }
+// .condensed-400, .condensed-regular { font-weight: 400; font-family: $condensed-font-stack; }
+// .condensed-700, .condensed-bold { font-weight: 700; font-family: $condensed-font-stack; }
+
+// .slab-100, .slab-light { font-weight: 100; font-family: $slab-font-stack; }
+// .slab-300, .slab-thin { font-weight: 300; font-family: $slab-font-stack; }
+// .slab-400, .slab-regular { font-weight: 400; font-family: $slab-font-stack; }
+// .slab-700, .slab-bold { font-weight: 700; font-family: $slab-font-stack; }
+
+// .sans       { font-family: $sans-serif-font-stack; }
+// .serif      { font-family: $serif-font-stack; }
+// .monospace  { font-family: $mono-font-stack; }
+// .condensed  { font-family: $condensed-font-stack; }
+// .slab       { font-family: $slab-font-stack; }
+
+// .italic { font-style: italic; }
+// .uppercase { text-transform: uppercase; }
+// .lowercase { text-transform: lowercase; }
+// .capitalizer { text-transform: capitalize; }

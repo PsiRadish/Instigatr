@@ -1,20 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Instigatr</title>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.9/css/ink-flex.min.css">
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>
+	<title>
+      Instigatr
+      <% if (typeof titleSuffix != 'undefined'){ %>
+         : <%= titleSuffix %>
+      <% } %>
+  </title>
+    
+    <link rel="stylesheet" type="text/css" href="/style/instigatr-ink-main.css">
+	  <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.9/css/ink.min.css"> -->
+  <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>-->
+  <script src="//code.jquery.com/jquery.js"></script>
+  
+  <!-- scrollbar plugin http://manos.malihu.gr/jquery-custom-content-scroller/ -->
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.concat.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.min.css">
+  
 	<script type="text/javascript" src="http://fastly.ink.sapo.pt/3.1.9/js/ink-all.js"></script>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" type="text/css" href="/style/instigatr-debate.css">
+  <script type="text/javascript" src="/script/debate.js"></script>
 </head>
 <body>
 <div class="ink-grid">
 	<nav class="ink-navigation">
 	  <ul class="horizontal menu black">
+<<<<<<< HEAD
 	    <li><a href="/">Home</a></li>
 	    <li><a href="/articles">Popular!</a></li>
       <li><a href="/auth/login"> Login </a></li>
       <li><a href="/auth/Signup"> Signup </a></li>
+=======
+		<li class="heading"><a href="/">INSTIGATR</a></li>	  	
+	    <li><a href="/">Popular</a></li>
+	    <li><a href="/">Random</a></li>
+	    <li><a href="/archive">Archive</a></li>
+>>>>>>> 34181b88c07b52fac51c5ee69a2764baa07d611c
 	  </ul>
 	</nav>
 
