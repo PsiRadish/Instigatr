@@ -2,7 +2,6 @@
 
 var bcrypt = require('bcrypt');
 
-
 module.exports = function(sequelize, DataTypes) {
 
   var user = sequelize.define("user", {
@@ -25,9 +24,11 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
+
         models.user.hasMany(models.post);
         models.user.belongsToMany(models.post, {through: "usersForPosts", as: "postsFor"});
         models.user.belongsToMany(models.post, {through: "usersAgainstPosts", as: "postsAgainst"});
+
       },
       authenticate: function(email,password,callback){
         this.find({where:{email:email}}).then(function(user){
@@ -48,7 +49,7 @@ module.exports = function(sequelize, DataTypes) {
     hooks: {
       beforeCreate: function(user, options, callback){
         if(user.password){
-          bcrypt.hash(user.password,10,function(err,hash){
+          bcrypt.hash(user.password,5,function(err,hash){
             if(err) return callback(err);
             user.password = hash;
             callback(null, user);
@@ -65,20 +66,5 @@ module.exports = function(sequelize, DataTypes) {
 
 
 
-//  var user = sequelize.define('user', {
-//    name: DataTypes.STRING,
-//    email: DataTypes.STRING,
-//    password: DataTypes.STRING,
-//    
-//  }, {
-//    classMethods: {
-//      associate: function(models) {
-//        // associations can be defined here
-//        models.user.hasMany(models.post);
-//        models.user.belongsToMany(models.post, {through: "usersForPosts", as: "postsFor"});
-//        models.user.belongsToMany(models.post, {through: "usersAgainstPosts", as: "postsAgainst"});
-//      }
-//    }
-//  });
-//  return user;
-//};
+
+
