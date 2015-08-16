@@ -1,0 +1,59 @@
+// * Instigatr Base
+// *
+// * Imports all the mixin and variable and such partials but nothing (much?) that directly compiles into actual CSS rules.
+// * Should be the only import needed for any new non-partials.
+
+// -- Instigatr browser support vars
+// @import "instigatr_support";
+
+// Import Compass Core
+// @import "contrib/compass/css3";
+// @import "contrib/compass/utilities";
+// import from locally-installed compass instead of bundled
+@import "compass/css3";
+@import "compass/utilities";
+
+// Import Font Awesome
+// @import "contrib/font-awesome/font-awesome";
+
+// -- Instigatr variables and variable overrides
+@import "instigatr_vars_before";
+
+// IMPORT CONFIG FILES (THESE CONTAIN VARIABLE DEFINITIONS)
+@import "config/common";
+@import "config/typography";
+@import "config/colors";
+@import "config/alerts";
+@import "config/buttons";
+@import "config/classnames";
+@import "config/forms";
+@import "config/grid";
+@import "config/labels";
+@import "config/badges";
+@import "config/navigation";
+@import "config/tables";
+@import "config/images";
+@import "config/js";
+
+// -- Instigatr variables and variable overrides
+@import "instigatr_vars_after";
+
+// IMPORT MIXINS FILES (THESE CONTAIN HELPER FUNCTIONS)
+@import "functions/_js-bridge.scss";
+@import "mixins/alerts";
+@import "mixins/buttons";
+//@import "mixins/flex-grid";     // flex
+@import "mixins/grid";          // no flex
+@import "mixins/forms";
+@import "mixins/nav.pills";
+@import "mixins/nav.breadcrumbs";
+@import "mixins/nav.pagination";
+@import "mixins/nav.menu";
+@import "mixins/nav.dropdown";
+@import "mixins/themeing";
+@import "mixins/typography";
+//@import "mixins/flex-utils";    // flex
+@import "mixins/utils";         // no flex
+
+// -- Instigatr mixins (and functions?)
+@import "instigatr_mixin";

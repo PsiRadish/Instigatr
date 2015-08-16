@@ -1,6 +1,9 @@
-@mixin themeing($color,$type: 'background'){
-  @if $type == 'background' {
+@mixin themeing($color,$type: 'background')
+{
+  @if $type == 'background'
+  {
       background: $color;
-      color: contrast-color($color,$text-color,$white,50%);
+      color: contrast-color($color,$text-color,$white);
+      // color: contrast-color($color,$text-color,$white,50%);
   }
 }

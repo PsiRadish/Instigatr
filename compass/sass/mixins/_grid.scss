@@ -18,7 +18,7 @@
 
     .#{$grid-column-group-class-name}.#{$grid-gutters-class-name}
     {
-        &:not(".back-fill")
+        &:not(.back-fill):not(.back-flush)
         {
             margin-left: ($gutter-width * -1) / 2;
         }
@@ -36,7 +36,7 @@
     
     .#{$grid-column-group-class-name}.#{$grid-horizontal-gutters-class-name}
     {
-        &:not(".back-fill")
+        &:not(.back-fill):not(.back-flush)
         {
             margin-left: ($gutter-width * -1) / 2;
         }
@@ -61,7 +61,7 @@
 
     .#{$grid-column-group-class-name}.#{$grid-double-gutters-class-name}
     {
-        &:not(".back-fill")
+        &:not(.back-fill):not(.back-flush)
         {
             margin-left: $gutter-width * -1;
         }
@@ -78,7 +78,7 @@
     
     .#{$grid-column-group-class-name}.#{$grid-double-horizontal-gutters-class-name}
     {
-        &:not(".back-fill")
+        &:not(.back-fill):not(.back-flush)
         {
             margin-left: $gutter-width * -1;
         }
@@ -103,7 +103,7 @@
 
     .#{$grid-column-group-class-name}.#{$grid-half-gutters-class-name}
     {
-        &:not(".back-fill")
+        &:not(.back-fill):not(.back-flush)
         {
             margin-left: ( $gutter-width / 4 ) * -1;
         }
@@ -120,7 +120,7 @@
 
     .#{$grid-column-group-class-name}.#{$grid-half-horizontal-gutters-class-name}
     {
-        &:not(".back-fill")
+        &:not(.back-fill):not(.back-flush)
         {
             margin-left: ( $gutter-width / 4 ) * -1;
         }
@@ -144,7 +144,7 @@
     }
 
     .#{$grid-column-group-class-name}.#{$grid-quarter-gutters-class-name} {
-        &:not(".back-fill")
+        &:not(.back-fill):not(.back-flush)
         {
             margin-left: ( $gutter-width / 8 ) * -1;
         }
@@ -161,7 +161,7 @@
 
     .#{$grid-column-group-class-name}.#{$grid-quarter-horizontal-gutters-class-name}
     {
-        &:not(".back-fill")
+        &:not(.back-fill):not(.back-flush)
         {
             margin-left: ( $gutter-width / 8 ) * -1;
         }
@@ -186,7 +186,7 @@
 
     .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-gutters-class-name}
     {
-        &:not(".back-fill")
+        &:not(.back-fill):not(.back-flush)
         {
             margin-left: ($gutter-width * -1) / 2;
         }
@@ -203,7 +203,7 @@
 
     .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-horizontal-gutters-class-name}
     {
-        &:not(".back-fill")
+        &:not(.back-fill):not(.back-flush)
         {
             margin-left: ($gutter-width * -1) / 2;
         }
@@ -228,7 +228,7 @@
 
     .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-double-gutters-class-name}
     {
-        &:not(".back-fill")
+        &:not(.back-fill):not(.back-flush)
         {
             margin-left: $gutter-width * -1;
         }
@@ -245,7 +245,7 @@
 
     .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-double-horizontal-gutters-class-name}
     {
-        &:not(".back-fill")
+        &:not(.back-fill):not(.back-flush)
         {
             margin-left: $gutter-width * -1;
         }
@@ -270,7 +270,7 @@
 
     .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-half-gutters-class-name}
     {
-        &:not(".back-fill")
+        &:not(.back-fill):not(.back-flush)
         {
             margin-left: ( $gutter-width / 4 ) * -1;
         }
@@ -287,7 +287,7 @@
 
     .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-half-horizontal-gutters-class-name}
     {
-        &:not(".back-fill")
+        &:not(.back-fill):not(.back-flush)
         {
             margin-left: ( $gutter-width / 4 ) * -1;
         }
@@ -312,7 +312,7 @@
 
     .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-quarter-gutters-class-name}
     {
-        &:not(".back-fill")
+        &:not(.back-fill):not(.back-flush)
         {
             margin-left: ( $gutter-width / 8 ) * -1;
         }
@@ -329,7 +329,7 @@
     
     .#{$grid-column-group-class-name}.#{$class-name}-#{$grid-quarter-horizontal-gutters-class-name}
     {
-        &:not(".back-fill")
+        &:not(.back-fill):not(.back-flush)
         {
             margin-left: ( $gutter-width / 8 ) * -1;
         }
@@ -900,7 +900,7 @@
                 @include generate-visibility-classes($class-name);
             }
         }
-
+        
         @if $minimum-width and $maximum-width {
             @media #{$media} and (min-width: $minimum-width) and (max-width: $maximum-width) {
                 @include generate-grid-container($grid-class-name, $gutter-width);
@@ -910,7 +910,7 @@
                 @include generate-visibility-classes($class-name);
             }
         }
-
+        
         @if not $minimum-width and $maximum-width {
             @media #{$media} and (max-width: $maximum-width) {
                 @include generate-grid-container($grid-class-name, $gutter-width);

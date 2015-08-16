@@ -6,7 +6,8 @@ html {
 body {
     color: $text-color;
     @include ink-font-stack(sans);
-    font-size: inherit;
+    // font-size: inherit;
+    font-size: $base-font-size; // RADISH
     //line-height: $base-line-height;
 }
 

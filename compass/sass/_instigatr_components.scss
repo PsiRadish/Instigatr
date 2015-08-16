@@ -1,4 +1,9 @@
-// link-colors($normal, $hover: false, $active: false, $visited: false, $focus: false)
+/**
+ * Instigatr Components
+ *
+ * General-use class definitions.
+ * Should only be imported in instigatr_main.scss, or else we'll have duplicate rule definitions and look really silly.
+ **/
 
 .back-fill.white
 {
@@ -6,26 +11,35 @@
 }
 .back-fill.black
 {
-    
     background-color: $black;
+    @include set-text-for-dark-background();
 }
 .back-fill.orange
 {
     background-color: $orange;
+    @include set-text-for-dark-background();
 }
 .back-fill.red
 {
     background-color: $red;
+    @include set-text-for-dark-background();
 }
 .back-fill.green
 {
     background-color: $green;
+    @include set-text-for-dark-background();
 }
 .back-fill.blue
 {
     background-color: $blue;
+    @include set-text-for-dark-background();
 }
 .back-fill.yellow
 {
     background-color: $yellow;
+}
+
+.vis-hide
+{
+    visibility: hidden !important;
 }

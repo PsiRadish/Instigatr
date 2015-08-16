@@ -1,0 +1,427 @@
+/**
+ * Debate page CSS
+**/
+/**
+ * Instigatr Variables
+ **/
+/**
+ * Ink class names prefix
+ * Used in all of Inks components root elements
+ */
+/**
+ * Grid class names
+ */
+/**
+ * Alerts class names
+ */
+/**
+ * Badges class names
+ */
+/**
+ * Buttons class names
+ */
+/**
+ * Dismiss class names
+ */
+/**
+ * Forms class names
+ */
+/**
+ * Labels class names
+ */
+/**
+ * Navigation class names
+ */
+/**
+ * Dropdown class names
+ */
+/**
+ * Tables class names
+ */
+/**
+ * Images class names
+ */
+/**
+ * JS UI components classe names
+ */
+/** 
+ * Sets the grids maximum width
+ * @var $grid-max-width (pixels|ems|percentage)
+ */
+/*!
+ * Sets the grids breakpoint
+ * 
+ * To add a new break point you'll need to add an element to the list.
+ * 
+ * Here's an example: ( class-name-prefix, minimum-width, maximum-width, gutter-width, no-media-query).
+ * 
+ * media: media type.
+ * class-name-prefix: this is the prefix used in tons of inks classes i.e.: large-100, small-40, etc.
+ * minimum-width: (pixels|null) the minimum width for the breakpoint 
+ * maximum-width: (pixels|null) the maximum width for the breakpoint 
+ * gutter-width: (ems) the width for the gutters (space between grid columns) for the breakpoint 
+ * no-media-query: (true|false) if you need to support IE8 set this to true on a single breakpoint.
+ *                 Since IE8 does not support the @media statement leaving one of the breakpoints
+ *                 outside a @media query let's you use the grid in IE8.
+ *  
+ */
+/**
+ * Instigatr Variables
+ **/
+.show-all {
+  display: inherit;
+}
+
+.hide-all {
+  display: none !important;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.no-margin-top {
+  margin-top: 0 !important;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0 !important;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.push-left {
+  float: left;
+}
+
+.push-center {
+  float: none !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.push-right {
+  float: right;
+  -webkit-justify-content: flex-end;
+  -moz-justify-content: flex-end;
+  justify-content: flex-end;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.clearfix {
+  *zoom: 1;
+  overflow: hidden;
+  *zoom: 1;
+}
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/**
+ * Instigatr Mixins
+ **/
+#debate-page > section {
+  height: 100%;
+}
+#debate-page > section h1, #debate-page > section h2, #debate-page > section h3, #debate-page > section h4 {
+  text-align: center;
+}
+
+.author {
+  font-family: Roboto_slab, Arial, Helvetica, sans-serif;
+  display: block;
+}
+
+#take-sides-column {
+  background: linear-gradient(10deg, #0047a6, #003c8d);
+  overflow: hidden;
+}
+
+#post-content-box {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 6px;
+  margin-bottom: 35%;
+  font-size: 15.4px;
+}
+#post-content-box p {
+  font-size: 15.4px;
+}
+#post-content-box .author {
+  text-align: right;
+}
+
+#choices #headings-roll {
+  position: relative;
+  height: 24px;
+  width: 100%;
+  margin-bottom: 18px;
+}
+#choices #headings-roll h3 {
+  position: absolute;
+  width: 100%;
+  top: 0%;
+  text-align: center;
+}
+#choices #choice-roll {
+  position: relative;
+  height: 60px;
+  width: 100%;
+}
+#choices #choice-roll #wanna-join-left, #choices #choice-roll #wanna-join-right,
+#choices #choice-roll #side-for, #choices #choice-roll #side-against {
+  position: absolute;
+  width: 50%;
+  top: 0%;
+}
+#choices #wanna-join-left, #choices #wanna-join-right {
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 6px;
+}
+#choices #wanna-join-left .enter-queue, #choices #wanna-join-right .enter-queue {
+  display: block;
+}
+
+#heading-choice-made-left,
+#heading-choice-not-made,
+#heading-choice-made-right,
+#wanna-join-left,
+#wanna-join-right,
+#side-for,
+#side-against {
+  transition: left 0.5s, padding 0.5s, opacity 0.3s;
+}
+
+#side-for, #side-against {
+  height: 60px;
+}
+#side-for .choose-side, #side-against .choose-side {
+  width: 108px;
+  max-width: 100%;
+}
+#side-for .change-mind, #side-against .change-mind {
+  display: block;
+}
+
+#choices {
+  margin-bottom: 24px;
+}
+#choices #heading-choice-made-left {
+  left: -50%;
+  opacity: 0;
+}
+#choices #heading-choice-not-made {
+  left: 0%;
+}
+#choices #heading-choice-made-right {
+  left: 50%;
+  opacity: 0;
+}
+#choices #wanna-join-left {
+  left: -50%;
+  opacity: 0;
+}
+#choices #side-for {
+  left: 0%;
+}
+#choices #side-for .change-mind {
+  visibility: hidden;
+}
+#choices #side-against {
+  left: 50%;
+}
+#choices #side-against .change-mind {
+  visibility: hidden;
+}
+#choices #wanna-join-right {
+  left: 100%;
+  opacity: 0;
+}
+
+#choices.side-chosen-for #heading-choice-made-left {
+  left: 0%;
+  opacity: 1;
+}
+#choices.side-chosen-for #heading-choice-not-made {
+  left: 50%;
+  opacity: 0;
+}
+#choices.side-chosen-for #wanna-join-left {
+  left: 0%;
+  opacity: 1;
+}
+#choices.side-chosen-for #side-for {
+  left: 50%;
+  padding-left: 2em;
+}
+#choices.side-chosen-for #side-for .change-mind {
+  visibility: visible;
+}
+#choices.side-chosen-for #side-against {
+  left: 100%;
+  opacity: 0;
+}
+
+#choices.side-chosen-against #heading-choice-made-right {
+  left: 0%;
+  opacity: 1;
+}
+#choices.side-chosen-against #heading-choice-not-made {
+  left: -50%;
+  opacity: 0;
+}
+#choices.side-chosen-against #side-for {
+  left: -50%;
+  opacity: 0;
+}
+#choices.side-chosen-against #side-against {
+  left: 0%;
+  padding-right: 2em;
+}
+#choices.side-chosen-against #side-against .change-mind {
+  visibility: visible;
+}
+#choices.side-chosen-against #wanna-join-right {
+  left: 50%;
+  opacity: 1;
+}
+
+#choices.side-chosen-for + #hows-my-arguing,
+#choices.side-chosen-against + #hows-my-arguing {
+  visibility: visible;
+}
+
+#hows-my-arguing {
+  text-align: center;
+  visibility: hidden;
+}
+
+#argue-column {
+  padding: 0;
+  background-color: #682828;
+  background: linear-gradient(#505050, #5c3c3c 50%, #800000);
+  position: relative;
+}
+#argue-column #chat-output {
+  overflow-y: auto;
+}
+#argue-column #chat-output .debate-message {
+  width: 80%;
+  padding: 6px;
+  margin-top: 6px;
+  position: relative;
+  border: 1px solid #999;
+  background-color: #F8F8F8;
+  background: linear-gradient(#ffffff, #eeeeee);
+  color: #222;
+}
+#argue-column #chat-output .debate-message h1, #argue-column #chat-output .debate-message h2, #argue-column #chat-output .debate-message h3, #argue-column #chat-output .debate-message h4, #argue-column #chat-output .debate-message h5, #argue-column #chat-output .debate-message h6 {
+  color: black;
+}
+#argue-column #chat-output .debate-message a:not(.ink-button) {
+  color: #6998C9;
+}
+#argue-column #chat-output .debate-message a:not(.ink-button):visited {
+  color: #6998C9;
+}
+#argue-column #chat-output .debate-message a:not(.ink-button):focus {
+  color: #6998C9;
+}
+#argue-column #chat-output .debate-message a:not(.ink-button):hover {
+  color: #007ED5;
+}
+#argue-column #chat-output .debate-message a:not(.ink-button):active {
+  color: #f20000;
+}
+#argue-column #chat-output .debate-message::before {
+  opacity: 0.1;
+  position: absolute;
+  top: 43%;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  font-size-adjust: none;
+  font-stretch: normal;
+  font-feature-settings: normal;
+  font-language-override: normal;
+  font-kerning: auto;
+  font-synthesis: weight style;
+  font-variant: normal;
+  font-size: 8px;
+  text-rendering: auto;
+}
+#argue-column #chat-output .debate-message:last-child {
+  margin-bottom: 6px;
+}
+#argue-column #chat-output .debate-message .author {
+  margin-bottom: 9px;
+}
+#argue-column #chat-output .debate-message span {
+  font-weight: 300;
+  font-family: Roboto_condensed, Arial, Helvetica, sans-serif;
+}
+#argue-column #chat-output .debate-message.message-for {
+  float: left;
+  border-left: none;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+#argue-column #chat-output .debate-message.message-for::before {
+  content: '\f087';
+  left: 50%;
+  transform: scale(6.25, 6.25);
+}
+#argue-column #chat-output .debate-message.message-against {
+  float: right;
+  border-right: none;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+#argue-column #chat-output .debate-message.message-against::before {
+  content: '\f088';
+  left: 50%;
+  transform: scale(-6.25, 6.25);
+}
+#argue-column #chat-output hr {
+  height: 6px;
+  border: none;
+}
+#argue-column #chat-box-container {
+  padding: 6px;
+  background-color: #DDD;
+  background: linear-gradient(90deg, #bbbbbb, #ffffff);
+  width: 100%;
+  position: absolute;
+  bottom: 0%;
+}
+#argue-column #chat-box-container #chat-box {
+  height: 60px;
+  width: 100%;
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 6px;
+  resize: none;
+}
+#argue-column #chat-box-container #chat-box:focus {
+  color: black;
+}

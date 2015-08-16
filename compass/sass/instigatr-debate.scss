@@ -1,0 +1,447 @@
+/**
+ * Debate page CSS
+**/
+
+@import "base";
+
+// vars
+$debate-msg-border-radius           : 4px;
+$debate-msg-padding                 : 6px;
+$debate-msg-watermark-opacity       : 0.1;
+$debate-msg-watermark-size          : 8px; // small font size for centering purposes, will use transform: scale to enlarge
+$debate-msg-watermark-scale         : 6.25;
+// watermarks in the center of their box
+$debate-msg-watermark-for-left      : 50%;
+$debate-msg-watermark-against-left  : 50%;
+
+$argue-red-background               : #800000;
+$argue-grey-background              : #505050;
+// watermarks align in the center of the argument column
+// $debate-msg-watermark-for-left      : 62.5%;
+// $debate-msg-watermark-against-left  : 37.5%;
+
+// top level debate page column
+#debate-page > section
+{
+    // min-height: 480px;
+    
+    h1, h2, h3, h4
+    {
+        text-align: center;
+    }
+    
+    height: 100%;
+}
+
+.author
+{
+    // sent font to Roboto Slab
+    font-family: $slab-font-stack;
+    display: block;
+}
+
+
+// == COLUMN 1 ====
+
+#take-sides-column
+{
+    background: linear-gradient(10deg, $blue, shade($blue, 15%));
+    overflow: hidden;
+}
+
+#post-content-box
+{
+    border: 1px solid rgba(white, 0.2);
+    border-radius: $debate-msg-border-radius;
+    background-color: rgba(white, 0.1);
+    
+    padding: $debate-msg-padding;
+    // margin-bottom: 24px;
+    margin-bottom: 35%;
+    
+    font-size: $h5-font-size;
+    p { font-size: $h5-font-size; }
+    
+    .author
+    {
+        // display: block;
+        text-align: right;
+    }
+}
+
+#choices
+{
+    #headings-roll
+    {
+        position: relative;
+        height: 24px;
+        width: 100%;
+        
+        margin-bottom: 18px;
+        
+        h3
+        {
+            // display: inline-block;
+            
+            position: absolute;
+            width: 100%;
+            top: 0%;
+            
+            text-align: center;
+        }
+    }
+    
+    #choice-roll
+    {
+        position: relative;
+        height: 60px;
+        width: 100%;
+        
+        #wanna-join-left, #wanna-join-right,
+        #side-for, #side-against
+        {
+            position: absolute;
+            width: 50%;
+            top: 0%;
+        }
+    }
+    
+    #wanna-join-left, #wanna-join-right
+    {
+        text-align: center;
+        border: 1px solid rgba(white, 0.4);
+        border-radius: $debate-msg-border-radius;
+        background-color: rgba(white, 0.2);
+        
+        padding: 6px;
+        
+        .enter-queue
+        {
+            display: block;
+        }
+    }
+}
+
+#heading-choice-made-left,
+#heading-choice-not-made,
+#heading-choice-made-right,
+#wanna-join-left,
+#wanna-join-right,
+#side-for,
+#side-against
+{
+    transition: left 0.5s, padding 0.5s, opacity 0.3s;
+}
+
+#side-for, #side-against
+{
+    height: 60px;
+    
+    .choose-side
+    {
+        width: 108px;
+        max-width: 100%;
+    }
+    .change-mind
+    {
+        display: block;
+    }
+}
+
+// initiate transition properties when a choice is made
+#choices  // no choice made state
+{
+    margin-bottom: 24px;
+    
+    #heading-choice-made-left
+    {
+        left: -50%;
+        opacity: 0;
+        
+        // visibility: hidden;
+    }
+    #heading-choice-not-made
+    {
+        left: 0%;
+    }
+    #heading-choice-made-right
+    {
+        left: 50%;
+        opacity: 0;
+        
+        // visibility: hidden;
+    }
+    
+    #wanna-join-left
+    {
+        left: -50%;
+        opacity: 0;
+        
+        // visibility: hidden;
+    }
+    #side-for
+    {
+        left: 0%;
+        
+        .change-mind
+        {
+            visibility: hidden;
+        }
+    }
+    #side-against
+    {
+        left: 50%;
+        
+        .change-mind
+        {
+            visibility: hidden;
+        }
+    }
+    #wanna-join-right
+    {
+        left: 100%;
+        opacity: 0;
+        
+        // visibility: hidden;
+    }
+}
+#choices.side-chosen-for // "For!" state
+{
+    #heading-choice-made-left
+    {
+        left: 0%;
+        opacity: 1;
+    }
+    #heading-choice-not-made
+    {
+        left: 50%;
+        opacity: 0;
+    }
+    
+    #wanna-join-left
+    {
+        left: 0%;
+        opacity: 1;
+        
+        // visibility: visible;
+    }
+    #side-for
+    {
+        left: 50%;
+        padding-left: 2em;
+        
+        .change-mind
+        {
+            visibility: visible;
+        }
+    }
+    #side-against
+    {
+        left: 100%;
+        opacity: 0;
+    }
+}
+#choices.side-chosen-against // "Against!" state
+{
+    #heading-choice-made-right
+    {
+        left: 0%;
+        opacity: 1;
+    }
+    #heading-choice-not-made
+    {
+        left: -50%;
+        opacity: 0;
+    }
+    
+    #side-for
+    {
+        left: -50%;
+        opacity: 0;
+    }
+    #side-against
+    {
+        left: 0%;
+        padding-right: 2em;
+        
+        .change-mind
+        {
+            visibility: visible;
+        }
+    }
+    #wanna-join-right
+    {
+        left: 50%;
+        opacity: 1;
+        
+        // visibility: visible;
+    }
+}
+#choices.side-chosen-for,
+#choices.side-chosen-against
+{
+    & + #hows-my-arguing
+    {
+        visibility: visible;
+    }
+}
+
+#hows-my-arguing
+{
+    text-align: center;
+    visibility: hidden;
+}
+
+
+// == COLUMN 2 ====
+
+#argue-column
+{
+    padding: 0;
+    // padding-top: 6px;
+    
+    background-color: mix($argue-grey-background, $argue-red-background);
+    background: linear-gradient($argue-grey-background, mix($argue-red-background, $argue-grey-background, 25%) 50%, $argue-red-background);
+    
+    // max-height: 480px;
+    
+    position: relative;
+    
+    #chat-output
+    {
+        overflow-y: auto;
+        // max-height: 420px;
+        
+        .debate-message
+        {
+            width: 80%;
+            padding: $debate-msg-padding;
+            margin-top: $debate-msg-padding;
+            // margin-bottom: $debate-msg-padding;
+            
+            position: relative;
+            
+            border: 1px solid #999;
+            background-color: #F8F8F8;
+            background: linear-gradient(white, #EEE);
+            @include set-text-for-light-background();
+                
+            // before pseudo-element will have a thumbs-up/down "watermark" in the background of the message
+            &::before
+            {
+                opacity: $debate-msg-watermark-opacity;
+                position: absolute;
+                top: 43%;
+                // left: 50%;
+                
+                // copied blindly from font-awesome CSS
+                font-family: FontAwesome;
+                font-style: normal;
+                font-weight: normal;
+                line-height: 1;
+                font-size-adjust: none;
+                font-stretch: normal;
+                font-feature-settings: normal;
+                font-language-override: normal;
+                font-kerning: auto;
+                font-synthesis: weight style;
+                font-variant: normal;
+                font-size: $debate-msg-watermark-size;
+                text-rendering: auto;
+            }
+            
+            &:last-child
+            {
+                margin-bottom: $debate-msg-padding;
+            }
+            
+            .author
+            {
+                margin-bottom: 9px;
+            }
+            
+            span
+            {
+                // sent font to Roboto Light Condensed
+                font-weight: 300;
+                font-family: $condensed-font-stack;
+            }
+        }
+
+        .debate-message.message-for
+        {
+            float: left;
+            // margin-left: (-$gutter-width / 2);
+            border-left: none;
+            border-top-right-radius:     $debate-msg-border-radius;
+            border-bottom-right-radius:  $debate-msg-border-radius;
+            
+            &::before
+            {
+                content: '\f087'; // font-awesome thumbs up (outline)
+                left: $debate-msg-watermark-for-left;
+                transform: scale($debate-msg-watermark-scale, $debate-msg-watermark-scale);
+            }
+            
+            // .author
+            // {
+            //     text-align: right;
+            // }
+        }
+
+        .debate-message.message-against
+        {
+            float: right;
+            border-right: none;
+            border-top-left-radius:     $debate-msg-border-radius;
+            border-bottom-left-radius:  $debate-msg-border-radius;
+            
+            &::before
+            {
+                content: '\f088'; // font-awesome thumbs down (outline)
+                left: $debate-msg-watermark-against-left;
+                // filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
+                // -webkit-transform: scale(-5, 5);
+                // -ms-transform: scale(-5, 5);
+                transform: scale(-$debate-msg-watermark-scale, $debate-msg-watermark-scale);
+            }
+        }
+        
+        hr
+        {
+            height: $debate-msg-padding;
+            border: none;
+        }
+    }
+    
+    #chat-box-container
+    {
+        padding: $debate-msg-padding;
+        background-color: #DDD;
+        background: linear-gradient(90deg, #BBB, white);
+        
+        width: 100%;
+        
+        position: absolute;
+        bottom: 0%;
+        
+        #chat-box
+        {
+            height: 60px;
+            width: 100%;
+            
+            border: 1px solid #999;
+            border-radius: $debate-msg-border-radius;
+            padding: $debate-msg-padding;
+            
+            resize: none;
+            
+            &:focus
+            {
+                color: black;
+                // background-color: #F8F8F8;
+                // background: linear-gradient(white, #EEE);
+            }
+        }
+    }
+}
