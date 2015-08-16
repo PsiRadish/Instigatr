@@ -1,0 +1,84 @@
+/**
+ * Instigatr Main SCSS
+ *
+ * Modified Ink and general-use Instigatr stuff.
+ **/
+/**
+ * Ink
+ *
+ * A set of tools for quick development of web interfaces.
+ *
+ * @package   Ink
+ * @author    Sapo Ink Team
+ * @license   http://opensource.org/licenses/MIT MIT
+ * @link      http://ink.sapo.pt
+ * @version   3.1.10
+ */
+
+// Instigatr
+@import "base";
+
+// IMPORT MODULE DEFINITION FILES
+@import "modules/normalize";
+@import "modules/alerts";
+@import "modules/badges";
+@import "modules/buttons";
+@import "modules/fonts";
+//@import "modules/flex-forms";       // flex
+@import "modules/forms";            // no flex
+//@import "modules/flex-grid";        // flex
+@import "modules/grid";             // no flex
+@import "modules/labels";
+@import "modules/nav.core";
+@import "modules/nav.breadcrumbs";
+@import "modules/nav.dropdown";
+@import "modules/nav.pagination";
+@import "modules/nav.pills";
+@import "modules/nav.menu";
+@import "modules/print";
+@import "modules/tables";
+@import "modules/typography";
+@import "modules/images";
+
+// IMPORT THEMING FILES
+@import "themes/alerts";
+@import "themes/badges";
+@import "themes/buttons";
+@import "themes/labels";
+@import "themes/nav.breadcrumbs";
+@import "themes/nav.dropdown";
+@import "themes/nav.menu";
+@import "themes/nav.pagination";
+@import "themes/nav.pills";
+@import "themes/tables";
+
+// IMPORT JS COMPONENTS STYLING
+@import "modules/js/animate";
+@import "modules/js/carousel";
+//@import "modules/js/flex-carousel"; // flex
+@import "modules/js/datepicker";
+@import "modules/js/drawer";
+//@import "modules/js/flex-modal";    // flex
+@import "modules/js/modal";         // no flex
+@import "modules/js/progressbar";
+@import "modules/js/sortable.list";
+@import "modules/js/sticky";
+@import "modules/js/tabs";
+@import "modules/js/tagfield";
+@import "modules/js/tooltips";
+@import "modules/js/treeview";
+
+// -- Instigatr app styling elements/components
+@import "instigatr_components";
+
+// -- Scrollbar plugin tweaks
+.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar
+{
+    background-color: #808080; background-color: rgba(128,128,128, 0.2);
+}
+
+.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar
+{
+    background-color: #808080; background-color: rgba(128,128,128, 0.5);
+}

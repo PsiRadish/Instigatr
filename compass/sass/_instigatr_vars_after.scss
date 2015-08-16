@@ -1,0 +1,18 @@
+/**
+ * Instigatr Variables
+ **/
+
+// OVERRIDES
+$link-visited-color         : $link-color;
+
+// NEW
+$text-color-dark-bg         : white;
+
+$headings-color-dark-bg     : white;
+
+$link-color-dark-bg         : #FFC466;
+// $link-visited-color-dark-bg : #FFE2B3;
+$link-visited-color-dark-bg : $link-color-dark-bg;
+$link-active-color-dark-bg  : mix($link-color-dark-bg, red, 50%);
+$link-hover-color-dark-bg   : $orange;
+$link-focus-color-dark-bg   : $link-color-dark-bg;
