@@ -58,6 +58,17 @@ $(function()
         chatOutput.height(contentHeight - chatBox.outerHeight());
         
     }
+
+    $('#news-column').on('click',function(){
+        var srchTrm = $('#chat-box').val();
+        var url = "https://access.alchemyapi.com/calls/data/GetNews\?apikey\=3034db537d09ce6a56b42eb54f8dd1c6745dbd8f&outputMode=json&start=now-7d&end=now&maxResults=2&q.enriched.url.enrichedTitle.keywords.keyword.text="+srchTrm+"&return=enriched.url.url,enriched.url.title"
+        var rslts = $.get(url,function(){
+        }).done(function(rslts){
+            console.log(rslts);
+            $('#news-column').append(rslts);
+        })
+    })
+
     
     sizeChat();
     
