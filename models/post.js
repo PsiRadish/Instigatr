@@ -8,6 +8,8 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         // associations can be defined here
         models.post.belongsTo(models.user);
+        models.post.belongsToMany(models.user, {through: "usersForPosts", as: "usersFor"});
+        models.post.belongsToMany(models.user, {through: "usersAgainstPosts", as: "usersAgainst"});
       }
     }
   });
