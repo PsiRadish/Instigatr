@@ -2,7 +2,6 @@
 
 var bcrypt = require('bcrypt');
 
-
 module.exports = function(sequelize, DataTypes) {
   var user = sequelize.define("user", {
     email: {
@@ -22,6 +21,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
+        // associations can be defined here
       },
       authenticate: function(email,password,callback){
         this.find({where:{email:email}}).then(function(user){
@@ -42,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
     hooks: {
       beforeCreate: function(user, options, callback){
         if(user.password){
-          bcrypt.hash(user.password,10,function(err,hash){
+          bcrypt.hash(user.password,5,function(err,hash){
             if(err) return callback(err);
             user.password = hash;
             callback(null, user);
@@ -59,7 +59,7 @@ module.exports = function(sequelize, DataTypes) {
 
 
 
-  }, {
+  {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
@@ -68,4 +68,4 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
   return user;
-};
+ };

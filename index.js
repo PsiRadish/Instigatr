@@ -22,8 +22,8 @@ app.set('view engine','ejs');
 app.use(ejsLayouts);
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended:false}));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 //controllers
 app.use('/', require('./controllers/mainController.js'));
 
