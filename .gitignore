@@ -3,3 +3,4 @@ dbtest.js
 *.env
 *.sublime-project
 *.sublime-workspace
+.sass-cache
