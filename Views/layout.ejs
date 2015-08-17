@@ -2,9 +2,9 @@
 <html>
 <head>
 
-	<title>Instigatr</title>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>
-	<title>
+  <title>Instigatr</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>
+  <title>
       Instigatr
       <% if (typeof titleSuffix != 'undefined'){ %>
          : <%= titleSuffix %>
@@ -17,7 +17,7 @@
   <!-- scrollbar plugin http://manos.malihu.gr/jquery-custom-content-scroller/ -->
   <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.concat.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.min.css">
-	<script type="text/javascript" src="http://fastly.ink.sapo.pt/3.1.9/js/ink-all.js"></script>
+  <script type="text/javascript" src="http://fastly.ink.sapo.pt/3.1.9/js/ink-all.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/style/instigatr-debate.css">
   <script type="text/javascript" src="/script/debate.js"></script>
@@ -26,43 +26,38 @@
 </head>
 <body>
 <div class="ink-grid">
-	<nav class="ink-navigation css-navBar">
-	  <ul class="horizontal menu black">
-		<li class="heading"><a class="ink-label red css-label" href="/"><strong>INSTIGATR</strong></a></li>
-	    <li><a href="/">Popular</a></li>
-	    <li><a href="/" class="css-nBLink">Random</a></li>
-	    <li><a href="/archive">Archive</a></li>
-	    <ul class="push-right css-dropdownLogin">
-
-	    <li><a href="#"><em>Login/Signup</em></a>
-	    	<ul class="submenu css-loginDDItems">
-	    	<form class="ink-form" method="post" action="/auth/login">
-	    	<li><input type="text" name="email" placeholder="E-mail"></li>
-	    	<li><input type="password" name="password" placeholder="Password"></li>
-	    	<li class="separator-above">
-	    	<a href="/auth/login" button class="ink-button blue css-loginBtn">Login!</button>
-	    	<a href="/auth/signup" button class="ink-button blue css-loginBtn">Signup!</button>
+  <nav class="ink-navigation css-navBar">
+    <ul class="horizontal menu black">
+    <li class="heading"><a class="ink-label red css-label" href="/"><strong>INSTIGATR</strong></a></li>
+      <li><a href="/">Popular</a></li>
+      <li><a href="/" class="css-nBLink">Random</a></li>
+      <li><a href="/archive">Archive</a></li>
+      <ul class="push-right css-dropdownLogin">
+      <% if(!currentUser){ %>
+      <li><a href="#"><em>Login/Signup</em></a>
+        <ul class="submenu css-loginDDItems">
+        <form class="ink-form" method="post" action="/auth/login">
+        <li><input type="text" name="email" placeholder="E-mail"></li>
+        <li><input type="password" name="password" placeholder="Password"></li>
+        <li class="separator-above">
+        <a href="/auth/login" button class="ink-button blue css-loginBtn">Login!</button>
+        <a href="/auth/signup" button class="ink-button blue css-loginBtn">Signup!</button>
         <a href="/auth/facebook" target="_blank" class="btn btn-facebook"><i class="fa fa-facebook"></i> Sign in Facebook</a>
 
         </li>
-	    	</form>
-	    </ul>
-	    </li>
-
-
-	    	<li></a>
-
-	    <% }else{ %>
-	    	<li><a href="#"><em><%= currentUser.name %></em></a>
-
-	    	<ul class="submenu css-loginDDItems">
-	    		<li><a href="/auth/logout">Logout</a></li>
-	    	</ul>
-	    </li>
-
-	  </ul>
-	  </ul>
-	</nav>
+        </form>
+      </ul>
+      </li>
+      <% }else{ %>
+        <li><a href="#"><em><%= currentUser.name %></em></a>
+        <ul class="submenu css-loginDDItems">
+          <li><a href="/auth/logout">Logout</a></li>
+        </ul>
+      </li>
+      <% } %>
+    </ul>
+    </ul>
+  </nav>
 
 <%- body %>
 
