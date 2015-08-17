@@ -32,9 +32,10 @@
 	    <li><a href="/" class="css-nBLink">Random</a></li>
 	    <li><a href="/archive">Archive</a></li>
 	    <ul class="push-right css-dropdownLogin">
+	    <% if(!currentUser){ %>
 	    <li><a href="#"><em>Login/Signup</em></a>
 	    	<ul class="submenu css-loginDDItems">
-	    	<form class="ink-form">
+	    	<form class="ink-form" action="/auth/login">
 	    	<li><input type="text" name="email" placeholder="E-mail"></li>
 	    	<li><input type="text" name="password" placeholder="Password"></li>
 	    	<li class="separator-above">
@@ -44,7 +45,14 @@
 	    	</form>
 	    </ul>
 	    </li>
-	    </ul>
+	    <% }else{ %>
+	    	<li><a href="#"><em><%= currentUser.name %></em></a>
+	    	<ul class="submenu css-loginDDItems">
+	    		<li><a href="/auth/logout">Logout</a></li>
+	    	</ul>
+	    </li>
+	    <% } %>
+	  </ul>
 	  </ul>
 	</nav>
 
