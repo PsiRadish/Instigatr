@@ -7,7 +7,7 @@ $(function()
         scrollInertia: 0
     });
     
-    var socket = io();
+    // var socket = io();
     $('form').submit(function()
     {
         socket.emit('chat message', $('#chat-box').val());
