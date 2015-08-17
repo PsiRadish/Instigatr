@@ -16,8 +16,8 @@ var app = express();
 app.set('view engine','ejs');
 
 // Facebook login
-var FACEBOOK_APP_ID = "479685875542955"
-var FACEBOOK_APP_SECRET = "88ab9c267cc59a84380b7860ac19334e";
+var FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID;
+var FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET;
 
 //middleware
 app.use(ejsLayouts);
@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(session({
-  secret:'hdsvhioadfgnioadfgnoidfagoibna',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }));
