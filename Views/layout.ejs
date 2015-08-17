@@ -38,12 +38,16 @@
 	    <li><a href="#"><em>Login/Signup</em></a>
 	    	<ul class="submenu css-loginDDItems">
 	    	<form class="ink-form" method="post" action="/auth/login">
-	    	<li><input type="text" name="email" placeholder="E-mail"></li>
-	    	<li><input type="password" name="password" placeholder="Password"></li>
-	    	<li class="separator-above">
-	    	<button href="/auth/login" type="submit" class="ink-button blue css-loginBtn">Login!</button>
-	    	<button href="/auth/signup" class="ink-button blue css-loginBtn">Signup!</button>
-	    	</li>
+		    	<div class="control-group">
+			    	<li><div class="control"><input type="text" name="email" placeholder="E-mail"><br></div></li>
+			    	<li><div class="control"><input type="password" name="password" placeholder="Password"><br></div></li>
+			    	<li class="separator-above">
+			    	<div class="control">
+			    	<button href="/auth/login" type="submit" class="ink-button blue css-loginBtn">Login!</button>
+			    	<button class="ink-button blue css-loginBtn" id="signupBtn">Signup!</button>
+			    	</div>
+			    	</li>
+		    	</div>
 	    	</form>
 	    </ul>
 	    </li>
@@ -56,6 +60,36 @@
 	</nav>
 
 <%- body %>
-
+<% if(!currentUser){ %>
+<div id="signupBlock">
+</div>
+	<div id="signup">
+	<a href="#"><i class="fa fa-close push-right sUClose" style="font-size:20px;"></i></a>
+	<h1>Sign up!</h1>
+    <hr>
+    <form class="ink-form" method="post" action="/auth/signup">
+    <div class="control-group">
+    	<div class="control">
+        <input type="text" class="form-control" placeholder="Enter your e-mail" name="email">
+        <br><br>
+        </div>
+        <div class="control">
+        <input type="text" class="form-control" placeholder="Enter your name" name="name">
+        <br><br>
+        </div>
+        <div class="control">
+        <input type="password" class="form-control" placeholder="Choose a password" name="password">
+        <br><br>
+        </div>
+        <div class="control">
+        <input type="password" class="form-control" placeholder="Re-type your password" name="password2">
+        <br><br>
+        <div class="control">
+        <button type="submit" value="Sign Up" class="ink-button green">Sign Up!</button>
+        </div>
+    </div>
+    </form>
+	</div>
+<% } %>
 </body>
 </html>
