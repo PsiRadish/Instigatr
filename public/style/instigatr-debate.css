@@ -328,12 +328,18 @@
 }
 #argue-column #chat-output {
   overflow-y: auto;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: block;
 }
 #argue-column #chat-output .debate-message {
   width: 80%;
   padding: 6px;
+  margin: 0;
   margin-top: 6px;
   position: relative;
+  display: inline-block;
   border: 1px solid #999;
   background-color: #F8F8F8;
   background: linear-gradient(#ffffff, #eeeeee);

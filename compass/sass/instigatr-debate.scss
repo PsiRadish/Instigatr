@@ -322,14 +322,21 @@ $argue-grey-background              : #505050;
         overflow-y: auto;
         // max-height: 420px;
         
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: block;
+        
         .debate-message
         {
             width: 80%;
             padding: $debate-msg-padding;
+            margin: 0;
             margin-top: $debate-msg-padding;
             // margin-bottom: $debate-msg-padding;
             
             position: relative;
+            display: inline-block;
             
             border: 1px solid #999;
             background-color: #F8F8F8;
@@ -377,7 +384,7 @@ $argue-grey-background              : #505050;
                 font-family: $condensed-font-stack;
             }
         }
-
+        
         .debate-message.message-for
         {
             float: left;

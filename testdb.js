@@ -28,11 +28,61 @@ async.waterfall(
             callback(null, Jane, A, postDiamonds, post);
         });
     }
-], function(err, Jane, A, postDiamonds, postMileHighClub)
+],function(err, Jane, A, postDiamonds, postMileHighClub)
 {
     console.log("FOR", Jane.postsFor);
     console.log("AGAINST", Jane.postsAgainst);
     // console.log(A.get());
     // console.log(postDiamonds.get());
     // console.log(postMileHighClub.get());
+    
+    async.waterfall(
+    [
+        function(callback)
+        {
+            db.vote.findOrCreate({where: {userId: Jane.id, postId: postDiamonds.id, value: 1}}).spread(function(vote, created)
+            {
+                callback(null);
+            });
+        },function(callback)
+        {
+            db.vote.findOrCreate({where: {userId: Jane.id, postId: postMileHighClub.id, value: -1}}).spread(function(vote, created)
+            {
+                callback(null);
+            });
+        },function(callback)
+        {
+            db.vote.findOrCreate({where: {userId: A.id, postId: postDiamonds.id, value: 1}}).spread(function(vote, created)
+            {
+                callback(null);
+            });
+        },function(callback)
+        {
+            db.vote.findOrCreate({where: {userId: A.id, postId: postMileHighClub.id, value: 1}}).spread(function(vote, created)
+            {
+                callback(null);
+            });
+        },function(callback)
+        {
+            db.post.find({where: {id: 1}, include: [db.vote]}).then(function(post)
+            {
+                callback(null, post);
+            });
+        },function(post1, callback)
+        {
+            db.post.find({where: {id: 2}, include: [db.vote]}).then(function(post)
+            {
+                callback(null, post1, post);
+            });
+        }
+    ], function(err, post1, post2)
+    {
+        if (err)
+            console.log(err);
+        else
+        {
+            console.log(post1.text, "rating", post1.totalRating());
+            console.log(post2.text, "rating", post2.totalRating());
+        }
+    });
 });

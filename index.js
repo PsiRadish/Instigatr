@@ -11,13 +11,13 @@ var FacebookStrategy = require('passport-facebook').Strategy
 
 //configuring express
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 app.set('view engine','ejs');
 
 // Facebook login
 var FACEBOOK_APP_ID = "479685875542955"
 var FACEBOOK_APP_SECRET = "88ab9c267cc59a84380b7860ac19334e";
-
-
 
 //middleware
 app.use(ejsLayouts);
@@ -178,4 +178,8 @@ app.use('/posts', require('./controllers/postsController.js'));
 // 	res.send("yo this is our instigatr app!")
 // });
 
-app.listen(3000);
+// app.listen(3000);
+http.listen(3000, function()
+{
+  console.log('listening on *:3000');
+});
