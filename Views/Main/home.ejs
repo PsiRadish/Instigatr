@@ -2,15 +2,18 @@
 	<div class="all-80">
 <% posts.forEach(function(post){ %>
 	<div class="css-mainPagePostDiv">
-	<span class="push-right goToLink"><i class="fa fa-arrow-right"></i></span>
+	<span class="push-right goToLink"><a href="/posts/<%= post.id %>/show"><i class="fa fa-arrow-right"></i></a></span>
 	<span class="push-left">
-	<h4><%= post.votes %></h4>
+	<h4><%= post.totalRating() %></h4>
 	</span>
 	<span>
-	<p><%= post.text %></p>
+	<p><a href="/posts/<%= post.id %>/show"><%= post.text %></a></p>
 	<p class="css-usrNm"><%= post.user.name %></p>
 	</span>
 	</div>
 <% }) %>
+</div>
+<div class="all-20 css-homeSidebar">
+
 </div>
 </div>

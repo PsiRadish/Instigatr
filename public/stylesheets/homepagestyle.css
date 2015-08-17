@@ -15,6 +15,10 @@
 	display:inline-block;
 	margin-right:20px;
 }
+.css-mainPagePostDiv a{
+	color:white;
+	display:inline-block;
+}
 .css-label{
 	font-size: 16px;
 }
@@ -35,4 +39,9 @@
 .goToLink{
 	font-size: 40px;
 	margin-right: 20px;
+}
+.css-homeSidebar{
+	background-color: rgba(60,60,60,1);
+	height:90vh;
+	
 }
