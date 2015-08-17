@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/style/instigatr-debate.css">
   <script type="text/javascript" src="/script/debate.js"></script>
+  <script type="text/javascript" src="/script/homepage.js"></script>
   <link rel="stylesheet" type="text/css" href="/stylesheets/homepagestyle.css">
 
 </head>
@@ -49,10 +50,11 @@
       </ul>
       </li>
       <% }else{ %>
+
+        <li><a href="#"><em><%= currentUser %></em></a>
+
         <li><a href="#"><em><%= currentUser.name %></em></a>
-        <ul class="submenu css-loginDDItems">
-          <li><a href="/auth/logout">Logout</a></li>
-        </ul>
+
       </li>
       <% } %>
     </ul>

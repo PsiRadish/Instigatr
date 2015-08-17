@@ -8,12 +8,14 @@ $(function()
     });
     
     // var socket = io();
+
     // $('form').submit(function()
     // {
     //     socket.emit('chat message', $('#chat-box').val());
     //     $('#chat-box').val('');
     //     return false;
     // });
+
     
     $('#choices').on('click', function(e)
     {

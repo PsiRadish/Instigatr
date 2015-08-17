@@ -57,6 +57,17 @@ module.exports = function(sequelize, DataTypes) {
         }else{
           callback(null, user);
         }
+      },
+      beforeUpdate: function(user, options, callback) {
+        if(user.password){
+          bcrypt.hash(user.password,5,function(err,hash){
+            if(err) return callback(err);
+            user.password = hash;
+            callback(null, user);
+          });
+        }else{
+          callback(null, user);
+        }
       }
     }
   });

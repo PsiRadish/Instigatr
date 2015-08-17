@@ -15,7 +15,7 @@ router.post('/login',function(req,res){
   db.user.authenticate(req.body.email, req.body.password, function(err,user){
     if(err){
       req.session.user=null;
-      
+
       // res.send(err);
       throw err;
     }else if(user){
