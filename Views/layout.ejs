@@ -33,7 +33,7 @@
 	    <li><a href="/" class="css-nBLink">Random</a></li>
 	    <li><a href="/archive">Archive</a></li>
 	    <ul class="push-right css-dropdownLogin">
-	    <% if(!currentUser){ %>
+
 	    <li><a href="#"><em>Login/Signup</em></a>
 	    	<ul class="submenu css-loginDDItems">
 	    	<form class="ink-form" action="/auth/login">
@@ -48,13 +48,13 @@
 	    	</form>
 	    </ul>
 	    </li>
-	    <% }else{ %>
-	    	<li><a href="#"><em><%= currentUser.name %></em></a>
+
+	    	<li></a>
 	    	<ul class="submenu css-loginDDItems">
 	    		<li><a href="/auth/logout">Logout</a></li>
 	    	</ul>
 	    </li>
-	    <% } %>
+
 	  </ul>
 	  </ul>
 	</nav>
