@@ -11,8 +11,8 @@ var FacebookStrategy = require('passport-facebook').Strategy
 
 //configuring express
 var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+// var http = require('http').Server(app);
+// var io = require('socket.io')(http);
 app.set('view engine','ejs');
 
 // Facebook login
@@ -47,15 +47,15 @@ app.use(function(req,res,next){
 });
 
 
-//   secret:'hdsvhioadfgnioadfgnoidfagoibna',
-//   resave: false,
-//   saveUninitialized: true
-// }));
+  secret:'hdsvhioadfgnioadfgnoidfagoibna',
+  resave: false,
+  saveUninitialized: true
+});
 
 app.use(function(req,res,next){
   // req.session.user = 8;
   if(req.session.user){
-    db.user.findById(req.session.user).then(function(user){
+    db.user.findById(req.session.user.id).then(function(user){
       req.currentUser = user;
       next();
     });
@@ -90,6 +90,7 @@ passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
     callbackURL: "http://localhost:3000/auth/facebook/callback"
+    // callbackURL: "/auth/facebook/callback"
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
@@ -99,25 +100,9 @@ passport.use(new FacebookStrategy({
   }
 ));
 
-app.get('/auth/facebook',
-  passport.authenticate('facebook'),
-  function(req, res){
-
- });
-
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
-
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
-
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
+
   res.redirect('/login')
 }
 
@@ -152,6 +137,10 @@ app.get('/logout', function(req, res){
 
 
 
+  res.redirect('/login');
+}
+
+
 // user login / signup
 app.use(session({
   secret:'instigatr2000000001232',
@@ -180,14 +169,33 @@ app.use(function(req,res,next){
   next();
 });
 
+app.get('/account', ensureAuthenticated, function(req, res){
+  res.render('account', { user: req.user });
+});
+
+app.get('/login', function(req, res){
+  res.render('login', { user: req.user });
+});
+
+app.get('/auth/facebook',
+  passport.authenticate('facebook'),
+  function(req, res){
+
+});
+
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
   });
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 app.use('/',require('./controllers/mainController.js'));
 app.use('/auth',require('./controllers/auth.js'));
-
 
 app.use('/posts', require('./controllers/postsController.js'));
 
@@ -196,8 +204,8 @@ app.use('/posts', require('./controllers/postsController.js'));
 // 	res.send("yo this is our instigatr app!")
 // });
 
-// app.listen(3000);
-http.listen(3000, function()
-{
-  console.log('listening on *:3000');
-});
+app.listen(3000);
+// http.listen(3000, function()
+// {
+//   console.log('listening on *:3000');
+// });
