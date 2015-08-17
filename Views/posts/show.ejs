@@ -6,8 +6,9 @@
     <div id="post-stuff">
       <h1 title="Or Post, whatever.">Subject</h1>
       <div id="post-content-box">
-        <p id="debate-subject">Elsanna OTP FTW!!!!!!!!!1111</p>
-        <b class="author">Snowman_in_Summer</b>
+        <!-- <p id="debate-subject">Elsanna OTP FTW!!!!!!!!!1111</p> -->
+        <p id="debate-subject"><%= post.text %></p>
+        <b class="author"><%= post.user.name %></b>
       </div>
     </div>
     
@@ -50,7 +51,7 @@
     
     <div id="hows-my-arguing">
       <h4>Currently arguing your side:</h4>
-      <h6 class="author">asynca</h6>
+      <h6 class="author">&lt;NOT IMPLEMENTED&gt;</h6>
       <a class="vote-kick" href="#hows-my-arguing">Vote to kick</a>
     </div>
   </section>
@@ -60,7 +61,7 @@
     <!-- <h2>Debate</h2> -->
     <ul id="chat-output" class="scroll">
     
-      <li class="debate-message message-for">
+      <!-- <li class="debate-message message-for">
         <h6 class="author">asynca</h6>
         <span>You are dumb.</span>
       </li>
@@ -93,8 +94,14 @@
       <li class="debate-message message-against">
         <h6 class="author">TerriblePerson</h6>
         <span>A pox on your first-born!</span>
-      </li>
+      </li> -->
       
+      <% post.messages.forEach(function(message) { %>
+        <li class="debate-message message-<%= message.side %>">
+          <h6 class="author"><%= message.user.name %></h6>
+          <span><%= message.content %></span>
+        </li>  
+      <% }); %>
       <!-- <hr> -->
     </ul>
     
