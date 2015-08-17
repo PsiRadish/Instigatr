@@ -38,31 +38,32 @@ async.waterfall(
     
     async.waterfall(
     [
+        // function(callback)
+        // {
+        //     db.vote.findOrCreate({where: {userId: Jane.id, postId: postDiamonds.id, value: 1}}).spread(function(vote, created)
+        //     {
+        //         callback(null);
+        //     });
+        // },function(callback)
+        // {
+        //     db.vote.findOrCreate({where: {userId: Jane.id, postId: postMileHighClub.id, value: -1}}).spread(function(vote, created)
+        //     {
+        //         callback(null);
+        //     });
+        // },function(callback)
+        // {
+        //     db.vote.findOrCreate({where: {userId: A.id, postId: postDiamonds.id, value: 1}}).spread(function(vote, created)
+        //     {
+        //         callback(null);
+        //     });
+        // },function(callback)
+        // {
+        //     db.vote.findOrCreate({where: {userId: A.id, postId: postMileHighClub.id, value: 1}}).spread(function(vote, created)
+        //     {
+        //         callback(null);
+        //     });
+        // },
         function(callback)
-        {
-            db.vote.findOrCreate({where: {userId: Jane.id, postId: postDiamonds.id, value: 1}}).spread(function(vote, created)
-            {
-                callback(null);
-            });
-        },function(callback)
-        {
-            db.vote.findOrCreate({where: {userId: Jane.id, postId: postMileHighClub.id, value: -1}}).spread(function(vote, created)
-            {
-                callback(null);
-            });
-        },function(callback)
-        {
-            db.vote.findOrCreate({where: {userId: A.id, postId: postDiamonds.id, value: 1}}).spread(function(vote, created)
-            {
-                callback(null);
-            });
-        },function(callback)
-        {
-            db.vote.findOrCreate({where: {userId: A.id, postId: postMileHighClub.id, value: 1}}).spread(function(vote, created)
-            {
-                callback(null);
-            });
-        },function(callback)
         {
             db.post.find({where: {id: 1}, include: [db.vote]}).then(function(post)
             {
@@ -70,8 +71,9 @@ async.waterfall(
             });
         },function(post1, callback)
         {
-            db.post.find({where: {id: 2}, include: [db.vote]}).then(function(post)
+            db.post.find({where: {id: 2}/*, include: [db.vote]*/}).then(function(post)
             {
+                console.log(post1.get(), post.get());
                 callback(null, post1, post);
             });
         }

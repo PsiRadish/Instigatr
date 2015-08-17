@@ -15,15 +15,19 @@ module.exports = function(sequelize, DataTypes)
                 models.post.belongsToMany(models.user, {through: "usersForPosts", as: "usersFor"});
                 models.post.belongsToMany(models.user, {through: "usersAgainstPosts", as: "usersAgainst"});
                 models.post.hasMany(models.vote);
-            },
+            }
+        },
+        instanceMethods:
+        {
             totalRating: function()
             {
                 if (typeof this.votes == 'undefined')
-                    throw{ name: "DataNotLoaded Error", message: "Trying to count votes when votes have not been loaded for post "+this.id };
+                    throw new Error("Data Not Loaded: Trying to count votes for post "+this.id+" when votes have not been loaded.");
                 
                 return this.votes.reduce(function(previous, vote)
                 {
                     previous += vote.value;
+                    return previous;
                 }, 0);
             }
         }
