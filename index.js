@@ -11,7 +11,7 @@ var FacebookStrategy = require('passport-facebook').Strategy
 
 //configuring express
 var app = express();
-// var http = require('http').Server(app);
+var http = require('http').Server(app);
 // var io = require('socket.io')(http);
 app.set('view engine','ejs');
 
@@ -91,8 +91,9 @@ app.use('/posts', require('./controllers/postsController.js'));
 // 	res.send("yo this is our instigatr app!")
 // });
 
-app.listen(3000);
-// http.listen(3000, function()
-// {
-//   console.log('listening on *:3000');
-// });
+// app.listen(3000);
+var port = process.env.PORT || 3000;
+http.listen(port, function()
+{
+  console.log('Server started on ' + port);
+});
