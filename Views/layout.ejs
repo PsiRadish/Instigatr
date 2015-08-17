@@ -41,20 +41,14 @@
 	    	<li><input type="text" name="email" placeholder="E-mail"></li>
 	    	<li><input type="password" name="password" placeholder="Password"></li>
 	    	<li class="separator-above">
-	    	<a href="/auth/login" button class="ink-button blue css-loginBtn">Login!</button>
-	    	<a href="/auth/signup" button class="ink-button blue css-loginBtn">Signup!</button>
-        <a href="/auth/facebook" target="_blank" class="btn btn-facebook"><i class="fa fa-facebook"></i> Sign in Facebook</a>
-
-        </li>
+	    	<button href="/auth/login" type="submit" class="ink-button blue css-loginBtn">Login!</button>
+	    	<button href="/auth/signup" class="ink-button blue css-loginBtn">Signup!</button>
+	    	</li>
 	    	</form>
 	    </ul>
 	    </li>
 	    <% }else{ %>
-
-	    	<li><a href="#"><em><%= currentUser %></em></a>
-
 	    	<li><a href="#"><em><%= currentUser.name %></em></a>
-
 	    </li>
 	    <% } %>
 	  </ul>
