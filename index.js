@@ -26,182 +26,69 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(session({
-
- secret:'hdsvhioadfgnioadfgnoidfagoibna',
- resave: false,
- saveUninitialized: true
-}));
-
-app.use(function(req,res,next){
- // req.session.user = 8;
- if(req.session.user){
-   db.user.findById(req.session.user).then(function(user){
-     req.currentUser = user;
-     next();
-   });
-
- }else{
-   req.currentUser = false;
-   next();
- }
-});
-
-
   secret:'hdsvhioadfgnioadfgnoidfagoibna',
-  resave: false,
-  saveUninitialized: true
-});
-
-app.use(function(req,res,next){
-  // req.session.user = 8;
-  if(req.session.user){
-    db.user.findById(req.session.user.id).then(function(user){
-      req.currentUser = user;
-      next();
-    });
-
-  }else{
-    req.currentUser = false;
-    next();
-  }
-});
-
-app.use(function(req,res,next){
-  res.locals.currentUser = req.session.user;
-  next();
-});
-
-
-//controllers
-app.use('/', require('./controllers/mainController.js'));
-
-
-// facebook
-
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
-});
-
-passport.use(new FacebookStrategy({
-    clientID: FACEBOOK_APP_ID,
-    clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:3000/auth/facebook/callback"
-    // callbackURL: "/auth/facebook/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    process.nextTick(function () {
-
-       return done(null, profile);
-    });
-  }
-));
-
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-
-  res.redirect('/login')
-}
-
-app.get('/', function(req, res){
-  res.render('index', { user: req.user });
-});
-
-app.get('/account', ensureAuthenticated, function(req, res){
-  res.render('account', { user: req.user });
-});
-
-app.get('/login', function(req, res){
-  res.render('login', { user: req.user });
-});
-
-app.get('/auth/facebook',
-  passport.authenticate('facebook'),
-  function(req, res){
-
-  });
-
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
-
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
-
-
-
-  res.redirect('/login');
-}
-
-
-// user login / signup
-app.use(session({
-  secret:'instigatr2000000001232',
   resave: false,
   saveUninitialized: true
 }));
 
 app.use(flash());
 
+// auto-load current user into req and res
 app.use(function(req,res,next){
+  // req.session.user = 8;
   if(req.session.user){
-    db.user.findById(req.session.user).then(function(user){
+    db.user.findById(req.session.user.id).then(function(user){
       req.currentUser = user;
+      res.locals.currentUser = user;
       next();
     });
-
   }else{
     req.currentUser = false;
+    res.locals.currentUser = false;
     next();
   }
-});
-
-app.use(function(req,res,next){
-  res.locals.currentUser = req.currentUser;
   res.locals.alerts = req.flash();
-  next();
 });
 
-app.get('/account', ensureAuthenticated, function(req, res){
-  res.render('account', { user: req.user });
-});
+// facebook
 
-app.get('/login', function(req, res){
-  res.render('login', { user: req.user });
-});
+// passport.serializeUser(function(user, done) {
+//   done(null, user);
+// });
 
-app.get('/auth/facebook',
-  passport.authenticate('facebook'),
-  function(req, res){
+// passport.deserializeUser(function(obj, done) {
+//   done(null, obj);
+// });
 
-});
+// passport.use(new FacebookStrategy({
+//     clientID: FACEBOOK_APP_ID,
+//     clientSecret: FACEBOOK_APP_SECRET,
+//     callbackURL: "http://localhost:3000/auth/facebook/callback"
+//     // callbackURL: "/auth/facebook/callback"
+//   },
+//   function(accessToken, refreshToken, profile, done) {
+//     process.nextTick(function () {
 
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
+//        return done(null, profile);
+//     });
+//   }
+// ));
 
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
+// function ensureAuthenticated(req, res, next) {
+//   if (req.isAuthenticated()) { return next(); }
+//   res.redirect('/login');
+// }
 
 app.use('/',require('./controllers/mainController.js'));
-app.use('/auth',require('./controllers/auth.js'));
+app.use('/auth',require('./controllers/authController.js'));
+
+app.use('/users', require('./controllers/usersController.js'));
 
 app.use('/posts', require('./controllers/postsController.js'));
 
 
 // app.get("/", function(req, res){
-// 	res.send("yo this is our instigatr app!")
+//  res.send("yo this is our instigatr app!")
 // });
 
 app.listen(3000);
