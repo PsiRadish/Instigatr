@@ -8,4 +8,9 @@ router.get('/',function(req, res){
 	});
 });
 
+router.get('/404',function(req, res)
+{
+    res.render('main/404.ejs');
+});
+
 module.exports = router;

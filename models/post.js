@@ -15,6 +15,7 @@ module.exports = function(sequelize, DataTypes)
                 models.post.belongsToMany(models.user, {through: "usersForPosts", as: "usersFor"});
                 models.post.belongsToMany(models.user, {through: "usersAgainstPosts", as: "usersAgainst"});
                 models.post.hasMany(models.vote);
+                models.post.hasMany(models.message);
             }
         },
         instanceMethods:
