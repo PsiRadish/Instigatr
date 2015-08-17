@@ -11,13 +11,13 @@ var FacebookStrategy = require('passport-facebook').Strategy
 
 //configuring express
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 app.set('view engine','ejs');
 
 // Facebook login
 var FACEBOOK_APP_ID = "479685875542955"
 var FACEBOOK_APP_SECRET = "88ab9c267cc59a84380b7860ac19334e";
-
-
 
 //middleware
 app.use(ejsLayouts);
@@ -26,6 +26,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(session({
+
  secret:'hdsvhioadfgnioadfgnoidfagoibna',
  resave: false,
  saveUninitialized: true
@@ -46,6 +47,11 @@ app.use(function(req,res,next){
 });
 
 
+//   secret:'hdsvhioadfgnioadfgnoidfagoibna',
+//   resave: false,
+//   saveUninitialized: true
+// }));
+
 app.use(function(req,res,next){
   // req.session.user = 8;
   if(req.session.user){
@@ -58,6 +64,11 @@ app.use(function(req,res,next){
     req.currentUser = false;
     next();
   }
+});
+
+app.use(function(req,res,next){
+  res.locals.currentUser = req.session.user;
+  next();
 });
 
 
@@ -139,10 +150,7 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
-}
+
 
 // user login / signup
 app.use(session({
@@ -188,4 +196,8 @@ app.use('/posts', require('./controllers/postsController.js'));
 // 	res.send("yo this is our instigatr app!")
 // });
 
-app.listen(3000);
+// app.listen(3000);
+http.listen(3000, function()
+{
+  console.log('listening on *:3000');
+});

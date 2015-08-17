@@ -36,9 +36,9 @@
 
 	    <li><a href="#"><em>Login/Signup</em></a>
 	    	<ul class="submenu css-loginDDItems">
-	    	<form class="ink-form" action="/auth/login">
+	    	<form class="ink-form" method="post" action="/auth/login">
 	    	<li><input type="text" name="email" placeholder="E-mail"></li>
-	    	<li><input type="text" name="password" placeholder="Password"></li>
+	    	<li><input type="password" name="password" placeholder="Password"></li>
 	    	<li class="separator-above">
 	    	<a href="/auth/login" button class="ink-button blue css-loginBtn">Login!</button>
 	    	<a href="/auth/signup" button class="ink-button blue css-loginBtn">Signup!</button>
@@ -49,7 +49,12 @@
 	    </ul>
 	    </li>
 
+
 	    	<li></a>
+
+	    <% }else{ %>
+	    	<li><a href="#"><em><%= currentUser %></em></a>
+
 	    	<ul class="submenu css-loginDDItems">
 	    		<li><a href="/auth/logout">Logout</a></li>
 	    	</ul>
