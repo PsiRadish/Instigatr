@@ -25,6 +25,11 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(session({
+  secret:'hdsvhioadfgnioadfgnoidfagoibna',
+  resave: false,
+  saveUninitialized: true
+}));
 
 app.use(function(req,res,next){
   // req.session.user = 8;
@@ -38,6 +43,11 @@ app.use(function(req,res,next){
     req.currentUser = false;
     next();
   }
+});
+
+app.use(function(req,res,next){
+  res.locals.currentUser = req.session.user;
+  next();
 });
 
 
