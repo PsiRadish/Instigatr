@@ -7,9 +7,12 @@
 	<h4><%= post.totalRating() %></h4>
 	</span>
 	<span>
-	<p><a href="/posts/<%= post.id %>/show"><%= post.text %></a></p>
-	<p class="author"><%= post.user.name %></p>
+	<a href="/posts/<%= post.id %>/show"><%= post.text %></a>
+	<br>
 	</span>
+	<div class="author">
+	<p><%= post.user.name %></p>
+	</div>
 	</div>
 <% }) %>
 </div>
