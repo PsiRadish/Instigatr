@@ -13,11 +13,22 @@
 .css-mainPagePostDiv h4{
 	color:white;
 	display:inline-block;
+	margin-top: 40%;
 	margin-right:20px;
 }
 .css-mainPagePostDiv a{
 	color:white;
 	display:inline-block;
+	max-width:50%;
+	text-decoration: none;
+}
+.css-mainPagePostDiv span{
+	margin-left:5%;
+}
+.author{
+	margin-top: 3%;
+	vertical-align: bottom;
+	text-align: center;
 }
 .css-label{
 	font-size: 16px;
@@ -108,8 +119,6 @@
 }
 .css-usrTxt{
 	z-index: 1;
-	right: 125px;
-	position:absolute;
 }
 .css-usrTxt div{
 	font-family:courier;
