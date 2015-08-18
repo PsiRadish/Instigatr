@@ -38,7 +38,7 @@ app.use(function(req,res,next)
 {
   res.locals.alerts = req.flash();
   
-  req.session.userId = 2; // FOR TESTING ONLY BRO
+  // req.session.userId = 2; // FOR TESTING ONLY BRO
   
   if (req.session.userId)
   {
