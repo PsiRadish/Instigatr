@@ -120,7 +120,6 @@
 .css-usrTxt{
 	z-index: 1;
 	right: 18vh;
-
 }
 .css-usrTxt div{
 	font-family:courier;
@@ -178,5 +177,8 @@
 	width:80%;
 }
 #newPost input{
+	width:80%;
+}
+#settings input{
 	width:80%;
 }
