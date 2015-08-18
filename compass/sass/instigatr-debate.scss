@@ -452,6 +452,7 @@ $argue-grey-background              : #505050;
             padding: $debate-msg-padding;
             
             resize: none;
+            overflow-y: auto;
             
             &:focus
             {

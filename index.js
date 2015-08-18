@@ -12,7 +12,7 @@ var FacebookStrategy = require('passport-facebook').Strategy
 //configuring express
 var app = express();
 var http = require('http').Server(app);
-// var io = require('socket.io')(http);
+var io = require('socket.io')(http);
 app.set('view engine','ejs');
 
 // Facebook login
@@ -34,20 +34,36 @@ app.use(session({
 app.use(flash());
 
 // auto-load current user into req and res
-app.use(function(req,res,next){
-  // req.session.user = 8;
-  if(req.session.user){
-    db.user.findById(req.session.user.id).then(function(user){
-      req.currentUser = user;
-      res.locals.currentUser = user;
+app.use(function(req,res,next)
+{
+  res.locals.alerts = req.flash();
+  
+  req.session.userId = 2; // FOR TESTING ONLY BRO
+  
+  if (req.session.userId)
+  {
+    console.log("Getting session user from database");
+    db.user.findById(req.session.userId).then(function(user)
+    {
+      console.log("auto-user", user);
+      if (user)
+      {
+        req.currentUser = user;
+        res.locals.currentUser = user;
+      }
+      else
+      {
+        req.currentUser = false;
+        res.locals.currentUser = false;
+      }
       next();
     });
-  }else{
+  } else
+  {
     req.currentUser = false;
     res.locals.currentUser = false;
     next();
   }
-  res.locals.alerts = req.flash();
 });
 
 // facebook
@@ -87,9 +103,41 @@ app.use('/users', require('./controllers/usersController.js'));
 app.use('/posts', require('./controllers/postsController.js'));
 
 
-// app.get("/", function(req, res){
-// 	res.send("yo this is our instigatr app!")
-// });
+io.on('connection', function(socket)
+{
+  socket.on('newMessage', function(msg)
+  {
+    console.log('MESSAGE==============================');
+    console.log(msg);
+    
+    db.user.findById(msg.userId).then(function(user)
+    {
+        if (user)
+        {
+            db.post.findById(msg.postId).then(function(post)
+            {
+                if (post)
+                {
+                    var side = 'for';  // TEMPORARY, TODO: keep real track of sides etc.
+                    
+                    io.emit('chatUpdate', {authorName: user.name, side: 'for', content: msg.content});
+                }
+                else
+                {
+                    // req.flash('warning', 'That post does not exist.')
+                    // res.redirect('/404');
+                }
+            });
+        }
+        else
+        {
+            // req.flash('warning', 'That user does not exist.')
+            // res.redirect('/404');
+        }
+    });
+  });
+});
+
 
 // app.listen(3000);
 var port = process.env.PORT || 3000;

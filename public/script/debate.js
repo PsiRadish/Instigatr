@@ -2,86 +2,141 @@ $(function()
 {
     $(".scroll").mCustomScrollbar(
     {
-        axis:"y", // vertical and horizontal scrollbar
+        axis:"y", // vertical
+        theme: "minimal-dark",
+        scrollInertia: 0
+    });
+    $(".chat-scroll").mCustomScrollbar(
+    {
+        axis:"y", // vertical
         theme: "minimal-dark",
         scrollInertia: 0
     });
     
-    // var socket = io();
-
-    // $('form').submit(function()
-    // {
-    //     socket.emit('chat message', $('#chat-box').val());
-    //     $('#chat-box').val('');
-    //     return false;
-    // });
-
-    
-    $('#choices').on('click', function(e)
+        
+    if ($('#debate-page'))
     {
-        $clicked = $(e.target);
-        
-        if ($clicked.is('#side-for .choose-side'))
+        function sizeChat(e)
         {
-            $(this).addClass('side-chosen-for');
+            var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+            var navHeight = $('nav').outerHeight();
+            
+            // console.log('viewHeight', viewHeight);
+            // console.log('navHeight', navHeight);
+            
+            var debatePage = $('#debate-page');
+            
+            var postStuff = $('#post-stuff');
+            var choices = $('#choices');
+            var yourSide = $('#hows-my-arguing');
+            
+            var chatOutput = $('#chat-output');
+            var chatBox = $('#chat-box-container');
+            
+            debatePage.height(viewHeight - navHeight);
+            var contentHeight = debatePage.outerHeight();
+            
+            console.log(contentHeight);
+            console.log(postStuff.outerHeight(), choices.outerHeight(), yourSide.outerHeight());
+            
+            var freeSpace = contentHeight - (postStuff.outerHeight() + choices.outerHeight() + yourSide.outerHeight());
+            console.log(freeSpace);
+            var vertMargin = Math.max(freeSpace / 2, 0);
+            
+            postStuff.css("margin-bottom", vertMargin.toString()+"px");
+            choices.css("margin-bottom", vertMargin.toString()+"px");
+            
+            chatOutput.height(contentHeight - chatBox.outerHeight());
         }
-        else if ($clicked.is('#side-against .choose-side'))
+        sizeChat();
+        // do it again on resize
+        $(window).resize(sizeChat);
+        
+        $('#choices').on('click', function(e)
         {
-            $(this).addClass('side-chosen-against');
-        }
-        else if ($clicked.is('.change-mind'))
+            $clicked = $(e.target);
+            
+            if ($clicked.is('#side-for .choose-side'))
+            {
+                $(this).addClass('side-chosen-for');
+            }
+            else if ($clicked.is('#side-against .choose-side'))
+            {
+                $(this).addClass('side-chosen-against');
+            }
+            else if ($clicked.is('.change-mind'))
+            {
+                $(this).removeClass('side-chosen-for side-chosen-against');
+            }
+        });
+        
+        
+        // $('#news-column').on('click',function(){
+        //     var srchTrm = $('#chat-box').val();
+        //     var url = "https://access.alchemyapi.com/calls/data/GetNews\?apikey\=3034db537d09ce6a56b42eb54f8dd1c6745dbd8f&outputMode=json&start=now-7d&end=now&maxResults=2&q.enriched.url.enrichedTitle.keywords.keyword.text="+srchTrm+"&return=enriched.url.url,enriched.url.title"
+        //     var rslts = $.get(url,function(){
+        //     }).done(function(rslts){
+        //         console.log(rslts);
+        //         $('#news-column').append(rslts);
+        //     });
+        // });
+        
+        var userData = $.ajax(
         {
-            $(this).removeClass('side-chosen-for side-chosen-against');
-        }
-    });
-    
-    function sizeChat(e)
-    {
-        var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-        var navHeight = $('nav').outerHeight();
-        
-        // console.log('viewHeight', viewHeight);
-        // console.log('navHeight', navHeight);
-        
-        var debatePage = $('#debate-page');
-        
-        var postStuff = $('#post-stuff');
-        var choices = $('#choices');
-        var yourSide = $('#hows-my-arguing');
-        
-        var chatOutput = $('#chat-output');
-        var chatBox = $('#chat-box-container');
-        
-        debatePage.height(viewHeight - navHeight);
-        var contentHeight = debatePage.outerHeight();
-        
-        console.log(contentHeight);
-        console.log(postStuff.outerHeight(), choices.outerHeight(), yourSide.outerHeight());
-        
-        var freeSpace = contentHeight - (postStuff.outerHeight() + choices.outerHeight() + yourSide.outerHeight());
-        console.log(freeSpace);
-        var vertMargin = freeSpace / 2;
-        
-        postStuff.css("margin-bottom", vertMargin.toString()+"px");
-        choices.css("margin-bottom", vertMargin.toString()+"px");
-        
-        chatOutput.height(contentHeight - chatBox.outerHeight());
-        
+            url: '/userData',
+            method: 'GET'
+        }).done(function(userData)
+        {
+            console.log(userData);
+            
+            if (!userData)
+            {
+                $('#chat-box').attr('disabled', 'Not logged in, buddy.');
+            }
+            
+            var socket = io();
+            
+            ///////////////////////
+            // Block newline on Enter and send text to socket.io, unless Shift is held
+            ///////////////////////
+            var chatBox = $('#chat-box');
+            
+            chatBox.keydown(function(e)
+            {   // enter key without shift held
+                if (e.keyCode === 13 && !e.shiftKey)
+                {
+                    e.preventDefault(); // no newline
+                }
+            });
+            chatBox.keyup(function(e)
+            {
+                e = e || event;
+                // enter key without shift held
+                if (e.keyCode === 13 && !e.shiftKey && userData)
+                {
+                    var postId = parseInt(window.location.pathname.split('/')[2]);
+                    
+                    socket.emit('newMessage', {content: chatBox.val(), userId: userData.id, postId: postId});
+                    chatBox.val('');
+                    return false;
+                }
+                return true;
+            });
+            
+            socket.on('chatUpdate', function(update)
+            {
+                console.log('Update data:', update);
+                
+                var chatOutput = $('#chat-output .mCSB_container');
+                var newChatItem = $('<li class="debate-message message-'+update.side+'">');
+                var h6 = $('<h6 class="author">').text(update.authorName);
+                newChatItem.append(h6);
+                newChatItem.append($('<span>'+update.content+'</span>'));
+                
+                console.log(newChatItem);
+                
+                chatOutput.append(newChatItem);
+            });
+        });
     }
-
-    $('#news-column').on('click',function(){
-        var srchTrm = $('#chat-box').val();
-        var url = "https://access.alchemyapi.com/calls/data/GetNews\?apikey\=3034db537d09ce6a56b42eb54f8dd1c6745dbd8f&outputMode=json&start=now-7d&end=now&maxResults=2&q.enriched.url.enrichedTitle.keywords.keyword.text="+srchTrm+"&return=enriched.url.url,enriched.url.title"
-        var rslts = $.get(url,function(){
-        }).done(function(rslts){
-            console.log(rslts);
-            $('#news-column').append(rslts);
-        })
-    })
-
-    
-    sizeChat();
-    
-    // do it again on resize
-    $(window).resize(sizeChat);
 });

@@ -14,17 +14,17 @@ router.post('/login',function(req,res){
 
   db.user.authenticate(req.body.email, req.body.password, function(err,user){
     if(err){
-      req.session.user=null;
+      req.session.userId = null;
       
       // res.send(err);
       throw err;
     }else if(user){
-      req.session.user = user;
+      req.session.userId = user.id;
       req.flash('success','You are logged in.');
       res.redirect('/');
     }else{
-      req.session.user = null;
-      req.flash('danger','invalid username or password');
+      req.session.userId = null;
+      req.flash('danger','inval`id username or password');
       res.redirect('/auth/login');
     }
   });
@@ -76,7 +76,7 @@ router.post('/signup',function(req,res){
 //logout logged in user
 router.get('/logout',function(req,res){
   req.flash('info','You have been logged out.');
-  req.session.user = false;
+  req.session.userId = null;
   res.redirect('/');
 });
 
