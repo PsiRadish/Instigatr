@@ -1,4 +1,3 @@
-
 var db = require('../models');
 var express = require('express');
 var router = express.Router();
@@ -22,5 +21,17 @@ router.get('/:id/show', function(req, res)
         res.send(err);
     });
 });
+
+
+router.post('/',function(req, res){
+    db.user.findById(req.currentUser.id).then(function(user){
+        user.createPost({
+            text:req.body.text
+        }).then(function(post){
+            res.redirect('/posts/'+post.id+'/show')
+        });
+    });
+});
+
 
 module.exports = router;
