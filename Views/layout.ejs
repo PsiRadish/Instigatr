@@ -62,9 +62,10 @@
   </nav>
 
 <%- body %>
-<% if(!currentUser){ %>
-<div id="signupBlock">
+
+<div id="modalBlock">
 </div>
+
   <div id="signup">
   <a href="#"><i class="fa fa-close push-right sUClose" style="font-size:20px;"></i></a>
   <h1>Sign up!</h1>
@@ -92,6 +93,12 @@
     </div>
     </form>
   </div>
+
+
+<% if(!currentUser){ %>
+	<% include ./shared/signup.ejs %>
+<% }else{ %>
+	<% include ./shared/usrOptions.ejs %>
 <% } %>
 </body>
 </html>
