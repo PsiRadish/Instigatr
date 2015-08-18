@@ -31,4 +31,18 @@ $(function(){
 	$('.js-usrIconSO').on('mouseout',function(){
 		$('.js-usrTxtSO').fadeOut(0)
 	});
+
+	$('#signupBtn').on('click',function(e){
+		e.preventDefault();
+		$('#signupBlock').fadeIn(0);
+		$('#signup').fadeIn(200);
+	});
+
+	$('.sUClose').on('click',function(e){
+		e.preventDefault();
+		$('#signupBlock').fadeOut(200);
+		$('#signup').fadeOut(200);
+	});
+
+
 });
