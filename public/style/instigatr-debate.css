@@ -327,6 +327,7 @@
   position: relative;
 }
 #argue-column #chat-output {
+  overflow-x: hidden;
   overflow-y: auto;
   list-style-type: none;
   padding: 0;
@@ -344,6 +345,7 @@
   background-color: #F8F8F8;
   background: linear-gradient(#ffffff, #eeeeee);
   color: #222;
+  transition: transform 0.5s;
 }
 #argue-column #chat-output .debate-message h1, #argue-column #chat-output .debate-message h2, #argue-column #chat-output .debate-message h3, #argue-column #chat-output .debate-message h4, #argue-column #chat-output .debate-message h5, #argue-column #chat-output .debate-message h6 {
   color: black;
@@ -396,22 +398,32 @@
   border-left: none;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
+  transform-origin: left center;
 }
 #argue-column #chat-output .debate-message.message-for::before {
   content: '\f087';
   left: 50%;
+  transform-origin: center center;
   transform: scale(6.25, 6.25);
+}
+#argue-column #chat-output .debate-message.message-for.new {
+  transform: scale(0, 1);
 }
 #argue-column #chat-output .debate-message.message-against {
   float: right;
   border-right: none;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
+  transform-origin: right center;
 }
 #argue-column #chat-output .debate-message.message-against::before {
   content: '\f088';
   left: 50%;
+  transform-origin: center center;
   transform: scale(-6.25, 6.25);
+}
+#argue-column #chat-output .debate-message.message-against.new {
+  transform: scale(0, 1);
 }
 #argue-column #chat-output hr {
   height: 6px;
@@ -431,7 +443,10 @@
   border: 1px solid #999;
   border-radius: 4px;
   padding: 6px;
+  font-weight: 400;
+  font-family: Roboto_condensed, Arial, Helvetica, sans-serif;
   resize: none;
+  overflow-y: auto;
 }
 #argue-column #chat-box-container #chat-box:focus {
   color: black;

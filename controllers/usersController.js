@@ -18,36 +18,34 @@ router.get('/', function(req, res){
     res.render("users/settings.ejs");
 });
 
+// UPDATE
 router.post('/',function(req,res) {
 
-    db.user.authenticate(req.body.email, req.body.password, function(err,user){
+    // db.user.authenticate(req.body.email, req.body.password, function(err, user){
+    db.user.find({where: {email: req.body.email}}).then(function(user){
         if(user) console.log(user);
         // res.send(user);
 
         if(req.body.newPassword != req.body.newPasswordCheck){
             req.flash('danger','Passwords must match.')
             res.redirect('users');
-          }else{
-            user.update({password: req.body.newPassword})
-            .then(function(){
-                req.flash('success',"You've changed your password.")
-                res.redirect('/');
-
-            }).catch(function(err){
-              if(err.message){
-                req.flash('danger',err.message);
-              }else{
-                req.flash('danger','unknown error.');
-                console.log(err);
-              }
-              res.redirect('users');
-            })
-          }
-
-
-
-
-
+        }else{
+          user.update({password: req.body.newPassword})
+          .then(function(){
+              req.flash('success',"You've changed your password.")
+              res.redirect('/');
+              
+          }).catch(function(err){
+            if(err.message){
+              req.flash('danger',err.message);
+            }else{
+              req.flash('danger','unknown error.');
+              console.log(err);
+            }
+            res.redirect('users');
+          })
+        }
+        
     });
 });
 
@@ -61,4 +59,3 @@ router.get('/account/:id', ensureAuthenticated, function(req, res)
 });
 
 module.exports = router;
-

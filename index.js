@@ -42,10 +42,10 @@ app.use(function(req,res,next)
   
   if (req.session.userId)
   {
-    console.log("Getting session user from database");
+    // console.log("Getting session user from database");
     db.user.findById(req.session.userId).then(function(user)
     {
-      console.log("auto-user", user);
+      // console.log("auto-user", user);
       if (user)
       {
         req.currentUser = user;

@@ -52,22 +52,27 @@ $(function()
         // do it again on resize
         $(window).resize(sizeChat);
         
-        $('#choices').on('click', function(e)
+        
+        $('#side-for .choose-side').on('click', function(e)
         {
-            $clicked = $(e.target);
+            e.preventDefault();
+            $(this).blur();
+            $('#choices').addClass('side-chosen-for');
             
-            if ($clicked.is('#side-for .choose-side'))
-            {
-                $(this).addClass('side-chosen-for');
-            }
-            else if ($clicked.is('#side-against .choose-side'))
-            {
-                $(this).addClass('side-chosen-against');
-            }
-            else if ($clicked.is('.change-mind'))
-            {
-                $(this).removeClass('side-chosen-for side-chosen-against');
-            }
+            document.activeElement = null;
+        });
+        $('#side-against .choose-side').on('click', function(e)
+        {
+            e.preventDefault();
+            $(this).blur();
+            $('#choices').addClass('side-chosen-against');
+            
+            document.activeElement = null;
+        });
+        $('.change-mind').on('click', function(e)
+        {
+            e.preventDefault();
+            $('#choices').removeClass('side-chosen-for side-chosen-against');
         });
         
         
@@ -128,7 +133,8 @@ $(function()
                 console.log('Update data:', update);
                 
                 var chatOutput = $('#chat-output .mCSB_container');
-                var newChatItem = $('<li class="debate-message message-'+update.side+'">');
+                
+                var newChatItem = $('<li class="new debate-message message-'+update.side+'">');
                 var h6 = $('<h6 class="author">').text(update.authorName);
                 newChatItem.append(h6);
                 newChatItem.append($('<span>'+update.content+'</span>'));
@@ -136,6 +142,11 @@ $(function()
                 console.log(newChatItem);
                 
                 chatOutput.append(newChatItem);
+                
+                setTimeout(function()
+                {
+                    newChatItem.removeClass('new');
+                }, 10);
             });
         });
     }
