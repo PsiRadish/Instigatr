@@ -54,6 +54,12 @@ $(function(){
 	//signup btn modal opener and closer
 	$('#signupBtn').on('click',function(e){
 		e.preventDefault();
+		$('body').on({
+    'mousewheel': function(e) {
+        if (e.target.id == 'el') return;
+        e.preventDefault();
+        e.stopPropagation();
+    }
 		$('#modalBlock').fadeIn(0);
 		$('#signup').fadeIn(200);
 	});
@@ -65,6 +71,8 @@ $(function(){
 		$('#newPost').fadeOut(200);
 		$('#settings').fadeOut(200);
 	});
+
+})
 
 
 });

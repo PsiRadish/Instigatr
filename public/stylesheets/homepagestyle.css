@@ -1,10 +1,13 @@
+.archiveDD{
+	width:13vw;
+}
 .css-mainPagePostDiv{
 	background-color: rgba(60,60,60,1);
 	margin-top:2vh;
 	margin-bottom: 2vh;
 	color:white;
 	font-size:16px;
-	border-radius: 0px 40px 40px 0px;
+	border-radius: 10px 40px 40px 0px;
 }
 .css-mainPagePostDiv .css-usrNm{
 	font-size: 18px;
@@ -46,6 +49,7 @@
 }
 .css-loginDDItems{
 	right:0;
+	border-radius: 3px;
 }
 .css-loginDDItems .control{
 	width:300px;
@@ -54,37 +58,18 @@
 	font-size: 40px;
 	margin-right: 20px;
 }
-.css-homeSidebar{
-	background-color: rgba(60,60,60,1);
-	height:70px;
-	width:70px;
-	border-radius: 35px;
-	margin:12px 20px 10px 10px;
-	text-align: center;
-	overflow: hidden;
-	transition: height 0.8s;
+.usrOptions{
+	right:0;
+	text-align: right;
+	width:14vw;
+	border-radius:5px;
 }
-
-.css-homeSidebar:hover{
-	height:340px;
-}
-
-.css-homeSidebar:hover .js-usrIconPncl{
-	opacity: 1;
-}
-.css-homeSidebar:hover .js-usrIconBook{
-	opacity: 1;
-}
-.css-homeSidebar:hover .js-usrIconWrench{
-	opacity: 1;
-}
-.css-homeSidebar:hover .js-usrIconSO{
-	opacity: 1;
-}
-.css-homeSidebar i{
+.usrOptions i{
 	display:block;
-	font-size: 50px;
+	font-size: 20px;
 	margin-top: 12px;
+	margin-bottom:8px;
+	text-shadow:5px 2px 5px rgba(0,0,0,.7);
 }
 .css-homeSidebar a{
 	text-decoration: none;
@@ -92,56 +77,14 @@
 .css-usrIconPncl{
 	color:red;
 }
-.js-usrIconPncl{
-	opacity:0;
-	transition:opacity 0.8s;
-}
 .css-usrIconBook{
 	color:blue;
-}
-.js-usrIconBook{
-	opacity:0;
-	transition:opacity 0.8s;
 }
 .css-usrIconWrench{
 	color:green;
 }
-.js-usrIconWrench{
-	opacity:0;
-	transition:opacity 0.8s;
-}
 .css-usrIconSO{
 	color:orange;
-}
-.js-usrIconSO{
-	opacity:0;
-	transition:opacity 0.8s;
-}
-.css-usrTxt{
-	z-index: 1;
-	right: 18vh;
-}
-.css-usrTxt div{
-	font-family:courier;
-	display:none;
-	text-align: right;
-}
-.js-usrTxtPncl{
-	color:red;
-	margin-top:110px;
-	z-index: 1;
-}
-.js-usrTxtBook{
-	color:blue;
-	margin-top:165px;
-}
-.js-usrTxtWrench{
-	color:green;
-	margin-top:220px;
-}
-.js-usrTxtSO{
-	color:orange;
-	margin-top:280px;
 }
 .modalView{
 	background-color: rgba(250,250,250,.95);
