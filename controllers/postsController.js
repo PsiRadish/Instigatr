@@ -24,11 +24,19 @@ router.get('/:id/show', function(req, res)
 
 
 router.post('/',function(req, res){
+    var tagStr = req.body.tags
+    var tagsArr = tagStr.split(',')
     db.user.findById(req.currentUser.id).then(function(user){
         user.createPost({
             text:req.body.text
         }).then(function(post){
-            res.redirect('/posts/'+post.id+'/show')
+            for(i=0;i<tagsArr.length;i++){
+                var tagnm=tagsArr[i]
+                db.tag.findOrCreate({where:{name:tagnm}}).spread(function(tag,created){
+                    post.addTag(tag);
+                });
+            };
+            res.redirect('/posts/'+post.id+'/show');
         });
     });
 });

@@ -102,6 +102,8 @@ app.use('/users', require('./controllers/usersController.js'));
 
 app.use('/posts', require('./controllers/postsController.js'));
 
+app.use('/tags', require('./controllers/tagsController.js'));
+
 
 io.on('connection', function(socket)
 {
