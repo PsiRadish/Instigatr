@@ -145,16 +145,6 @@ sio.on('connection', function(socket)
     
     socket.on('startChat', function(postId)
     {
-        // console.log('Ψ', 'Received chatStart event with data', initData);
-        socket.room = postId;
-        socket.join(postId);
-        
-        socket.emit('startChat_Response', {userId: req.session.userId});
-    });
-    socket.on('newMessage', function(postId, content)
-    {
-        console.log("Room", socket.room, typeof socket.room);
-        
         db.user.findById(req.session.userId).then(function(user)
         {
             if (user)
@@ -163,10 +153,13 @@ sio.on('connection', function(socket)
                 {
                     if (post)
                     {
-                        var side = 'for';  // TEMPORARY, TODO: keep real track of sides etc.
+                        console.log('Ψ', 'User and post legit, populating socket with data');
+                        socket.user = user;
                         
-                        // Emit new chat message to all clients
-                        sio.emit('chatUpdate', {authorName: user.name, side: 'for', content: content});
+                        socket.room = postId;
+                        socket.join(postId);
+                        
+                        socket.emit('startChat_Response', {userId: req.session.userId});
                     }
                     else
                     {
@@ -189,6 +182,16 @@ sio.on('connection', function(socket)
                 // res.redirect('/404');
             }
         });
+        
+        
+    });
+    socket.on('newMessage', function(postId, content)
+    {
+        console.log("Room", socket.room, typeof socket.room);
+        // Emit new chat message to all clients
+        sio.emit('chatUpdate', {authorName: user.name, side: 'for', content: content});
+        
+        
     });
 });
 
