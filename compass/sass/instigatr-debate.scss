@@ -45,7 +45,8 @@ $argue-grey-background              : #505050;
 
 #take-sides-column
 {
-    background: linear-gradient(10deg, $blue, shade($blue, 30%));
+    border:1px solid black;
+    border-radius: 5px;
     overflow: hidden;
 }
 

@@ -5,12 +5,15 @@ var router = express.Router();
 // --- POST SHOW
 router.get('/:id/show', function(req, res)
 {
+ 
     db.post.find({where: {id: req.params.id}, include: [db.user, {model: db.message, include: [db.user]}]}).then(function(post)
     {
         if (post)
         {
             res.locals.titleSuffix = "Debate";
-            res.render("posts/show.ejs", {post: post});
+            db.post.findAll().then(function(posts){
+                res.render("posts/show.ejs", {post: post,posts:posts});
+            })
         } else
         {
             res.redirect("/404");
