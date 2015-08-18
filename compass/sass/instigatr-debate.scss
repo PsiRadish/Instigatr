@@ -45,7 +45,7 @@ $argue-grey-background              : #505050;
 
 #take-sides-column
 {
-    background: linear-gradient(10deg, $blue, shade($blue, 30%));
+    // background: linear-gradient(10deg, $blue, shade($blue, 30%));
     overflow: hidden;
 }
 
@@ -481,7 +481,16 @@ $argue-grey-background              : #505050;
                 // background-color: #F8F8F8;
                 // background: linear-gradient(white, #EEE);
             }
+            
+            &[disabled]
+            {
+                opacity: 0.3;
+                
+                &.inQueue
+                {
+                    opacity: 0.65;
+                }
+            }
         }
     }
 }
-

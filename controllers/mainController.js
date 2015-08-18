@@ -14,11 +14,11 @@ router.get('/404', function(req, res)
     res.render('main/404.ejs');
 });
 
-router.get('/userData', function(req, res)
-{
-    // res.send({id: req.session.user});
-    console.log("Received userData request.");
-    res.json({id: req.session.userId});
-});
+// router.get('/userData', function(req, res)
+// {
+//     // res.send({id: req.session.user});
+//     console.log("Received userData request.");
+//     res.json({id: req.session.userId});
+// });
 
 module.exports = router;

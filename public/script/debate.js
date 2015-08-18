@@ -4,16 +4,9 @@ $(function()
     {
         axis:"y", // vertical
         theme: "minimal-dark",
-        scrollInertia: 0
-    });
-    $(".chat-scroll").mCustomScrollbar(
-    {
-        axis:"y", // vertical
-        theme: "minimal-dark",
-        scrollInertia: 0
+        scrollInertia: 0.1
     });
     
-        
     if ($('#debate-page'))
     {
         function sizeChat(e)
@@ -36,11 +29,11 @@ $(function()
             debatePage.height(viewHeight - navHeight);
             var contentHeight = debatePage.outerHeight();
             
-            console.log(contentHeight);
-            console.log(postStuff.outerHeight(), choices.outerHeight(), yourSide.outerHeight());
+            // console.log(contentHeight);
+            // console.log(postStuff.outerHeight(), choices.outerHeight(), yourSide.outerHeight());
             
             var freeSpace = contentHeight - (postStuff.outerHeight() + choices.outerHeight() + yourSide.outerHeight());
-            console.log(freeSpace);
+            // console.log(freeSpace);
             var vertMargin = Math.max(freeSpace / 2, 0);
             
             postStuff.css("margin-bottom", vertMargin.toString()+"px");
@@ -53,53 +46,37 @@ $(function()
         $(window).resize(sizeChat);
         
         
-        $('#side-for .choose-side').on('click', function(e)
-        {
-            e.preventDefault();
-            $(this).blur();
-            $('#choices').addClass('side-chosen-for');
-            
-            document.activeElement = null;
-        });
-        $('#side-against .choose-side').on('click', function(e)
-        {
-            e.preventDefault();
-            $(this).blur();
-            $('#choices').addClass('side-chosen-against');
-            
-            document.activeElement = null;
-        });
-        $('.change-mind').on('click', function(e)
-        {
-            e.preventDefault();
-            $('#choices').removeClass('side-chosen-for side-chosen-against');
-        });
+        // var userData = $.ajax(
+        // {
+        //     url: '/userData',
+        //     method: 'GET'
+        // }).done(function(userData)
+        // {
+            // console.log("userData keys", Object.keys(userData));
         
+        var socket = io();
         
-        // $('#news-column').on('click',function(){
-        //     var srchTrm = $('#chat-box').val();
-        //     var url = "https://access.alchemyapi.com/calls/data/GetNews\?apikey\=3034db537d09ce6a56b42eb54f8dd1c6745dbd8f&outputMode=json&start=now-7d&end=now&maxResults=2&q.enriched.url.enrichedTitle.keywords.keyword.text="+srchTrm+"&return=enriched.url.url,enriched.url.title"
-        //     var rslts = $.get(url,function(){
-        //     }).done(function(rslts){
-        //         console.log(rslts);
-        //         $('#news-column').append(rslts);
-        //     });
-        // });
+        var postId = parseInt(window.location.pathname.split('/')[2]);
         
-        var userData = $.ajax(
+        socket.emit('startChat', postId);
+        socket.on('startChat_Response', function(chatData)
         {
-            url: '/userData',
-            method: 'GET'
-        }).done(function(userData)
-        {
-            console.log(userData);
+            // console.log('Received startChat_Response', chatData);
+            console.log('chatData.userId', chatData.userId);
+            var userId = chatData.userId;
             
-            if (!userData)
+            if (!userId)
             {
-                $('#chat-box').attr('disabled', 'Not logged in, buddy.');
+                console.log("disablin'");
+                $('#chat-box').attr('disabled', 'disabled');
+                $('#chat-box').text("You are not logged in.");
             }
-            
-            var socket = io();
+            else
+            {
+                console.log("enablin'");
+                $('#chat-box').removeAttr('disabled');
+                $('#chat-box').text("");
+            }
             
             ///////////////////////
             // Block newline on Enter and send text to socket.io, unless Shift is held
@@ -117,27 +94,47 @@ $(function()
             {
                 e = e || event;
                 // enter key without shift held
-                if (e.keyCode === 13 && !e.shiftKey && userData)
+                if (e.keyCode === 13 && !e.shiftKey && chatData)
                 {
-                    var postId = parseInt(window.location.pathname.split('/')[2]);
-                    
-                    socket.emit('newMessage', {content: chatBox.val(), userId: userData.id, postId: postId});
+                    socket.emit('newMessage', postId, chatBox.val());
                     chatBox.val('');
                     return false;
                 }
                 return true;
             });
             
-            socket.on('chatUpdate', function(update)
+            
+            $('#side-for .choose-side').on('click', function(e)
             {
-                console.log('Update data:', update);
+                e.preventDefault();
+                $(this).blur();
+                $('#choices').addClass('side-chosen-for');
                 
+                socket.emit('choseSide', postId, "for");
+            });
+            $('#side-against .choose-side').on('click', function(e)
+            {
+                e.preventDefault();
+                $(this).blur();
+                $('#choices').addClass('side-chosen-against');
+                
+                socket.emit('choseSide', postId, "for");
+            });
+            $('.change-mind').on('click', function(e)
+            {
+                e.preventDefault();
+                $('#choices').removeClass('side-chosen-for side-chosen-against');
+            });
+            
+            socket.on('chatUpdate', function(authorName, content, side)
+            {
+                // console.log('Update data:', update);
                 var chatOutput = $('#chat-output .mCSB_container');
                 
-                var newChatItem = $('<li class="new debate-message message-'+update.side+'">');
-                var h6 = $('<h6 class="author">').text(update.authorName);
+                var newChatItem = $('<li class="new debate-message message-'+side+'">');
+                var h6 = $('<h6 class="author">').text(authorName);
                 newChatItem.append(h6);
-                newChatItem.append($('<span>'+update.content+'</span>'));
+                newChatItem.append($('<span>'+content+'</span>'));
                 
                 console.log(newChatItem);
                 
@@ -147,7 +144,7 @@ $(function()
                 {
                     newChatItem.removeClass('new');
                 }, 10);
-            });
+            });        
         });
     }
 });

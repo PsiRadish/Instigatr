@@ -1,36 +1,42 @@
 var db = require('./models');
 var express = require('express');
+var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var ejsLayouts = require('express-ejs-layouts')
+var ejsLayouts = require('express-ejs-layouts');
 var session = require('express-session');
 var flash = require('connect-flash');
-var passport = require('passport')
-var FacebookStrategy = require('passport-facebook').Strategy
+// var passport = require('passport')
+// var FacebookStrategy = require('passport-facebook').Strategy
 
 
 //configuring express
 var app = express();
+var sessionStore = new session.MemoryStore();
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var sio = require('socket.io')(http);
 app.set('view engine','ejs');
 
 // Facebook login
-var FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID;
-var FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET;
+// var FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID;
+// var FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET;
 
-//middleware
+// ---- MIDDLEWARE ----
 app.use(ejsLayouts);
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(session({
+app.use(bodyParser.urlencoded({extended: false}));
+// app.use(passport.initialize());
+// app.use(passport.session());
+// app.use(cookieParser());
+var sessionMiddleware = session(
+{
+  store: sessionStore,
   secret: process.env.SESSION_SECRET,
+  key: 'express.sid',
   resave: false,
   saveUninitialized: true
-}));
-
+});
+app.use(sessionMiddleware);
 app.use(flash());
 
 // auto-load current user into req and res
@@ -60,6 +66,9 @@ app.use(function(req,res,next)
     });
   } else
   {
+    if (typeof req.session.userId == 'undefined')
+      req.session.userId = null;
+    
     req.currentUser = false;
     res.locals.currentUser = false;
     next();
@@ -102,40 +111,85 @@ app.use('/users', require('./controllers/usersController.js'));
 
 app.use('/posts', require('./controllers/postsController.js'));
 
-
-io.on('connection', function(socket)
+function DebateChat(postId)
 {
-  socket.on('newMessage', function(msg)
-  {
-    console.log('MESSAGE==============================');
-    console.log(msg);
+    this.postId = postId;
     
-    db.user.findById(msg.userId).then(function(user)
+    this.userDebatingFor = null;
+    this.confidenceInUserDebatingFor = 0;
+    this.usersInLineFor = [];
+    
+    this.userDebatingAgainst = null;
+    this.confidenceInUserDebatingAgainst = 0;
+    this.usersInLineAgainst = [];
+}
+var debateChats = {};
+
+// ======== SOCKET.IO ======== //
+// add Express session data into socket object of socket.io
+// (courtesy of http://stackoverflow.com/questions/25532692/how-to-share-sessions-with-socket-io-1-x-and-express-4-x#answer-25618636)
+sio.use(function(socket, next)
+{
+    sessionMiddleware(socket.request, socket.request.res, next);
+});
+
+// socket.io event listeners
+sio.on('connection', function(socket)
+{
+    // console.log('SOCKET THING===========');
+    // console.log(socket.request.res.locals.currentUser);
+    socket.users = {};
+    
+    req = socket.request;
+    res = socket.request.res;
+    
+    socket.on('startChat', function(postId)
     {
-        if (user)
-        {
-            db.post.findById(msg.postId).then(function(post)
-            {
-                if (post)
-                {
-                    var side = 'for';  // TEMPORARY, TODO: keep real track of sides etc.
-                    
-                    io.emit('chatUpdate', {authorName: user.name, side: 'for', content: msg.content});
-                }
-                else
-                {
-                    // req.flash('warning', 'That post does not exist.')
-                    // res.redirect('/404');
-                }
-            });
-        }
-        else
-        {
-            // req.flash('warning', 'That user does not exist.')
-            // res.redirect('/404');
-        }
+        // console.log('Ψ', 'Received chatStart event with data', initData);
+        socket.room = postId;
+        socket.join(postId);
+        
+        socket.emit('startChat_Response', {userId: req.session.userId});
     });
-  });
+    socket.on('newMessage', function(postId, content)
+    {
+        console.log("Room", socket.room, typeof socket.room);
+        
+        db.user.findById(req.session.userId).then(function(user)
+        {
+            if (user)
+            {
+                db.post.findById(postId).then(function(post)
+                {
+                    if (post)
+                    {
+                        var side = 'for';  // TEMPORARY, TODO: keep real track of sides etc.
+                        
+                        // Emit new chat message to all clients
+                        sio.emit('chatUpdate', {authorName: user.name, side: 'for', content: content});
+                    }
+                    else
+                    {
+                        // req.flash('warning', 'That post does not exist.')
+                        if (typeof res.locals.alerts.warning == 'undefined')
+                            res.locals.alerts.warning = [];
+                        
+                        res.locals.alerts.danger.push('That post does not exist.');
+                        // res.redirect('/404');
+                    }
+                });
+            }
+            else
+            {
+                // req.flash('warning', 'That user does not exist.')
+                if (typeof res.locals.alerts.warning == 'undefined')
+                    res.locals.alerts.danger = [];
+                
+                res.locals.alerts.warning.push('That user does not exist.');
+                // res.redirect('/404');
+            }
+        });
+    });
 });
 
 
@@ -143,5 +197,5 @@ io.on('connection', function(socket)
 var port = process.env.PORT || 3000;
 http.listen(port, function()
 {
-  console.log('Server started on ' + port);
+    console.log('Server started on ' + port);
 });

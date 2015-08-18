@@ -148,7 +148,6 @@
 }
 
 #take-sides-column {
-  background: linear-gradient(10deg, #003985, #00285d);
   overflow: hidden;
 }
 
@@ -450,4 +449,10 @@
 }
 #argue-column #chat-box-container #chat-box:focus {
   color: black;
+}
+#argue-column #chat-box-container #chat-box[disabled] {
+  opacity: 0.3;
+}
+#argue-column #chat-box-container #chat-box[disabled].inQueue {
+  opacity: 0.65;
 }
