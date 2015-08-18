@@ -15,6 +15,10 @@ function ensureAuthenticated(req, res, next)
 }
 
 router.get('/', function(req, res){
+    res.render("users/show.ejs");
+});
+
+router.get('/', function(req, res){
     res.render("users/settings.ejs");
 });
 
@@ -34,7 +38,7 @@ router.post('/',function(req,res) {
           .then(function(){
               req.flash('success',"You've changed your password.")
               res.redirect('/');
-              
+
           }).catch(function(err){
             if(err.message){
               req.flash('danger',err.message);
@@ -45,7 +49,7 @@ router.post('/',function(req,res) {
             res.redirect('users');
           })
         }
-        
+
     });
 });
 
