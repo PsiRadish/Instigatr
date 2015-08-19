@@ -2,17 +2,46 @@ var db = require('../models');
 var express = require('express');
 var router = express.Router();
 
+//adding Request module for news API search
+var request = require('request');
+
 // --- POST SHOW
 router.get('/:id/show', function(req, res)
+
 {
- 
+    //news - API call
+    var searchTerm = req.query.q;
+
+    if (req.query.q !== null){
+        var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
+
+        var queryData = {
+        q: searchTerm,
+        pages:10,
+        sort:'newest',
+        'api-key':process.env.NYT_API_KEY,
+        }
+    };
+    //end news - API call
+
     db.post.find({where: {id: req.params.id}, include: [db.user, {model: db.message, include: [db.user]}]}).then(function(post)
     {
         if (post)
         {
             res.locals.titleSuffix = "Debate";
             db.post.findAll().then(function(posts){
-                res.render("posts/show.ejs", {post: post,posts:posts});
+
+                    // news API call
+                    request({
+                        url:url,
+                        qs:queryData
+                    }, function(error, response, data){
+                        var newsJSON = JSON.parse(data);
+                        // console.log(newsJSON.response.docs[0]);
+                        res.render("posts/show.ejs", {post: post, posts:posts, newsJSON: newsJSON});
+                    });
+                    //end news API call
+
             })
         } else
         {
@@ -43,6 +72,7 @@ router.post('/',function(req, res){
         });
     });
 });
+
 
 
 module.exports = router;
