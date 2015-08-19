@@ -13,9 +13,9 @@
 
     <link rel="stylesheet" type="text/css" href="/style/instigatr-ink-main.css">
   <script src="//code.jquery.com/jquery.js"></script>
-  
+
   <script src="/socket.io/socket.io.js"></script>
-  
+
   <!-- scrollbar plugin http://manos.malihu.gr/jquery-custom-content-scroller/ -->
   <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.concat.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.min.css">
@@ -25,6 +25,7 @@
   <script type="text/javascript" src="/script/debate.js"></script>
   <script type="text/javascript" src="/script/homepage.js"></script>
   <link rel="stylesheet" type="text/css" href="/stylesheets/homepagestyle.css">
+  <link rel="stylesheet" type="text/scss" href="/style/backgroundvideo.css">
 
 </head>
 <body>
@@ -33,8 +34,7 @@
     <ul class="horizontal menu black">
     <li class="heading"><a class="ink-label red css-label" href="/"><strong>INSTIGATR</strong></a></li>
       <li><a href="/">Popular</a></li>
-      <li><a href="/posts/<%= Math.ceil(Math.random()*posts.length-1) %>/show" class="css-nBLink">Random</a></li>
-      <li><a href="">Archive</a>
+      <li><a href="/posts/<%= Math.ceil(Math.random()*posts.length-1) %>/show" class="css-nBLink">Random</a></li>      <li><a href="">Archive</a>
         <ul class="submenu archiveDD">
           <li><a href="/chronological">Chronological</a></li>
           <li><a href="/allTimeTop">All Time Top Ranked</a></li>
@@ -64,7 +64,7 @@
         <li class="usrNm"><a href="#"><%= currentUser.name %></a>
           <ul class="submenu usrOptions" style="background-color:rgba(50,50,50,.9);">
             <li class="js-usrIconPncl"><a href=""><i class="css-usrIconPncl fa fa-pencil">Create Post</i></a></li>
-            <li class="js-usrIconBook"><a href=""><i class="css-usrIconBook fa fa-book">Your Posts</i></a></li>
+            <li class="js-usrIconBook"><a href="/users"><i class="css-usrIconBook fa fa-book">Your Posts</i></a></li>
             <li class="js-usrIconWrench"><a href=""><i class="css-usrIconWrench fa fa-wrench">Account Settings</i></a></li>
             <li class="js-usrIconSO"><a href="/auth/logout"><i class="css-usrIconSO fa fa-sign-out">Sign Out</i></a></li>
           </ul>
