@@ -21,6 +21,12 @@ $argue-grey-background              : #505050;
 // $debate-msg-watermark-against-left  : 37.5%;
 
 // top level debate page column
+#debate-page
+{
+    background-color: mix($argue-grey-background, $argue-red-background);
+    background: linear-gradient($argue-grey-background, mix($argue-red-background, $argue-grey-background, 25%) 50%, $argue-red-background);
+}
+
 #debate-page > section
 {
     // min-height: 480px;
@@ -45,24 +51,30 @@ $argue-grey-background              : #505050;
 
 #take-sides-column
 {
-    border:1px solid black;
-    border-radius: 5px;
+    border: 1px solid #999;
+    background-color: #F8F8F8;
+    background: linear-gradient(white, #EEE);
+    border-radius: $debate-msg-border-radius;
     // background: linear-gradient(10deg, $blue, shade($blue, 30%));
     overflow: hidden;
 }
 
 #post-content-box
 {
-    border: 1px solid rgba(white, 0.2);
+    border: 1px solid rgba(black, 0.2);
     border-radius: $debate-msg-border-radius;
-    background-color: rgba(white, 0.1);
+    background-color: rgba(black, 0.1);
     
     padding: $debate-msg-padding;
     // margin-bottom: 24px;
     // margin-bottom: 35%;
     
-    font-size: $h5-font-size;
-    p { font-size: $h5-font-size; }
+    // font-size: $h5-font-size;
+    p
+    {
+        font-size: $h5-font-size;
+        font-family: $condensed-font-stack;
+    }
     
     .author
     {
@@ -111,9 +123,7 @@ $argue-grey-background              : #505050;
     #wanna-join-left, #wanna-join-right
     {
         text-align: center;
-        border: 1px solid rgba(white, 0.4);
         border-radius: $debate-msg-border-radius;
-        background-color: rgba(white, 0.2);
         
         padding: 6px;
         
@@ -121,6 +131,18 @@ $argue-grey-background              : #505050;
         {
             display: block;
         }
+    }
+    #wanna-join-left
+    {
+        
+        border: 1px solid rgba($green, 0.2);
+        background-color: rgba($green, 0.1);
+    }
+    #wanna-join-right
+    {
+        
+        border: 1px solid rgba($red, 0.2);
+        background-color: rgba($red, 0.1);
     }
 }
 
@@ -160,7 +182,7 @@ $argue-grey-background              : #505050;
     {
         left: -50%;
         opacity: 0;
-    
+        
         // visibility: hidden;
     }
     #heading-choice-not-made
@@ -313,8 +335,8 @@ $argue-grey-background              : #505050;
     padding: 0;
     // padding-top: 6px;
     
-    background-color: mix($argue-grey-background, $argue-red-background);
-    background: linear-gradient($argue-grey-background, mix($argue-red-background, $argue-grey-background, 25%) 50%, $argue-red-background);
+    // background-color: mix($argue-grey-background, $argue-red-background);
+    // background: linear-gradient($argue-grey-background, mix($argue-red-background, $argue-grey-background, 25%) 50%, $argue-red-background);
     
     // max-height: 480px;
     
@@ -496,4 +518,20 @@ $argue-grey-background              : #505050;
             }
         }
     }
+}
+
+// == COLUMN 2 ====
+
+#news-column
+{
+    background-color: #F8F8F8;
+    
+    height: 100%;
+    overflow-y: hidden;
+}
+
+#results-news-headlines
+{
+    height: 100%;
+    overflow-y: auto;
 }

@@ -1,7 +1,7 @@
 var db = require('./models');
 var async = require('async');
 var express = require('express');
-var cookieParser = require('cookie-parser');
+// var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var ejsLayouts = require('express-ejs-layouts');

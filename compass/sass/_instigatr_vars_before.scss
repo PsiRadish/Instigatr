@@ -5,7 +5,12 @@
 // OVERRIDES
 $text-color                 : #222;
 $headings-color             : black;
-// $link-visited-color         : #7D99B5;
+
+$link-color                 : mix(#0000C9, #6998C9, 50%);
+$link-visited-color         : $link-color;
+$link-active-color          : mix(red, $link-color, 50%);
+$link-hover-color           : #007ED5;
+$link-focus-color           : $link-color;
 
 $blue                       : shade(#0047A6, 20%);
 

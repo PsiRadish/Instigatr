@@ -12,7 +12,7 @@ router.get('/:id/show', function(req, res)
     var searchTerm = req.query.q;
     // var searchTerm_Alchemy = req.query.z;
     // console.log("Alchemy search: " + searchTerm_Alchemy);
-
+    
     if (searchTerm !== "undefined"){
         var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
 
@@ -32,9 +32,7 @@ router.get('/:id/show', function(req, res)
     {
         if (post)
         {
-            res.locals.titleSuffix = "Debate";
             db.post.findAll().then(function(posts){
-
                     // news API call
                     request({
                         url:url,
@@ -44,7 +42,7 @@ router.get('/:id/show', function(req, res)
                         // console.log(newsJSON.response.docs[0]);
                         searchTerm = null;
                         // searchTerm_Alchemy = null;
-                        res.render("posts/show.ejs", {post: post, posts:posts, newsJSON: newsJSON});
+                        res.render("posts/show.ejs", {titleSuffix: "Debate", post: post, posts:posts, newsJSON: newsJSON});
                     });
                     //end news API call
 
