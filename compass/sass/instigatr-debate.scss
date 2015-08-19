@@ -149,9 +149,10 @@ $argue-grey-background              : #505050;
 }
 
 // initiate transition properties when a choice is made
-#choices  // no choice made state
+#choices // no choice made state
 {
-    margin-bottom: 24px;
+    // margin-bottom: 24px;
+    visibility: hidden;
     
     #heading-choice-made-left
     {

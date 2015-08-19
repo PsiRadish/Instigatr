@@ -1,4 +1,5 @@
 var db = require('./models');
+var async = require('async');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -9,6 +10,7 @@ var flash = require('connect-flash');
 // var passport = require('passport')
 // var FacebookStrategy = require('passport-facebook').Strategy
 
+require('./stampedLog.js');
 
 //configuring express
 var app = express();
@@ -44,7 +46,7 @@ app.use(function(req,res,next)
 {
   res.locals.alerts = req.flash();
   
-  req.session.userId = 2; // FOR TESTING ONLY BRO
+  req.session.userId = 1; // FOR TESTING ONLY BRO
   
   if (req.session.userId)
   {
@@ -123,6 +125,30 @@ function DebateChat(postId)
     this.confidenceInUserDebatingAgainst = 0;
     this.usersInLineAgainst = [];
 }
+DebateChat.prototype.removeUserIdFromLine = function(userId, whichLine)
+{
+    var thisLine;
+    
+    if (whichLine === 'for')
+        thisLine = this.usersInLineFor;
+    else if (whichLine === 'against')
+        thisLine = this.usersInLineAgainst;
+    else
+        throw new Error("DebateChat.prototype.removeUserIdFromLine: Second parameter must be 'for' or 'against'.");
+    
+    var removedId = null;
+    thisLine.forEach(function(user, index)
+    {
+        if (user.id == userId)
+        {
+            removedId = thisLine.splice(index, 1);
+            return;
+        }
+    });
+    
+    return removedId;
+}
+
 var debateChats = {};
 
 // ======== SOCKET.IO ======== //
@@ -138,63 +164,95 @@ sio.on('connection', function(socket)
 {
     // console.log('SOCKET THING===========');
     // console.log(socket.request.res.locals.currentUser);
-    socket.users = {};
     
     req = socket.request;
     res = socket.request.res;
     
+    console.stampedLog("Ψ here");
+    
     socket.on('startChat', function(postId)
     {
-        db.user.findById(req.session.userId).then(function(user)
+        console.stampedLog("Ψ here");
+        
+        async.series(
+        [function(callback)
         {
-            if (user)
+            db.post.findById(postId).then(function(post)
+            {   console.stampedLog("Ψ here");
+                
+                if (post)
+                {   console.stampedLog("Ψ here");
+                    socket.room = postId;
+                    socket.join(postId);
+                    callback(null);
+                }
+                else
+                {   console.stampedLog("Ψ here");
+                    callback(new Error('Post '+postId+' not found.'));
+                }
+            }).catch(function(err)
+            {   console.stampedLog("Ψ here");
+                callback(err);
+            });
+        },function(callback)
+        {   
+            db.user.find(
             {
-                db.post.findById(postId).then(function(post)
-                {
-                    if (post)
+                where: {id: req.session.userId},
+                include: [{ model: db.post, as: 'postsFor' }, { model: db.post, as: 'postsAgainst' }]
+            }).then(function(user)
+            {   
+                socket.user = user;
+                callback(null);
+            }).catch(function(err)
+            {
+                callback(err);
+            });
+        }],function(err)
+        {   console.stampedLog("Ψ here");
+            if (!err)
+            {   console.stampedLog("Ψ here");
+                if (socket.user)
+                {   console.stampedLog("Ψ here");
+                    if (socket.user.postsFor.some(function(post) { return post.id === postId; }))
                     {
-                        console.log('Ψ', 'User and post legit, populating socket with data');
-                        socket.user = user;
-                        
-                        socket.room = postId;
-                        socket.join(postId);
-                        
-                        socket.emit('startChat_Response', {userId: req.session.userId});
+                        socket.side = 'for';
+                    }
+                    else if (socket.user.postsAgainst.some(function(post) { return post.id === postId; }))
+                    {
+                        socket.side = 'against';
                     }
                     else
-                    {
-                        // req.flash('warning', 'That post does not exist.')
-                        if (typeof res.locals.alerts.warning == 'undefined')
-                            res.locals.alerts.warning = [];
-                        
-                        res.locals.alerts.danger.push('That post does not exist.');
-                        // res.redirect('/404');
-                    }
-                });
+                        socket.side = null;
+                }
+                console.stampedLog("Ψ here");
+                socket.emit('startChat_Response', req.session.userId, socket.side);
             }
             else
             {
-                // req.flash('warning', 'That user does not exist.')
-                if (typeof res.locals.alerts.warning == 'undefined')
-                    res.locals.alerts.danger = [];
+                console.log(err);
                 
-                res.locals.alerts.warning.push('That user does not exist.');
+                // if (typeof res.locals.alerts.danger == 'undefined')
+                //     res.locals.alerts.danger = [];
+                
+                // res.locals.alerts.danger.push(err);
                 // res.redirect('/404');
             }
         });
-        
-        
     });
-    socket.on('newMessage', function(postId, content)
+    // new message from a chat room
+    socket.on('newMessage', function(content)
     {
-        console.log("Room", socket.room, typeof socket.room);
         // Emit new chat message to all clients
-        sio.emit('chatUpdate', {authorName: user.name, side: 'for', content: content});
         
-        
+        sio.to(socket.room).emit('chatUpdate', socket.user.name, content, socket.side);
+    });
+    
+    socket.on('disconnect', function()
+    {
+        console.log('user disconnected');
     });
 });
-
 
 // app.listen(3000);
 var port = process.env.PORT || 3000;
@@ -202,3 +260,4 @@ http.listen(port, function()
 {
     console.log('Server started on ' + port);
 });
+

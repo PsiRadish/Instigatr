@@ -59,72 +59,79 @@ $(function()
         var postId = parseInt(window.location.pathname.split('/')[2]);
         
         socket.emit('startChat', postId);
-        socket.on('startChat_Response', function(chatData)
+        socket.on('startChat_Response', function(userId, side)
         {
             // console.log('Received startChat_Response', chatData);
-            console.log('chatData.userId', chatData.userId);
-            var userId = chatData.userId;
+            console.log('userId', userId);
             
-            if (!userId)
+            if (userId)
+            {
+                console.log("enablin'");
+                $('#chat-box').removeAttr('disabled');
+                $('#chat-box').text("");
+                
+                $('#choices').css('visibility', 'visible');
+                
+                ///////////////////////
+                // Block newline on Enter and send text to socket.io, unless Shift is held
+                ///////////////////////
+                var chatBox = $('#chat-box');
+                
+                chatBox.keydown(function(e)
+                {   // enter key without shift held
+                    if (e.keyCode === 13 && !e.shiftKey)
+                    {
+                        e.preventDefault(); // no newline
+                    }
+                });
+                chatBox.keyup(function(e)
+                {
+                    e = e || event;
+                    // enter key without shift held
+                    if (e.keyCode === 13 && !e.shiftKey)
+                    {
+                        socket.emit('newMessage', chatBox.val());
+                        chatBox.val('');
+                        return false;
+                    }
+                    return true;
+                });
+                
+                $('#side-for .choose-side').on('click', function(e)
+                {
+                    e.preventDefault();
+                    $(this).blur();
+                    
+                    socket.emit('choseSide', "for");
+                });
+                $('#side-against .choose-side').on('click', function(e)
+                {
+                    e.preventDefault();
+                    $(this).blur();
+                    
+                    socket.emit('choseSide', "against");
+                });
+                $('.change-mind').on('click', function(e)
+                {
+                    e.preventDefault();
+                    
+                    socket.emit('choseSide', null);
+                });
+                
+                socket.on('choseSide_Response', function(side)
+                {
+                    choiceShift(side);
+                });
+                
+            }
+            else
             {
                 console.log("disablin'");
                 $('#chat-box').attr('disabled', 'disabled');
                 $('#chat-box').text("You are not logged in.");
             }
-            else
-            {
-                console.log("enablin'");
-                $('#chat-box').removeAttr('disabled');
-                $('#chat-box').text("");
-            }
             
-            ///////////////////////
-            // Block newline on Enter and send text to socket.io, unless Shift is held
-            ///////////////////////
-            var chatBox = $('#chat-box');
-            
-            chatBox.keydown(function(e)
-            {   // enter key without shift held
-                if (e.keyCode === 13 && !e.shiftKey)
-                {
-                    e.preventDefault(); // no newline
-                }
-            });
-            chatBox.keyup(function(e)
-            {
-                e = e || event;
-                // enter key without shift held
-                if (e.keyCode === 13 && !e.shiftKey && chatData)
-                {
-                    socket.emit('newMessage', postId, chatBox.val());
-                    chatBox.val('');
-                    return false;
-                }
-                return true;
-            });
-            
-            
-            $('#side-for .choose-side').on('click', function(e)
-            {
-                e.preventDefault();
-                $(this).blur();
-                $('#choices').addClass('side-chosen-for');
-                
-                socket.emit('choseSide', postId, "for");
-            });
-            $('#side-against .choose-side').on('click', function(e)
-            {
-                e.preventDefault();
-                $(this).blur();
-                $('#choices').addClass('side-chosen-against');
-                
-                socket.emit('choseSide', postId, "for");
-            });
-            $('.change-mind').on('click', function(e)
-            {
-                e.preventDefault();
-                $('#choices').removeClass('side-chosen-for side-chosen-against');
-            });
+
             
             socket.on('chatUpdate', function(authorName, content, side)
             {
@@ -143,8 +150,27 @@ $(function()
                 setTimeout(function()
                 {
                     newChatItem.removeClass('new');
+                    chatOutput[0].scrollTop = chatOutput[0].scrollHeight;
                 }, 10);
             });        
         });
+        
+        function choiceShift(side)
+        {
+            if (side == 'for')
+            {
+                $('#choices').addClass('side-chosen-for');
+                $('#choices').removeClass('side-chosen-against');
+            }
+            else if (side == 'against')
+            {
+                $('#choices').addClass('side-chosen-against');
+                $('#choices').removeClass('side-chosen-for');
+            }
+            else if (side == null)
+            {
+                $('#choices').removeClass('side-chosen-for side-chosen-against');
+            }
+        }
     }
 });
