@@ -7,7 +7,6 @@ var request = require('request');
 
 // --- POST SHOW
 router.get('/:id/show', function(req, res)
-
 {
     //news - API call
     var searchTerm = req.query.q;

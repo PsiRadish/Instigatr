@@ -144,11 +144,11 @@
 
      <% if (typeof newsJSON !== "undefined") { %>
         <% if (newsJSON.response){ %> <!-- NYT Headlines -->
-             <% newsJSON.response.docs.forEach(function(taco) {  %>
+             <% newsJSON.response.docs.forEach(function(doc) {  %>
                 <div class="well">
-                <p><a href="<%= taco.web_url %>" target="_blank">
-                <strong><%= taco.headline.main %></strong>
-                <br><%= taco.snippet %></a></p>
+                <p><a href="<%= doc.web_url %>" target="_blank">
+                <strong><%= doc.headline.main %></strong>
+                <br><%= doc.snippet %></a></p>
                 </div>
              <% }) %>
          <% } %> <!-- end NYT Headlines -->
