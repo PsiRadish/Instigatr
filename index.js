@@ -44,6 +44,10 @@ app.use(flash());
 // auto-load current user into req and res
 app.use(function(req,res,next)
 {
+
+    db.post.findAll().then(function(posts){
+        res.locals.postsLngth = posts.length
+    })
   res.locals.alerts = req.flash();
   
   // req.session.userId = 2; // FOR TESTING ONLY BRO

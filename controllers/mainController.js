@@ -18,7 +18,7 @@ router.get('/chronological', function(req, res){
 });
 
 router.get('/allTimeTop', function(req, res){
-	db.post.findAll({include:[db.user, db.vote, db.tag]}).then(function(posts){
+	db.post.findAll({include:[db.user, db.vote, db.tag, db.message, { model: db.user, as: 'usersFor' }, { model: db.user, as: 'usersAgainst' }]}).then(function(posts){
 			postsSort = posts.sort(function(a,b){
 				return b.totalRating() - a.totalRating()
 			});

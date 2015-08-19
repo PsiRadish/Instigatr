@@ -5,23 +5,29 @@
     <form class="ink-form" method="post" action="/auth/signup">
     <div class="control-group">
     	<div class="control">
-        <input type="text" class="form-control" placeholder="Enter your e-mail" name="email">
+        <input id="suEmail" type="text" class="form-control" placeholder="Enter your e-mail" name="email">
         <br><br>
         </div>
         <div class="control">
-        <input type="text" class="form-control" placeholder="Enter your name" name="name">
+        <input id="suName" type="text" class="form-control" placeholder="Enter your name" name="name">
         <br><br>
         </div>
         <div class="control">
-        <input type="password" class="form-control" placeholder="Choose a password" name="password">
+        <input id="suPass" type="password" class="form-control" placeholder="Choose a password" name="password">
         <br><br>
         </div>
         <div class="control">
-        <input type="password" class="form-control" placeholder="Re-type your password" name="password2">
+        <input id="suPas2" type="password" class="form-control" placeholder="Re-type your password" name="password2">
         <br><br>
         <div class="control">
-        <button type="submit" value="Sign Up" class="ink-button green">Sign Up!</button>
+        <button type="submit" value="Sign Up" class="ink-button green" id="sUBtn">Sign Up!</button>
         </div>
+        <p id="errNot"></p>
+    </div>
     </div>
     </form>
-	</div>
+</div>
+
+<div id="alert" class="alert">
+
+</div>

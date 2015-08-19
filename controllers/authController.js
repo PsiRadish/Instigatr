@@ -15,16 +15,13 @@ router.post('/login',function(req,res){
   db.user.authenticate(req.body.email, req.body.password, function(err,user){
     if(err){
       req.session.userId = null;
-      // res.send(err);
-      throw err;
+      res.send(err);
     }else if(user){
       req.session.userId = user.id;
-      req.flash('success','You are logged in.');
-      res.redirect('/');
+      res.send(true);
     }else{
       req.session.userId = null;
-      req.flash('danger','inval`id username or password');
-      res.redirect('/auth/login');
+      res.send(false);
     }
   });
 });
@@ -39,8 +36,7 @@ router.get('/signup',function(req,res){
 //create new user in database
 router.post('/signup',function(req,res){
   if(req.body.password != req.body.password2){
-    req.flash('danger','Passwords must match.')
-    res.redirect('/auth/signup');
+    res.send('Passwords must match!');
   }else{
     db.user.findOrCreate({
       where:{
@@ -53,20 +49,16 @@ router.post('/signup',function(req,res){
       }
     }).spread(function(user,created){
       if(created){
-        req.flash('success','You are signed up.')
-        res.redirect('/');
+        res.send(true);
       }else{
-        req.flash('danger','A user with that e-mail address already exists.');
-        res.redirect('/auth/signup');
+        res.send('A user with that e-mail address already exists.');
       }
     }).catch(function(err){
-      if(err.message){
-        req.flash('danger',err.message);
+      if(err){
+        res.send(err);
       }else{
-        req.flash('danger','unknown error.');
-        console.log(err);
+        res.send(false)
       }
-      res.redirect('/auth/signup');
     })
   }
 });
