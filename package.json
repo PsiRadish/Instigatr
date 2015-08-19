@@ -28,8 +28,6 @@
     "express": "^4.13.3",
     "express-ejs-layouts": "^1.1.0",
     "express-session": "^1.11.3",
-    "passport": "^0.2.2",
-    "passport-facebook": "^2.0.0",
     "pg": "^4.4.1",
     "pg-hstore": "^2.3.2",
     "request": "^2.60.0",
