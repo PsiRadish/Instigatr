@@ -34,7 +34,8 @@
     <ul class="horizontal menu black">
     <li class="heading"><a class="ink-label red css-label" href="/"><strong>INSTIGATR</strong></a></li>
       <li><a href="/">Popular</a></li>
-      <li><a href="/posts/<%= Math.ceil(Math.random()*posts.length-1) %>/show" class="css-nBLink">Random</a></li>      <li><a href="">Archive</a>
+      <li><a href="/posts/<%= Math.ceil(Math.random()*postsLngth) %>/show" class="css-nBLink">Random</a></li>
+      <li><a href="">Archive</a>
         <ul class="submenu archiveDD">
           <li><a href="/chronological">Chronological</a></li>
           <li><a href="/allTimeTop">All Time Top Ranked</a></li>
@@ -46,11 +47,11 @@
         <ul class="submenu css-loginDDItems">
         <form class="ink-form" method="post" action="/auth/login">
           <div class="control-group">
-            <li><div class="control"><input type="text" name="email" placeholder="E-mail"><br></div></li>
-            <li><div class="control"><input type="password" name="password" placeholder="Password"><br></div></li>
+            <li><div class="control"><input type="text" name="email" id="emailinpt" placeholder="E-mail"><br></div></li>
+            <li><div class="control"><input type="password" name="password" id="passinpt" placeholder="Password"><br></div></li>
             <li class="separator-above">
             <div class="control">
-            <button href="" type="submit" class="ink-button blue css-loginBtn">Login!</button>
+            <button href="" type="submit" class="ink-button blue css-loginBtn" id="loginBtn">Login!</button>
             <button class="ink-button blue css-loginBtn" id="signupBtn">Signup!</button>
             </div>
             </li>
