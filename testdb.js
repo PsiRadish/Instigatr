@@ -1,6 +1,47 @@
 var db    = require('./models');
 var async = require('async');
 
+
+db.user.find({where: {id: 4}, include: [{ model: db.post, as: 'postsFor' }, { model: db.post, as: 'postsAgainst' }]}).then(function(user)
+{
+    console.log('===========postsFor.length', user.postsFor.length);
+    
+    user.postsFor.forEach(function(postFor)
+    {
+        console.log(postFor.get());
+    })
+    
+    async.waterfall(
+    [
+        function(callback)
+        {
+            db.post.findById(1).then(function(post)
+            {
+                callback(null, post);
+            })
+        },function(post, callback)
+        {
+            user.addPostsFor(post).then(function()
+            {
+                callback(null);
+            })
+        }
+    ], function(callback)
+    {
+        user.getPostsFor().then(function(postsFor)
+        {
+            user.postsFor = postsFor;
+            console.log('===========postsFor.length', user.postsFor.length);
+            user.postsFor.forEach(function(postFor)
+            {
+                console.log(postFor.get());
+            })
+        })
+    });
+});
+
+return;
+
 async.waterfall(
 [
     function(callback)

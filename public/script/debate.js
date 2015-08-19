@@ -4,16 +4,9 @@ $(function()
     {
         axis:"y", // vertical
         theme: "minimal-dark",
-        scrollInertia: 0
-    });
-    $(".chat-scroll").mCustomScrollbar(
-    {
-        axis:"y", // vertical
-        theme: "minimal-dark",
-        scrollInertia: 0
+        scrollInertia: 0.1
     });
     
-        
     if ($('#debate-page'))
     {
         function sizeChat(e)
@@ -36,11 +29,11 @@ $(function()
             debatePage.height(viewHeight - navHeight);
             var contentHeight = debatePage.outerHeight();
             
-            console.log(contentHeight);
-            console.log(postStuff.outerHeight(), choices.outerHeight(), yourSide.outerHeight());
+            // console.log(contentHeight);
+            // console.log(postStuff.outerHeight(), choices.outerHeight(), yourSide.outerHeight());
             
             var freeSpace = contentHeight - (postStuff.outerHeight() + choices.outerHeight() + yourSide.outerHeight());
-            console.log(freeSpace);
+            // console.log(freeSpace);
             var vertMargin = Math.max(freeSpace / 2, 0);
             
             postStuff.css("margin-bottom", vertMargin.toString()+"px");
@@ -53,91 +46,96 @@ $(function()
         $(window).resize(sizeChat);
         
         
-        $('#side-for .choose-side').on('click', function(e)
-        {
-            e.preventDefault();
-            $(this).blur();
-            $('#choices').addClass('side-chosen-for');
-            
-            document.activeElement = null;
-        });
-        $('#side-against .choose-side').on('click', function(e)
-        {
-            e.preventDefault();
-            $(this).blur();
-            $('#choices').addClass('side-chosen-against');
-            
-            document.activeElement = null;
-        });
-        $('.change-mind').on('click', function(e)
-        {
-            e.preventDefault();
-            $('#choices').removeClass('side-chosen-for side-chosen-against');
-        });
+        // var userData = $.ajax(
+        // {
+        //     url: '/userData',
+        //     method: 'GET'
+        // }).done(function(userData)
+        // {
+            // console.log("userData keys", Object.keys(userData));
         
+        var socket = io();
         
-        // $('#news-column').on('click',function(){
-        //     var srchTrm = $('#chat-box').val();
-        //     var url = "https://access.alchemyapi.com/calls/data/GetNews\?apikey\=3034db537d09ce6a56b42eb54f8dd1c6745dbd8f&outputMode=json&start=now-7d&end=now&maxResults=2&q.enriched.url.enrichedTitle.keywords.keyword.text="+srchTrm+"&return=enriched.url.url,enriched.url.title"
-        //     var rslts = $.get(url,function(){
-        //     }).done(function(rslts){
-        //         console.log(rslts);
-        //         $('#news-column').append(rslts);
-        //     });
-        // });
+        var postId = parseInt(window.location.pathname.split('/')[2]);
         
-        var userData = $.ajax(
+        socket.emit('startChat', postId);
+        socket.on('startChat_Response', function(userId, side)
         {
-            url: '/userData',
-            method: 'GET'
-        }).done(function(userData)
-        {
-            console.log(userData);
+            // console.log('Received startChat_Response', chatData);
+            console.log('userId', userId);
             
-            if (!userData)
+            if (userId)
             {
-                $('#chat-box').attr('disabled', 'Not logged in, buddy.');
+                $('#choices').css('visibility', 'visible');
+                choiceShift(side);
+                
+                ///////////////////////
+                // Block newline on Enter and send text to socket.io, unless Shift is held
+                ///////////////////////
+                var chatBox = $('#chat-box');
+                
+                chatBox.keydown(function(e)
+                {   // enter key without shift held
+                    if (e.keyCode === 13 && !e.shiftKey)
+                    {
+                        e.preventDefault(); // no newline
+                    }
+                });
+                chatBox.keyup(function(e)
+                {
+                    e = e || event;
+                    // enter key without shift held
+                    if (e.keyCode === 13 && !e.shiftKey)
+                    {
+                        socket.emit('newMessage', chatBox.val());
+                        chatBox.val('');
+                        return false;
+                    }
+                    return true;
+                });
+                
+                $('#side-for .choose-side').on('click', function(e)
+                {
+                    e.preventDefault();
+                    $(this).blur();
+                    
+                    socket.emit('choseSide', "for");
+                });
+                $('#side-against .choose-side').on('click', function(e)
+                {
+                    e.preventDefault();
+                    $(this).blur();
+                    
+                    socket.emit('choseSide', "against");
+                });
+                $('.change-mind').on('click', function(e)
+                {
+                    e.preventDefault();
+                    
+                    socket.emit('choseSide', null);
+                });
+                
+                socket.on('choseSide_Response', function(side)
+                {
+                    choiceShift(side);
+                });
+            }
+            else
+            {
+                $('#chat-box').attr('disabled', 'disabled');
+                $('#chat-box').text("You are not logged in.");
+                $('#choices').css('visibility','hidden');
             }
             
-            var socket = io();
-            
-            ///////////////////////
-            // Block newline on Enter and send text to socket.io, unless Shift is held
-            ///////////////////////
-            var chatBox = $('#chat-box');
-            
-            chatBox.keydown(function(e)
-            {   // enter key without shift held
-                if (e.keyCode === 13 && !e.shiftKey)
-                {
-                    e.preventDefault(); // no newline
-                }
-            });
-            chatBox.keyup(function(e)
+            socket.on('chatUpdate', function(authorName, content, side)
             {
-                e = e || event;
-                // enter key without shift held
-                if (e.keyCode === 13 && !e.shiftKey && userData)
-                {
-                    var postId = parseInt(window.location.pathname.split('/')[2]);
-                    
-                    socket.emit('newMessage', {content: chatBox.val(), userId: userData.id, postId: postId});
-                    chatBox.val('');
-                    return false;
-                }
-                return true;
-            });
-            
-            socket.on('chatUpdate', function(update)
-            {
-                console.log('Update data:', update);
-                
+                // console.log('Update data:', update);
                 var chatOutput = $('#chat-output .mCSB_container');
                 
-                var newChatItem = $('<li class="new debate-message message-'+update.side+'">');
-                var h6 = $('<h6 class="author">').text(update.authorName);
+                var newChatItem = $('<li class="new debate-message message-'+side+'">');
+                var h6 = $('<h6 class="author">').text(authorName);
                 newChatItem.append(h6);
-                newChatItem.append($('<span>'+update.content+'</span>'));
+                newChatItem.append($('<span>'+content+'</span>'));
                 
                 console.log(newChatItem);
                 
@@ -146,8 +144,37 @@ $(function()
                 setTimeout(function()
                 {
                     newChatItem.removeClass('new');
+                    chatOutput[0].scrollTop = chatOutput[0].scrollHeight;
                 }, 10);
-            });
+            });        
         });
+        
+        function choiceShift(side)
+        {
+            if (side == 'for')
+            {
+                $('#choices').addClass('side-chosen-for');
+                $('#choices').removeClass('side-chosen-against');
+                
+                // console.log("enablin'");
+                $('#chat-box').removeAttr('disabled');
+                $('#chat-box').text("");
+            }
+            else if (side == 'against')
+            {
+                $('#choices').addClass('side-chosen-against');
+                $('#choices').removeClass('side-chosen-for');
+                
+                // console.log("enablin'");
+                $('#chat-box').removeAttr('disabled');
+                $('#chat-box').text("");
+            }
+            else if (side == null)
+            {
+                $('#choices').removeClass('side-chosen-for side-chosen-against');
+                $('#chat-box').attr('disabled', 'disabled');
+                $('#chat-box').text("You have not taken a side.");
+            }
+        }
     }
 });
