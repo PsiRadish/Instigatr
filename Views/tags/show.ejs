@@ -1,6 +1,37 @@
-<h1><%= tag.name %></h1>
+<div class="css-tagHead">
+	<h1>#<%= tag.name %></h1>
+</div>
+<div class="column-group">
+	<div class="all-80">
 <% tag.posts.forEach(function(post){ %>
-	<div>
-	<h3><%= post.text %></h3>
+	<div class="css-mainPagePostDiv">
+	<div class="column-group">
+	<div class="all-10 vote">
+	<h4>Total vote	</h4>
+	<h4><%= post.totalRating() %></h4>
+	</div>
+	<div class="all-50 css-text">
+	<a href="/posts/<%= post.id %>/show"><%= post.text %></a>
+	</div>
+	<div class="author all-10">
+	<%= post.user.name %>
+	</div>
+	<div class="all-20 css-text">
+		<p><%= post.usersFor.length %> agree.</p>
+		<p><%= post.usersAgainst.length %> disagree.</p>
+		<p><%= post.messages.length %> messages.</p>
+	</div>
+	<div class="all-10 goToLink"><a href="/posts/<%= post.id %>/show"><i class="fa fa-arrow-right"></i></a></div>
+	</div>
+	<div class="column-group">
+	<div class="all-10"></div>
+	<div class="css-tags all-90">
+		<% post.tags.forEach(function(tag){ %>
+			<a href="/tags/<%= tag.id %>">#<%= tag.name %></a>
+		<% }) %>
+	</div>
+	</div>
 	</div>
 <% }) %>
+</div>
+</div>
