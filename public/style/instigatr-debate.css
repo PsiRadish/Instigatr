@@ -241,8 +241,23 @@
   display: block;
 }
 
-#choices {
-  visibility: hidden;
+#choices.disabled {
+  position: relative;
+}
+#choices.disabled h3, #choices.disabled a, #choices.disabled span, #choices.disabled p {
+  pointer-events: none;
+  opacity: 0.35;
+}
+#choices.disabled:hover::after, #choices.disabled:focus::after, #choices.disabled:active::after {
+  content: 'You are not logged in.';
+  text-shadow: 1px 1px 0 white, -2px 0 white, -1px 1px 0 white, 0px 0 white;
+  text-align: center;
+  font-size: 21px;
+  font-weight: bold;
+  position: absolute;
+  top: 0%;
+  left: 20%;
+  right: 20%;
 }
 #choices #heading-choice-made-left {
   left: -50%;
@@ -359,7 +374,7 @@
   margin-top: 6px;
   position: relative;
   display: inline-block;
-  border: 1px solid #999;
+  border: 1px solid;
   background-color: #F8F8F8;
   background: linear-gradient(#ffffff, #eeeeee);
   color: #222;
@@ -384,7 +399,7 @@
   color: #9a2665;
 }
 #argue-column #chat-output .debate-message::before {
-  opacity: 0.05;
+  opacity: 0.06;
   position: absolute;
   top: 43%;
   font-family: FontAwesome;
@@ -416,10 +431,12 @@
   border-left: none;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
+  border-color: #9A9;
   transform-origin: left center;
 }
 #argue-column #chat-output .debate-message.message-for::before {
   content: '\f087';
+  color: #040;
   left: 50%;
   transform-origin: center center;
   transform: scale(6.25, 6.25);
@@ -432,10 +449,12 @@
   border-right: none;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
+  border-color: #A99;
   transform-origin: right center;
 }
 #argue-column #chat-output .debate-message.message-against::before {
   content: '\f088';
+  color: #400;
   left: 50%;
   transform-origin: center center;
   transform: scale(-6.25, 6.25);

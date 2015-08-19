@@ -38,6 +38,14 @@
     border-bottom-left-radius: 0;
 }
 
+@mixin text-outline($width, $color)
+{
+    text-shadow:  $width  $width 0 $color,
+                 -$width -$width 0 $color,
+                 -$width  $width 0 $color,
+                  $width -$width 0 $color;
+}
+
 // TODO: Ink typography classes converted to mixins
 // .fw-100, .fw-light { font-weight: 100; }
 // .fw-300, .fw-thin { font-weight: 300; }

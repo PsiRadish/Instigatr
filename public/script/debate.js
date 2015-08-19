@@ -4,7 +4,7 @@ $(function()
     {
         axis:"y", // vertical
         theme: "minimal-dark",
-        scrollInertia: 0.1
+        scrollInertia: 1
     });
     
     if ($('#debate-page'))
@@ -21,6 +21,7 @@ $(function()
             
             var postStuff = $('#post-stuff');
             var choices = $('#choices');
+                choices.height($('#headings-roll').outerHeight(true) + $('#wanna-join-left').outerHeight(true));
             var yourSide = $('#hows-my-arguing');
             
             var chatOutput = $('#chat-output');
@@ -28,9 +29,6 @@ $(function()
             
             debatePage.height(viewHeight - navHeight);
             var contentHeight = debatePage.outerHeight();
-            
-            // console.log(contentHeight);
-            // console.log(postStuff.outerHeight(), choices.outerHeight(), yourSide.outerHeight());
             
             var freeSpace = contentHeight - (postStuff.outerHeight() + choices.outerHeight() + yourSide.outerHeight());
             // console.log(freeSpace);
@@ -44,7 +42,6 @@ $(function()
         sizeChat();
         // do it again on resize
         $(window).resize(sizeChat);
-        
         
         // var userData = $.ajax(
         // {
@@ -66,7 +63,8 @@ $(function()
             
             if (userId)
             {
-                $('#choices').css('visibility', 'visible');
+                // $('#choices').css('visibility', 'visible');
+                $('#choices').removeClass("disabled");
                 choiceShift(side);
                 
                 ///////////////////////
@@ -114,17 +112,22 @@ $(function()
                     
                     socket.emit('choseSide', null);
                 });
-                
+                // RESPONSE
                 socket.on('choseSide_Response', function(side)
                 {
                     choiceShift(side);
+                });
+                
+                $('.enter-queue').on('click', function(e)
+                {
+                    
                 });
             }
             else
             {
                 $('#chat-box').attr('disabled', 'disabled');
                 $('#chat-box').text("You are not logged in.");
-                $('#choices').css('visibility','hidden');
+                $('#choices').addClass("disabled");
             }
             
             socket.on('chatUpdate', function(authorName, content, side)
@@ -146,7 +149,7 @@ $(function()
                     newChatItem.removeClass('new');
                     chatOutput[0].scrollTop = chatOutput[0].scrollHeight;
                 }, 10);
-            });        
+            });
         });
         
         function choiceShift(side)
