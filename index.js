@@ -329,10 +329,13 @@ sio.on('connection', function(socket)
     socket.on('newMessage', function(content)
     {
         // console.stampedLog("==========SIDE\n",socket.side);
-        if (socket.side) // can't contribute without choosing a side
+        if (req.session.userId && socket.side) // can't contribute without being logged in and choosing a side
         {
-            // Emit new chat message to all clients
-            sio.to(socket.room).emit('chatUpdate', socket.user.name, content, socket.side);
+            socket.user.createMessage({postId: socket.post.id, content: content, side: socket.side}).then(function(message)
+            {
+                // Emit new chat message to all clients
+                sio.to(socket.room).emit('chatUpdate', socket.user.name, content, socket.side);
+            });
         }
     });
     
@@ -341,7 +344,6 @@ sio.on('connection', function(socket)
         console.log('user disconnected');
     });
 });
-
 
 
 // app.listen(3000);
