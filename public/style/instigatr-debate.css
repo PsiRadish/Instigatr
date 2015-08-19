@@ -1,3 +1,73 @@
+/**
+ * Debate page CSS
+**/
+/**
+ * Instigatr Variables
+ **/
+/**
+ * Ink class names prefix
+ * Used in all of Inks components root elements
+ */
+/**
+ * Grid class names
+ */
+/**
+ * Alerts class names
+ */
+/**
+ * Badges class names
+ */
+/**
+ * Buttons class names
+ */
+/**
+ * Dismiss class names
+ */
+/**
+ * Forms class names
+ */
+/**
+ * Labels class names
+ */
+/**
+ * Navigation class names
+ */
+/**
+ * Dropdown class names
+ */
+/**
+ * Tables class names
+ */
+/**
+ * Images class names
+ */
+/**
+ * JS UI components classe names
+ */
+/** 
+ * Sets the grids maximum width
+ * @var $grid-max-width (pixels|ems|percentage)
+ */
+/*!
+ * Sets the grids breakpoint
+ * 
+ * To add a new break point you'll need to add an element to the list.
+ * 
+ * Here's an example: ( class-name-prefix, minimum-width, maximum-width, gutter-width, no-media-query).
+ * 
+ * media: media type.
+ * class-name-prefix: this is the prefix used in tons of inks classes i.e.: large-100, small-40, etc.
+ * minimum-width: (pixels|null) the minimum width for the breakpoint 
+ * maximum-width: (pixels|null) the maximum width for the breakpoint 
+ * gutter-width: (ems) the width for the gutters (space between grid columns) for the breakpoint 
+ * no-media-query: (true|false) if you need to support IE8 set this to true on a single breakpoint.
+ *                 Since IE8 does not support the @media statement leaving one of the breakpoints
+ *                 outside a @media query let's you use the grid in IE8.
+ *  
+ */
+/**
+ * Instigatr Variables
+ **/
 .show-all {
   display: inherit;
 }
@@ -65,6 +135,11 @@
 /**
  * Instigatr Mixins
  **/
+#debate-page {
+  background-color: #682828;
+  background: linear-gradient(#505050, #5c3c3c 50%, #800000);
+}
+
 #debate-page > section {
   height: 100%;
 }
@@ -78,18 +153,22 @@
 }
 
 #take-sides-column {
+  border: 1px solid #999;
+  background-color: #F8F8F8;
+  background: linear-gradient(#ffffff, #eeeeee);
+  border-radius: 4px;
   overflow: hidden;
 }
 
 #post-content-box {
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
   padding: 6px;
-  font-size: 15.4px;
 }
 #post-content-box p {
   font-size: 15.4px;
+  font-family: Roboto_condensed, Arial, Helvetica, sans-serif;
 }
 #post-content-box .author {
   text-align: right;
@@ -120,13 +199,19 @@
 }
 #choices #wanna-join-left, #choices #wanna-join-right {
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.2);
   padding: 6px;
 }
 #choices #wanna-join-left .enter-queue, #choices #wanna-join-right .enter-queue {
   display: block;
+}
+#choices #wanna-join-left {
+  border: 1px solid rgba(74, 155, 23, 0.2);
+  background-color: rgba(74, 155, 23, 0.1);
+}
+#choices #wanna-join-right {
+  border: 1px solid rgba(201, 17, 17, 0.2);
+  background-color: rgba(201, 17, 17, 0.1);
 }
 
 #heading-choice-made-left,
@@ -251,8 +336,6 @@
 
 #argue-column {
   padding: 0;
-  background-color: #682828;
-  background: linear-gradient(#505050, #5c3c3c 50%, #800000);
   position: relative;
 }
 #argue-column #chat-output {
@@ -280,19 +363,19 @@
   color: black;
 }
 #argue-column #chat-output .debate-message a:not(.ink-button) {
-  color: #6998C9;
+  color: #354cc9;
 }
 #argue-column #chat-output .debate-message a:not(.ink-button):visited {
-  color: #6998C9;
+  color: #354cc9;
 }
 #argue-column #chat-output .debate-message a:not(.ink-button):focus {
-  color: #6998C9;
+  color: #354cc9;
 }
 #argue-column #chat-output .debate-message a:not(.ink-button):hover {
   color: #007ED5;
 }
 #argue-column #chat-output .debate-message a:not(.ink-button):active {
-  color: #f20000;
+  color: #9a2665;
 }
 #argue-column #chat-output .debate-message::before {
   opacity: 0.05;
@@ -385,4 +468,15 @@
 }
 #argue-column #chat-box-container #chat-box[disabled].inQueue {
   opacity: 0.65;
+}
+
+#news-column {
+  background-color: #F8F8F8;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+#results-news-headlines {
+  height: 100%;
+  overflow-y: auto;
 }
