@@ -25,6 +25,11 @@ $argue-grey-background              : #505050;
 {
     background-color: mix($argue-grey-background, $argue-red-background);
     background: linear-gradient($argue-grey-background, mix($argue-red-background, $argue-grey-background, 25%) 50%, $argue-red-background);
+    
+    a:hover
+    {
+        text-decoration: none;
+    }
 }
 
 #debate-page > section
@@ -54,7 +59,9 @@ $argue-grey-background              : #505050;
     border: 1px solid #999;
     background-color: #F8F8F8;
     background: linear-gradient(white, #EEE);
-    border-radius: $debate-msg-border-radius;
+    // border-radius: $debate-msg-border-radius;
+    @include three-round-one-pointy($debate-msg-border-radius);
+    
     // background: linear-gradient(10deg, $blue, shade($blue, 30%));
     overflow: hidden;
 }
@@ -62,7 +69,8 @@ $argue-grey-background              : #505050;
 #post-content-box
 {
     border: 1px solid rgba(black, 0.2);
-    border-radius: $debate-msg-border-radius;
+    // border-radius: $debate-msg-border-radius;
+    @include three-round-one-pointy($debate-msg-border-radius);
     background-color: rgba(black, 0.1);
     
     padding: $debate-msg-padding;
@@ -123,7 +131,8 @@ $argue-grey-background              : #505050;
     #wanna-join-left, #wanna-join-right
     {
         text-align: center;
-        border-radius: $debate-msg-border-radius;
+        // border-radius: $debate-msg-border-radius;
+        @include three-round-one-pointy($debate-msg-border-radius);
         
         padding: 6px;
         
@@ -491,7 +500,8 @@ $argue-grey-background              : #505050;
             width: 100%;
             
             border: 1px solid #999;
-            border-radius: $debate-msg-border-radius;
+            // border-radius: $debate-msg-border-radius;
+            @include three-round-one-pointy($debate-msg-border-radius);
             padding: $debate-msg-padding;
             
             font-weight: 400;

@@ -15,12 +15,17 @@ function ensureAuthenticated(req, res, next)
 }
 
 router.get('/', function(req, res){
-    res.render("users/show.ejs");
+
+    db.post.findAll({where:{userId:res.locals.currentUser.id}}).then(function(posts){
+      res.render("users/show.ejs",{posts:posts});
+
+    })
+
 });
 
-router.get('/', function(req, res){
-    res.render("users/settings.ejs");
-});
+// router.get('/', function(req, res){
+//     res.render("users/settings.ejs");
+// });
 
 // UPDATE
 router.post('/',function(req,res) {

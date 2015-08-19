@@ -250,24 +250,24 @@ sio.on('connection', function(socket)
             var removalFunc = null;
             if (socket.side === 'for') // was For
             {
-                removalFunc = 'removePostsFor';
+                removalFunc = 'removePostsFor'; // store this function to call later
                 forChanged = true;
             }
             else if (socket.side === 'against') // was Against
             {
-                removalFunc = 'removePostsAgainst';
+                removalFunc = 'removePostsAgainst'; // store this function to call later
                 againstChanged = true;
             }
             
             var addFunc = null;
             if (side === 'for') // is For
             {
-                addFunc = 'addPostsFor';
+                addFunc = 'addPostsFor'; // store this function to call later
                 forChanged = true;
             }
             else if (side === 'against') // is Against
             {
-                addFunc = 'addPostsAgainst';
+                addFunc = 'addPostsAgainst'; // store this function to call later
                 againstChanged = true;
             }
             
@@ -277,7 +277,7 @@ sio.on('connection', function(socket)
             [
                 function(callback)
                 {
-                    if (removalFunc)
+                    if (removalFunc) // removal function specified
                     {
                         socket.user[removalFunc](socket.post).then(function()
                         {
@@ -287,7 +287,7 @@ sio.on('connection', function(socket)
                         callback(null);
                 },function(callback)
                 {
-                    if (addFunc)
+                    if (addFunc) // add function specified
                     {
                         socket.user[addFunc](socket.post).then(function()
                         {
@@ -325,14 +325,17 @@ sio.on('connection', function(socket)
         }
     });
     
-    // new message from a chat room
+    // NEW MESSAGE FROM A CHAT ROOM
     socket.on('newMessage', function(content)
     {
-        console.stampedLog("==========SIDE\n",socket.side);
-        if (socket.side) // can't contribute without choosing a side
+        // console.stampedLog("==========SIDE\n",socket.side);
+        if (req.session.userId && socket.side) // can't contribute without being logged in and choosing a side
         {
-            // Emit new chat message to all clients
-            sio.to(socket.room).emit('chatUpdate', socket.user.name, content, socket.side);
+            socket.user.createMessage({postId: socket.post.id, content: content, side: socket.side}).then(function(message)
+            {
+                // Emit new chat message to all clients
+                sio.to(socket.room).emit('chatUpdate', socket.user.name, content, socket.side);
+            });
         }
     });
     
@@ -341,6 +344,7 @@ sio.on('connection', function(socket)
         console.log('user disconnected');
     });
 });
+
 
 // app.listen(3000);
 var port = process.env.PORT || 3000;
