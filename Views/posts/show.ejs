@@ -121,27 +121,37 @@
     <div class="search-news">
       <form method="get" action=<%="/posts/" + post.id + "/show" %> >
         <div class="form-group">
-          <label>NYT API Search</label>
-          <input name="q" type="text" class="form-control">
-        </div>
+          <label>NYT API</label>
+          <input name="q" type="text" class="form-control" placeholder="enter search query">
           <input type="submit" class="btn btn-default">
+        </div>
       </form>
     </div>
+
+<!--     <div class="search-news">
+      <form method="get" action=<%="/posts/" + post.id + "/show" %> >
+        <div class="form-group">
+          <label>Alchemy API</label>
+          <input name="z" type="text" class="form-control" placeholder="enter search query">
+          <input type="submit" class="btn btn-default">
+        </div>
+      </form>
+    </div> -->
 
 
     <div class="results-news-headlines">
      <h2>Related News</h2>
 
      <% if (typeof newsJSON !== "undefined") { %>
-        <% if (newsJSON.response !== "undefined"){ %> <!-- NYT Headlines -->
+        <% if (newsJSON.response){ %> <!-- NYT Headlines -->
              <% newsJSON.response.docs.forEach(function(taco) {  %>
                 <div class="well">
-                <p><a href="<%= taco.web_url %>">
+                <p><a href="<%= taco.web_url %>" target="_blank">
                 <strong><%= taco.headline.main %></strong>
                 <br><%= taco.snippet %></a></p>
                 </div>
-             <% }) %> <!-- end NYT Headlines -->
-         <% } %>
+             <% }) %>
+         <% } %> <!-- end NYT Headlines -->
      <% } %>
 
     </div>
