@@ -6117,12 +6117,12 @@ body {
 }
 
 a {
-  color: #547ad4;
+  color: #354CC9;
   text-decoration: none;
   cursor: pointer;
 }
 a:hover {
-  color: #007ED5;
+  color: #354CFF;
   text-decoration: underline;
 }
 
@@ -6201,7 +6201,7 @@ h1 small, h2 small, h3 small, h4 small {
 }
 
 mark {
-  background: #ced9f3;
+  background: #adb7ea;
 }
 
 address {

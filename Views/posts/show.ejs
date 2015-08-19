@@ -135,8 +135,8 @@
              <% newsJSON.response.docs.forEach(function(doc) {  %>
                 <div class="well">
                 <p><a href="<%= doc.web_url %>" target="_blank">
-                <strong><%= doc.headline.main %></strong>
-                <br><%= doc.snippet %></a></p>
+                <strong><%- doc.headline.main %></strong>
+                <br><%- doc.snippet %></a></p>
                 </div>
              <% }) %>
          <% } %> <!-- end NYT Headlines -->

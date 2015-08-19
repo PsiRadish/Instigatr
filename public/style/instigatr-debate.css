@@ -139,6 +139,9 @@
   background-color: #682828;
   background: linear-gradient(#505050, #5c3c3c 50%, #800000);
 }
+#debate-page a:hover {
+  text-decoration: none;
+}
 
 #debate-page > section {
   height: 100%;
@@ -157,12 +160,14 @@
   background-color: #F8F8F8;
   background: linear-gradient(#ffffff, #eeeeee);
   border-radius: 4px;
+  border-bottom-left-radius: 0;
   overflow: hidden;
 }
 
 #post-content-box {
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
+  border-bottom-left-radius: 0;
   background-color: rgba(0, 0, 0, 0.1);
   padding: 6px;
 }
@@ -200,6 +205,7 @@
 #choices #wanna-join-left, #choices #wanna-join-right {
   text-align: center;
   border-radius: 4px;
+  border-bottom-left-radius: 0;
   padding: 6px;
 }
 #choices #wanna-join-left .enter-queue, #choices #wanna-join-right .enter-queue {
@@ -363,16 +369,16 @@
   color: black;
 }
 #argue-column #chat-output .debate-message a:not(.ink-button) {
-  color: #354cc9;
+  color: #354CC9;
 }
 #argue-column #chat-output .debate-message a:not(.ink-button):visited {
-  color: #354cc9;
+  color: #354CC9;
 }
 #argue-column #chat-output .debate-message a:not(.ink-button):focus {
-  color: #354cc9;
+  color: #354CC9;
 }
 #argue-column #chat-output .debate-message a:not(.ink-button):hover {
-  color: #007ED5;
+  color: #354CFF;
 }
 #argue-column #chat-output .debate-message a:not(.ink-button):active {
   color: #9a2665;
@@ -454,6 +460,7 @@
   width: 100%;
   border: 1px solid #999;
   border-radius: 4px;
+  border-bottom-left-radius: 0;
   padding: 6px;
   font-weight: 400;
   font-family: Roboto_condensed, Arial, Helvetica, sans-serif;
