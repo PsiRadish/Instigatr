@@ -66,11 +66,8 @@ $(function()
             
             if (userId)
             {
-                console.log("enablin'");
-                $('#chat-box').removeAttr('disabled');
-                $('#chat-box').text("");
-                
                 $('#choices').css('visibility', 'visible');
+                choiceShift(side);
                 
                 ///////////////////////
                 // Block newline on Enter and send text to socket.io, unless Shift is held
@@ -122,16 +119,13 @@ $(function()
                 {
                     choiceShift(side);
                 });
-                
             }
             else
             {
-                console.log("disablin'");
                 $('#chat-box').attr('disabled', 'disabled');
                 $('#chat-box').text("You are not logged in.");
+                $('#choices').css('visibility','hidden');
             }
-            
-
             
             socket.on('chatUpdate', function(authorName, content, side)
             {
@@ -161,15 +155,25 @@ $(function()
             {
                 $('#choices').addClass('side-chosen-for');
                 $('#choices').removeClass('side-chosen-against');
+                
+                // console.log("enablin'");
+                $('#chat-box').removeAttr('disabled');
+                $('#chat-box').text("");
             }
             else if (side == 'against')
             {
                 $('#choices').addClass('side-chosen-against');
                 $('#choices').removeClass('side-chosen-for');
+                
+                // console.log("enablin'");
+                $('#chat-box').removeAttr('disabled');
+                $('#chat-box').text("");
             }
             else if (side == null)
             {
                 $('#choices').removeClass('side-chosen-for side-chosen-against');
+                $('#chat-box').attr('disabled', 'disabled');
+                $('#chat-box').text("You have not taken a side.");
             }
         }
     }

@@ -221,7 +221,7 @@
 }
 
 #choices {
-  margin-bottom: 24px;
+  visibility: hidden;
 }
 #choices #heading-choice-made-left {
   left: -50%;

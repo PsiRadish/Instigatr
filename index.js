@@ -168,30 +168,27 @@ sio.on('connection', function(socket)
     req = socket.request;
     res = socket.request.res;
     
-    console.stampedLog("Ψ here");
-    
+    // CHAT INITIALIZATION REQUEST
     socket.on('startChat', function(postId)
     {
-        console.stampedLog("Ψ here");
-        
         async.series(
         [function(callback)
         {
             db.post.findById(postId).then(function(post)
-            {   console.stampedLog("Ψ here");
-                
+            {   
                 if (post)
-                {   console.stampedLog("Ψ here");
+                {   
                     socket.room = postId;
                     socket.join(postId);
+                    socket.post = post;
                     callback(null);
                 }
                 else
-                {   console.stampedLog("Ψ here");
+                {   
                     callback(new Error('Post '+postId+' not found.'));
                 }
             }).catch(function(err)
-            {   console.stampedLog("Ψ here");
+            {   
                 callback(err);
             });
         },function(callback)
@@ -209,11 +206,11 @@ sio.on('connection', function(socket)
                 callback(err);
             });
         }],function(err)
-        {   console.stampedLog("Ψ here");
+        {   
             if (!err)
-            {   console.stampedLog("Ψ here");
+            {   
                 if (socket.user)
-                {   console.stampedLog("Ψ here");
+                {   
                     if (socket.user.postsFor.some(function(post) { return post.id === postId; }))
                     {
                         socket.side = 'for';
@@ -225,7 +222,7 @@ sio.on('connection', function(socket)
                     else
                         socket.side = null;
                 }
-                console.stampedLog("Ψ here");
+                // CHAT INITIALIZATION RESPONSE
                 socket.emit('startChat_Response', req.session.userId, socket.side);
             }
             else
@@ -240,12 +237,102 @@ sio.on('connection', function(socket)
             }
         });
     });
+
+    // CHOSE A SIDE FOR THE DEBATE
+    socket.on('choseSide', function(side)
+    {
+        if (side != socket.side) // side changed
+        {   // keep track of which list(s) change
+            var forChanged = false;
+            var againstChanged = false;
+            
+            var removalFunc = null;
+            if (socket.side === 'for') // was For
+            {
+                removalFunc = 'removePostsFor';
+                forChanged = true;
+            }
+            else if (socket.side === 'against') // was Against
+            {
+                removalFunc = 'removePostsAgainst';
+                againstChanged = true;
+            }
+            
+            var addFunc = null;
+            if (side === 'for') // is For
+            {
+                addFunc = 'addPostsFor';
+                forChanged = true;
+            }
+            else if (side === 'against') // is Against
+            {
+                addFunc = 'addPostsAgainst';
+                againstChanged = true;
+            }
+            
+            socket.side = side;
+            
+            async.series(
+            [
+                function(callback)
+                {
+                    if (removalFunc)
+                    {
+                        socket.user[removalFunc](socket.post).then(function()
+                        {
+                            callback(null);
+                        });
+                    }else
+                        callback(null);
+                },function(callback)
+                {
+                    if (addFunc)
+                    {
+                        socket.user[addFunc](socket.post).then(function()
+                        {
+                            callback(null);
+                        });
+                    }else
+                        callback(null);
+                },function(callback)
+                {
+                    if (forChanged)
+                    {   // get the new postsFor list
+                        socket.user.getPostsFor().then(function(postsFor)
+                        {   // update the list on socket copy of user
+                            socket.user.postsFor = postsFor;
+                            callback(null);
+                        });
+                    }else
+                        callback(null);
+                },function(callback)
+                {
+                    if (againstChanged)
+                    {   // get the new postsFor list
+                        socket.user.getPostsAgainst().then(function(postsAgainst)
+                        {   // update the list on socket copy of user
+                            socket.user.postsAgainst = postsAgainst;
+                            callback(null);
+                        });
+                    }else
+                        callback(null);
+                }
+            ], function(err)
+            {
+                socket.emit('choseSide_Response', side);
+            })
+        }
+    });
+    
     // new message from a chat room
     socket.on('newMessage', function(content)
     {
-        // Emit new chat message to all clients
-        
-        sio.to(socket.room).emit('chatUpdate', socket.user.name, content, socket.side);
+        console.stampedLog("==========SIDE\n",socket.side);
+        if (socket.side) // can't contribute without choosing a side
+        {
+            // Emit new chat message to all clients
+            sio.to(socket.room).emit('chatUpdate', socket.user.name, content, socket.side);
+        }
     });
     
     socket.on('disconnect', function()

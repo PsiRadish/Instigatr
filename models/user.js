@@ -46,20 +46,6 @@ module.exports = function(sequelize, DataTypes) {
                         callback(null, false);
                     }
                 }).catch(callback);
-            },
-            findByIdIncludePositions: function(models, userId)
-            {   console.stampedLog("Ψ here");
-                this.find(
-                {
-                    where: {id: userId},
-                    include: [{ model: models.post, as: 'postsFor' }, { model: models.post, as: 'postsAgainst' }]
-                }).then(function(user)
-                {
-                    return user;
-                }).catch(function(err)
-                {
-                   console.log(err.stack);
-                });
             }
         },
         hooks: {
