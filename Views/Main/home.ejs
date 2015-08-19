@@ -1,6 +1,13 @@
+
+<div class="fullscreen-bg">
+    <video loop muted autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video">
+        <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4">
+    </video>
+</div>
+
 <div class="column-group">
 	<div class="all-80">
-<% posts.forEach(function(post){ %>
+<% postsSort.forEach(function(post){ %>
 	<div class="css-mainPagePostDiv">
 	<span class="push-right goToLink"><a href="/posts/<%= post.id %>/show"><i class="fa fa-arrow-right"></i></a></span>
 	<span class="push-left">
@@ -23,3 +30,6 @@
 <% }) %>
 </div>
 </div>
+
+
+

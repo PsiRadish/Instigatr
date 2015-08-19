@@ -7,7 +7,7 @@ router.get('/', function(req, res){
 			postsSort = posts.sort(function(a,b){
 				return b.totalRating() - a.totalRating()
 			});
-			res.render('main/home.ejs',{posts:postsSort});
+			res.render('main/home.ejs',{postsSort:postsSort, posts:posts});
   });
 });
 
