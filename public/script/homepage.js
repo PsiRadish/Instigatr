@@ -19,6 +19,7 @@ $(function(){
 	});
 	$('.js-usrIconPncl').on('click',function(e){
 		e.preventDefault();
+		$('body').css('overflow','hidden');
 		$('#modalBlock').fadeIn(0);
 		$('#newPost').fadeIn(200)
 	});
@@ -38,6 +39,7 @@ $(function(){
 	});
 	$('.js-usrIconWrench').on('click',function(e){
 		e.preventDefault();
+		$('body').css('overflow','hidden');
 		$('#modalBlock').fadeIn(0);
 		$('#settings').fadeIn(200)
 	});
@@ -54,12 +56,7 @@ $(function(){
 	//signup btn modal opener and closer
 	$('#signupBtn').on('click',function(e){
 		e.preventDefault();
-		$('body').on({
-    'mousewheel': function(e) {
-        if (e.target.id == 'el') return;
-        e.preventDefault();
-        e.stopPropagation();
-    }
+		$('body').css('overflow','hidden');
 		$('#modalBlock').fadeIn(0);
 		$('#signup').fadeIn(200);
 	});
@@ -67,12 +64,11 @@ $(function(){
 	$('.sUClose').on('click',function(e){
 		e.preventDefault();
 		$('#modalBlock').fadeOut(200);
+		$('body').css('overflow','auto');
 		$('#signup').fadeOut(200);
 		$('#newPost').fadeOut(200);
 		$('#settings').fadeOut(200);
 	});
-
-})
 
 
 });
