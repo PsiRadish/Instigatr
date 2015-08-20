@@ -16,7 +16,7 @@ router.get('/:id/show', function(req, res)
 
     // if (searchTerm !== "undefined"){
     //     var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
-
+    
     //     var queryData = {
     //     q: searchTerm,
     //     pages:10,
@@ -33,10 +33,10 @@ router.get('/:id/show', function(req, res)
     {
         if (post)
         {          
-         var   tagsArr=[]
-         post.tags.map(function(tag){
-            tagsArr.push(tag.name);
-        });
+                    var   tagsArr=[]
+                    post.tags.map(function(tag){
+                        tagsArr.push(tag.name);
+                    });
             // if(post.tags.length>0){
         //             var searchTerm = post.tags[0]
         //         }else{
@@ -59,7 +59,7 @@ router.get('/:id/show', function(req, res)
                         // console.log(newsJSON.response.docs[0]);
                         searchTerm = null;
                         // searchTerm_Alchemy = null;
-                        res.render("posts/show.ejs", {post: post, newsJSON: newsJSON});
+                        res.render("posts/show.ejs", {titleSuffix: post.text, post: post, newsJSON: newsJSON});
                     });
                     request({
                         url:url,
@@ -68,7 +68,7 @@ router.get('/:id/show', function(req, res)
                         var newsJSON = JSON.parse(data);
                         // console.log(newsJSON.response.docs[0]);
                         // searchTerm_Alchemy = null;
-                        res.render("posts/show.ejs", {titleSuffix: "Debate", post: post, newsJSON: newsJSON});
+                        res.render("posts/show.ejs", {titleSuffix: post.text, post: post, newsJSON: newsJSON});
                     });
                     // end news API call
         } else
