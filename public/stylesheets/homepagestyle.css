@@ -82,14 +82,21 @@ body{
 .usrOptions{
 	right:0;
 	text-align: right;
-	width:14vw;
+	width:16vw;
 	border-radius:5px;
 }
 .usrOptions i{
-	display:block;
+	display:inline;
 	font-size: 20px;
 	margin-top: 12px;
 	margin-bottom:8px;
+	text-shadow:5px 2px 5px rgba(0,0,0,.7);
+}
+.usrOptions a{
+	display:block;
+}
+.usrOptions span{
+	font-size:20px;
 	text-shadow:5px 2px 5px rgba(0,0,0,.7);
 }
 .css-homeSidebar a{
@@ -110,7 +117,7 @@ body{
 .modalView{
 	background-color: rgba(250,250,250,.95);
 	z-index: 1;
-	height:60vh;
+	height:63vh;
 	width:60vw;
 	display:none;
 	position:absolute;
