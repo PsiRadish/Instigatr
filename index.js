@@ -44,10 +44,15 @@ app.use(flash());
 // auto-load current user into req and res
 app.use(function(req,res,next)
 {
+
+  db.post.findAll().then(function(posts){
+    res.locals.postsLngth = posts.length
+  });
+  
   res.locals.alerts = req.flash();
-  
+
   // req.session.userId = 2; // FOR TESTING ONLY BRO
-  
+
   if (req.session.userId)
   {
     // console.log("Getting session user from database");
@@ -70,7 +75,7 @@ app.use(function(req,res,next)
   {
     if (typeof req.session.userId == 'undefined')
       req.session.userId = null;
-    
+
     req.currentUser = false;
     res.locals.currentUser = false;
     next();
@@ -139,7 +144,7 @@ DebateChat.prototype.removeUserIdFromLine = function(userId, side)
             return;
         }
     });
-    
+
     return removedId;
 }
 DebateChat.prototype.getConfidenceInChampion = function(side)
@@ -190,10 +195,10 @@ sio.on('connection', function(socket)
 {
     // console.log('SOCKET THING===========');
     // console.log(socket.request.res.locals.currentUser);
-    
+
     req = socket.request;
     res = socket.request.res;
-    
+
     // CHAT INITIALIZATION REQUEST
     socket.on('startChat', function(postId)
     {
@@ -201,30 +206,30 @@ sio.on('connection', function(socket)
         [function(callback)
         {
             db.post.findById(postId).then(function(post)
-            {   
+            {
                 if (post)
-                {   
+                {
                     socket.join(postId);
                     socket.post = post;
                     
                     callback(null);
                 }
                 else
-                {   
+                {
                     callback(new Error('Post '+postId+' not found.'));
                 }
             }).catch(function(err)
-            {   
+            {
                 callback(err);
             });
         },function(callback)
-        {   
+        {
             db.user.find(
             {
                 where: {id: req.session.userId},
                 include: [{ model: db.post, as: 'postsFor' }, { model: db.post, as: 'postsAgainst' }]
             }).then(function(user)
-            {   
+            {
                 socket.user = user;
                 callback(null);
             }).catch(function(err)
@@ -232,11 +237,11 @@ sio.on('connection', function(socket)
                 callback(err);
             });
         }],function(err)
-        {   
+        {
             if (!err)
-            {   
+            {
                 if (socket.user)
-                {   
+                {
                     if (socket.user.postsFor.some(function(post) { return post.id === postId; }))
                     {
                         socket.side = 'for';
@@ -263,10 +268,10 @@ sio.on('connection', function(socket)
             else
             {
                 console.log(err);
-                
+
                 // if (typeof res.locals.alerts.danger == 'undefined')
                 //     res.locals.alerts.danger = [];
-                
+
                 // res.locals.alerts.danger.push(err);
                 // res.redirect('/404');
             }
@@ -280,7 +285,7 @@ sio.on('connection', function(socket)
         {   // keep track of which list(s) change
             var forChanged = false;
             var againstChanged = false;
-            
+
             var removalFunc = null;
             if (socket.side === 'for') // was For
             {
@@ -302,7 +307,7 @@ sio.on('connection', function(socket)
                     
                 }
             }
-            
+
             var addFunc = null;
             if (side === 'for') // is For
             {
@@ -314,9 +319,9 @@ sio.on('connection', function(socket)
                 addFunc = 'addPostsAgainst'; // store this function to call later
                 againstChanged = true;
             }
-            
+
             socket.side = side;
-            
+
             async.series(
             [
                 function(callback)
@@ -422,7 +427,7 @@ sio.on('connection', function(socket)
             });
         }
     });
-    
+
     socket.on('disconnect', function()
     {
         if (socket.inLine)

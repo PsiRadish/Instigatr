@@ -1,0 +1,26 @@
+.thumbNail, .article {
+  display: inline-block;
+
+}
+.thumbNail
+{
+  /*float: left;*/
+
+}
+.article
+{
+  float: right;
+}
+
+div.form-group {
+  text-align: center;
+/*  border-top: 1px solid black;*/
+  border-bottom: 1px solid black;
+
+}
+
+div.column-group {
+  border-top: 1px solid black;
+  padding: 10px;
+
+}

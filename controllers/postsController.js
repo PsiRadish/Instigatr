@@ -11,8 +11,6 @@ router.get('/:id/show', function(req, res)
 
     //news - API call
     var searchTerm = req.query.q;
-    // var searchTerm_Alchemy = req.query.z;
-    // console.log("Alchemy search: " + searchTerm_Alchemy);
 
     if (searchTerm !== "undefined"){
         var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
@@ -24,31 +22,23 @@ router.get('/:id/show', function(req, res)
         'api-key':process.env.NYT_API_KEY,
         }
      }
-     //else if (searchTerm_Alchemy !== "undefined") {
-    //     console.log("Alchemy works!!!!");
-    // }
+
     //end news - API call
 
     db.post.find({where: {id: req.params.id}, include: [db.user, {model: db.message, include: [db.user]}]}).then(function(post)
     {
         if (post)
         {
-            
-            //news - API call
-            var searchTerm = req.query.q;
-
-            if (searchTerm !== "undefined"){
-                var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
-
-                var queryData = {
-                q: searchTerm,
-                pages:10,
-                sort:'newest',
-                'api-key':process.env.NYT_API_KEY,
-                }
-             }
-
-            //end news - API call
+            // news API call
+            request({
+                url:url,
+                qs:queryData
+            }, function(error, response, data){
+                var newsJSON = JSON.parse(data);
+                searchTerm = null;
+                res.render("posts/show.ejs", {titleSuffix: "Debate", post: post, newsJSON: newsJSON});
+            });
+            //end news API call
         } else
         {
             res.redirect("/404");
