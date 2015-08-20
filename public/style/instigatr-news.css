@@ -26,14 +26,20 @@ div.news.column-group {
   border-top: 1px solid black;
   padding: 10px;
 }
+#srchNws{
+	text-align:center;
+}
 .srchForm{
-	display:inline;
+	display:block;
+	margin-top: -10px;
 }
 #srchTrm{
 	display:inline;
+	border-radius:18px 0px 0px 18px;
 }
 #newsSrchBtn{
 	display:inline;
 	background-color: rgb(100,100,200);
 	border:none;
+	border-radius: 0px 18px 18px 0px;
 }
