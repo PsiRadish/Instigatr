@@ -4,7 +4,12 @@ module.exports = function(sequelize, DataTypes)
     var post = sequelize.define('post',
     {
         userId: DataTypes.INTEGER,
-        text: DataTypes.TEXT
+        text: {
+            type:DataTypes.TEXT,
+            validate:{
+                len:[0,600]
+            }
+        }
     },{
         classMethods:
         {

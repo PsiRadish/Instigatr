@@ -45,13 +45,21 @@
             .push, footer {
                /* height: 100px;
                 margin-top: 10px;*/
+
             }
             footer {
                 background: black;
                 border: 0;
                 text-align: center
 
+
+
             }
             footer * {
                 line-height: inherit;
+
             }
+
+#about {
+  min-height: 675px
+}

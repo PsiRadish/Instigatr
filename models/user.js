@@ -8,17 +8,34 @@ module.exports = function(sequelize, DataTypes) {
         email: {
             type: DataTypes.STRING,
             validate: {
-                isEmail:true
+                isEmail:{
+                    args:[true],
+                    msg: "Sorry, we don't recognize that e-mail address format."
             }
+        }
         },
         password: {
             type: DataTypes.STRING,
             validate: {
-                len:[5],
-                notEmpty: true
+                notEmpty:{
+                    args:[true],
+                    msg:"Password can't be blank."
+                },
+                len:{
+                    args:[5],
+                    msg:'Password must be at least 5 characters long.'
+                }
             }
         },
-        name: DataTypes.STRING,
+        name: {
+            type: DataTypes.STRING,
+            validate: {
+                notEmpty:{
+                    args:[true],
+                    msg:"Name can't be blank."
+                }
+            }
+        },
         score: { type: DataTypes.INTEGER, defaultValue: 0 }
     }, {
         classMethods: {

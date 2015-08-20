@@ -7,7 +7,7 @@
 // vars
 $debate-msg-border-radius           : 4px;
 $debate-msg-padding                 : 6px;
-$debate-msg-watermark-opacity       : 0.05;
+$debate-msg-watermark-opacity       : 0.06;
 $debate-msg-watermark-size          : 8px; // small font size for centering purposes, will use transform: scale to enlarge
 $debate-msg-watermark-scale         : 6.25;
 // watermarks in the center of their box
@@ -119,7 +119,7 @@ $argue-grey-background              : #505050;
         height: 60px;
         width: 100%;
         
-        #wanna-join-left, #wanna-join-right,
+        #wanna-join-for, #wanna-join-against,
         #side-for, #side-against
         {
             position: absolute;
@@ -128,7 +128,7 @@ $argue-grey-background              : #505050;
         }
     }
     
-    #wanna-join-left, #wanna-join-right
+    #wanna-join-for, #wanna-join-against
     {
         text-align: center;
         // border-radius: $debate-msg-border-radius;
@@ -141,13 +141,13 @@ $argue-grey-background              : #505050;
             display: block;
         }
     }
-    #wanna-join-left
+    #wanna-join-for
     {
         
         border: 1px solid rgba($green, 0.2);
         background-color: rgba($green, 0.1);
     }
-    #wanna-join-right
+    #wanna-join-against
     {
         
         border: 1px solid rgba($red, 0.2);
@@ -158,8 +158,8 @@ $argue-grey-background              : #505050;
 #heading-choice-made-left,
 #heading-choice-not-made,
 #heading-choice-made-right,
-#wanna-join-left,
-#wanna-join-right,
+#wanna-join-for,
+#wanna-join-against,
 #side-for,
 #side-against
 {
@@ -185,7 +185,34 @@ $argue-grey-background              : #505050;
 #choices // no choice made state
 {
     // margin-bottom: 24px;
-    visibility: hidden;
+    // visibility: hidden;
+    &.disabled
+    {
+        position: relative;
+        
+        h3, a, span, p
+        {
+            pointer-events: none;
+            opacity: 0.35;
+        }
+        
+        &:hover::after, &:focus::after, &:active::after
+        {
+            // opacity: 1;
+            content: 'You are not logged in.';
+            // color: red;
+            @include text-outline(1px, white);
+            text-align: center;
+            font-size: $h3-font-size;
+            font-weight: bold;
+            // margin: 0 auto;
+            
+            position: absolute;
+            top: 0%;
+            left: 20%;
+            right: 20%;
+        }
+    }
     
     #heading-choice-made-left
     {
@@ -197,6 +224,7 @@ $argue-grey-background              : #505050;
     #heading-choice-not-made
     {
         left: 0%;
+        // @include text-outline(3px, blue);
     }
     #heading-choice-made-right
     {
@@ -206,7 +234,7 @@ $argue-grey-background              : #505050;
         // visibility: hidden;
     }
     
-    #wanna-join-left
+    #wanna-join-for
     {
         left: -50%;
         opacity: 0;
@@ -231,7 +259,7 @@ $argue-grey-background              : #505050;
             visibility: hidden;
         }
     }
-    #wanna-join-right
+    #wanna-join-against
     {
         left: 100%;
         opacity: 0;
@@ -252,11 +280,11 @@ $argue-grey-background              : #505050;
         opacity: 0;
     }
     
-    #wanna-join-left
+    #wanna-join-for
     {
         left: 0%;
         opacity: 1;
-    
+        
         // visibility: visible;
     }
     #side-for
@@ -313,7 +341,7 @@ $argue-grey-background              : #505050;
             visibility: visible;
         }
     }
-    #wanna-join-right
+    #wanna-join-against
     {
         left: 50%;
         opacity: 1;
@@ -321,19 +349,19 @@ $argue-grey-background              : #505050;
         // visibility: visible;
     }
 }
+// #choices.side-chosen-against
+// {
+//     & + #champions
+//     {
+//         visibility: visible;
+//     }
+// }
 #choices.side-chosen-for,
-#choices.side-chosen-against
-{
-    & + #hows-my-arguing
-    {
-        visibility: visible;
-    }
-}
 
-#hows-my-arguing
+#champions
 {
     text-align: center;
-    visibility: hidden;
+    // visibility: hidden;
 }
 
 
@@ -375,7 +403,7 @@ $argue-grey-background              : #505050;
             position: relative;
             display: inline-block;
             
-            border: 1px solid #999;
+            border: 1px solid; //#999;
             background-color: #F8F8F8;
             background: linear-gradient(white, #EEE);
             @include set-text-for-light-background();
@@ -432,11 +460,16 @@ $argue-grey-background              : #505050;
             border-top-right-radius:     $debate-msg-border-radius;
             border-bottom-right-radius:  $debate-msg-border-radius;
             
+            border-color: #9A9;
+            // background-color: #F8FFF8;
+            // background: linear-gradient(white, #EFE);
+            
             transform-origin: left center;
             
             &::before
             {
                 content: '\f087'; // font-awesome thumbs up (outline)
+                color: #040;
                 left: $debate-msg-watermark-for-left;
                 transform-origin: center center;
                 transform: scale($debate-msg-watermark-scale, $debate-msg-watermark-scale);
@@ -456,11 +489,16 @@ $argue-grey-background              : #505050;
             border-top-left-radius:     $debate-msg-border-radius;
             border-bottom-left-radius:  $debate-msg-border-radius;
             
+            border-color: #A99;
+            // background-color: #FFF8F8;
+            // background: linear-gradient(white, #FEE);
+            
             transform-origin: right center;
             
             &::before
             {
                 content: '\f088'; // font-awesome thumbs down (outline)
+                color: #400;
                 left: $debate-msg-watermark-against-left;
                 // filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
                 // -webkit-transform: scale(-5, 5);

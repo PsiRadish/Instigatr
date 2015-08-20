@@ -70,5 +70,79 @@ $(function(){
 		$('#settings').fadeOut(200);
 	});
 
+	$('#loginBtn').on('click',function(e){
+		var email = $('#emailinpt').val();
+		var pass = $('#passinpt').val();
+		e.preventDefault();
+		var lgin = $.ajax({
+			url:"/auth/login",
+			method: 'POST',
+			data:{'email':email, 'password':pass}
+		}).done(function(){
+			console.log(lgin)
+			if(lgin.responseJSON){
+			document.location.reload();
+		}else{
+			if(email&&pass){
+			console.log('what?');
+			$('#alert').html('<h3>Invalid email and password combo.</h3>');
+			$('#alert').fadeIn(400).delay(2000);
+			$('#alert').fadeOut(700);
+			}else{
+			$('#alert').html('<h3>Enter both an email and a password.</h3>');
+			$('#alert').fadeIn(400).delay(2000);
+			$('#alert').fadeOut(700);
+			};
+		};
+		});
+	});
+
+	$('#sUBtn').on('click',function(e){
+		var email = $('#suEmail').val();
+		var pass = $('#suPass').val();
+		var pas2 = $('#suPas2').val();
+		var name = $('#suName').val();
+		e.preventDefault();
+		var sup = $.ajax({
+			url:"/auth/signup",
+			method: 'POST',
+			data:{'email':email, 'password':pass,'password2':pas2, 'name':name}
+		}).done(function(){
+			console.log(sup)
+			if(sup.responseJSON){
+				if(sup.responseJSON.errors){
+					$('#errNot').text(sup.responseJSON.errors[0].message);
+				}else{
+					$('#modalBlock').fadeOut(0);
+					$('body').css('overflow','auto');
+					$('#signup').fadeOut(0);
+					$('#alert').html('<h3>You are signed up and may now login!</h3>');
+					$('#alert').fadeIn(400).delay(2000);
+					$('#alert').fadeOut(700);
+				};
+			}else{
+			$('#errNot').text(sup.responseText);
+			};
+		});
+	});
+
+	$('#postInpt').on('keydown',function(e){
+		var left = 600 - $(this).val().length;
+		if(left>=0){
+		$('#charNot').text(left+" characters left.")
+		}else{
+			if(e.keyCode!==8){
+			e.preventDefault();
+			}
+		}
+	})
+
+
+	//hiding about link ON about page
+	if (window.location.pathname == "/about") {
+		$('#aboutLink').hide();
+	}
+
+
 
 });

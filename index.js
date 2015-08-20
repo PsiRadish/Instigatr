@@ -44,6 +44,10 @@ app.use(flash());
 // auto-load current user into req and res
 app.use(function(req,res,next)
 {
+
+  db.post.findAll().then(function(posts){
+    res.locals.postsLngth = posts.length
+
   res.locals.alerts = req.flash();
 
   // req.session.userId = 2; // FOR TESTING ONLY BRO
@@ -75,6 +79,7 @@ app.use(function(req,res,next)
     res.locals.currentUser = false;
     next();
   }
+  });
 });
 
 // facebook
@@ -106,52 +111,116 @@ app.use(function(req,res,next)
 //   res.redirect('/login');
 // }
 
-
 app.use('/',require('./controllers/mainController.js'));
 app.use('/auth',require('./controllers/authController.js'));
-app.use('/about',require('./controllers/staticController.js'));
+
 app.use('/users', require('./controllers/usersController.js'));
 
 app.use('/posts', require('./controllers/postsController.js'));
-
 app.use('/tags', require('./controllers/tagsController.js'));
 
+app.get('/about', function(req, res){
+  res.render('main/about.ejs')
+});
+
+// DebateChat CLASS
 function DebateChat(postId)
 {
     this.postId = postId;
 
-    this.userDebatingFor = null;
-    this.confidenceInUserDebatingFor = 0;
-    this.usersInLineFor = [];
+    this.sockets = [];
 
-    this.userDebatingAgainst = null;
-    this.confidenceInUserDebatingAgainst = 0;
-    this.usersInLineAgainst = [];
+    this.champion = {for: null, against: null};
+    this.votesOnChampion = {for: {}, against: {}};
+    this.usersInLine = {for: [], against: []};
 }
-DebateChat.prototype.removeUserIdFromLine = function(userId, whichLine)
+DebateChat.prototype.removeUserFromLine = function(user, side)
 {
-    var thisLine;
+    if (side !== 'for' && side !== 'against')
+        throw new Error("DebateChat.prototype.removeUserFromLine: Second parameter must be 'for' or 'against'.");
 
-    if (whichLine === 'for')
-        thisLine = this.usersInLineFor;
-    else if (whichLine === 'against')
-        thisLine = this.usersInLineAgainst;
-    else
-        throw new Error("DebateChat.prototype.removeUserIdFromLine: Second parameter must be 'for' or 'against'.");
+    var thisLine = this.usersInLine[side];
 
-    var removedId = null;
-    thisLine.forEach(function(user, index)
+    var removedUser = null;
+    thisLine.forEach(function(userInLine, index)
     {
-        if (user.id == userId)
+        if (userInLine.id == user.id)
         {
-            removedId = thisLine.splice(index, 1);
+            removedUser = thisLine.splice(index, 1);
             return;
         }
     });
 
-    return removedId;
+    return removedUser;
+}
+DebateChat.prototype.getPlaceInLine = function(user, side)
+{
+    console.log('================ getPlaceInLine');
+    console.log('---------- ID  ', user.id);
+    console.log('---------- NAME', user.name);
+    console.log('---------- SIDE', side);
+    var findex = -1;
+
+    // this.usersInLine[side].forEach(function(socketInLine, index)
+    this.usersInLine[side].forEach(function(userInLine, index)
+    {
+        // userInLine = socketInLine.user;
+
+        console.log('.... INDEX', index);
+        if (user.id === userInLine.id)
+        {
+            console.log('.... ID  ', userInLine.id);
+            console.log('.... NAME', userInLine.name);
+            findex = index;
+            return;
+        }
+    });
+
+    return findex;
+    // if (findex == -1)
+    //     return null;
+    // return getOrdinal(findex + 1);
+}
+DebateChat.prototype.getChampName = function(side)
+{   // checks for null champ here so don't have to elsewhere
+    if (this.champion[side] == null)
+        return null;
+    else
+        return this.champion[side].name;
+}
+DebateChat.prototype.getIsChamp = function(user, side)
+{   // checks for null champ here so don't have to elsewhere
+    if (this.champion[side] == null)
+        return false;
+    else
+        return this.champion[side].id == user.id;
+}
+DebateChat.prototype.getConfidenceInChampion = function(side)
+{
+    if (side !== 'for' && side !== 'against')
+        throw new Error("DebateChat.prototype.getConfidenceInChampion: Second parameter must be 'for' or 'against'.");
+
+    var votesOnThisChampion = this.votesOnChampion[side];
+
+    var confidence = 0;
+    for (var userId in votesOnThisChampion)
+    {
+        confidence += votesOnThisChampion[userId];
+    }
+
+    return confidence;
 }
 var debateChats = {};
+
+
+// https://ecommerce.shopify.com/c/ecommerce-design/t/ordinal-number-in-javascript-1st-2nd-3rd-4th-29259
+function getOrdinal(number)
+{
+    var suffixes = ["th","st","nd","rd"]
+    var slack = number % 100;
+    return number + (suffixes[(slack - 20) % 10] || suffixes[slack] || suffixes[0]);
+}
+
 
 // ======== SOCKET.IO ======== //
 // add Express session data into socket object of socket.io
@@ -170,9 +239,12 @@ sio.on('connection', function(socket)
     req = socket.request;
     res = socket.request.res;
 
+    socket.post = null;
+
     // CHAT INITIALIZATION REQUEST
     socket.on('startChat', function(postId)
     {
+        console.log("========= startChat");
         async.series(
         [function(callback)
         {
@@ -180,14 +252,14 @@ sio.on('connection', function(socket)
             {
                 if (post)
                 {
-                    socket.room = postId;
                     socket.join(postId);
                     socket.post = post;
+
                     callback(null);
                 }
                 else
                 {
-                    callback(new Error('Post '+postId+' not found.'));
+                    callback(new Error(req.route + ':' + req.url + ': Post '+postId+' not found.'));
                 }
             }).catch(function(err)
             {
@@ -224,12 +296,22 @@ sio.on('connection', function(socket)
                     else
                         socket.side = null;
                 }
+                else
+                    socket.side = null;
+
+                // have queues and champions been instantiated for this post?
+                if (!(postId in debateChats))
+                {
+                    debateChats[postId] = new DebateChat(postId); // make 'em
+                }
+                debateChats[postId].sockets.push(socket);
+
                 // CHAT INITIALIZATION RESPONSE
-                socket.emit('startChat_Response', req.session.userId, socket.side);
+                socket.emit('startChat_Response', req.session.userId, socket.side, debateChats[socket.post.id].getChampName('for'), debateChats[socket.post.id].getChampName('against'));
             }
             else
             {
-                console.log(err);
+                console.log(err.stack);
 
                 // if (typeof res.locals.alerts.danger == 'undefined')
                 //     res.locals.alerts.danger = [];
@@ -243,6 +325,13 @@ sio.on('connection', function(socket)
     // CHOSE A SIDE FOR THE DEBATE
     socket.on('choseSide', function(side)
     {
+        console.log("======== choseSide received for", socket.user.name, side);
+
+        if (!socket.user) // not logged in
+            return;
+
+        debateChat = debateChats[socket.post.id];
+
         if (side != socket.side) // side changed
         {   // keep track of which list(s) change
             var forChanged = false;
@@ -320,29 +409,141 @@ sio.on('connection', function(socket)
                         callback(null);
                 }
             ], function(err)
-            {
+            {   console.log("======== sending choseSide_Response for", socket.user.name, side);
                 socket.emit('choseSide_Response', side);
+                if (socket.inLine) // was in line
+                {
+                    debateChat.removeUserFromLine(socket.user.id, socket.side);
+                    socket.inLine = false;
+                    handleLineShift(socket.side);
+                }
+                if (debateChat.getIsChamp(socket.user, socket.side)) // was champ
+                {
+                    debateChat.champion[socket.side] = null;
+                    handleLineShift(socket.side);
+                }
             })
+        }
+    });
+
+    // function changeChampion(side, userNewChamp)
+    // {
+    //     debateChat = debateChats[socket.post.id];
+
+    //     if (debateChat.champion[socket.side] != null &&
+    //         debateChat.champion[socket.side].id == socket.user.id)
+    //     {
+    //         socket.emit('kickedFromChampion');
+    //     }
+    //     else if (userNewChamp.id == socket.user.id)
+    //     {
+
+    //         socket.emit('becomeChampion');
+    //     }
+    // }
+    function handleLineShift(side)
+    {
+        var debateChat = debateChats[socket.post.id];
+
+        console.log('===== QUEUE\n', debateChat.usersInLine[side]);
+
+        debateChat.sockets.forEach(function(loopSocket)
+        {
+            console.log('===== NAME', loopSocket.user.name);
+            if (loopSocket.user && loopSocket.side == socket.side && loopSocket.inLine)
+            {
+                var lineIndex = debateChat.getPlaceInLine(loopSocket.user, loopSocket.side);
+
+                console.log('===== LINEINDEX', lineIndex);
+
+                // front of line and no champ
+                if (lineIndex == 0 && debateChat.champion[side] == null)
+                {   // promotion
+
+                    debateChat.champion[side] = debateChat.usersInLine[side].shift();
+                    loopSocket.inLine = false;
+                    debateChat.votesOnChampion[loopSocket.side] = {};
+                    loopSocket.emit('becomeChampion', loopSocket.side);
+                    sio.to(socket.post.id).emit('champUpdate', debateChat.getChampName('for'), debateChat.getChampName('against'));
+
+                    // and now we start all over
+                    handleLineShift(socket.side);
+                    return;
+                }
+                else
+                {
+                    loopSocket.emit('updateQueue', getOrdinal(debateChat.getPlaceInLine(loopSocket.user, loopSocket.side) + 1), loopSocket.side);
+                }
+            }
+        });
+    }
+
+    // ENTER QUEUE
+    socket.on('enterQueue', function()
+    {   console.log('======== recieve enterQueue for', socket.user.name)
+        if (!socket.user || !socket.side || socket.inLine) // no login or no side or already in line
+        {   console.stampedLog('====== OMFG RETURNING =======');
+            return;
+        }
+
+        debateChat = debateChats[socket.post.id];
+        console.stampedLog('socket.post.id', socket.post.id);
+        // no champion already, move right in
+        if (debateChat.champion[socket.side] == null && debateChat.usersInLine[socket.side].length == 0)
+        {   console.stampedLog('====== STRAIGHT TO CHAMPION =======');
+            debateChat.champion[socket.side] = socket.user;
+            debateChat.votesOnChampion[socket.side] = {};
+            socket.emit('becomeChampion', socket.side);
+
+            sio.to(socket.post.id).emit('champUpdate', debateChat.getChampName('for'), debateChat.getChampName('against'));
+        }
+        else // get in line
+        {   console.stampedLog('====== GETTING IN LINE =======');
+            debateChat.usersInLine[socket.side].push(socket.user);
+            socket.inLine = true;
+            socket.emit('updateQueue', getOrdinal(debateChat.getPlaceInLine(socket.user, socket.side) + 1), socket.side);
         }
     });
 
     // NEW MESSAGE FROM A CHAT ROOM
     socket.on('newMessage', function(content)
     {
+        debateChat = debateChats[socket.post.id];
+
         // console.stampedLog("==========SIDE\n",socket.side);
-        if (req.session.userId && socket.side) // can't contribute without being logged in and choosing a side
+        if (socket.user && socket.side && debateChat.getIsChamp(socket.user, socket.side))
         {
             socket.user.createMessage({postId: socket.post.id, content: content, side: socket.side}).then(function(message)
             {
                 // Emit new chat message to all clients
-                sio.to(socket.room).emit('chatUpdate', socket.user.name, content, socket.side);
+                sio.to(socket.post.id).emit('chatUpdate', socket.user.name, content, socket.side);
             });
         }
     });
 
     socket.on('disconnect', function()
     {
-        console.log('user disconnected');
+        console.log('client disconnected');
+
+        if (socket.post)
+        {
+            var debateChat = debateChats[socket.post.id];
+
+            if (socket.inLine)
+            {
+                debateChat.removeUserFromLine(socket.user.id, socket.side);
+                socket.inLine = false;
+                handleLineShift(socket.side);
+            }
+            else if (debateChat.getIsChamp(socket.user, socket.side)) // was champ
+            {
+                debateChat.champion[socket.side] = null;
+                sio.to(socket.post.id).emit('champUpdate', debateChat.getChampName('for'), debateChat.getChampName('against'));
+                handleLineShift(socket.side);
+            }
+
+            debateChat.sockets.splice(debateChat.sockets.indexOf(socket), 1); // remove the socket from the list
+        }
     });
 });
 
@@ -353,4 +554,3 @@ http.listen(port, function()
 {
     console.log('Server started on ' + port);
 });
-

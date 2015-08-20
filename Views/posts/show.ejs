@@ -1,7 +1,7 @@
 <head>
 </head>
 <div id="debate-page" class="column-group tiny-quarter-horizontal-gutters small-half-horizontal-gutters medium-horizontal-gutters large-horizontal-gutters xlarge-horizontal-gutters back-flush">
-  
+
   <section id="take-sides-column" class="large-25 xlarge-25 medium-25 small-40">
     <div id="post-stuff">
       <h1 title="Or Post, whatever.">Subject</h1>
@@ -11,22 +11,30 @@
         <b class="author"><%= post.user.name %></b>
       </div>
     </div>
-    
-    <div id="choices">
+
+    <div id="choices" class="disabled">
       <!-- Only one of these headings visible at a time. -->
       <div id="headings-roll">
         <h3 id="heading-choice-made-left">You Are For!</h3>  <!-- visibility: hidden in CSS -->
         <h3 id="heading-choice-not-made">Choose a Side?</h3>
         <h3 id="heading-choice-made-right">You Are Against!</h3>  <!-- visibility: hidden in CSS -->
       </div>
-      
+
       <div id="choice-roll">
-        
-        <div id="wanna-join-left">  <!-- visibility: hidden in CSS -->
-          <b>Wanna join the debate?</b>
-          <a class="enter-queue">Enter the queue</a>
+
+        <div id="wanna-join-for" class="wanna-join">  <!-- visibility: hidden in CSS -->
+          <div class="not-queued"
+            <b>Wanna join the debate?</b>
+            <a class="enter-queue">Enter the queue</a>
+          </div>
+          <div class="queued hide-all">
+            You are <span class="ordinal"><span> in line.
+          </div>
+          <div class="champion hide-all">
+            You are currently arguing for your side!
+          </div>
         </div>
-        
+
         <div id="side-for">
           <a class="choose-side ink-button green" href="#">
             For! <i class="fa fa-thumbs-up"></i>
@@ -39,38 +47,65 @@
           </a>
           <a class="change-mind push-right" href="#">Change your mind?</a>  <!-- visibility: hidden in CSS -->
         </div>
-        
-        <div id="wanna-join-right">  <!-- visibility: hidden in CSS -->
-          <b>Wanna join the debate?</b>
-          <a class="enter-queue">Enter the queue</a>
+
+        <div id="wanna-join-against" class="wanna-join">  <!-- visibility: hidden in CSS -->
+          <div class="not-queued"
+            <b>Wanna join the debate?</b>
+            <a class="enter-queue">Enter the queue</a>
+          </div>
+          <div class="queued hide-all">
+            You are <span class="ordinal"><span> in line.
+          </div>
+          <div class="champion hide-all">
+            You are currently arguing for your side!
+          </div>
         </div>
-        
+
       </div>
-      
+
     </div>
-    
-    <div id="hows-my-arguing">
-      <h4>Currently arguing your side:</h4>
-      <h6 class="author">&lt;NOT IMPLEMENTED&gt;</h6>
-      <a class="vote-kick" href="#hows-my-arguing">Vote to kick</a>
+
+    <div id="champions" class="column-group">
+      <div id="champ-for">
+        <h4>Currently arguing <span class="green">For</span>:</h4>
+        <h6 class="author">...</h6>
+        <div class="confidence hide-all">
+          <div class="large-50 xlarge-50 medium-50 small-50 align-center">
+            <a class="vote-kudos" href="#">Kudos!</a>
+          </div><div class="large-50 xlarge-50 medium-50 small-50 align-center">
+            <a class="vote-kick" href="#">Kick!</a>
+          </div>
+        </div>
+      </div>
+      <div id="champ-against">
+        <h4>Currently arguing <span class="red">Against</span>:</h4>
+        <h6 class="author">...</h6>
+        <div class="confidence hide-all">
+          <div class="large-50 xlarge-50 medium-50 small-50 align-center">
+            <a class="vote-kudos" href="#">Kudos!</a>
+          </div><div class="large-50 xlarge-50 medium-50 small-50 align-center">
+            <a class="vote-kick" href="#">Kick!</a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
-  
+
   <section id="argue-column" class="large-35 xlarge-35 medium-35 small-60 tiny-100">
-    
+
     <!-- <h2>Debate</h2> -->
     <ul id="chat-output" class="scroll">
-      
+
       <!-- <li class="debate-message message-for">
         <h6 class="author">asynca</h6>
         <span>You are dumb.</span>
       </li>
-      
+
       <li class="debate-message message-against">
         <h6 class="author">TerriblePerson</h6>
         <span>I <em>am</em> dumb.</span>
       </li> -->
-      
+
       <% post.messages.forEach(function(message) { %>
         <li class="debate-message message-<%= message.side %>">
           <h6 class="author"><%= message.user.name %></h6>
@@ -79,46 +114,63 @@
       <% }); %>
       <!-- <hr> -->
     </ul>
-    
+
     <div id="chat-box-container">
       <form>
         <textarea id="chat-box" class="chat-scroll" disabled="disabled"></textarea>
       </form>
     </div>
-  
+
   </section>
-  
+
   <section id="news-column" class="large-40 xlarge-40 medium-40">
-    <h2>Related News</h2>
 
 <!-- testing search queries for news API only -->
-    
-    <div class="search-news">
-      <form method="get" action=<%="/posts/" + post.id + "/show" %> >
-        <div class="form-group">
-          <label>NYT API</label>
-          <input name="q" type="text" class="form-control" placeholder="enter search query">
-          <input type="submit" class="btn btn-default">
-        </div>
+
+    <div class="search-news" id="srchNws">
+      <form class="ink-form srchForm" method="get" action="/posts/<%= post.id %>/show" >
+        <div class="control-group css-nwsSrchDiv">
+        <label for="srchTrm"><h2>Related News</h2></label>
+          <input id="srchTrm" name="srchTrm" type="text" class="form-control" placeholder="enter search query">
+          <button type="submit" class="ink-button blue" id="newsSrchBtn">Search!</button>
+          </div>
       </form>
     </div>
-    
+
     <div id="results-news-headlines" class="results-news-headlines scroll">
-     
-     <% if (typeof newsJSON !== "undefined") { %>
-        <% if (newsJSON.response){ %> <!-- NYT Headlines -->
-             <% newsJSON.response.docs.forEach(function(doc) {  %>
-                <div class="well">
-                <p><a href="<%= doc.web_url %>" target="_blank">
-                <strong><%- doc.headline.main %></strong>
-                <br><%- doc.snippet %></a></p>
-                </div>
-             <% }) %>
-         <% } %> <!-- end NYT Headlines -->
-     <% } %>
-    
+      <div class="column-group" id="newsListings">
+       <% if (typeof newsJSON !== "undefined") { %>
+          <% if (newsJSON.response){ %> <!-- NYT Headlines -->
+               <% newsJSON.response.docs.forEach(function(doc) {  %>
+                      <div class="thumbNail all-20">
+                          <% if (doc.multimedia) { %>
+                              <% var imageThumb %>
+                              <% var baseURL = "http://graphics8.nytimes.com/" %>
+                              <% var width = Infinity; %>
+
+                              <% doc.multimedia.forEach(function(photo){ %>
+                                    <%if (photo.width < width) { %>
+                                        <% imageThumb = baseURL + photo.url %>
+                                        <% width = photo.width; %>
+                                    <% }; %> <!-- if (image.width) statement -->
+                              <% }) %> <!-- end forEach Loop -->
+
+                              <img src="<%= imageThumb %>">
+                          <% } %>
+
+                      </div>
+
+                      <div class="article all-80">
+                          <p><a href="<%- doc.web_url %>" target="_blank">
+                          <b><%- doc.headline.main %></b><br>
+                          <%- doc.snippet %></a></p>
+                      </div>
+               <% }) %> <!-- end forEach Loop -->
+           <% } %> <!-- end if(newsJSON.response) statement -->
+       <% } %> <!-- end if(typeof) statement -->
+       </div>
     </div>
-    
+
   <!-- end testing search queries for news API -->
   </section>
 
