@@ -47,7 +47,7 @@ app.use(function(req,res,next)
 
   db.post.findAll().then(function(posts){
     res.locals.postsLngth = posts.length
-  });
+  }).then(function(){
   
   res.locals.alerts = req.flash();
 
@@ -80,6 +80,7 @@ app.use(function(req,res,next)
     res.locals.currentUser = false;
     next();
   }
+});
 });
 
 // facebook

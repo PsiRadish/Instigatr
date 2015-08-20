@@ -130,5 +130,19 @@ router.post('/',function(req, res){
 });
 
 
+router.get('/vote',function(req, res){
+    var value = parseInt(req.query.val);
+    var pid = req.query.postId;
+    db.user.findById(req.currentUser.id).then(function(user){
+                    db.vote.findOrCreate({where:{userId:user.id,postId:pid}}).spread(function(vote,created){
+                        vote.value = value;
+                        vote.save().then(function(){
+                            res.send(vote);
+                        });
+                });
+            });
+});
+// db.post.find({where:{id:pid},include:[{model:db.vote, include:[db.user]}]}).then(function(post){
+
 
 module.exports = router;
