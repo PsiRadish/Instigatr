@@ -2,13 +2,14 @@
 	width:13vw;
 }
 .css-mainPagePostDiv{
-	background-color: rgba(60,60,60,1);
+	background-color: rgba(60,60,60,.9);
 	margin-top:5vh;
 	margin-bottom: 2vh;
 	color:white;
 	font-size:16px;
 	border-radius: 10px 40px 40px 0px;
 	min-height: 10vh;
+	overflow: hidden;
 }
 .css-mainPagePostDiv div{
 	display:inline;
@@ -20,7 +21,7 @@
 }
 .css-text{
 	background-color: rgba(160,160,160,.5);
-	border-radius:4px 6px 6px 0px;
+	border-radius:7px 5px 7px 0px;
 	min-height: 10vh;
 }
 .css-text p{
