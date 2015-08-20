@@ -48,35 +48,38 @@ router.get('/:id/show', function(req, res)
                     console.log('*********************************************');
                     var searchTerm = post.text.slice();
                 }
-                    var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
 
-                    var queryData = {
-                    q: searchTerm,
-                    pages:10,
-                    sort:'newest',
-                    'api-key':process.env.NYT_API_KEY,
-                    }
-                    // news API call
-                    request({
-                        url:url,
-                        qs:queryData
-                    }, function(error, response, data){
-                        var newsJSON = JSON.parse(data);
-                        // console.log(newsJSON.response.docs[0]);
-                        searchTerm = null;
-                        // searchTerm_Alchemy = null;
-                        res.render("posts/show.ejs", {titleSuffix: post.text, post: post, newsJSON: newsJSON});
-                    });
-                    // request({
-                    //     url:url,
-                    //     qs:queryData
-                    // }, function(error, response, data){
-                    //     var newsJSON = JSON.parse(data);
-                    //     // console.log(newsJSON.response.docs[0]);
-                    //     // searchTerm_Alchemy = null;
-                    //     res.render("posts/show.ejs", {titleSuffix: post.text, post: post, newsJSON: newsJSON});
-                    // });
-                    // // end news API call
+
+                var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
+
+                var queryData = {
+                q: searchTerm,
+                pages:10,
+                sort:'newest',
+                'api-key':process.env.NYT_API_KEY,
+                }
+                // news API call
+                request({
+                    url:url,
+                    qs:queryData
+                }, function(error, response, data){
+                    var newsJSON = JSON.parse(data);
+                    // console.log(newsJSON.response.docs[0]);
+                    searchTerm = null;
+                    // searchTerm_Alchemy = null;
+                    res.render("posts/show.ejs", {titleSuffix: post.text, post: post, newsJSON: newsJSON});
+                });
+                // request({
+                //     url:url,
+                //     qs:queryData
+                // }, function(error, response, data){
+                //     var newsJSON = JSON.parse(data);
+                //     // console.log(newsJSON.response.docs[0]);
+                //     // searchTerm_Alchemy = null;
+                //     res.render("posts/show.ejs", {titleSuffix: post.text, post: post, newsJSON: newsJSON});
+                // });
+                // end news API call
+
         } else
         {
             res.redirect("/404");
@@ -84,7 +87,7 @@ router.get('/:id/show', function(req, res)
     }).catch(function(err)
     {   // TODO: Acquire idea of what kind of errors show up here and something smart to do with them
         console.log(err);
-        res.send(err);
+        // res.send(err);
     });
 });
 

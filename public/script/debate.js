@@ -2,7 +2,7 @@ $(function()
 {
     if ($('#debate-page').length)
     {
-        console.log('debate-page');
+        // console.log('debate-page');
         
         $("#chat-output").mCustomScrollbar(
         {
@@ -34,8 +34,8 @@ $(function()
                 method:'GET',
                 data: {'q':srchTrm}
             }).done(function(){
-                console.log(news.responseJSON)
-                var imgOne = ""
+                // console.log(news.responseJSON);
+                var imgOne = "";
                 if(news.responseJSON.response.docs[0].multimedia[0]){
                     imgOne = "<img src='http://graphics8.nytimes.com/"+news.responseJSON.response.docs[0].multimedia[0].url+"'>"
                 }
@@ -43,11 +43,10 @@ $(function()
                 for(i=1;i<8;i++){
                     var img =""
                     if(news.responseJSON.response.docs[i].multimedia[0]){
-                    var img = "<img src='http://graphics8.nytimes.com/"+news.responseJSON.response.docs[i].multimedia[0].url+"'>"
+                        var img = "<img src='http://graphics8.nytimes.com/"+news.responseJSON.response.docs[i].multimedia[0].url+"'>"
                     };
                     $('#newsListings').append('<div class="thumbNail all-20">'+img+'</div><div class="article all-80"><p><a href="'+news.responseJSON.response.docs[i].web_url+'" target="_blank"><b>'+ news.responseJSON.response.docs[i].headline.main +'</b><br>'+news.responseJSON.response.docs[i].snippet+'</a></p></div>');
                 }
-                
             });
         });
         
@@ -106,7 +105,7 @@ $(function()
         socket.on('startChat_Response', function(userId, side, championFor, championAgainst)
         {
             // console.log('Received startChat_Response', chatData);
-            console.log('userId', userId);
+            // console.log('userId', userId);
             
             $('#champ-for .author').html(championFor || '...');
             $('#champ-against .author').html(championAgainst || '...');
@@ -148,17 +147,17 @@ $(function()
                 $('.enter-queue').on('click', function(e)
                 {
                     e.preventDefault();
-                    console.log('emit enterQueue');
+                    // console.log('emit enterQueue');
                     socket.emit('enterQueue');
                 });
                 // SERVER - LINE UPDATE
                 socket.on('updateQueue', function(placeInLine, side)
-                {   console.log('on updateQueue', placeInLine, side);
+                {
                     if (side)
                     {
                         $('.wanna-join .queued').removeClass('hide-all');
                         $('.wanna-join .not-queued').addClass('hide-all');
-                        $('.queued ordinal').html(placeInLine);
+                        $('.queued .ordinal').html(placeInLine);
                     }
                 });
                 

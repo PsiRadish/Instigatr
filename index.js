@@ -10,7 +10,7 @@ var flash = require('connect-flash');
 // var passport = require('passport')
 // var FacebookStrategy = require('passport-facebook').Strategy
 
-require('./stampedLog.js');
+// require('./stampedLog.js');
 
 //configuring express
 var app = express();
@@ -135,6 +135,8 @@ DebateChat.prototype.removeUserFromLine = function(user, side)
     if (side !== 'for' && side !== 'against')
         throw new Error("DebateChat.prototype.removeUserFromLine: Second parameter must be 'for' or 'against'.");
     
+    
+    
     var thisLine = this.usersInLine[side];
     
     var removedUser = null;
@@ -151,10 +153,10 @@ DebateChat.prototype.removeUserFromLine = function(user, side)
 }
 DebateChat.prototype.getPlaceInLine = function(user, side)
 {
-    console.log('================ getPlaceInLine');
-    console.log('---------- ID  ', user.id);
-    console.log('---------- NAME', user.name);
-    console.log('---------- SIDE', side);
+    // console.log('================ getPlaceInLine');
+    // console.log('---------- ID  ', user.id);
+    // console.log('---------- NAME', user.name);
+    // console.log('---------- SIDE', side);
     var findex = -1;
     
     // this.usersInLine[side].forEach(function(socketInLine, index)
@@ -162,11 +164,11 @@ DebateChat.prototype.getPlaceInLine = function(user, side)
     {
         // userInLine = socketInLine.user;
         
-        console.log('.... INDEX', index);
+        // console.log('.... INDEX', index);
         if (user.id === userInLine.id)
         {
-            console.log('.... ID  ', userInLine.id);
-            console.log('.... NAME', userInLine.name);
+            // console.log('.... ID  ', userInLine.id);
+            // console.log('.... NAME', userInLine.name);
             findex = index;
             return;
         }
@@ -229,7 +231,7 @@ sio.use(function(socket, next)
 // socket.io event listeners
 sio.on('connection', function(socket)
 {
-    // console.log('SOCKET THING===========');
+    console.log('---><--- SOCKET CONNECT');
     // console.log(socket.request.res.locals.currentUser);
     
     req = socket.request;
@@ -281,11 +283,13 @@ sio.on('connection', function(socket)
             {
                 if (socket.user)
                 {
-                    if (socket.user.postsFor.some(function(post) { return post.id === postId; }))
+                    console.log(socket.user.name, 'connected to', socket.post);
+                    
+                    if (socket.user.postsFor.some(function(post) { return post.id === postId; })) // look for this post in the user's postsFor
                     {
                         socket.side = 'for';
                     }
-                    else if (socket.user.postsAgainst.some(function(post) { return post.id === postId; }))
+                    else if (socket.user.postsAgainst.some(function(post) { return post.id === postId; })) // look for this post in the user's postsAgainst
                     {
                         socket.side = 'against';
                     }
@@ -293,7 +297,10 @@ sio.on('connection', function(socket)
                         socket.side = null;
                 }
                 else
+                {
+                    console.log('Unauthenticated user connected to', socket.post);
                     socket.side = null;
+                }
                 
                 // have queues and champions been instantiated for this post?
                 if (!(postId in debateChats))
@@ -321,7 +328,7 @@ sio.on('connection', function(socket)
     // CHOSE A SIDE FOR THE DEBATE
     socket.on('choseSide', function(side)
     {   
-        console.log("======== choseSide received for", socket.user.name, side);
+        // console.log("======== choseSide received for", socket.user.name, side);
         
         if (!socket.user) // not logged in
             return;
@@ -405,11 +412,11 @@ sio.on('connection', function(socket)
                         callback(null);
                 }
             ], function(err)
-            {   console.log("======== sending choseSide_Response for", socket.user.name, side);
+            {
                 socket.emit('choseSide_Response', side);
                 if (socket.inLine) // was in line
                 {
-                    debateChat.removeUserFromLine(socket.user.id, socket.side);
+                    debateChat.removeUserFromLine(socket.user, socket.side);
                     socket.inLine = false;
                     handleLineShift(socket.side);
                 }
@@ -441,16 +448,16 @@ sio.on('connection', function(socket)
     {
         var debateChat = debateChats[socket.post.id];
         
-        console.log('===== QUEUE\n', debateChat.usersInLine[side]);
+        // console.log('===== QUEUE\n', debateChat.usersInLine[side]);
         
         debateChat.sockets.forEach(function(loopSocket)
         {
-            console.log('===== NAME', loopSocket.user.name);
+            // console.log('===== NAME', loopSocket.user.name);
             if (loopSocket.user && loopSocket.side == socket.side && loopSocket.inLine)
             {
                 var lineIndex = debateChat.getPlaceInLine(loopSocket.user, loopSocket.side);
                 
-                console.log('===== LINEINDEX', lineIndex);
+                // console.log('===== LINEINDEX', lineIndex);
                 
                 // front of line and no champ
                 if (lineIndex == 0 && debateChat.champion[side] == null)
@@ -476,17 +483,17 @@ sio.on('connection', function(socket)
     
     // ENTER QUEUE
     socket.on('enterQueue', function()
-    {   console.log('======== recieve enterQueue for', socket.user.name)
+    {
         if (!socket.user || !socket.side || socket.inLine) // no login or no side or already in line
-        {   console.stampedLog('====== OMFG RETURNING =======');
+        {
             return;
         }
         
         debateChat = debateChats[socket.post.id];
-        console.stampedLog('socket.post.id', socket.post.id);
+        
         // no champion already, move right in
         if (debateChat.champion[socket.side] == null && debateChat.usersInLine[socket.side].length == 0)
-        {   console.stampedLog('====== STRAIGHT TO CHAMPION =======');
+        {
             debateChat.champion[socket.side] = socket.user;
             debateChat.votesOnChampion[socket.side] = {};
             socket.emit('becomeChampion', socket.side);
@@ -494,7 +501,8 @@ sio.on('connection', function(socket)
             sio.to(socket.post.id).emit('champUpdate', debateChat.getChampName('for'), debateChat.getChampName('against'));
         }
         else // get in line
-        {   console.stampedLog('====== GETTING IN LINE =======');
+        {   
+            console.log(socket.user.name, socket.user.id, 'getting in line', socket.side);
             debateChat.usersInLine[socket.side].push(socket.user);
             socket.inLine = true;
             socket.emit('updateQueue', getOrdinal(debateChat.getPlaceInLine(socket.user, socket.side) + 1), socket.side);
@@ -519,23 +527,30 @@ sio.on('connection', function(socket)
 
     socket.on('disconnect', function()
     {
-        console.log('client disconnected');
+        console.log('--< * >-- DISCONNECT');
         
         if (socket.post)
         {
             var debateChat = debateChats[socket.post.id];
             
-            if (socket.inLine)
+            if (socket.user)
             {
-                debateChat.removeUserFromLine(socket.user.id, socket.side);
-                socket.inLine = false;
-                handleLineShift(socket.side);
-            }
-            else if (debateChat.getIsChamp(socket.user, socket.side)) // was champ
-            {
-                debateChat.champion[socket.side] = null;
-                sio.to(socket.post.id).emit('champUpdate', debateChat.getChampName('for'), debateChat.getChampName('against'));
-                handleLineShift(socket.side);
+                // console.log('--< * >-- Name:', socket.user.name);
+                
+                if (socket.inLine)
+                {
+                    // console.log('--< * >--', socket.user.name, 'was in line.');
+                    
+                    debateChat.removeUserFromLine(socket.user, socket.side);
+                    socket.inLine = false;
+                    handleLineShift(socket.side);
+                }
+                else if (debateChat.getIsChamp(socket.user, socket.side)) // was champ
+                {
+                    debateChat.champion[socket.side] = null;
+                    sio.to(socket.post.id).emit('champUpdate', debateChat.getChampName('for'), debateChat.getChampName('against'));
+                    handleLineShift(socket.side);
+                }
             }
             
             debateChat.sockets.splice(debateChat.sockets.indexOf(socket), 1); // remove the socket from the list
