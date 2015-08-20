@@ -16,14 +16,6 @@ $(function()
             theme: "minimal-dark",
             scrollInertia: 1
         });
-        
-        // $('.search-news').on('mouseover',function(){
-        //     $(this).animate({'opacity':'1.0'},400);
-        // });
-
-        // $('.search-news').on('mouseout',function(){
-        //     $(this).animate({'opacity':'0.7'},400);
-        // });
 
 
     //up and downvote functionality
