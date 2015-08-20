@@ -11,73 +11,77 @@
         <b class="author"><%= post.user.name %></b>
       </div>
     </div>
-
-    <div>
-    <h3>Vote on this debate!</h3>
-    </div>
-    <div id="voteDiv" class="column-group">
-      <div class="all-50">
-          <button class="ink-button push-right" id="upVoteBtn"><i class="fa fa-thumbs-up"></i></button>
+    
+    <div id="must-be-logged-in" class="disabled">
+      <div id="rate-post" class="subsection">
+        <div>
+        <h3>Vote on this debate!</h3>
+        </div>
+        <div id="voteDiv" class="column-group">
+          <div class="all-50">
+              <button class="ink-button push-right" id="upVoteBtn"><i class="fa fa-thumbs-up"></i></button>
+          </div>
+          <div class="all-50">
+             <button class="ink-button" id="downVoteBtn"><i class="fa fa-thumbs-down"></i></button>
+          </div>
+        </div>
       </div>
-      <div class="all-50">
-         <button class="ink-button" id="downVoteBtn"><i class="fa fa-thumbs-down"></i></button>
+      
+      <div id="choices" class="subsection">
+        <!-- Only one of these headings visible at a time. -->
+        <div id="headings-roll">
+          <h3 id="heading-choice-made-left">You Are For!</h3>  <!-- visibility: hidden in CSS -->
+          <h3 id="heading-choice-not-made">Choose a Side?</h3>
+          <h3 id="heading-choice-made-right">You Are Against!</h3>  <!-- visibility: hidden in CSS -->
+        </div>
+        
+        <div id="choice-roll">
+          
+          <div id="wanna-join-for" class="wanna-join">  <!-- visibility: hidden in CSS -->
+            <div class="not-queued"
+              <b>Wanna join the debate?</b>
+              <a class="enter-queue">Enter the queue</a>
+            </div>
+            <div class="queued hide-all">
+              You are <span class="ordinal"></span> in line.
+            </div>
+            <div class="champion hide-all">
+              You are currently arguing for your side!
+            </div>
+          </div>
+          
+          <div id="side-for">
+            <a class="choose-side ink-button green" href="#">
+              For! <i class="fa fa-thumbs-up"></i>
+            </a>
+            <a class="change-mind" href="#">Change your mind?</a>  <!-- visibility: hidden in CSS -->
+          </div>
+          <div id="side-against">
+            <a class="choose-side ink-button red push-right" href="#">
+              <i class="fa fa-thumbs-down fa-flip-horizontal"></i> Against!
+            </a>
+            <a class="change-mind push-right" href="#">Change your mind?</a>  <!-- visibility: hidden in CSS -->
+          </div>
+          
+          <div id="wanna-join-against" class="wanna-join">  <!-- visibility: hidden in CSS -->
+            <div class="not-queued"
+              <b>Wanna join the debate?</b>
+              <a class="enter-queue">Enter the queue</a>
+            </div>
+            <div class="queued hide-all">
+              You are <span class="ordinal"></span> in line.
+            </div>
+            <div class="champion hide-all">
+              You are currently arguing for your side!
+            </div>
+          </div>
+          
+        </div>
+        
       </div>
     </div>
     
-    <div id="choices" class="disabled">
-      <!-- Only one of these headings visible at a time. -->
-      <div id="headings-roll">
-        <h3 id="heading-choice-made-left">You Are For!</h3>  <!-- visibility: hidden in CSS -->
-        <h3 id="heading-choice-not-made">Choose a Side?</h3>
-        <h3 id="heading-choice-made-right">You Are Against!</h3>  <!-- visibility: hidden in CSS -->
-      </div>
-      
-      <div id="choice-roll">
-        
-        <div id="wanna-join-for" class="wanna-join">  <!-- visibility: hidden in CSS -->
-          <div class="not-queued"
-            <b>Wanna join the debate?</b>
-            <a class="enter-queue">Enter the queue</a>
-          </div>
-          <div class="queued hide-all">
-            You are <span class="ordinal"></span> in line.
-          </div>
-          <div class="champion hide-all">
-            You are currently arguing for your side!
-          </div>
-        </div>
-        
-        <div id="side-for">
-          <a class="choose-side ink-button green" href="#">
-            For! <i class="fa fa-thumbs-up"></i>
-          </a>
-          <a class="change-mind" href="#">Change your mind?</a>  <!-- visibility: hidden in CSS -->
-        </div>
-        <div id="side-against">
-          <a class="choose-side ink-button red push-right" href="#">
-            <i class="fa fa-thumbs-down fa-flip-horizontal"></i> Against!
-          </a>
-          <a class="change-mind push-right" href="#">Change your mind?</a>  <!-- visibility: hidden in CSS -->
-        </div>
-        
-        <div id="wanna-join-against" class="wanna-join">  <!-- visibility: hidden in CSS -->
-          <div class="not-queued"
-            <b>Wanna join the debate?</b>
-            <a class="enter-queue">Enter the queue</a>
-          </div>
-          <div class="queued hide-all">
-            You are <span class="ordinal"></span> in line.
-          </div>
-          <div class="champion hide-all">
-            You are currently arguing for your side!
-          </div>
-        </div>
-        
-      </div>
-      
-    </div>
-    
-    <div id="champions" class="column-group">
+    <div id="champions" class="column-group subsection">
       <div id="champ-for">
         <h4>Currently arguing <span class="green">For</span>:</h4>
         <h6 class="author">...</h6>
@@ -103,6 +107,8 @@
     </div>
   </section>
   
+  
+  <!-- COLUMN 2 -->
   <section id="argue-column" class="large-35 xlarge-35 medium-35 small-60 tiny-100">
     
     <!-- <h2>Debate</h2> -->

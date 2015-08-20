@@ -137,7 +137,6 @@ DebateChat.prototype.removeUserFromLine = function(user, side)
         throw new Error("DebateChat.prototype.removeUserFromLine: Second parameter must be 'for' or 'against'.");
     
     
-    
     var thisLine = this.usersInLine[side];
     
     var removedUser = null;

@@ -97,8 +97,8 @@ $(function()
             // console.log(freeSpace);
             var vertMargin = Math.max(freeSpace / 2, 0);
             
-            postStuff.css("margin-bottom", vertMargin.toString()+"px");
-            choices.css("margin-bottom", vertMargin.toString()+"px");
+            // postStuff.css("margin-bottom", vertMargin.toString()+"px");
+            // choices.css("margin-bottom", vertMargin.toString()+"px");
             
             chatOutput.height(contentHeight - chatBox.outerHeight());
             if (e === 'init')
@@ -135,7 +135,7 @@ $(function()
             if (userId)
             {
                 // $('#choices').css('visibility', 'visible');
-                $('#choices').removeClass("disabled");
+                $('#must-be-logged-in').removeClass("disabled");
                 choiceShift(side);
                 
                 // CLIENT - CHOSE WHAT SIDE THEY ARE ON
@@ -241,7 +241,7 @@ $(function()
             else
             {
                 disableChatBox("You are not logged in.");
-                $('#choices').addClass("disabled");
+                $('#must-be-logged-in').addClass("disabled");
             }
             
             // SERVER - CHAMP UPDATE

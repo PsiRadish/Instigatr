@@ -51,6 +51,11 @@ $argue-grey-background              : #505050;
     display: block;
 }
 
+.subsection
+{
+    margin-top: 19px;
+}
+
 
 // == COLUMN 1 ====
 
@@ -181,38 +186,43 @@ $argue-grey-background              : #505050;
     }
 }
 
+#must-be-logged-in.disabled
+{
+    position: relative;
+    
+    h3, a, span, p, button
+    {
+        pointer-events: none;
+        opacity: 0.35;
+    }
+    
+    &:hover::after, &:focus::after, &:active::after
+    {
+        // opacity: 1;
+        content: 'You are not logged in.';
+        // color: red;
+        @include text-outline(1px, white);
+        text-align: center;
+        font-size: $h3-font-size;
+        font-weight: bold;
+        // margin: 0 auto;
+        
+        position: absolute;
+        top: 25%;
+        left: 20%;
+        right: 20%;
+    }
+}
+
 // initiate transition properties when a choice is made
 #choices // no choice made state
 {
     // margin-bottom: 24px;
     // visibility: hidden;
-    &.disabled
-    {
-        position: relative;
-        
-        h3, a, span, p
-        {
-            pointer-events: none;
-            opacity: 0.35;
-        }
-        
-        &:hover::after, &:focus::after, &:active::after
-        {
-            // opacity: 1;
-            content: 'You are not logged in.';
-            // color: red;
-            @include text-outline(1px, white);
-            text-align: center;
-            font-size: $h3-font-size;
-            font-weight: bold;
-            // margin: 0 auto;
-            
-            position: absolute;
-            top: 0%;
-            left: 20%;
-            right: 20%;
-        }
-    }
+    // &.disabled
+    // {
+
+    // }
     
     #heading-choice-made-left
     {

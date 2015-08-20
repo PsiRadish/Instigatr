@@ -155,6 +155,10 @@
   display: block;
 }
 
+.subsection {
+  margin-top: 19px;
+}
+
 #take-sides-column {
   border: 1px solid #999;
   background-color: #F8F8F8;
@@ -241,24 +245,25 @@
   display: block;
 }
 
-#choices.disabled {
+#must-be-logged-in.disabled {
   position: relative;
 }
-#choices.disabled h3, #choices.disabled a, #choices.disabled span, #choices.disabled p {
+#must-be-logged-in.disabled h3, #must-be-logged-in.disabled a, #must-be-logged-in.disabled span, #must-be-logged-in.disabled p, #must-be-logged-in.disabled button {
   pointer-events: none;
   opacity: 0.35;
 }
-#choices.disabled:hover::after, #choices.disabled:focus::after, #choices.disabled:active::after {
+#must-be-logged-in.disabled:hover::after, #must-be-logged-in.disabled:focus::after, #must-be-logged-in.disabled:active::after {
   content: 'You are not logged in.';
   text-shadow: 1px 1px 0 white, -2px 0 white, -1px 1px 0 white, 0px 0 white;
   text-align: center;
   font-size: 21px;
   font-weight: bold;
   position: absolute;
-  top: 0%;
+  top: 25%;
   left: 20%;
   right: 20%;
 }
+
 #choices #heading-choice-made-left {
   left: -50%;
   opacity: 0;

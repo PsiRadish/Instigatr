@@ -43,3 +43,7 @@ div.news.column-group {
 	border:none;
 	border-radius: 0px 18px 18px 0px;
 }
+img[src=""]
+{
+    display: none;
+}

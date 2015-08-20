@@ -16,24 +16,51 @@ body{
 	min-height: 10vh;
 	overflow: hidden;
 }
+.css-mainPagePostDiv
+{
+	display: inline-block;
+}
 .css-mainPagePostDiv div{
 	display:inline;
 	margin-top: 2%;
 }
-.author{
+
+.css-main
+/*.author{
 	text-align: center;
 	vertical-align: bottom;
-}
+}*/
 .css-text{
 	background-color: rgba(160,160,160,.5);
 	border-radius:7px 5px 7px 0px;
 	min-height: 10vh;
 }
+.post.css-text
+{
+	padding: 4px;
+	min-height: 96px;
+	position: relative;
+}
+.post.css-text .author
+{
+	/*text-align: right;*/
+	font-size: 95%;
+	font-weight: bold;
+	display: inline-block;
+	position: absolute;
+	right: 4px;
+	bottom: 4px;
+}
 .css-text p{
 	margin:3px 0px 0px 5px;
 }
-.css-tags{
-	margin-top: 2px;
+.css-text + .css-text, .css-text + .goToLink
+{
+	margin-left: 20px;
+}
+.css-mainPagePostDiv .css-tags{
+	/*margin-top: 2px;*/
+	margin-top: 20px;
 /*	text-align: center;*/
 	background-color: rgba(250,250,250,.2);
 	border-radius:0px 5px 5px 0px;
@@ -78,6 +105,7 @@ body{
 .goToLink{
 	font-size: 40px;
 	text-align: center;
+	margin-left: calc(10% - 20px);
 }
 .usrOptions{
 	right:0;

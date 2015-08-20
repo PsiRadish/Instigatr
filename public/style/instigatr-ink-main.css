@@ -8737,6 +8737,14 @@ body.ink-drawer.over.right .right-drawer {
   background-color: #ffd500;
 }
 
+span.green {
+  color: #008000;
+}
+
+span.red {
+  color: #C00000;
+}
+
 .vis-hide {
   visibility: hidden !important;
 }
