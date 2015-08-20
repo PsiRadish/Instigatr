@@ -1,3 +1,11 @@
+#news-column
+{
+    background-image: url('/paper-texture-75.jpg');
+    background-repeat: repeat;
+    box-shadow: -1px 0 0 2px rgba(0,0,0, 0.1);
+    z-index: 20;
+}
+
 .thumbNail, .article {
   display: inline-block;
 

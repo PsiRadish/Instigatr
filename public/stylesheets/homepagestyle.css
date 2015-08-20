@@ -1,5 +1,6 @@
 body{
-	background-image: url(../staticNewsBkgrnd.png);
+	/*background-image: url(../staticNewsBkgrnd.png);*/
+	background-image: url(../staticNewsBkgrnd.jpg);
 }
 .archiveDD{
 	width:13vw;
