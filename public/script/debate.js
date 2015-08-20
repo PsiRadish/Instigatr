@@ -25,6 +25,36 @@ $(function()
         //     $(this).animate({'opacity':'0.7'},400);
         // });
 
+
+    //up and downvote functionality
+    $('#upVoteBtn').on('click',function(e){
+        e.preventDefault();
+        var id = $('#pId').val();
+        var val = 1;
+        var vote = $.ajax({
+            url:'/posts/vote',
+            method:'GET',
+            data:{'val':val,'postId':id}
+        }).done(function(){
+            console.log(id);
+            console.log(vote);
+        });
+    });
+    $('#downVoteBtn').on('click',function(e){
+        e.preventDefault();
+        var id = $('#pId').val();
+        var val = -1;
+        var vote = $.ajax({
+            url:'/posts/vote',
+            method:'GET',
+            data:{'val':val,'postId':id}
+        }).done(function(){
+            console.log(vote);
+        });
+    });
+
+
+
         //news search button listener
         $('#newsSrchBtn').on('click',function(e){
             e.preventDefault();

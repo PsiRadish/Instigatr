@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes) {
   var vote = sequelize.define('vote', {
     userId: DataTypes.INTEGER,
     postId: DataTypes.INTEGER,
-    value: DataTypes.INTEGER
+    value: {type: DataTypes.INTEGER, defaultValue: 0}
   }, {
     classMethods: {
       associate: function(models) {
