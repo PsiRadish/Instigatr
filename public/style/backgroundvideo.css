@@ -41,27 +41,44 @@
 
 
 
-            }
-            .push, footer {
-               /* height: 100px;
-                margin-top: 10px;*/
+}
 
-            }
-            footer {
-                background: black;
-                border: 0;
-                text-align: center
+body{
+  padding-bottom: 120px;
+}
+
+.push, footer {
+   /* height: 100px;
+    margin-top: 10px;*/
+
+}
+footer {
+    background: black;
+    border: 0;
+    text-align: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+}
+footer * {
+    line-height: inherit;
 
 
-
-            }
-            footer * {
-                line-height: inherit;
-
-            }
+}
 
 #about {
   min-height: 675px
 }
 
-#aboutID
+
+
+.hero-spacer {
+    margin-top: 50px;
+}
+
+.hero-feature {
+    margin-bottom: 30px;
+}
+
