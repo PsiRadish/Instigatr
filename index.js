@@ -135,6 +135,8 @@ DebateChat.prototype.removeUserFromLine = function(user, side)
     if (side !== 'for' && side !== 'against')
         throw new Error("DebateChat.prototype.removeUserFromLine: Second parameter must be 'for' or 'against'.");
     
+    
+    
     var thisLine = this.usersInLine[side];
     
     var removedUser = null;
@@ -409,7 +411,7 @@ sio.on('connection', function(socket)
                 socket.emit('choseSide_Response', side);
                 if (socket.inLine) // was in line
                 {
-                    debateChat.removeUserFromLine(socket.user.id, socket.side);
+                    debateChat.removeUserFromLine(socket.user, socket.side);
                     socket.inLine = false;
                     handleLineShift(socket.side);
                 }
@@ -519,23 +521,37 @@ sio.on('connection', function(socket)
 
     socket.on('disconnect', function()
     {
-        console.log('client disconnected');
+        console.log('--< * >-- DISCONNECT');
         
         if (socket.post)
         {
             var debateChat = debateChats[socket.post.id];
             
-            if (socket.inLine)
+            if (socket.user)
             {
-                debateChat.removeUserFromLine(socket.user.id, socket.side);
-                socket.inLine = false;
-                handleLineShift(socket.side);
-            }
-            else if (debateChat.getIsChamp(socket.user, socket.side)) // was champ
-            {
-                debateChat.champion[socket.side] = null;
-                sio.to(socket.post.id).emit('champUpdate', debateChat.getChampName('for'), debateChat.getChampName('against'));
-                handleLineShift(socket.side);
+                console.log('--< * >-- Name:', socket.user.name);
+                
+                if (socket.inLine)
+                {
+                    console.log('--< * >--', socket.user.name, 'was in line.');
+                    var userRemovedFromLine = debateChat.removeUserFromLine(socket.user, socket.side);
+                    if (userRemovedFromLine)
+                        console.log('--< * >--', userRemovedFromLine.name, 'removed from line.');
+                    else
+                        console.log('--< * >-- NO USER REMOVED FROM LINE D: >_< ;_;');
+                    
+                    //debateChat.removeUserFromLine(socket.user, socket.side);
+                    socket.inLine = false;
+                    handleLineShift(socket.side);
+                }
+                else if (debateChat.getIsChamp(socket.user, socket.side)) // was champ
+                {
+                    debateChat.champion[socket.side] = null;
+                    sio.to(socket.post.id).emit('champUpdate', debateChat.getChampName('for'), debateChat.getChampName('against'));
+                    handleLineShift(socket.side);
+                }
+                else
+                    console.log('--< * >--', socket.user.name, 'was NOT in line.');
             }
             
             debateChat.sockets.splice(debateChat.sockets.indexOf(socket), 1); // remove the socket from the list
