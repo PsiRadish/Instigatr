@@ -196,26 +196,26 @@
   height: 60px;
   width: 100%;
 }
-#choices #choice-roll #wanna-join-left, #choices #choice-roll #wanna-join-right,
+#choices #choice-roll #wanna-join-for, #choices #choice-roll #wanna-join-against,
 #choices #choice-roll #side-for, #choices #choice-roll #side-against {
   position: absolute;
   width: 50%;
   top: 0%;
 }
-#choices #wanna-join-left, #choices #wanna-join-right {
+#choices #wanna-join-for, #choices #wanna-join-against {
   text-align: center;
   border-radius: 4px;
   border-bottom-left-radius: 0;
   padding: 6px;
 }
-#choices #wanna-join-left .enter-queue, #choices #wanna-join-right .enter-queue {
+#choices #wanna-join-for .enter-queue, #choices #wanna-join-against .enter-queue {
   display: block;
 }
-#choices #wanna-join-left {
+#choices #wanna-join-for {
   border: 1px solid rgba(74, 155, 23, 0.2);
   background-color: rgba(74, 155, 23, 0.1);
 }
-#choices #wanna-join-right {
+#choices #wanna-join-against {
   border: 1px solid rgba(201, 17, 17, 0.2);
   background-color: rgba(201, 17, 17, 0.1);
 }
@@ -223,8 +223,8 @@
 #heading-choice-made-left,
 #heading-choice-not-made,
 #heading-choice-made-right,
-#wanna-join-left,
-#wanna-join-right,
+#wanna-join-for,
+#wanna-join-against,
 #side-for,
 #side-against {
   transition: left 0.5s, padding 0.5s, opacity 0.3s;
@@ -270,7 +270,7 @@
   left: 50%;
   opacity: 0;
 }
-#choices #wanna-join-left {
+#choices #wanna-join-for {
   left: -50%;
   opacity: 0;
 }
@@ -286,7 +286,7 @@
 #choices #side-against .change-mind {
   visibility: hidden;
 }
-#choices #wanna-join-right {
+#choices #wanna-join-against {
   left: 100%;
   opacity: 0;
 }
@@ -299,7 +299,7 @@
   left: 50%;
   opacity: 0;
 }
-#choices.side-chosen-for #wanna-join-left {
+#choices.side-chosen-for #wanna-join-for {
   left: 0%;
   opacity: 1;
 }
@@ -340,19 +340,14 @@
 #choices.side-chosen-against #side-against .change-mind {
   visibility: visible;
 }
-#choices.side-chosen-against #wanna-join-right {
+#choices.side-chosen-against #wanna-join-against {
   left: 50%;
   opacity: 1;
 }
 
-#choices.side-chosen-for + #hows-my-arguing,
-#choices.side-chosen-against + #hows-my-arguing {
-  visibility: visible;
-}
-
-#hows-my-arguing {
+#choices.side-chosen-for,
+#champions {
   text-align: center;
-  visibility: hidden;
 }
 
 #argue-column {

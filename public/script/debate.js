@@ -1,14 +1,22 @@
 $(function()
 {
-    $(".scroll").mCustomScrollbar(
+    if ($('#debate-page').length)
     {
-        axis:"y", // vertical
-        theme: "minimal-dark",
-        scrollInertia: 1
-    });
-    
-    if ($('#debate-page'))
-    {
+        console.log('debate-page');
+        
+        $("#chat-output").mCustomScrollbar(
+        {
+            axis:"y", // vertical
+            theme: "minimal-dark",
+            scrollInertia: 1
+        });
+        $("#results-news-headlines").mCustomScrollbar(
+        {
+            axis:"y", // vertical
+            theme: "minimal-dark",
+            scrollInertia: 1
+        });
+        
         function sizeChat(e)
         {
             var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
@@ -21,7 +29,7 @@ $(function()
             
             var postStuff = $('#post-stuff');
             var choices = $('#choices');
-                choices.height($('#headings-roll').outerHeight(true) + $('#wanna-join-left').outerHeight(true));
+                choices.height($('#headings-roll').outerHeight(true) + $('#wanna-join-for').outerHeight(true));
             var yourSide = $('#hows-my-arguing');
             
             var chatOutput = $('#chat-output');
@@ -38,8 +46,13 @@ $(function()
             choices.css("margin-bottom", vertMargin.toString()+"px");
             
             chatOutput.height(contentHeight - chatBox.outerHeight());
+            if (e === 'init')
+            {
+                chatOutput.mCustomScrollbar("update");
+                chatOutput.mCustomScrollbar("scrollTo", "bottom");
+            }
         }
-        sizeChat();
+        sizeChat('init');
         // do it again on resize
         $(window).resize(sizeChat);
         
@@ -101,19 +114,29 @@ $(function()
                 $('.enter-queue').on('click', function(e)
                 {
                     e.preventDefault();
-                    
+                    console.log('emit enterQueue');
                     socket.emit('enterQueue');
                 });
                 // SERVER - LINE UPDATE
-                socket.on('updateQueue', function(placeInLine)
-                {
-                    
+                socket.on('updateQueue', function(placeInLine, side)
+                {   console.log('on updateQueue', placeInLine, side);
+                    if (side)
+                    {
+                        $('.wanna-join .queued').removeClass('hide-all');
+                        $('.wanna-join .not-queued').addClass('hide-all');
+                        $('.queued ordinal').html(placeInLine);
+                    }
                 });
                 
                 // SERVER - YOUR TURN
-                socket.on('becomeChampion', function()
+                socket.on('becomeChampion', function(side)
                 {
                     enableChatBox();
+                    if (side)
+                    {
+                        $('.wanna-join .champion').removeClass('hide-all');
+                        $('.wanna-join .queued, .wanna-join .not-queued').addClass('hide-all');
+                    }
                 });
                 // SERVER - KICKED
                 socket.on('kickedFromChampion', function()
@@ -191,13 +214,18 @@ $(function()
                 setTimeout(function() // wait to remove 'new' class so transition triggers
                 {
                     newChatItem.removeClass('new');
-                    chatOutput[0].scrollTop = chatOutput[0].scrollHeight;
+                    // chatOutput[0].scrollTop = chatOutput[0].scrollHeight;
+                    $('#chat-output').mCustomScrollbar("update");
+                    $('#chat-output').mCustomScrollbar("scrollTo", "bottom");
                 }, 10);
             });
         });
         
         function choiceShift(side)
         {
+            $('.wanna-join .queued, .wanna-join .champion').addClass('hide-all');
+            $('.wanna-join .not-queued').removeClass('hide-all');
+            
             if (side == 'for')
             {
                 $('#choices').addClass('side-chosen-for');

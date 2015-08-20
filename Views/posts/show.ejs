@@ -22,9 +22,17 @@
       
       <div id="choice-roll">
         
-        <div id="wanna-join-left">  <!-- visibility: hidden in CSS -->
-          <b>Wanna join the debate?</b>
-          <a class="enter-queue">Enter the queue</a>
+        <div id="wanna-join-for" class="wanna-join">  <!-- visibility: hidden in CSS -->
+          <div class="not-queued"
+            <b>Wanna join the debate?</b>
+            <a class="enter-queue">Enter the queue</a>
+          </div>
+          <div class="queued hide-all">
+            You are <span class="ordinal"><span> in line.
+          </div>
+          <div class="champion hide-all">
+            You are currently arguing for your side!
+          </div>
         </div>
         
         <div id="side-for">
@@ -40,9 +48,17 @@
           <a class="change-mind push-right" href="#">Change your mind?</a>  <!-- visibility: hidden in CSS -->
         </div>
         
-        <div id="wanna-join-right">  <!-- visibility: hidden in CSS -->
-          <b>Wanna join the debate?</b>
-          <a class="enter-queue">Enter the queue</a>
+        <div id="wanna-join-against" class="wanna-join">  <!-- visibility: hidden in CSS -->
+          <div class="not-queued"
+            <b>Wanna join the debate?</b>
+            <a class="enter-queue">Enter the queue</a>
+          </div>
+          <div class="queued hide-all">
+            You are <span class="ordinal"><span> in line.
+          </div>
+          <div class="champion hide-all">
+            You are currently arguing for your side!
+          </div>
         </div>
         
       </div>
@@ -122,12 +138,12 @@
       </form>
     </div>
 
-    <div id="results-news-headlines" class="results-news-headlines scroll">
+    <div id="c" class="results-news-headlines scroll">
 
        <% if (typeof newsJSON !== "undefined") { %>
           <% if (newsJSON.response){ %> <!-- NYT Headlines -->
                <% newsJSON.response.docs.forEach(function(doc) {  %>
-                  <div class="column-group">
+                  <div class="news column-group">
                       <div class="thumbNail all-20">
                           <% if (doc.multimedia) { %>
                               <% var imageThumb %>

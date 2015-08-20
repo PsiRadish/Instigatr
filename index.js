@@ -117,13 +117,14 @@ app.use('/auth',require('./controllers/authController.js'));
 app.use('/users', require('./controllers/usersController.js'));
 
 app.use('/posts', require('./controllers/postsController.js'));
-lers/tagsController.js'));
+app.use('/tags', require('./controllers/tagsController.js'));
 
-app.use('/tags', require('./control
 // DebateChat CLASS
 function DebateChat(postId)
 {
     this.postId = postId;
+    
+    this.sockets = [];
     
     this.champion = {for: null, against: null};
     this.votesOnChampion = {for: {}, against: {}};
@@ -150,20 +151,31 @@ DebateChat.prototype.removeUserFromLine = function(user, side)
 }
 DebateChat.prototype.getPlaceInLine = function(user, side)
 {
+    console.log('================ getPlaceInLine');
+    console.log('---------- ID  ', user.id);
+    console.log('---------- NAME', user.name);
+    console.log('---------- SIDE', side);
     var findex = -1;
     
+    // this.usersInLine[side].forEach(function(socketInLine, index)
     this.usersInLine[side].forEach(function(userInLine, index)
     {
+        // userInLine = socketInLine.user;
+        
+        console.log('.... INDEX', index);
         if (user.id === userInLine.id)
         {
+            console.log('.... ID  ', userInLine.id);
+            console.log('.... NAME', userInLine.name);
             findex = index;
             return;
         }
     });
     
-    if (findex == -1)
-        return null;
-    return getOrdinal(findex + 1);
+    return findex;
+    // if (findex == -1)
+    //     return null;
+    // return getOrdinal(findex + 1);
 }
 DebateChat.prototype.getChampName = function(side)
 {   // checks for null champ here so don't have to elsewhere
@@ -219,13 +231,16 @@ sio.on('connection', function(socket)
 {
     // console.log('SOCKET THING===========');
     // console.log(socket.request.res.locals.currentUser);
-
+    
     req = socket.request;
     res = socket.request.res;
+    
+    socket.post = null;
 
     // CHAT INITIALIZATION REQUEST
     socket.on('startChat', function(postId)
     {
+        console.log("========= startChat");
         async.series(
         [function(callback)
         {
@@ -240,7 +255,7 @@ sio.on('connection', function(socket)
                 }
                 else
                 {
-                    callback(new Error('Post '+postId+' not found.'));
+                    callback(new Error(req.route + ':' + req.url + ': Post '+postId+' not found.'));
                 }
             }).catch(function(err)
             {
@@ -285,9 +300,10 @@ sio.on('connection', function(socket)
                 {
                     debateChats[postId] = new DebateChat(postId); // make 'em
                 }
+                debateChats[postId].sockets.push(socket);
                 
                 // CHAT INITIALIZATION RESPONSE
-                socket.emit('startChat_Response', req.session.userId, socket.side, debateChat.getChampName('for'), debateChat.getChampName('against'));
+                socket.emit('startChat_Response', req.session.userId, socket.side, debateChats[socket.post.id].getChampName('for'), debateChats[socket.post.id].getChampName('against'));
             }
             else
             {
@@ -304,28 +320,18 @@ sio.on('connection', function(socket)
     
     // CHOSE A SIDE FOR THE DEBATE
     socket.on('choseSide', function(side)
-    {
+    {   
+        console.log("======== choseSide received for", socket.user.name, side);
+        
         if (!socket.user) // not logged in
             return;
         
-        debateChat = debateChat.champion[socket.side];
+        debateChat = debateChats[socket.post.id];
         
         if (side != socket.side) // side changed
         {   // keep track of which list(s) change
             var forChanged = false;
             var againstChanged = false;
-            
-            if (socket.inLine) // was in line
-            {
-                debateChat.removeUserFromLine(socket.user.id, socket.side);
-                socket.inLine = false;
-                handleLineShift(socket.side);
-            }
-            if (debateChat.getIsChamp(socket.user, socket.side)) // was champ
-            {
-                debateChat.champion[socket.side] = null;
-                handleLineShift(socket.side);
-            }
             
             var removalFunc = null;
             if (socket.side === 'for') // was For
@@ -352,7 +358,7 @@ sio.on('connection', function(socket)
             }
 
             socket.side = side;
-
+            
             async.series(
             [
                 function(callback)
@@ -399,8 +405,19 @@ sio.on('connection', function(socket)
                         callback(null);
                 }
             ], function(err)
-            {
+            {   console.log("======== sending choseSide_Response for", socket.user.name, side);
                 socket.emit('choseSide_Response', side);
+                if (socket.inLine) // was in line
+                {
+                    debateChat.removeUserFromLine(socket.user.id, socket.side);
+                    socket.inLine = false;
+                    handleLineShift(socket.side);
+                }
+                if (debateChat.getIsChamp(socket.user, socket.side)) // was champ
+                {
+                    debateChat.champion[socket.side] = null;
+                    handleLineShift(socket.side);
+                }
             })
         }
     });
@@ -424,41 +441,63 @@ sio.on('connection', function(socket)
     {
         var debateChat = debateChats[socket.post.id];
         
-        if (debateChat.champion[side] == null && debateChat.usersInLine[side].length > 0)
-        {
-            debateChat.champion[side] = debateChat.usersInLine[side].shift();
-        }
+        console.log('===== QUEUE\n', debateChat.usersInLine[side]);
         
-        sio.sockets.clients(socket.post.id).forEach(function(loopSocket)
+        debateChat.sockets.forEach(function(loopSocket)
         {
-            if (loopSocket.user && loopSocket.inLine)
+            console.log('===== NAME', loopSocket.user.name);
+            if (loopSocket.user && loopSocket.side == socket.side && loopSocket.inLine)
             {
+                var lineIndex = debateChat.getPlaceInLine(loopSocket.user, loopSocket.side);
                 
+                console.log('===== LINEINDEX', lineIndex);
+                
+                // front of line and no champ
+                if (lineIndex == 0 && debateChat.champion[side] == null)
+                {   // promotion
+                    
+                    debateChat.champion[side] = debateChat.usersInLine[side].shift();
+                    loopSocket.inLine = false;
+                    debateChat.votesOnChampion[loopSocket.side] = {};
+                    loopSocket.emit('becomeChampion', loopSocket.side);
+                    sio.to(socket.post.id).emit('champUpdate', debateChat.getChampName('for'), debateChat.getChampName('against'));
+                    
+                    // and now we start all over
+                    handleLineShift(socket.side);
+                    return;
+                }
+                else
+                {
+                    loopSocket.emit('updateQueue', getOrdinal(debateChat.getPlaceInLine(loopSocket.user, loopSocket.side) + 1), loopSocket.side);
+                }
             }
         });
     }
     
     // ENTER QUEUE
     socket.on('enterQueue', function()
-    {
+    {   console.log('======== recieve enterQueue for', socket.user.name)
         if (!socket.user || !socket.side || socket.inLine) // no login or no side or already in line
+        {   console.stampedLog('====== OMFG RETURNING =======');
             return;
+        }
         
         debateChat = debateChats[socket.post.id];
-        
+        console.stampedLog('socket.post.id', socket.post.id);
         // no champion already, move right in
         if (debateChat.champion[socket.side] == null && debateChat.usersInLine[socket.side].length == 0)
-        {
+        {   console.stampedLog('====== STRAIGHT TO CHAMPION =======');
             debateChat.champion[socket.side] = socket.user;
-            socket.emit('becomeChampion');
+            debateChat.votesOnChampion[socket.side] = {};
+            socket.emit('becomeChampion', socket.side);
             
             sio.to(socket.post.id).emit('champUpdate', debateChat.getChampName('for'), debateChat.getChampName('against'));
         }
         else // get in line
-        {
+        {   console.stampedLog('====== GETTING IN LINE =======');
             debateChat.usersInLine[socket.side].push(socket.user);
             socket.inLine = true;
-            socket.emit('updateQueue', debateChat.getPlaceInLine(socket.user, socket.side));
+            socket.emit('updateQueue', getOrdinal(debateChat.getPlaceInLine(socket.user, socket.side) + 1), socket.side);
         }
     });
     
@@ -482,19 +521,24 @@ sio.on('connection', function(socket)
     {
         console.log('client disconnected');
         
-        var debateChat = debateChats[socket.post.id];
-        
-        if (socket.inLine)
+        if (socket.post)
         {
-            debateChat.removeUserFromLine(socket.user.id, socket.side);
-            socket.inLine = false;
-            handleLineShift(socket.side);
-        }
-        else if (debateChat.getIsChamp(socket.user, socket.side)) // was champ
-        {
-            debateChat.champion[socket.side] = null;
-            sio.to(socket.post.id).emit('champUpdate', debateChat.getChampName('for'), debateChat.getChampName('against'));
-            handleLineShift(socket.side);
+            var debateChat = debateChats[socket.post.id];
+            
+            if (socket.inLine)
+            {
+                debateChat.removeUserFromLine(socket.user.id, socket.side);
+                socket.inLine = false;
+                handleLineShift(socket.side);
+            }
+            else if (debateChat.getIsChamp(socket.user, socket.side)) // was champ
+            {
+                debateChat.champion[socket.side] = null;
+                sio.to(socket.post.id).emit('champUpdate', debateChat.getChampName('for'), debateChat.getChampName('against'));
+                handleLineShift(socket.side);
+            }
+            
+            debateChat.sockets.splice(debateChat.sockets.indexOf(socket), 1); // remove the socket from the list
         }
     });
 });
