@@ -45,9 +45,9 @@ app.use(flash());
 app.use(function(req,res,next)
 {
   res.locals.alerts = req.flash();
-  
+
   // req.session.userId = 2; // FOR TESTING ONLY BRO
-  
+
   if (req.session.userId)
   {
     // console.log("Getting session user from database");
@@ -70,7 +70,7 @@ app.use(function(req,res,next)
   {
     if (typeof req.session.userId == 'undefined')
       req.session.userId = null;
-    
+
     req.currentUser = false;
     res.locals.currentUser = false;
     next();
@@ -106,9 +106,10 @@ app.use(function(req,res,next)
 //   res.redirect('/login');
 // }
 
+
 app.use('/',require('./controllers/mainController.js'));
 app.use('/auth',require('./controllers/authController.js'));
-
+app.use('/about',require('./controllers/staticController.js'));
 app.use('/users', require('./controllers/usersController.js'));
 
 app.use('/posts', require('./controllers/postsController.js'));
@@ -118,11 +119,11 @@ app.use('/tags', require('./controllers/tagsController.js'));
 function DebateChat(postId)
 {
     this.postId = postId;
-    
+
     this.userDebatingFor = null;
     this.confidenceInUserDebatingFor = 0;
     this.usersInLineFor = [];
-    
+
     this.userDebatingAgainst = null;
     this.confidenceInUserDebatingAgainst = 0;
     this.usersInLineAgainst = [];
@@ -130,14 +131,14 @@ function DebateChat(postId)
 DebateChat.prototype.removeUserIdFromLine = function(userId, whichLine)
 {
     var thisLine;
-    
+
     if (whichLine === 'for')
         thisLine = this.usersInLineFor;
     else if (whichLine === 'against')
         thisLine = this.usersInLineAgainst;
     else
         throw new Error("DebateChat.prototype.removeUserIdFromLine: Second parameter must be 'for' or 'against'.");
-    
+
     var removedId = null;
     thisLine.forEach(function(user, index)
     {
@@ -147,7 +148,7 @@ DebateChat.prototype.removeUserIdFromLine = function(userId, whichLine)
             return;
         }
     });
-    
+
     return removedId;
 }
 var debateChats = {};
@@ -165,10 +166,10 @@ sio.on('connection', function(socket)
 {
     // console.log('SOCKET THING===========');
     // console.log(socket.request.res.locals.currentUser);
-    
+
     req = socket.request;
     res = socket.request.res;
-    
+
     // CHAT INITIALIZATION REQUEST
     socket.on('startChat', function(postId)
     {
@@ -176,30 +177,30 @@ sio.on('connection', function(socket)
         [function(callback)
         {
             db.post.findById(postId).then(function(post)
-            {   
+            {
                 if (post)
-                {   
+                {
                     socket.room = postId;
                     socket.join(postId);
                     socket.post = post;
                     callback(null);
                 }
                 else
-                {   
+                {
                     callback(new Error('Post '+postId+' not found.'));
                 }
             }).catch(function(err)
-            {   
+            {
                 callback(err);
             });
         },function(callback)
-        {   
+        {
             db.user.find(
             {
                 where: {id: req.session.userId},
                 include: [{ model: db.post, as: 'postsFor' }, { model: db.post, as: 'postsAgainst' }]
             }).then(function(user)
-            {   
+            {
                 socket.user = user;
                 callback(null);
             }).catch(function(err)
@@ -207,11 +208,11 @@ sio.on('connection', function(socket)
                 callback(err);
             });
         }],function(err)
-        {   
+        {
             if (!err)
-            {   
+            {
                 if (socket.user)
-                {   
+                {
                     if (socket.user.postsFor.some(function(post) { return post.id === postId; }))
                     {
                         socket.side = 'for';
@@ -229,10 +230,10 @@ sio.on('connection', function(socket)
             else
             {
                 console.log(err);
-                
+
                 // if (typeof res.locals.alerts.danger == 'undefined')
                 //     res.locals.alerts.danger = [];
-                
+
                 // res.locals.alerts.danger.push(err);
                 // res.redirect('/404');
             }
@@ -246,7 +247,7 @@ sio.on('connection', function(socket)
         {   // keep track of which list(s) change
             var forChanged = false;
             var againstChanged = false;
-            
+
             var removalFunc = null;
             if (socket.side === 'for') // was For
             {
@@ -258,7 +259,7 @@ sio.on('connection', function(socket)
                 removalFunc = 'removePostsAgainst'; // store this function to call later
                 againstChanged = true;
             }
-            
+
             var addFunc = null;
             if (side === 'for') // is For
             {
@@ -270,9 +271,9 @@ sio.on('connection', function(socket)
                 addFunc = 'addPostsAgainst'; // store this function to call later
                 againstChanged = true;
             }
-            
+
             socket.side = side;
-            
+
             async.series(
             [
                 function(callback)
@@ -324,7 +325,7 @@ sio.on('connection', function(socket)
             })
         }
     });
-    
+
     // NEW MESSAGE FROM A CHAT ROOM
     socket.on('newMessage', function(content)
     {
@@ -338,7 +339,7 @@ sio.on('connection', function(socket)
             });
         }
     });
-    
+
     socket.on('disconnect', function()
     {
         console.log('user disconnected');

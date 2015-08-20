@@ -38,4 +38,20 @@
   .fullscreen-bg__video {
     display: none;
   }
-}
+
+
+
+            }
+            .push, footer {
+               /* height: 100px;
+                margin-top: 10px;*/
+            }
+            footer {
+                background: black;
+                border: 0;
+                text-align: center
+
+            }
+            footer * {
+                line-height: inherit;
+            }
