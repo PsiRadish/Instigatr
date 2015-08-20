@@ -33,31 +33,22 @@ router.get('/:id/show', function(req, res)
     {
         if (post)
         {
-            db.post.findAll().then(function(posts){
-            //         // news API call
-            //         // request({
-            //         //     url:url,
-            //         //     qs:queryData
-            //         // }, function(error, response, data){
-            //         //     var newsJSON = JSON.parse(data);
-            //         //     // console.log(newsJSON.response.docs[0]);
-            //         //     searchTerm = null;
-            //         //     // searchTerm_Alchemy = null;
-            //         //     res.render("posts/show.ejs", {titleSuffix: "Debate", post: post, posts:posts, newsJSON: newsJSON});
-            //         // });
-            //         // request({
-            //         //     url:url,
-            //         //     qs:queryData
-            //         // }, function(error, response, data){
-            //         //     var newsJSON = JSON.parse(data);
-            //         //     // console.log(newsJSON.response.docs[0]);
-            //         //     searchTerm = null;
-            //         //     // searchTerm_Alchemy = null;
-                        res.render("posts/show.ejs", {titleSuffix: "Debate", post: post, posts:posts, newsJSON: newsJSON});
-            //         // });
-            //         //end news API call
+            
+            //news - API call
+            var searchTerm = req.query.q;
 
-            })
+            if (searchTerm !== "undefined"){
+                var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
+
+                var queryData = {
+                q: searchTerm,
+                pages:10,
+                sort:'newest',
+                'api-key':process.env.NYT_API_KEY,
+                }
+             }
+
+            //end news - API call
         } else
         {
             res.redirect("/404");
