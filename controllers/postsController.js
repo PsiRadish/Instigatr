@@ -33,31 +33,28 @@ router.get('/:id/show', function(req, res)
     {
         if (post)
         {
-            db.post.findAll().then(function(posts){
                     // news API call
-                    // request({
-                    //     url:url,
-                    //     qs:queryData
-                    // }, function(error, response, data){
-                    //     var newsJSON = JSON.parse(data);
-                    //     // console.log(newsJSON.response.docs[0]);
-                    //     searchTerm = null;
-                    //     // searchTerm_Alchemy = null;
-                    //     res.render("posts/show.ejs", {post: post, posts:posts, newsJSON: newsJSON});
-                    // });
-                    // request({
-                    //     url:url,
-                    //     qs:queryData
-                    // }, function(error, response, data){
-                    //     var newsJSON = JSON.parse(data);
-                    //     // console.log(newsJSON.response.docs[0]);
-                    //     searchTerm = null;
-                    //     // searchTerm_Alchemy = null;
-                    //     res.render("posts/show.ejs", {titleSuffix: "Debate", post: post, posts:posts, newsJSON: newsJSON});
-                    // });
-                    //end news API call
-
-            })
+                    request({
+                        url:url,
+                        qs:queryData
+                    }, function(error, response, data){
+                        var newsJSON = JSON.parse(data);
+                        // console.log(newsJSON.response.docs[0]);
+                        searchTerm = null;
+                        // searchTerm_Alchemy = null;
+                        res.render("posts/show.ejs", {post: post, newsJSON: newsJSON});
+                    });
+                    request({
+                        url:url,
+                        qs:queryData
+                    }, function(error, response, data){
+                        var newsJSON = JSON.parse(data);
+                        // console.log(newsJSON.response.docs[0]);
+                        searchTerm = null;
+                        // searchTerm_Alchemy = null;
+                        res.render("posts/show.ejs", {titleSuffix: "Debate", post: post, newsJSON: newsJSON});
+                    });
+                    // end news API call
         } else
         {
             res.redirect("/404");

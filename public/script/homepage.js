@@ -126,5 +126,15 @@ $(function(){
 		});
 	});
 
+	$('#postInpt').on('keydown',function(e){
+		var left = 600 - $(this).val().length;
+		if(left>=0){
+		$('#charNot').text(left+" characters left.")
+		}else{
+			if(e.keyCode!==8){
+			e.preventDefault();
+			}
+		}
+	})
 
 });
