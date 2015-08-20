@@ -19,16 +19,21 @@
 {
   float: right;
 }
-
-div.form-group {
-  text-align: center;
-/*  border-top: 1px solid black;*/
-  border-bottom: 1px solid black;
-
+.search-news h2{
+	display:inline;
 }
-
 div.news.column-group {
   border-top: 1px solid black;
   padding: 10px;
-
+}
+.srchForm{
+	display:inline;
+}
+#srchTrm{
+	display:inline;
+}
+#newsSrchBtn{
+	display:inline;
+	background-color: rgb(100,100,200);
+	border:none;
 }

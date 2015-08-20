@@ -37,11 +37,17 @@ router.get('/:id/show', function(req, res)
                     post.tags.map(function(tag){
                         tagsArr.push(tag.name);
                     });
-            // if(post.tags.length>0){
-        //             var searchTerm = post.tags[0]
-        //         }else{
-                    var searchTerm = tagsArr[0]
-                
+            if(tagsArr[0]){
+                    var searchTerm = tagsArr.join();
+                    console.log('*********************************************');
+                    console.log(searchTerm);
+                    console.log('*********************************************');
+                }else{
+                    console.log('*********************************************');
+                    console.log(post.text);
+                    console.log('*********************************************');
+                    var searchTerm = post.text.slice();
+                }
                     var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
 
                     var queryData = {
@@ -80,6 +86,28 @@ router.get('/:id/show', function(req, res)
         console.log(err);
         res.send(err);
     });
+});
+
+router.get('/news',function(req, res){
+    var searchTerm = req.query.q;
+    var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
+                    var queryData = {
+                    q: searchTerm,
+                    pages:7,
+                    sort:'newest',
+                    'api-key':process.env.NYT_API_KEY,
+                    }
+                    // news API call
+                    request({
+                        url:url,
+                        qs:queryData
+                    }, function(error, response, data){
+                        var newsJSON = JSON.parse(data);
+                        // console.log(newsJSON.response.docs[0]);
+                        searchTerm = null;
+                        // searchTerm_Alchemy = null;
+                        res.send(newsJSON);
+                    });
 });
 
 

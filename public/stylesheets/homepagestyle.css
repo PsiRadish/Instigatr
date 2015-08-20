@@ -1,6 +1,7 @@
 body{
 	/*background-image: url(../staticNewsBkgrnd.png);*/
 	background-image: url(../staticNewsBkgrnd.jpg);
+	/*background-position: fixed;*/
 }
 .archiveDD{
 	width:13vw;

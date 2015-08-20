@@ -124,26 +124,24 @@
   </section>
   
   <section id="news-column" class="large-40 xlarge-40 medium-40">
-    <h2>Related News</h2>
 
 <!-- testing search queries for news API only -->
     
-    <div class="search-news">
-      <form method="get" action=<%="/posts/" + post.id + "/show" %> >
-        <div class="form-group" id="search-news-box">
-          <label>NYT API</label>
-          <input name="q" type="text" class="form-control" placeholder="enter search query">
-          <input type="submit" class="btn btn-default">
-        </div>
+    <div class="search-news" id="srchNws">
+      <form class="ink-form srchForm" method="get" action="/posts/<%= post.id %>/show" >
+        <div class="control-group css-nwsSrchDiv">
+        <label for="srchTrm"><h2>Related News</h2></label>
+          <input id="srchTrm" name="srchTrm" type="text" class="form-control" placeholder="enter search query">
+          <button type="submit" class="ink-button blue" id="newsSrchBtn">Search!</button>
+          </div>
       </form>
     </div>
 
-    <div id="c" class="results-news-headlines scroll">
-
+    <div id="results-news-headlines" class="results-news-headlines scroll">
+      <div class="column-group" id="newsListings">
        <% if (typeof newsJSON !== "undefined") { %>
           <% if (newsJSON.response){ %> <!-- NYT Headlines -->
                <% newsJSON.response.docs.forEach(function(doc) {  %>
-                  <div class="news column-group">
                       <div class="thumbNail all-20">
                           <% if (doc.multimedia) { %>
                               <% var imageThumb %>
@@ -167,11 +165,10 @@
                           <b><%- doc.headline.main %></b><br>
                           <%- doc.snippet %></a></p>
                       </div>
-                  </div>
                <% }) %> <!-- end forEach Loop -->
            <% } %> <!-- end if(newsJSON.response) statement -->
        <% } %> <!-- end if(typeof) statement -->
-       
+       </div>
     </div>
     
   <!-- end testing search queries for news API -->
