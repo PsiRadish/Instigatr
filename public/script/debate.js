@@ -61,6 +61,9 @@ $(function()
             // console.log('Received startChat_Response', chatData);
             console.log('userId', userId);
             
+            $('#champ-for .author').html(championFor || '...');
+            $('#champ-against .author').html(championAgainst || '...');
+            
             if (userId)
             {
                 // $('#choices').css('visibility', 'visible');
@@ -101,18 +104,10 @@ $(function()
                     
                     socket.emit('enterQueue');
                 });
-                // SERVER - CHAMP UPDATE
-                socket.on('updateChamp', function(championFor, championAgainst)
-                {
-                    $('#champ-for .author').html(championFor);
-                    $('#champ-against .author').html(championFor);
-                });
                 // SERVER - LINE UPDATE
-                socket.on('updateQueue', function(placeInLine, side, championFor, championAgainst)
+                socket.on('updateQueue', function(placeInLine)
                 {
                     
-                    $('#champ-for .author').html(championFor);
-                    $('#champ-against .author').html(championFor);
                 });
                 
                 // SERVER - YOUR TURN
@@ -144,7 +139,9 @@ $(function()
                 var chatBox = $('#chat-box');
                 
                 chatBox.keydown(function(e)
-                {   // enter key without shift held
+                {
+                    e = e || event;  // IE compatibility thing of unknownn relevance
+                    // enter key without shift held
                     if (e.keyCode === 13 && !e.shiftKey)
                     {
                         e.preventDefault(); // no newline
@@ -152,7 +149,7 @@ $(function()
                 });
                 chatBox.keyup(function(e)
                 {
-                    e = e || event;
+                    e = e || event;  // IE compatibility thing of unknownn relevance
                     // enter key without shift held
                     if (e.keyCode === 13 && !e.shiftKey)
                     {
@@ -165,11 +162,16 @@ $(function()
             }
             else
             {
-                // $('#chat-box').attr('disabled', 'disabled');
-                // $('#chat-box').html("You are not logged in.");
                 disableChatBox("You are not logged in.");
                 $('#choices').addClass("disabled");
             }
+            
+            // SERVER - CHAMP UPDATE
+            socket.on('updateChamp', function(championFor, championAgainst)
+            {
+                $('#champ-for .author').html(championFor || '...');
+                $('#champ-against .author').html(championAgainst || '...');
+            });
             
             // NEW CHAT MESSAGE
             socket.on('chatUpdate', function(authorName, content, side)
