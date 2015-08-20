@@ -1,8 +1,11 @@
+body{
+	background-image: url(../staticNewsBkgrnd.png);
+}
 .archiveDD{
 	width:13vw;
 }
 .css-mainPagePostDiv{
-	background-color: rgba(60,60,60,.9);
+	background-color: rgba(60,60,60,1);
 	margin-top:5vh;
 	margin-bottom: 2vh;
 	color:white;
