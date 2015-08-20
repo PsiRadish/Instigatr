@@ -136,15 +136,14 @@
   </section>
   
   <section id="news-column" class="large-40 xlarge-40 medium-40">
-
+  <h2>Related News</h2>
 <!-- testing search queries for news API only -->
     
     <div class="search-news" id="srchNws">
       <form class="ink-form srchForm" method="get" action="/posts/<%= post.id %>/show" >
         <div class="control-group css-nwsSrchDiv">
-        <label for="srchTrm"><h2>Related News</h2></label>
-          <input id="srchTrm" name="srchTrm" type="text" class="form-control" placeholder="enter search query">
-          <button type="submit" class="ink-button blue" id="newsSrchBtn">Search!</button>
+          <input id="srchTrm" name="srchTrm" type="text" class="form-control" placeholder="Search">
+          <button type="submit" class="ink-button blue" id="newsSrchBtn"><i class="fa fa-search"></i></button>
           </div>
       </form>
     </div>
