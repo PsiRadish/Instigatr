@@ -11,7 +11,7 @@
         <b class="author"><%= post.user.name %></b>
       </div>
     </div>
-    
+
     <div id="choices">
       <!-- Only one of these headings visible at a time. -->
       <div id="headings-roll">
@@ -120,27 +120,47 @@
 
     <div class="search-news">
       <form method="get" action=<%="/posts/" + post.id + "/show" %> >
-        <div class="form-group">
+        <div class="form-group" id="search-news-box">
           <label>NYT API</label>
           <input name="q" type="text" class="form-control" placeholder="enter search query">
           <input type="submit" class="btn btn-default">
         </div>
       </form>
     </div>
-    
+
     <div id="results-news-headlines" class="results-news-headlines scroll">
 
-     <% if (typeof newsJSON !== "undefined") { %>
-        <% if (newsJSON.response){ %> <!-- NYT Headlines -->
-             <% newsJSON.response.docs.forEach(function(doc) {  %>
-                <div class="well">
-                <p><a href="<%= doc.web_url %>" target="_blank">
-                <strong><%= doc.headline.main %></strong>
-                <br><%= doc.snippet %></a></p>
-                </div>
-             <% }) %>
-         <% } %> <!-- end NYT Headlines -->
-     <% } %>
+       <% if (typeof newsJSON !== "undefined") { %>
+          <% if (newsJSON.response){ %> <!-- NYT Headlines -->
+               <% newsJSON.response.docs.forEach(function(doc) {  %>
+                  <div class="column-group">
+                      <div class="thumbNail all-20">
+                          <% if (doc.multimedia) { %>
+                              <% var imageThumb %>
+                              <% var baseURL = "http://graphics8.nytimes.com/" %>
+                              <% var width = Infinity; %>
+
+                              <% doc.multimedia.forEach(function(photo){ %>
+                                    <%if (photo.width < width) { %>
+                                        <% imageThumb = baseURL + photo.url %>
+                                        <% width = photo.width; %>
+                                    <% }; %> <!-- if (image.width) statement -->
+                              <% }) %> <!-- end forEach Loop -->
+
+                              <img src="<%= imageThumb %>">
+                          <% } %>
+
+                      </div>
+
+                      <div class="article all-80">
+                          <p><a href="<%- doc.web_url %>" target="_blank">
+                          <b><%- doc.headline.main %></b><br>
+                          <%- doc.snippet %></a></p>
+                      </div>
+                  </div>
+               <% }) %> <!-- end forEach Loop -->
+           <% } %> <!-- end if(newsJSON.response) statement -->
+       <% } %> <!-- end if(typeof) statement -->
 
     </div>
 
