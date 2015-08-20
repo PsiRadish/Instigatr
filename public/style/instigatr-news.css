@@ -8,12 +8,9 @@
 
 .thumbNail, .article {
   display: inline-block;
-
 }
-.thumbNail
-{
-  /*float: left;*/
-
+#voteDiv{
+	margin:20px 0px 20px 0px;
 }
 .article
 {
