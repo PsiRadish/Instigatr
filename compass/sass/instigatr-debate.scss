@@ -349,19 +349,19 @@ $argue-grey-background              : #505050;
         // visibility: visible;
     }
 }
+// #choices.side-chosen-against
+// {
+//     & + #champions
+//     {
+//         visibility: visible;
+//     }
+// }
 #choices.side-chosen-for,
-#choices.side-chosen-against
-{
-    & + #hows-my-arguing
-    {
-        visibility: visible;
-    }
-}
 
-#hows-my-arguing
+#champions
 {
     text-align: center;
-    visibility: hidden;
+    // visibility: hidden;
 }
 
 

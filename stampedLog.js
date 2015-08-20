@@ -1,8 +1,13 @@
+// Kyle Fiegener
+// Adds `stampedLog` method to console.
+// Behaves the same as regular console.log, except output is prepended with timestamp and filename+linenumber of where
+// console.
 
 (function()
 {
     'use strict';
     
+    // var fileRegex = /Error\s*at Error \(native\)\s*.+\s*.+(\\|\/)([^)\n\r]+)(?=\)?\s)/ ;
     var fileRegex = /Error\s*at Error \(native\)\s*.+\s*.+(\\|\/)([^)\n\r]+)(?=\)?\s)/ ;
     
     function setupStampedLog()
