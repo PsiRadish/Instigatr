@@ -96,6 +96,11 @@ $argue-grey-background              : #505050;
     }
 }
 
+#rate-post
+{
+    h4 { margin-bottom: 0.5em; }
+}
+
 #choices
 {
     #headings-roll
@@ -104,11 +109,12 @@ $argue-grey-background              : #505050;
         height: 24px;
         width: 100%;
         
-        margin-bottom: 18px;
+        margin-bottom: 0.5em;
         
         h3
         {
             // display: inline-block;
+            margin-bottom: 0;
             
             position: absolute;
             width: 100%;
@@ -190,7 +196,7 @@ $argue-grey-background              : #505050;
 {
     position: relative;
     
-    h3, a, span, p, button
+    h1, h2, h3, h4, h5, h6, a, span, p, button
     {
         pointer-events: none;
         opacity: 0.35;
@@ -372,6 +378,7 @@ $argue-grey-background              : #505050;
 {
     text-align: center;
     // visibility: hidden;
+    h5 { margin: 0; }
 }
 
 
@@ -452,6 +459,7 @@ $argue-grey-background              : #505050;
             .author
             {
                 margin-bottom: 9px;
+                text-align: center;
             }
             
             span
