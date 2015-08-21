@@ -155,6 +155,10 @@
   display: block;
 }
 
+.subsection {
+  margin-top: 19px;
+}
+
 #take-sides-column {
   border: 1px solid #999;
   background-color: #F8F8F8;
@@ -179,13 +183,18 @@
   text-align: right;
 }
 
+#voteDiv h4 {
+  margin-bottom: 0.5em;
+}
+
 #choices #headings-roll {
   position: relative;
   height: 24px;
   width: 100%;
-  margin-bottom: 18px;
+  margin-bottom: 0.5em;
 }
 #choices #headings-roll h3 {
+  margin-bottom: 0;
   position: absolute;
   width: 100%;
   top: 0%;
@@ -235,30 +244,33 @@
 }
 #side-for .choose-side, #side-against .choose-side {
   width: 108px;
+  padding-left: 11%;
+  padding-right: 11%;
   max-width: 100%;
 }
 #side-for .change-mind, #side-against .change-mind {
   display: block;
 }
 
-#choices.disabled {
+#must-be-logged-in.disabled {
   position: relative;
 }
-#choices.disabled h3, #choices.disabled a, #choices.disabled span, #choices.disabled p {
+#must-be-logged-in.disabled h1, #must-be-logged-in.disabled h2, #must-be-logged-in.disabled h3, #must-be-logged-in.disabled h4, #must-be-logged-in.disabled h5, #must-be-logged-in.disabled h6, #must-be-logged-in.disabled a, #must-be-logged-in.disabled span, #must-be-logged-in.disabled p, #must-be-logged-in.disabled button {
   pointer-events: none;
   opacity: 0.35;
 }
-#choices.disabled:hover::after, #choices.disabled:focus::after, #choices.disabled:active::after {
+#must-be-logged-in.disabled:hover::after, #must-be-logged-in.disabled:focus::after, #must-be-logged-in.disabled:active::after {
   content: 'You are not logged in.';
   text-shadow: 1px 1px 0 white, -2px 0 white, -1px 1px 0 white, 0px 0 white;
   text-align: center;
   font-size: 21px;
   font-weight: bold;
   position: absolute;
-  top: 0%;
+  top: 25%;
   left: 20%;
   right: 20%;
 }
+
 #choices #heading-choice-made-left {
   left: -50%;
   opacity: 0;
@@ -305,7 +317,7 @@
 }
 #choices.side-chosen-for #side-for {
   left: 50%;
-  padding-left: 2em;
+  padding-left: 4%;
 }
 #choices.side-chosen-for #side-for .choose-side {
   pointer-events: none;
@@ -332,7 +344,7 @@
 }
 #choices.side-chosen-against #side-against {
   left: 0%;
-  padding-right: 2em;
+  padding-right: 4%;
 }
 #choices.side-chosen-against #side-against .choose-side {
   pointer-events: none;
@@ -348,6 +360,10 @@
 #choices.side-chosen-for,
 #champions {
   text-align: center;
+}
+#choices.side-chosen-for h5,
+#champions h5 {
+  margin: 0;
 }
 
 #argue-column {
@@ -416,6 +432,7 @@
 }
 #argue-column #chat-output .debate-message .author {
   margin-bottom: 9px;
+  text-align: center;
 }
 #argue-column #chat-output .debate-message span {
   font-weight: 400;

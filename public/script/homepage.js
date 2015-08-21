@@ -136,7 +136,12 @@ $(function(){
 			}
 		}
 	})
-
+    
+	//hiding about link ON about page
+	if (window.location.pathname == "/about") {
+		$('#aboutLink').hide();
+	}
+	
 	var offset=0
 	$('#loadMoar').on('click',function(e){
 		e.preventDefault();

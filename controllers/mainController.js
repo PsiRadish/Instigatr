@@ -13,6 +13,11 @@ router.get('/', function(req, res){
   });
 });
 
+router.get('/about', function(req, res)
+{
+    res.render('main/about.ejs');
+});
+
 router.get('/more', function(req, res){
 	var offset = req.query.offset;
 	db.post.findAll({include:[db.user, db.vote, db.tag, db.message, { model: db.user, as: 'usersFor' }, { model: db.user, as: 'usersAgainst' }], order:[['createdAt','DESC']],limit:8,offset:offset}).then(function(posts){
@@ -52,5 +57,6 @@ router.get('/userData', function(req, res)
     console.log("Received userData request.");
     res.json({id: req.session.userId});
 });
+
 
 module.exports = router;

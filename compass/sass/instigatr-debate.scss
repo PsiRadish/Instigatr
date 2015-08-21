@@ -51,6 +51,11 @@ $argue-grey-background              : #505050;
     display: block;
 }
 
+.subsection
+{
+    margin-top: 19px;
+}
+
 
 // == COLUMN 1 ====
 
@@ -91,6 +96,11 @@ $argue-grey-background              : #505050;
     }
 }
 
+#voteDiv
+{
+    h4 { margin-bottom: 0.5em; }
+}
+
 #choices
 {
     #headings-roll
@@ -99,11 +109,12 @@ $argue-grey-background              : #505050;
         height: 24px;
         width: 100%;
         
-        margin-bottom: 18px;
+        margin-bottom: 0.5em;
         
         h3
         {
             // display: inline-block;
+            margin-bottom: 0;
             
             position: absolute;
             width: 100%;
@@ -173,6 +184,8 @@ $argue-grey-background              : #505050;
     .choose-side
     {
         width: 108px;
+        padding-left: 11%;
+        padding-right: 11%;
         max-width: 100%;
     }
     .change-mind
@@ -181,38 +194,43 @@ $argue-grey-background              : #505050;
     }
 }
 
+#must-be-logged-in.disabled
+{
+    position: relative;
+    
+    h1, h2, h3, h4, h5, h6, a, span, p, button
+    {
+        pointer-events: none;
+        opacity: 0.35;
+    }
+    
+    &:hover::after, &:focus::after, &:active::after
+    {
+        // opacity: 1;
+        content: 'You are not logged in.';
+        // color: red;
+        @include text-outline(1px, white);
+        text-align: center;
+        font-size: $h3-font-size;
+        font-weight: bold;
+        // margin: 0 auto;
+        
+        position: absolute;
+        top: 25%;
+        left: 20%;
+        right: 20%;
+    }
+}
+
 // initiate transition properties when a choice is made
 #choices // no choice made state
 {
     // margin-bottom: 24px;
     // visibility: hidden;
-    &.disabled
-    {
-        position: relative;
-        
-        h3, a, span, p
-        {
-            pointer-events: none;
-            opacity: 0.35;
-        }
-        
-        &:hover::after, &:focus::after, &:active::after
-        {
-            // opacity: 1;
-            content: 'You are not logged in.';
-            // color: red;
-            @include text-outline(1px, white);
-            text-align: center;
-            font-size: $h3-font-size;
-            font-weight: bold;
-            // margin: 0 auto;
-            
-            position: absolute;
-            top: 0%;
-            left: 20%;
-            right: 20%;
-        }
-    }
+    // &.disabled
+    // {
+
+    // }
     
     #heading-choice-made-left
     {
@@ -290,7 +308,7 @@ $argue-grey-background              : #505050;
     #side-for
     {
         left: 50%;
-        padding-left: 2em;
+        padding-left: 4%;
         
         .choose-side
         {
@@ -329,7 +347,7 @@ $argue-grey-background              : #505050;
     #side-against
     {
         left: 0%;
-        padding-right: 2em;
+        padding-right: 4%;
         
         .choose-side
         {
@@ -362,6 +380,7 @@ $argue-grey-background              : #505050;
 {
     text-align: center;
     // visibility: hidden;
+    h5 { margin: 0; }
 }
 
 
@@ -442,6 +461,7 @@ $argue-grey-background              : #505050;
             .author
             {
                 margin-bottom: 9px;
+                text-align: center;
             }
             
             span
