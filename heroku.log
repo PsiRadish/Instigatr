@@ -1,0 +1,101 @@
+2015-08-21T04:05:09.131171+00:00 app[web.1]:      name: { plural: 'posts', singular: 'post' },
+2015-08-21T04:05:09.131160+00:00 app[web.1]:      underscoredAll: false,
+2015-08-21T04:05:09.131173+00:00 app[web.1]:      omitNull: false,
+2015-08-21T04:05:09.131164+00:00 app[web.1]:      schema: null,
+2015-08-21T04:05:09.131177+00:00 app[web.1]:         config: [Object],
+2015-08-21T04:05:09.131174+00:00 app[web.1]:      sequelize: 
+2015-08-21T04:05:09.131179+00:00 app[web.1]:         models: [Object],
+2015-08-21T04:05:09.131178+00:00 app[web.1]:         dialect: [Object],
+2015-08-21T04:05:09.131180+00:00 app[web.1]:         modelManager: [Object],
+2015-08-21T04:05:09.131182+00:00 app[web.1]:         connectionManager: [Object],
+2015-08-21T04:05:09.131183+00:00 app[web.1]:         importCache: [Object],
+2015-08-21T04:05:09.131184+00:00 app[web.1]:         test: [Object],
+2015-08-21T04:05:09.131187+00:00 app[web.1]:      uniqueKeys: {},
+2015-08-21T04:05:09.131192+00:00 app[web.1]:      raw: true,
+2015-08-21T04:05:09.131190+00:00 app[web.1]:    { isNewRecord: false,
+2015-08-21T04:05:09.131193+00:00 app[web.1]:      attributes: [ 'id', 'userId', 'text', 'createdAt', 'updatedAt' ] },
+2015-08-21T04:05:09.131194+00:00 app[web.1]:   hasPrimaryKeys: true,
+2015-08-21T04:05:09.131196+00:00 app[web.1]:   __eagerlyLoadedAssociations: [],
+2015-08-21T04:05:09.131188+00:00 app[web.1]:      hasPrimaryKeys: true },
+2015-08-21T04:05:09.131197+00:00 app[web.1]:   isNewRecord: false }
+2015-08-21T04:05:09.131186+00:00 app[web.1]:         queryInterface: [Object] },
+2015-08-21T04:05:09.131189+00:00 app[web.1]:   options: 
+2015-08-21T04:05:09.127154+00:00 app[web.1]: Executing (default): SELECT "user".*, "postsFor"."id" AS "postsFor.id", "postsFor"."userId" AS "postsFor.userId", "postsFor"."text" AS "postsFor.text", "postsFor"."createdAt" AS "postsFor.createdAt", "postsFor"."updatedAt" AS "postsFor.updatedAt", "postsFor.usersForPosts"."userId" AS "postsFor.usersForPosts.userId", "postsFor.usersForPosts"."postId" AS "postsFor.usersForPosts.postId", "postsFor.usersForPosts"."createdAt" AS "postsFor.usersForPosts.createdAt", "postsFor.usersForPosts"."updatedAt" AS "postsFor.usersForPosts.updatedAt", "postsAgainst"."id" AS "postsAgainst.id", "postsAgainst"."userId" AS "postsAgainst.userId", "postsAgainst"."text" AS "postsAgainst.text", "postsAgainst"."createdAt" AS "postsAgainst.createdAt", "postsAgainst"."updatedAt" AS "postsAgainst.updatedAt", "postsAgainst.usersAgainstPosts"."userId" AS "postsAgainst.usersAgainstPosts.userId", "postsAgainst.usersAgainstPosts"."postId" AS "postsAgainst.usersAgainstPosts.postId", "postsAgainst.usersAgainstPosts"."createdAt" AS "postsAgainst.usersAgainstPosts.createdAt", "postsAgainst.usersAgainstPosts"."updatedAt" AS "postsAgainst.usersAgainstPosts.updatedAt" FROM (SELECT "user"."id", "user"."email", "user"."password", "user"."name", "user"."score", "user"."createdAt", "user"."updatedAt" FROM "users" AS "user" WHERE "user"."id" IS NULL LIMIT 1) AS "user" LEFT OUTER JOIN ("usersForPosts" AS "postsFor.usersForPosts" INNER JOIN "posts" AS "postsFor" ON "postsFor"."id" = "postsFor.usersForPosts"."postId") ON "user"."id" = "postsFor.usersForPosts"."userId" LEFT OUTER JOIN ("usersAgainstPosts" AS "postsAgainst.usersAgainstPosts" INNER JOIN "posts" AS "postsAgainst" ON "postsAgainst"."id" = "postsAgainst.usersAgainstPosts"."postId") ON "user"."id" = "postsAgainst.usersAgainstPosts"."userId";
+2015-08-21T04:05:09.121404+00:00 app[web.1]: ========= startChat
+2015-08-21T04:05:08.647651+00:00 heroku[router]: at=info method=GET path="/socket.io/?EIO=3&transport=websocket&sid=dAT006KLvJLc7CZTAAAf" host=instigatr.herokuapp.com request_id=d63ecf65-eb35-452d-9ebd-6dd7f19c3a3f fwd="104.156.228.85" dyno=web.1 connect=0ms service=2212ms status=101 bytes=175
+2015-08-21T04:04:45.331964+00:00 heroku[router]: at=info method=GET path="/posts/1/show" host=instigatr.herokuapp.com request_id=4a8b7e10-f384-4b50-ab87-e00d1a7f385b fwd="104.156.228.85" dyno=web.1 connect=0ms service=95ms status=200 bytes=24496
+2015-08-21T04:05:18.616595+00:00 heroku[router]: at=info method=GET path="/socket.io/?EIO=3&transport=websocket&sid=A75bPH9cEQokMiDqAAAg" host=instigatr.herokuapp.com request_id=0847b3c4-9d8a-403f-b87c-c8b5083a79e2 fwd="104.156.228.85" dyno=web.1 connect=4ms service=9462ms status=101 bytes=190
+2015-08-21T04:05:18.624309+00:00 app[web.1]: --< * >-- DISCONNECT
+2015-08-21T04:05:03.912072+00:00 heroku[router]: at=info method=GET path="/script/debate.js" host=instigatr.herokuapp.com request_id=f96b96b5-f182-4cbe-bba7-1509a84c64fb fwd="104.156.228.85" dyno=web.1 connect=0ms service=2ms status=304 bytes=238
+2015-08-21T04:05:04.013280+00:00 heroku[router]: at=info method=GET path="/style/instigatr-news.css" host=instigatr.herokuapp.com request_id=5fb20334-2f7e-4307-931c-53fbdc608042 fwd="104.156.228.85" dyno=web.1 connect=0ms service=1ms status=304 bytes=237
+2015-08-21T04:05:05.958828+00:00 heroku[router]: at=info method=GET path="/style/instigatr-debate.css" host=instigatr.herokuapp.com request_id=febf92c0-2ac0-4a29-b9bb-f795083c0480 fwd="104.156.228.85" dyno=web.1 connect=0ms service=1ms status=304 bytes=238
+2015-08-21T04:05:06.059072+00:00 heroku[router]: at=info method=GET path="/style/backgroundvideo.css" host=instigatr.herokuapp.com request_id=41884427-3130-4c5d-93b2-b9e298bb7730 fwd="104.156.228.85" dyno=web.1 connect=0ms service=1ms status=304 bytes=237
+2015-08-21T04:05:06.414657+00:00 heroku[router]: at=info method=POST path="/socket.io/?EIO=3&transport=polling&t=1440129906465-2&sid=dAT006KLvJLc7CZTAAAf" host=instigatr.herokuapp.com request_id=02f7d78a-4ab5-4464-9ac8-bf86715cf8c2 fwd="104.156.228.85" dyno=web.1 connect=0ms service=1ms status=200 bytes=259
+2015-08-21T04:05:06.201822+00:00 heroku[router]: at=info method=GET path="/socket.io/?EIO=3&transport=polling&t=1440129906251-0" host=instigatr.herokuapp.com request_id=f8ab4e8b-67a1-4933-a3a9-6ecc2d3ee106 fwd="104.156.228.85" dyno=web.1 connect=0ms service=2ms status=200 bytes=306
+2015-08-21T04:05:06.309849+00:00 heroku[router]: at=info method=GET path="/socket.io/?EIO=3&transport=polling&t=1440129906359-1&sid=dAT006KLvJLc7CZTAAAf" host=instigatr.herokuapp.com request_id=ce13cb57-bf27-4723-a716-d5f2b6390152 fwd="104.156.228.85" dyno=web.1 connect=0ms service=1ms status=200 bytes=208
+2015-08-21T04:05:01.921924+00:00 heroku[router]: at=info method=GET path="/style/instigatr-ink-main.css" host=instigatr.herokuapp.com request_id=2ce4a798-9806-4174-b3d3-4adfd555370f fwd="104.156.228.85" dyno=web.1 connect=1ms service=1ms status=304 bytes=239
+2015-08-21T04:05:03.909801+00:00 heroku[router]: at=info method=GET path="/script/homepage.js" host=instigatr.herokuapp.com request_id=f249a0ac-25b0-40e1-8539-0efdf92e0136 fwd="104.156.228.85" dyno=web.1 connect=0ms service=2ms status=304 bytes=238
+2015-08-21T04:05:01.917415+00:00 heroku[router]: at=info method=GET path="/style/instigatr-debate.css" host=instigatr.herokuapp.com request_id=56c153ed-ba13-400a-9bf8-7f9e9820ae5c fwd="104.156.228.85" dyno=web.1 connect=0ms service=1ms status=304 bytes=238
+2015-08-21T04:05:02.022819+00:00 heroku[router]: at=info method=GET path="/style/backgroundvideo.css" host=instigatr.herokuapp.com request_id=ce22e28e-bf79-4918-96ad-a1a3e73e99b6 fwd="104.156.228.85" dyno=web.1 connect=0ms service=1ms status=304 bytes=237
+2015-08-21T04:05:04.014085+00:00 heroku[router]: at=info method=GET path="/style/backgroundvideo.css" host=instigatr.herokuapp.com request_id=06092b8f-4fbf-4067-96a1-ffcd838ce182 fwd="104.156.228.85" dyno=web.1 connect=0ms service=1ms status=304 bytes=237
+2015-08-21T04:05:05.942018+00:00 heroku[router]: at=info method=GET path="/socket.io/socket.io.js" host=instigatr.herokuapp.com request_id=1bf78f96-1e9a-4180-bb13-840c3f79bc17 fwd="104.156.228.85" dyno=web.1 connect=0ms service=1ms status=304 bytes=85
+2015-08-21T04:05:06.045058+00:00 heroku[router]: at=info method=GET path="/style/instigatr-news.css" host=instigatr.herokuapp.com request_id=9313ff39-d932-4eee-a15a-7e03bdaca5de fwd="104.156.228.85" dyno=web.1 connect=0ms service=1ms status=304 bytes=237
+2015-08-21T04:05:06.640400+00:00 heroku[router]: at=info method=GET path="/socket.io/?EIO=3&transport=polling&t=1440129906583-4&sid=dAT006KLvJLc7CZTAAAf" host=instigatr.herokuapp.com request_id=d26b2f03-eb85-45ac-a163-28c7a4d48c5f fwd="104.156.228.85" dyno=web.1 connect=0ms service=111ms status=200 bytes=207
+2015-08-21T04:05:06.423386+00:00 heroku[router]: at=info method=GET path="/socket.io/?EIO=3&transport=polling&t=1440129906466-3&sid=dAT006KLvJLc7CZTAAAf" host=instigatr.herokuapp.com request_id=432aa359-ac16-4f21-a5ed-3f4b5eebc7ab fwd="104.156.228.85" dyno=web.1 connect=0ms service=11ms status=200 bytes=252
+2015-08-21T04:05:01.918676+00:00 heroku[router]: at=info method=GET path="/script/homepage.js" host=instigatr.herokuapp.com request_id=eb093f14-2226-4174-bd0e-fb6b3def43a3 fwd="104.156.228.85" dyno=web.1 connect=0ms service=1ms status=304 bytes=238
+2015-08-21T04:05:02.042685+00:00 heroku[router]: at=info method=GET path="/style/instigatr-news.css" host=instigatr.herokuapp.com request_id=29a58e33-b8ef-480b-8107-e0b2b68dcec0 fwd="104.156.228.85" dyno=web.1 connect=8ms service=5ms status=304 bytes=237
+2015-08-21T04:05:01.904760+00:00 heroku[router]: at=info method=GET path="/socket.io/?EIO=3&transport=websocket&sid=2KuSiUflELY8P-CYAAAe" host=instigatr.herokuapp.com request_id=47b28348-559e-496e-bb4f-cb04d4bace13 fwd="104.156.228.85" dyno=web.1 connect=0ms service=13110ms status=101 bytes=175
+2015-08-21T04:05:06.043876+00:00 heroku[router]: at=info method=GET path="/style/homepagestyle.css" host=instigatr.herokuapp.com request_id=849676b0-3324-4780-aaca-8a0640205080 fwd="104.156.228.85" dyno=web.1 connect=0ms service=1ms status=304 bytes=237
+2015-08-21T04:05:03.908305+00:00 heroku[router]: at=info method=GET path="/style/instigatr-debate.css" host=instigatr.herokuapp.com request_id=6f67ac83-d711-4ee3-aba9-cf0f23478779 fwd="104.156.228.85" dyno=web.1 connect=0ms service=1ms status=304 bytes=238
+2015-08-21T04:05:03.791853+00:00 heroku[router]: at=info method=GET path="/" host=instigatr.herokuapp.com request_id=6771e556-a4fb-40ab-8dc8-ab440b9f7898 fwd="104.156.228.85" dyno=web.1 connect=2ms service=50ms status=200 bytes=10779
+2015-08-21T04:05:05.831373+00:00 heroku[router]: at=info method=GET path="/posts/2/show" host=instigatr.herokuapp.com request_id=d3034873-a500-403f-a0a0-d08ea42f4c67 fwd="104.156.228.85" dyno=web.1 connect=0ms service=45ms status=200 bytes=11351
+2015-08-21T04:39:16.373233+00:00 app[web.1]: --< * >-- DISCONNECT
+2015-08-21T04:39:24.051682+00:00 app[web.1]: ---><--- SOCKET CONNECT
+2015-08-21T04:48:49.702323+00:00 heroku[api]: Deploy f3e5544 by psiradish@comcast.net
+2015-08-21T04:48:49.702323+00:00 heroku[api]: Release v15 created by psiradish@comcast.net
+2015-08-21T04:48:49.753633+00:00 heroku[slug-compiler]: Slug compilation started
+2015-08-21T04:48:49.753653+00:00 heroku[slug-compiler]: Slug compilation finished
+2015-08-21T04:48:49.922550+00:00 heroku[web.1]: State changed from up to starting
+2015-08-21T04:48:52.361351+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2015-08-21T04:48:53.957993+00:00 heroku[web.1]: Process exited with status 143
+2015-08-21T04:48:55.489544+00:00 heroku[web.1]: Starting process with command `node index.js`
+2015-08-21T04:48:58.742823+00:00 app[web.1]: Warning: connect.session() MemoryStore is not
+2015-08-21T04:48:58.742849+00:00 app[web.1]: designed for a production environment, as it will leak
+2015-08-21T04:48:58.742851+00:00 app[web.1]: memory, and will not scale past a single process.
+2015-08-21T04:48:58.953960+00:00 app[web.1]: Server started on 22284
+2015-08-21T04:48:59.250578+00:00 heroku[web.1]: State changed from starting to up
+2015-08-21T04:49:05.385079+00:00 app[web.1]: ---><--- SOCKET CONNECT
+2015-08-21T04:49:05.394213+00:00 app[web.1]: ---><--- SOCKET CONNECT
+2015-08-21T04:49:06.694232+00:00 app[web.1]: Unhandled rejection SequelizeConnectionRefusedError: connect ECONNREFUSED
+2015-08-21T04:49:06.694238+00:00 app[web.1]:     at null.<anonymous> (/app/node_modules/pg/lib/client.js:176:5)
+2015-08-21T04:49:06.694236+00:00 app[web.1]:     at /app/node_modules/sequelize/lib/dialects/postgres/connection-manager.js:62:20
+2015-08-21T04:49:06.694239+00:00 app[web.1]:     at emit (events.js:107:17)
+2015-08-21T04:49:06.694240+00:00 app[web.1]:     at Socket.<anonymous> (/app/node_modules/pg/lib/connection.js:59:10)
+2015-08-21T04:49:06.694242+00:00 app[web.1]:     at Socket.emit (events.js:107:17)
+2015-08-21T04:49:06.694243+00:00 app[web.1]:     at net.js:459:14
+2015-08-21T04:49:06.694244+00:00 app[web.1]:     at process._tickCallback (node.js:355:11)
+2015-08-21T04:49:21.200766+00:00 app[web.1]: ---><--- SOCKET CONNECT
+2015-08-21T04:48:53.022801+00:00 heroku[router]: at=info method=GET path="/socket.io/?EIO=3&transport=websocket&sid=otq_2svbF3MXEJoQAAAh" host=instigatr.herokuapp.com request_id=5d38c4d6-53a7-4329-bc11-aaa0a72d7447 fwd="157.130.186.54" dyno=web.1 connect=1ms service=562260ms status=101 bytes=175
+2015-08-21T04:49:40.911011+00:00 app[web.1]: Unhandled rejection SequelizeConnectionRefusedError: connect ECONNREFUSED
+2015-08-21T04:49:40.911016+00:00 app[web.1]:     at /app/node_modules/sequelize/lib/dialects/postgres/connection-manager.js:62:20
+2015-08-21T04:49:40.911017+00:00 app[web.1]:     at null.<anonymous> (/app/node_modules/pg/lib/client.js:176:5)
+2015-08-21T04:49:40.911019+00:00 app[web.1]:     at emit (events.js:107:17)
+2015-08-21T04:49:40.911020+00:00 app[web.1]:     at Socket.<anonymous> (/app/node_modules/pg/lib/connection.js:59:10)
+2015-08-21T04:49:40.911021+00:00 app[web.1]:     at Socket.emit (events.js:107:17)
+2015-08-21T04:49:40.911022+00:00 app[web.1]:     at net.js:459:14
+2015-08-21T04:49:40.911024+00:00 app[web.1]:     at process._tickCallback (node.js:355:11)
+2015-08-21T04:49:44.309486+00:00 app[web.1]: --< * >-- DISCONNECT
+2015-08-21T04:49:11.826144+00:00 heroku[router]: at=info method=GET path="/socket.io/?EIO=3&transport=polling&t=1440132549535-7&sid=FW2arTtH_82eayN4AAAB" host=instigatr.herokuapp.com request_id=29ea6825-5154-436a-a885-578d7a1328cf fwd="157.130.186.54" dyno=web.1 connect=1ms service=856ms status=200 bytes=207
+2015-08-21T04:49:36.666168+00:00 heroku[router]: at=error code=H12 desc="Request timeout" method=GET path="/posts/4/show" host=instigatr.herokuapp.com request_id=5414f779-5df2-43a3-9697-aed6f5014395 fwd="157.130.186.54" dyno=web.1 connect=1ms service=30000ms status=503 bytes=0
+2015-08-21T04:49:44.306829+00:00 heroku[router]: at=info method=GET path="/socket.io/?EIO=3&transport=websocket&sid=FM6KmIGRTbgc-2saAAAC" host=instigatr.herokuapp.com request_id=c9069a4b-18c7-4a06-8797-c01e583b54df fwd="157.130.186.54" dyno=web.1 connect=2ms service=17035ms status=101 bytes=175
+2015-08-21T04:50:14.405098+00:00 app[web.1]: --< * >-- DISCONNECT
+2015-08-21T04:49:29.559102+00:00 heroku[router]: at=info method=GET path="/socket.io/?EIO=3&transport=polling&t=1440132565842-13&sid=FM6KmIGRTbgc-2saAAAC" host=instigatr.herokuapp.com request_id=61291ea1-0aa6-4d19-89d4-0f7dce22c67e fwd="157.130.186.54" dyno=web.1 connect=1ms service=2286ms status=200 bytes=207
+2015-08-21T04:50:21.129136+00:00 app[web.1]: Unhandled rejection SequelizeConnectionRefusedError: connect ECONNREFUSED
+2015-08-21T04:50:21.129141+00:00 app[web.1]:     at /app/node_modules/sequelize/lib/dialects/postgres/connection-manager.js:62:20
+2015-08-21T04:50:21.129144+00:00 app[web.1]:     at null.<anonymous> (/app/node_modules/pg/lib/client.js:176:5)
+2015-08-21T04:50:21.129145+00:00 app[web.1]:     at emit (events.js:107:17)
+2015-08-21T04:50:21.129147+00:00 app[web.1]:     at Socket.<anonymous> (/app/node_modules/pg/lib/connection.js:59:10)
+2015-08-21T04:50:21.129149+00:00 app[web.1]:     at Socket.emit (events.js:107:17)
+2015-08-21T04:50:21.129151+00:00 app[web.1]:     at net.js:459:14
+2015-08-21T04:50:21.129152+00:00 app[web.1]:     at process._tickCallback (node.js:355:11)
+2015-08-21T04:50:30.372523+00:00 app[web.1]: --< * >-- DISCONNECT
