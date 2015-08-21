@@ -15,12 +15,13 @@ function ensureAuthenticated(req, res, next)
 }
 
 router.get('/', function(req, res){
-
-    db.post.findAll({where:{userId:res.locals.currentUser.id}}).then(function(posts){
-      res.render("users/show.ejs",{posts:posts});
-
-    })
-
+  db.post.findAll({where:{userId:res.locals.currentUser.id},include:[db.user, db.vote, db.tag, db.message, { model: db.user, as: 'usersFor' }, { model: db.user, as: 'usersAgainst' }], order:[['createdAt','DESC']]}).then(function(posts){
+    postsSort = posts.sort(function(a,b){
+      return b.totalRating() - a.totalRating()
+    });
+        
+    res.render('users/show.ejs',{postsSort:postsSort,posts:posts});
+  });
 });
 
 // router.get('/', function(req, res){
