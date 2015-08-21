@@ -4,3 +4,4 @@ dbtest.js
 *.sublime-project
 *.sublime-workspace
 .sass-cache
+Thumbs.db
