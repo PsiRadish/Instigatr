@@ -20,14 +20,19 @@
   <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.concat.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.min.css">
   <script type="text/javascript" src="http://fastly.ink.sapo.pt/3.1.9/js/ink-all.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/style/instigatr-debate.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+   <link rel="stylesheet" type="text/css" href="http://cdn.ink.sapo.pt/3.1.10/css/ink-flex.min.css">
+  <link rel="stylesheet" type="text/css" href="http://cdn.ink.sapo.pt/3.1.10/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/style/instigatr-debate.css">
   <script type="text/javascript" src="/script/debate.js"></script>
   <script type="text/javascript" src="/script/homepage.js"></script>
   <link rel="stylesheet" type="text/css" href="/style/homepagestyle.css">
-  <link rel="stylesheet" type="text/scss" href="/style/backgroundvideo.css">
+  <!--<link rel="stylesheet" type="text/scss" href="/style/backgroundvideo.css">-->
   <!-- adding stylesheet for News Headlines -->
   <link rel="stylesheet" type="text/css" href="/style/instigatr-news.css">
+  <link rel="stylesheet" type="text/scss" href="/style/backgroundvideo.css">
+
 
 </head>
 <body>
@@ -36,13 +41,16 @@
     <ul class="horizontal menu black">
     <li class="heading"><a class="ink-label red css-label" href="/"><strong>INSTIGATR</strong></a></li>
       <li><a href="/">Popular</a></li>
+
       <li><a href="/posts/<%= Math.ceil(Math.random()*postsLngth) %>/show" class="css-nBLink">Random</a></li>
+
       <li><a href="">Archive</a>
         <ul class="submenu archiveDD">
           <li><a href="/chronological">Chronological</a></li>
           <li><a href="/allTimeTop">All Time Top Ranked</a></li>
         </ul>
       </li>
+
       <ul class="push-right css-dropdownLogin">
       <% if(!currentUser){ %>
       <li><a href="#">Login/Signup</a>
@@ -83,5 +91,16 @@
 	<div id="modalBlock">
 	</div>
 </div>
+    <footer class="clearfix">
+            <div class="ink-grid">
+                <ul class="unstyled inline half-vertical-space">
+
+                    <li class="active" id="aboutLink"><a href="/about" style="color:red">About</a></li>
+                    <li><a href="https://github.com/PsiRadish/Instigatr"<i class="fa fa-github fa-3x" style="color:red"></a></li>
+
+                </ul>
+            </div>
+        </footer>
+
 </body>
 </html>

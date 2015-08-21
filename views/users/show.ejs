@@ -1,6 +1,27 @@
-<h1>Your posts</h1>
+<br>
+
+<center><h1> Your posts </h1></center>
+
+<hr>
+<div class="column-group">
+  <div class="all-80">
+<% posts.forEach(function(post){ %>
+
+  <div class="css-mainPagePostDiv">
+  <div class="column-group">
+  <div class="all-10 vote">
+<%= post.text %>
+  </div>
+
+  </div>
+  </div>
+<% }) %>
+</div>
+</div>
+
+<!-- <h1>Your posts</h1>
 <% posts.forEach(function(post){ %>
   <div>
   <h3><%= post.text %></h3>
   </div>
-<% }) %>
+<% }) %> -->

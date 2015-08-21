@@ -40,4 +40,9 @@ router.get('/userData', function(req, res)
     res.json({id: req.session.userId});
 });
 
+router.get('/about', function(req, res){
+  res.render('about.ejs')
+});
+
+
 module.exports = router;

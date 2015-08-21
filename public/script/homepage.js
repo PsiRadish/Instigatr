@@ -137,4 +137,12 @@ $(function(){
 		}
 	})
 
+
+	//hiding about link ON about page
+	if (window.location.pathname == "/about") {
+		$('#aboutLink').hide();
+	}
+
+
+
 });
