@@ -28,8 +28,10 @@ $(function()
             method:'GET',
             data:{'val':val,'postId':id}
         }).done(function(){
-            console.log(id);
-            console.log(vote);
+            // console.log(id);
+            // console.log(vote);
+            $('#upVoteBtn').addClass('green');
+            $('#downVoteBtn').removeClass('red');
         });
     });
     $('#downVoteBtn').on('click',function(e){
@@ -41,7 +43,9 @@ $(function()
             method:'GET',
             data:{'val':val,'postId':id}
         }).done(function(){
-            console.log(vote);
+            // console.log(vote);
+            $('#upVoteBtn').removeClass('green');
+            $('#downVoteBtn').addClass('red');
         });
     });
 

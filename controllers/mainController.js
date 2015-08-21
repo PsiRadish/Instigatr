@@ -4,18 +4,17 @@ var router = express.Router();
 
 router.get('/', function(req, res){
 	db.post.findAll({include:[db.user, db.vote, db.tag, db.message, { model: db.user, as: 'usersFor' }, { model: db.user, as: 'usersAgainst' }], order:[['createdAt','DESC']],limit:8,offset:0}).then(function(posts){
-			postsSort = posts.sort(function(a,b){
-				return b.totalRating() - a.totalRating()
-			});
-
-
-			res.render('main/home.ejs',{postsSort:postsSort,posts:posts});
+		postsSort = posts.sort(function(a,b){
+			return b.totalRating() - a.totalRating()
+		});
+        
+		res.render('main/home.ejs',{postsSort:postsSort,posts:posts});
   });
 });
 
 router.get('/about', function(req, res)
 {
-    res.render('main/about.ejs');
+    res.render('main/about.ejs', {titleSuffix: 'About'});
 });
 
 router.get('/more', function(req, res){
@@ -33,7 +32,7 @@ router.get('/more', function(req, res){
 
 router.get('/chronological', function(req, res){
 	db.post.findAll({include:[db.user, db.vote, db.tag, db.message, { model: db.user, as: 'usersFor' }, { model: db.user, as: 'usersAgainst' }], order:[['createdAt','DESC']]}).then(function(posts){
-			res.render('main/chron.ejs',{posts:posts});
+			res.render('main/chron.ejs',{posts:posts, titleSuffix: 'Chronological'});
   });
 });
 
@@ -42,21 +41,21 @@ router.get('/allTimeTop', function(req, res){
 			postsSort = posts.sort(function(a,b){
 				return b.totalRating() - a.totalRating()
 			});
-			res.render('main/allTime.ejs',{posts:postsSort});
+			res.render('main/allTime.ejs',{posts:postsSort, titleSuffix: 'All Time'});
   });
 });
 
 router.get('/404', function(req, res)
 {
-    res.render('main/404.ejs');
+    res.render('main/404.ejs', {titleSuffix: '404'});
 });
 
-router.get('/userData', function(req, res)
-{
-    // res.send({id: req.session.user});
-    console.log("Received userData request.");
-    res.json({id: req.session.userId});
-});
+// router.get('/userData', function(req, res)
+// {
+//     // res.send({id: req.session.user});
+//     console.log("Received userData request.");
+//     res.json({id: req.session.userId});
+// });
 
 
 module.exports = router;

@@ -39,7 +39,8 @@ h1
 }
 #soren
 {
-    background-color: rgba(100,50,260, 0.9);
+    /*background-color: rgba(100,50,260, 0.9);*/
+    background-color: rgba(255,100,50, 0.9);
 }
 #john
 {
