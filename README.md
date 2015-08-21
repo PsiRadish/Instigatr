@@ -48,6 +48,8 @@ Debate app
       news API call had to executed via ajax. Also had to grapple with how to render news search results on .ejs file and creating a sorting algorithm
       for extracting .jpg thumbnails for display adjacent to news articles.
 
+  (2) Soren:
+      There were definitely some dificulties with coordinating the team efforts. Technology-wise there weren't a whole lot of hurdles that I personally encountered. The biggest thing was the troubles with Git and Git-hub that Kyle and Mustafa had. The most complicated part was the relationships between all our different models, and making sure the correct ones were included on the correct pages.
 
 
 
