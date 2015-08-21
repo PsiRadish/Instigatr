@@ -43,9 +43,11 @@ A debate app.
     Then i discovered that I could not make the API calls on a separate controller of my creation but rather needed to integrate API calls with a controller
     that was created by another team member. Further complications arose when the render page for news API calls subsequent to the intial
     news API call had to executed via ajax. Also had to grapple with how to render news search results on .ejs file and creating a sorting algorithm
-    for extracting .jpg thumbnails for display adjacent to news articles.
+    for extracting .jpg thumbnails for display adjacent to news articles.  
+    
 + Soren:  
-    There were definitely some dificulties with coordinating the team efforts. Technology-wise there weren't a whole lot of hurdles that I personally encountered. The biggest thing was the troubles with Git and Git-hub that Kyle and Mustafa had. The most complicated part was the relationships between all our different models, and making sure the correct ones were included on the correct pages.
+    There were definitely some dificulties with coordinating the team efforts. Technology-wise there weren't a whole lot of hurdles that I personally encountered. The biggest thing was the troubles with Git and Git-hub that Kyle and Mustafa had. The most complicated part was the relationships between all our different models, and making sure the correct ones were included on the correct pages.  
+    
 + Kyle:  
     *Git:* Did the first few merges poorly, and ended up with two of every middleware, which was probably the cause of some login problems we were having at the time.
     Towards the end, my git repository also got corrupted, causing git command-line to hang and GitHub for Windows to crash at the sight of it. Conveniently, this
