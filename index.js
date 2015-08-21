@@ -7,6 +7,7 @@ var session = require('express-session');
 var ejsLayouts = require('express-ejs-layouts');
 var session = require('express-session');
 var flash = require('connect-flash');
+// var favicon = require('serve-favicon');
 // var passport = require('passport')
 // var FacebookStrategy = require('passport-facebook').Strategy
 
@@ -25,8 +26,9 @@ app.set('view engine','ejs');
 
 // ---- MIDDLEWARE ----
 app.use(ejsLayouts);
-app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.static(__dirname + '/public'));
+// app.use(favicon(__dirname + '/public/favicon.ico'));
 // app.use(passport.initialize());
 // app.use(passport.session());
 // app.use(cookieParser());
