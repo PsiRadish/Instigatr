@@ -1,6 +1,12 @@
 # Instigatr
 A debate app.
 
+##Contributors:
+[PsiRadish](https://github.com/PsiRadish)  
+[sorenrehkopf](https://github.com/sorenrehkopf)  
+[candlewoodtoby](https://github.com/candlewoodtoby)  
+[mustafa206](https://github.com/mustafa206)  
+
 ##Explanations of technologies used:
   1. CSS
     + Ink-grid: CSS framework provides layout grid system
