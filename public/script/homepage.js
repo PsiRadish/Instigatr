@@ -8,6 +8,11 @@ $(function(){
 	};
 
 
+	if($('.ink-grid').height()<$(window).height()){
+		var marTop = $(window).height()-$('.ink-grid').height()-$('.js-footerSelect').height();
+		$('.js-footerSelect').css('margin-top',marTop);
+	}
+
 	//listeners for user option icons
 
 
