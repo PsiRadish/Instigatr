@@ -106,20 +106,20 @@
   
   <!-- COLUMN 2 -->
   <section id="argue-column" class="large-35 xlarge-35 medium-35 small-60 tiny-100">
-    
+
     <!-- <h2>Debate</h2> -->
     <ul id="chat-output" class="scroll">
-      
+
       <!-- <li class="debate-message message-for">
         <h6 class="author">asynca</h6>
         <span>You are dumb.</span>
       </li>
-      
+
       <li class="debate-message message-against">
         <h6 class="author">TerriblePerson</h6>
         <span>I <em>am</em> dumb.</span>
       </li> -->
-      
+
       <% post.messages.forEach(function(message) { %>
         <li class="debate-message message-<%= message.side %>">
           <h6 class="author"><%= message.user.name %></h6>
@@ -128,19 +128,19 @@
       <% }); %>
       <!-- <hr> -->
     </ul>
-    
+
     <div id="chat-box-container">
       <form>
         <textarea id="chat-box" class="chat-scroll" disabled="disabled"></textarea>
       </form>
     </div>
-  
+
   </section>
-  
+
   <section id="news-column" class="large-40 xlarge-40 medium-40">
   <h2>Related News</h2>
 <!-- testing search queries for news API only -->
-    
+
     <div class="search-news" id="srchNws">
       <form class="ink-form srchForm" method="get" action="/posts/<%= post.id %>/show" >
         <div class="control-group css-nwsSrchDiv">
@@ -155,21 +155,21 @@
        <% if (typeof newsJSON !== "undefined") { %>
           <% if (newsJSON.response){ %> <!-- NYT Headlines -->
                <% newsJSON.response.docs.forEach(function(doc) {  %>
+                    <div class="article-container">
                       <div class="thumbNail all-20">
-                          <% if (doc.multimedia) { %>
-                              <% var imageThumb %>
-                              <% var baseURL = "http://graphics8.nytimes.com/" %>
-                              <% var width = Infinity; %>
 
-                              <% doc.multimedia.forEach(function(photo){ %>
-                                    <%if (photo.width < width) { %>
-                                        <% imageThumb = baseURL + photo.url %>
-                                        <% width = photo.width; %>
-                                    <% }; %> <!-- if (image.width) statement -->
-                              <% }) %> <!-- end forEach Loop -->
+                        <% var imageThumb = 'http://placehold.it/40x50' %>
+                        <% var baseURL = "http://graphics8.nytimes.com/" %>
+                        <% var width = Infinity; %>
 
-                              <img src="<%= imageThumb %>">
-                          <% } %>
+                        <% doc.multimedia.forEach(function(photo){ %>
+                              <%if (photo.width < width) { %>
+                                  <% imageThumb = baseURL + photo.url %>
+                                  <% width = photo.width; %>
+                              <% }; %> <!-- if (image.width) statement -->
+                        <% }) %> <!-- end forEach Loop -->
+
+                        <img src="<%= imageThumb %>">
 
                       </div>
 
@@ -178,12 +178,13 @@
                           <b><%- doc.headline.main %></b><br>
                           <%- doc.snippet %></a></p>
                       </div>
+                    </div>
                <% }) %> <!-- end forEach Loop -->
            <% } %> <!-- end if(newsJSON.response) statement -->
        <% } %> <!-- end if(typeof) statement -->
        </div>
     </div>
-    
+
   <!-- end testing search queries for news API -->
   </section>
 

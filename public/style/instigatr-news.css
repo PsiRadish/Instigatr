@@ -4,18 +4,36 @@
     background-repeat: repeat;
     box-shadow: -1px 0 0 2px rgba(0,0,0, 0.1);
     z-index: 20;
+
 }
 
 .thumbNail, .article {
   display: inline-block;
 }
+
 #voteDiv{
 	margin:20px 0px 20px 0px;
 }
+.thumbNail
+{
+/*  min-height:50px;*/
+  display:inline;
+}
 .article
 {
+  display:block;
+  max-height:140px ;
   float: right;
+
 }
+
+.article-container {
+  height: 150px;
+  border-top: 1px solid black;
+  padding-top: 5px;
+}
+
+
 .search-news h2{
 	display:inline;
 }
@@ -40,6 +58,7 @@ div.news.column-group {
 	border:none;
 	border-radius: 0px 18px 18px 0px;
 }
+
 img[src=""]
 {
     display: none;

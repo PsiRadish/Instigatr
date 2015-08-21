@@ -16,7 +16,7 @@ router.get('/:id/show', function(req, res)
 
     // if (searchTerm !== "undefined"){
     //     var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
-    
+
     //     var queryData = {
     //     q: searchTerm,
     //     pages:10,
@@ -32,7 +32,7 @@ router.get('/:id/show', function(req, res)
     db.post.find({where: {id: req.params.id}, include: [db.user, db.tag, {model: db.message, include: [db.user]}]}).then(function(post)
     {
         if (post)
-        {          
+        {
                     var   tagsArr=[]
                     post.tags.map(function(tag){
                         tagsArr.push(tag.name);
@@ -48,9 +48,10 @@ router.get('/:id/show', function(req, res)
                     console.log('*********************************************');
                     var searchTerm = post.text.slice();
                 }
-                
+
+
                 var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
-                
+
                 var queryData = {
                 q: searchTerm,
                 pages:10,
@@ -78,6 +79,7 @@ router.get('/:id/show', function(req, res)
                 //     res.render("posts/show.ejs", {titleSuffix: post.text, post: post, newsJSON: newsJSON});
                 // });
                 // end news API call
+
         } else
         {
             res.redirect("/404");
