@@ -261,4 +261,9 @@ body{
 footer
 {
 	background-color: rgba(0, 0, 0, 0.7);
+	text-align: center;
+}
+.foot{
+	margin-top:0px;
+	margin-bottom: 0px;
 }
