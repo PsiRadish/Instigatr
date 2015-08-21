@@ -34,7 +34,7 @@ Debate app
     news queries is provided to allow users to delve deeper into their subject of interest.
 
 
-5. Link to wireframes:
+5. Link to wireframes: https://generalassembly.mybalsamiq.com/projects/wdisea03/page%202 & https://generalassembly.mybalsamiq.com/projects/wdisea03/page%203
 
 
 6. Description of any unsolved problems or hurdles team had to overcome:
