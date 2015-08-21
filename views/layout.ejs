@@ -72,12 +72,12 @@
       <% include ./shared/signup.ejs %>
       <% }else{ %>
 
-        <li class="usrNm"><a href="#"><%= currentUser.name %></a>
+        <li class="usrNm"><a href="#"><%= currentUser.name %>  <i class="fa fa-plus"></i></a>
           <ul class="submenu usrOptions" style="background-color:rgba(50,50,50,.9);">
-            <li class="js-usrIconPncl"><a href=""><i class="css-usrIconPncl fa fa-pencil">Create Post</i></a></li>
-            <li class="js-usrIconBook"><a href="/users"><i class="css-usrIconBook fa fa-book">Your Posts</i></a></li>
-            <li class="js-usrIconWrench"><a href=""><i class="css-usrIconWrench fa fa-wrench">Account Settings</i></a></li>
-            <li class="js-usrIconSO"><a href="/auth/logout"><i class="css-usrIconSO fa fa-sign-out">Sign Out</i></a></li>
+            <li class="js-usrIconPncl"><a href=""><i class="css-usrIconPncl fa fa-pencil"></i><span class="css-usrIconPncl">Create Post</span></a></li>
+            <li class="js-usrIconBook"><a href="/users"><i class="css-usrIconBook fa fa-book"></i><span class="css-usrIconBook">Your Posts</span></a></li>
+            <li class="js-usrIconWrench"><a href=""><i class="css-usrIconWrench fa fa-wrench"></i><span class="css-usrIconWrench">Account Settings</span></a></li>
+            <li class="js-usrIconSO"><a href="/auth/logout"><i class="css-usrIconSO fa fa-sign-out"></i><span class="css-usrIconSO">Sign Out</span></a></li>
           </ul>
         </li>
       <% include ./shared/usrOptions.ejs %>
