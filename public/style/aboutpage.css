@@ -25,9 +25,11 @@ color: black;
 
 .dev-card
 {
+    min-height: 411px;
     padding: 10px;
     border-radius: 10px;
     border-bottom-left-radius: 0;
+    position: relative;
 }
 .roundshot
 {
@@ -49,6 +51,14 @@ color: black;
 #mustafa
 {
     background-color: rgba(100,205,250, 0.9);
+}
+
+.soc-links
+{
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
 }
 
 .tech-card

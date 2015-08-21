@@ -257,3 +257,8 @@ body{
 .srchIcon{
 	vertical-align: top;
 }
+
+footer
+{
+	background-color: rgba(0, 0, 0, 0.7);
+}
