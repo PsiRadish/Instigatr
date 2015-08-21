@@ -1,9 +1,9 @@
 <div class="css-tagHead">
-	<h1>#<%= tag.name %></h1>
+	<h1>Search results for <%= '"'+query.slice(1,query.length-1)+'"' %></h1>
 </div>
 <div class="column-group">
 	<div class="all-80">
-<% tag.posts.forEach(function(post){ %>
+<% posts.forEach(function(post){ %>
 	<div class="css-mainPagePostDiv">
 	<div class="column-group">
 	<div class="all-10 vote">

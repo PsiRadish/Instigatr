@@ -25,7 +25,6 @@
   <link rel="stylesheet" type="text/css" href="/style/instigatr-debate.css">
   <script type="text/javascript" src="/script/debate.js"></script>
   <script type="text/javascript" src="/script/homepage.js"></script>
-<<<<<<< HEAD
   <link rel="stylesheet" type="text/css" href="/style/homepagestyle.css">
   <!--<link rel="stylesheet" type="text/scss" href="/style/backgroundvideo.css">-->
   <link rel="stylesheet" type="text/scss" href="/style/backgroundvideo.css">
@@ -45,7 +44,8 @@
 
       <li><a href="/posts/<%= Math.ceil(Math.random()*postsLngth) %>/show" class="css-nBLink">Random</a></li>
 
-      <li><a href="">Archive</a>
+      <li><a href="/chronological">Archive</a>
+
         <ul class="submenu archiveDD">
           <li><a href="/chronological">Chronological</a></li>
           <li><a href="/allTimeTop">All Time Top Ranked</a></li>
@@ -53,6 +53,14 @@
       </li>
 
       <ul class="push-right css-dropdownLogin">
+      <li>
+      <form class="ink-form srchTagForm" method="get" action="/tags/search/" >
+        <div class="control-group css-tagSrchDiv">
+          <input id="srchTagTrm" name="q" type="text" class="form-control" placeholder="Search by tag!">
+          <button href="/tags/search/" type="submit" class="ink-button blue" id="tagSrchBtn"><i class="fa fa-search srchIcon"></i></button>
+          </div>
+      </form>
+      </li>
       <% if(!currentUser){ %>
       <li><a href="#">Login/Signup</a>
         <ul class="submenu css-loginDDItems">

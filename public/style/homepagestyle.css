@@ -1,7 +1,8 @@
 body{
 	/*background-image: url(../staticNewsBkgrnd.png);*/
 	background-image: url(../staticNewsBkgrnd.jpg);
-	/*background-position: fixed;*/
+	background-position:right top;
+	background-attachment: fixed;
 }
 .archiveDD{
 	width:13vw;
@@ -238,4 +239,18 @@ body{
 }
 .moarDiv a{
 	text-decoration: none;
+}
+.srchTagForm{
+	margin-top: 5px;
+	margin-bottom:-15px;
+}
+#srchTagTrm{
+	height:30px;
+	border-radius:15px 0px 0px 15px;
+}
+#tagSrchBtn{
+	height:30px;
+}
+.srchIcon{
+	vertical-align: top;
 }
