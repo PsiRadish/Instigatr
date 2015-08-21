@@ -58,7 +58,8 @@ app.use(function(req,res,next)
   if (req.session.userId)
   {
     // console.log("Getting session user from database");
-    db.user.findById(req.session.userId).then(function(user)
+    // db.user.findById(req.session.userId).then(function(user)
+    db.user.find({where: {id: req.session.userId}, include: [db.vote]}).then(function(user)
     {
       // console.log("auto-user", user);
       if (user)

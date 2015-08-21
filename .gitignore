@@ -5,3 +5,6 @@ dbtest.js
 *.sublime-workspace
 .sass-cache
 Thumbs.db
+public/Thumbs.db
+*.db
+public/Thumbs.db
