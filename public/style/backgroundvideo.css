@@ -76,6 +76,7 @@ footer * {
 
 .hero-spacer {
     margin-top: 50px;
+    opacity: 0.8;
 }
 
 .hero-feature {
