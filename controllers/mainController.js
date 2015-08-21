@@ -13,10 +13,22 @@ router.get('/', function(req, res){
   });
 });
 
-
 router.get('/about', function(req, res)
 {
     res.render('main/about.ejs');
+});
+
+router.get('/more', function(req, res){
+	var offset = req.query.offset;
+	db.post.findAll({include:[db.user, db.vote, db.tag, db.message, { model: db.user, as: 'usersFor' }, { model: db.user, as: 'usersAgainst' }], order:[['createdAt','DESC']],limit:8,offset:offset}).then(function(posts){
+			postsSort = posts.sort(function(a,b){
+				return b.totalRating() - a.totalRating()
+			});
+			ratings = postsSort.map(function(post){
+				return post.totalRating();
+			});
+			res.send({postsSort:postsSort,ratings:ratings});
+  });
 });
 
 router.get('/chronological', function(req, res){

@@ -228,3 +228,14 @@ body{
 	margin-top: 6%;
 	color:white;
 }
+.moarDiv{
+	background-color: rgba(60,60,60,.8);
+	border-radius:0px 24px 0px 0px;
+	text-align: center;
+}
+.moarDiv h3{
+	color:white;
+}
+.moarDiv a{
+	text-decoration: none;
+}

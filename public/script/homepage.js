@@ -136,13 +136,32 @@ $(function(){
 			}
 		}
 	})
-
-
+    
 	//hiding about link ON about page
 	if (window.location.pathname == "/about") {
 		$('#aboutLink').hide();
 	}
+	
+	var offset=0
+	$('#loadMoar').on('click',function(e){
+		e.preventDefault();
+		offset +=8;
+		var posts = $.ajax({
+			url: '/more',
+			method:'GET',
+			data:{offset:offset}
+		}).done(function(){
+			console.log(posts);
+			for(i=0;i<posts.responseJSON.postsSort.length;i++){
+			var npdiv = ('<div class="css-mainPagePostDiv"><div class="column-group"><div class="all-10 vote"><h4>Total vote</h4><h4>'+posts.responseJSON.ratings[i]+'</h4></div><div class="all-50 css-text"><a href="/posts/'+posts.responseJSON.postsSort[i].id+'/show">'+posts.responseJSON.postsSort[i].text+'</a></div><div class="author all-10">'+posts.responseJSON.postsSort[i].user.name+'</div><div class="all-20 css-text"><p>'+posts.responseJSON.postsSort[i].usersFor.length+' agree.</p><p>'+posts.responseJSON.postsSort[i].usersAgainst.length+' disagree.</p><p>'+posts.responseJSON.postsSort[i].messages.length+' messages.</p></div><div class="all-10 goToLink"><a href="/posts/'+posts.responseJSON.postsSort[i].id+'/show"><i class="fa fa-arrow-right"></i></a></div></div><div class="column-group"><div class="all-10"></div><div class="css-tags all-90">');
+				for(j=0;j<posts.responseJSON.postsSort[i].tags.length;j++){
+			npdiv = npdiv.concat('<a href="/tags/'+posts.responseJSON.postsSort[i].tags[j].id+'">#'+posts.responseJSON.postsSort[i].tags[j].name+'</a>');
+			};
+			npdiv = npdiv.concat('</div></div></div>');
+			$('#mainPagePostCol').append(npdiv);
+		};
+		});
 
-
+	});
 
 });
