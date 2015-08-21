@@ -13,6 +13,12 @@ router.get('/', function(req, res){
   });
 });
 
+
+router.get('/about', function(req, res)
+{
+    res.render('main/about.ejs');
+});
+
 router.get('/chronological', function(req, res){
 	db.post.findAll({include:[db.user, db.vote, db.tag, db.message, { model: db.user, as: 'usersFor' }, { model: db.user, as: 'usersAgainst' }], order:[['createdAt','DESC']]}).then(function(posts){
 			res.render('main/chron.ejs',{posts:posts});
@@ -38,10 +44,6 @@ router.get('/userData', function(req, res)
     // res.send({id: req.session.user});
     console.log("Received userData request.");
     res.json({id: req.session.userId});
-});
-
-router.get('/about', function(req, res){
-  res.render('about.ejs')
 });
 
 
