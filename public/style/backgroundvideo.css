@@ -56,7 +56,7 @@ footer {
     background: black;
     border: 0;
     text-align: center;
-    /*position: fixed;*/
+/*    position: fixed; */
     left: 0;
     right: 0;
     bottom: 0;
@@ -73,13 +73,16 @@ footer * {
 }
 
 
-
-.hero-spacer {
-    margin-top: 50px;
-    opacity: 0.8;
+ body {
+/*                background: #ededed;
+*/                text-align: center;
 }
 
-.hero-feature {
-    margin-bottom: 30px;
+.all-100 {
+/*  margin-top: 50px;
+  margin-bottom: 25px;*/
+  color: white;
 }
-
+.quarter-top-space {
+color: black;
+}
