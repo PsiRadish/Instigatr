@@ -43,10 +43,10 @@
 
 }
 */
-body{
+/*body{
   padding-bottom: 120px;
 }
-
+*/
 .push, footer {
    /* height: 100px;
     margin-top: 10px;*/
@@ -54,18 +54,15 @@ body{
 }
 footer {
     background: black;
-    border: 0;
     text-align: center;
-/*    position: fixed; */
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: 0;
+    /*position: fixed; */
+    margin-top: 0px;
 }
 footer * {
     line-height: inherit;
-
-
+}
+.foot{
+  margin:0px auto;
 }
 
 
