@@ -1,4 +1,4 @@
-.fullscreen-bg {
+/*.fullscreen-bg {
   position: fixed;
   top: 0;
   right: 0;
@@ -42,7 +42,7 @@
 
 
 }
-
+*/
 body{
   padding-bottom: 120px;
 }
@@ -56,7 +56,7 @@ footer {
     background: black;
     border: 0;
     text-align: center;
-    position: fixed;
+    /*position: fixed;*/
     left: 0;
     right: 0;
     bottom: 0;

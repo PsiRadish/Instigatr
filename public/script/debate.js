@@ -77,8 +77,8 @@ $(function()
             var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
             var navHeight = $('nav').outerHeight();
             
-            // console.log('viewHeight', viewHeight);
-            // console.log('navHeight', navHeight);
+            console.log('viewHeight', viewHeight);
+            console.log('navHeight', navHeight);
             
             var debatePage = $('#debate-page');
             
@@ -91,11 +91,13 @@ $(function()
             var chatBox = $('#chat-box-container');
             
             debatePage.height(viewHeight - navHeight);
+            console.log("debatePage.height()", debatePage.height());
             var contentHeight = debatePage.outerHeight();
+            console.log("contentHeight", contentHeight);
             
-            var freeSpace = contentHeight - (postStuff.outerHeight() + choices.outerHeight() + yourSide.outerHeight());
+            // var freeSpace = contentHeight - (postStuff.outerHeight() + choices.outerHeight() + yourSide.outerHeight());
             // console.log(freeSpace);
-            var vertMargin = Math.max(freeSpace / 2, 0);
+            // var vertMargin = Math.max(freeSpace / 2, 0);
             
             // postStuff.css("margin-bottom", vertMargin.toString()+"px");
             // choices.css("margin-bottom", vertMargin.toString()+"px");

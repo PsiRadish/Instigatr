@@ -184,6 +184,8 @@ $argue-grey-background              : #505050;
     .choose-side
     {
         width: 108px;
+        padding-left: 11%;
+        padding-right: 11%;
         max-width: 100%;
     }
     .change-mind
@@ -306,7 +308,7 @@ $argue-grey-background              : #505050;
     #side-for
     {
         left: 50%;
-        padding-left: 2em;
+        padding-left: 4%;
         
         .choose-side
         {
@@ -345,7 +347,7 @@ $argue-grey-background              : #505050;
     #side-against
     {
         left: 0%;
-        padding-right: 2em;
+        padding-right: 4%;
         
         .choose-side
         {

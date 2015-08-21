@@ -183,7 +183,7 @@
   text-align: right;
 }
 
-#rate-post h4 {
+#voteDiv h4 {
   margin-bottom: 0.5em;
 }
 
@@ -244,6 +244,8 @@
 }
 #side-for .choose-side, #side-against .choose-side {
   width: 108px;
+  padding-left: 11%;
+  padding-right: 11%;
   max-width: 100%;
 }
 #side-for .change-mind, #side-against .change-mind {
@@ -315,7 +317,7 @@
 }
 #choices.side-chosen-for #side-for {
   left: 50%;
-  padding-left: 2em;
+  padding-left: 4%;
 }
 #choices.side-chosen-for #side-for .choose-side {
   pointer-events: none;
@@ -342,7 +344,7 @@
 }
 #choices.side-chosen-against #side-against {
   left: 0%;
-  padding-right: 2em;
+  padding-right: 4%;
 }
 #choices.side-chosen-against #side-against .choose-side {
   pointer-events: none;
