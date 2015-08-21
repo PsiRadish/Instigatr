@@ -120,7 +120,11 @@ router.post('/',function(req, res){
             text:req.body.text
         }).then(function(post){
             for(i=0;i<tagsArr.length;i++){
-                var tagnm=tagsArr[i]
+                if(tagsArr[i].charAt(0) === '#'){
+                    var tagnm = tagsArr[i].slice(1,tagsArr[i].length)
+                }else{
+                    var tagnm = tagsArr[i]
+                };
                 db.tag.findOrCreate({where:{name:tagnm}}).spread(function(tag,created){
                     post.addTag(tag);
                 });
