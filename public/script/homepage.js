@@ -46,7 +46,7 @@ $(function(){
 		e.preventDefault();
 		$('body').css('overflow','hidden');
 		$('#modalBlock').fadeIn(0);
-		$('#settings').fadeIn(200)
+		$('#settings').fadeIn(200);
 	});
 
 	$('.js-usrIconSO').on('mouseover',function(){

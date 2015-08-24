@@ -29,7 +29,24 @@ router.get('/:id/show', function(req, res)
     // }
     //end news - API call
 
-    db.post.find({where: {id: req.params.id}, include: [db.user, db.tag, {model: db.message, include: [db.user]}]}).then(function(post)
+    db.post.find(
+    {
+        where: { id: req.params.id },
+        include:
+        [
+            db.user,
+            db.tag,
+//          db.message
+            {
+                model: db.message,
+                include: [db.user]
+            }
+        ],
+        order:
+        [
+            [ db.message, 'createdAt', 'ASC' ]
+        ]
+    }).then(function(post)
     {
         if (post)
         {
