@@ -197,6 +197,9 @@ DebateChat.prototype.getChampName = function(side)
 }
 DebateChat.prototype.getIsChamp = function(user, side)
 {
+    if (side === null)
+        return false;
+    
     DebateChat.verifySideParam(side);
     
     // checks for null champ here so don't have to elsewhere
@@ -572,14 +575,14 @@ sio.on('connection', function(socket)
             
             // debateChat.sockets.splice(debateChat.sockets.indexOf(socket), 1); // remove the socket from the list
             debateChat.connections -= 1;
-            // if chat room empty now
-            if (debateChat.connections == 0)
-            {   // clear references so they can be garbage collected
-                debateChat.post = null;
+            // if chat room empty now       // RACE CONDITION?
+            // if (debateChat.connections == 0)
+            // {   // clear references so they can be garbage collected
+            //     debateChat.post = null;
                 
-                debateChat = null;
-                debateChats[socket.postId] = null;
-            }
+            //     debateChat = null;
+            //     debateChats[socket.postId] = null;
+            // }
         }
     });
 });

@@ -16,41 +16,42 @@ $(function()
             theme: "minimal-dark",
             scrollInertia: 1
         });
-
-
-    //up and downvote functionality
-    $('#upVoteBtn').on('click',function(e){
-        e.preventDefault();
-        var id = $('#pId').val();
-        var val = 1;
-        var vote = $.ajax({
-            url:'/posts/vote',
-            method:'GET',
-            data:{'val':val,'postId':id}
-        }).done(function(){
-            // console.log(id);
-            // console.log(vote);
-            $('#upVoteBtn').addClass('green');
-            $('#downVoteBtn').removeClass('red');
+        
+        
+        
+        //up and downvote functionality
+        $('#upVoteBtn').on('click',function(e){
+            e.preventDefault();
+            var id = $('#pId').val();
+            var val = 1;
+            var vote = $.ajax({
+                url:'/posts/vote',
+                method:'GET',
+                data:{'val':val,'postId':id}
+            }).done(function(){
+                // console.log(id);
+                // console.log(vote);
+                $('#upVoteBtn').addClass('green');
+                $('#downVoteBtn').removeClass('red');
+            });
         });
-    });
-    $('#downVoteBtn').on('click',function(e){
-        e.preventDefault();
-        var id = $('#pId').val();
-        var val = -1;
-        var vote = $.ajax({
-            url:'/posts/vote',
-            method:'GET',
-            data:{'val':val,'postId':id}
-        }).done(function(){
-            // console.log(vote);
-            $('#upVoteBtn').removeClass('green');
-            $('#downVoteBtn').addClass('red');
+        $('#downVoteBtn').on('click',function(e){
+            e.preventDefault();
+            var id = $('#pId').val();
+            var val = -1;
+            var vote = $.ajax({
+                url:'/posts/vote',
+                method:'GET',
+                data:{'val':val,'postId':id}
+            }).done(function(){
+                // console.log(vote);
+                $('#upVoteBtn').removeClass('green');
+                $('#downVoteBtn').addClass('red');
+            });
         });
-    });
-
-
-
+        
+        
+        
         //news search button listener
         $('#newsSrchBtn').on('click',function(e){
             e.preventDefault();
@@ -76,7 +77,8 @@ $(function()
                 }
             });
         });
-
+        
+        
         function sizeChat(e)
         {
             var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
@@ -134,7 +136,7 @@ $(function()
         socket.emit('startChat', postId);
         socket.on('startChat_Response', function(userId, side, championFor, championAgainst)
         {
-            // console.log('Received startChat_Response', chatData);
+            console.log('Received startChat_Response', userId, side);
             // console.log('userId', userId);
 
             $('#champ-for .author').html(championFor || '...');
@@ -253,7 +255,7 @@ $(function()
             }
 
             // SERVER - CHAMP UPDATE
-            socket.on('updateChamp', function(championFor, championAgainst)
+            socket.on('champUpdate', function(championFor, championAgainst)
             {
                 $('#champ-for .author').html(championFor || '...');
                 $('#champ-against .author').html(championAgainst || '...');
