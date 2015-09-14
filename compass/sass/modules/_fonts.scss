@@ -1,28 +1,28 @@
-$fonts: (
+/* $fonts: (
   (
     Roboto,
     roboto,
     (
-      (thin,100,normal),
-      (thinitalic,100,italic),
-      (light,300,normal),
-      (lightitalic,300,italic),
+      // (thin,100,normal),
+      // (thinitalic,100,italic),
+      // (light,300,normal),
+      // (lightitalic,300,italic),
       (regular,400,normal),
       (italic,400,italic),
-      (medium,500,normal),
-      (mediumitalic,500,italic),
+      // (medium,500,normal),
+      // (mediumitalic,500,italic),
       (bold,700,normal),
       (bolditalic,700,italic),
-      (black,900,normal),
-      (blackitalic,900,italic)
+      // (black,900,normal),
+      // (blackitalic,900,italic)
     )
   ),
   (
     Roboto_condensed,
     robotocondensed,
     (
-      (light,300,normal),
-      (lightitalic,300,italic),
+      // (light,300,normal),
+      // (lightitalic,300,italic),
       (regular,400,normal),
       (italic,400,italic),
       (bold,700,normal),
@@ -33,34 +33,37 @@ $fonts: (
     Roboto_slab,
     robotoslab,
     (
-      (thin,100,(normal)),
-      (light,300,(normal)),
+      // (thin,100,(normal)),
+      // (light,300,(normal)),
       (regular,400,(normal)),
       (bold,700,(normal))
     )
   )
-);
+); */
 
-@each $font in $fonts {
+// @each $font in $fonts {
 
-  $font-name: nth($font,1);
-  $font-file-prefix: nth($font,2);
+//   $font-name: nth($font,1);
+//   $font-file-prefix: nth($font,2);
 
-  @each $variant in nth($font,3) {
-    $weight-name: nth($variant,1);
-    $weight: nth($variant,2);
-    $style: nth($variant,3);
+//   @each $variant in nth($font,3) {
+//     $weight-name: nth($variant,1);
+//     $weight: nth($variant,2);
+//     $style: nth($variant,3);
 
-    @include font-face(
-        #{$font-name},
-        // RADISH: haxed to get Roboto font from Ink's server so we don't have to store it on ours.
-        // Alternately, we could just NOT import "config/typography" and use something besides Roboto.
-        font-files("http://fastly.ink.sapo.pt/3.1.10/fonts/#{$font-name}/#{$font-file-prefix}-#{$weight-name}-webfont.woff",
-                   "http://fastly.ink.sapo.pt/3.1.10/fonts/#{$font-name}/#{$font-file-prefix}-#{$weight-name}-webfont.ttf"),
-        "http://fastly.ink.sapo.pt/3.1.10/fonts/#{$font-name}/#{$font-file-prefix}-#{$weight-name}-webfont.eot",
-        #{$weight},
-        #{$style}
-    );
+//     @include font-face(
+//         #{$font-name},
+//         // RADISH: haxed to get Roboto font from Ink's server so we don't have to store it on ours.
+//         // Alternately, we could just NOT import "config/typography" and use something besides Roboto.
+//         // UPDATE: Or get it from Google Web Fonts (see bottom)
+//         font-files("http://fastly.ink.sapo.pt/3.1.10/fonts/#{$font-name}/#{$font-file-prefix}-#{$weight-name}-webfont.woff",
+//                    "http://fastly.ink.sapo.pt/3.1.10/fonts/#{$font-name}/#{$font-file-prefix}-#{$weight-name}-webfont.ttf"),
+//         "http://fastly.ink.sapo.pt/3.1.10/fonts/#{$font-name}/#{$font-file-prefix}-#{$weight-name}-webfont.eot",
+//         #{$weight},
+//         #{$style}
+//     );
 
-  }
-}
+//   }
+// }
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic|Roboto+Condensed:400,400italic,700,700italic|Roboto+Slab:400,700);
