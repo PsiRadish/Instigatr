@@ -151,7 +151,7 @@
 }
 
 .author {
-  font-family: Roboto_slab, Arial, Helvetica, sans-serif;
+  font-family: Roboto Slab, Arial, Helvetica, sans-serif;
   display: block;
 }
 
@@ -177,7 +177,7 @@
 }
 #post-content-box p {
   font-size: 15.4px;
-  font-family: Roboto_condensed, Arial, Helvetica, sans-serif;
+  font-family: Roboto Condensed, Arial Narrow, Arial, Helvetica, sans-serif;
 }
 #post-content-box .author {
   text-align: right;
@@ -436,7 +436,7 @@
 }
 #argue-column #chat-output .debate-message span {
   font-weight: 400;
-  font-family: Roboto_condensed, Arial, Helvetica, sans-serif;
+  font-family: Roboto Condensed, Arial Narrow, Arial, Helvetica, sans-serif;
 }
 #argue-column #chat-output .debate-message.message-for {
   float: left;
@@ -494,7 +494,7 @@
   border-bottom-left-radius: 0;
   padding: 6px;
   font-weight: 400;
-  font-family: Roboto_condensed, Arial, Helvetica, sans-serif;
+  font-family: Roboto Condensed, Arial Narrow, Arial, Helvetica, sans-serif;
   resize: none;
   overflow-y: auto;
 }

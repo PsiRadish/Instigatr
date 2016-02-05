@@ -7,7 +7,8 @@ body{
 .archiveDD{
 	width:13vw;
 }
-.css-mainPagePostDiv{
+.css-mainPagePostDiv
+{
 	background-color: rgba(60,60,60,1);
 	margin-top:5vh;
 	margin-bottom: 2vh;
@@ -16,30 +17,35 @@ body{
 	border-radius: 10px 40px 40px 0px;
 	min-height: 10vh;
 	overflow: hidden;
-}
-.css-mainPagePostDiv
-{
+	
 	display: inline-block;
 }
 .css-mainPagePostDiv div{
 	display:inline;
 	margin-top: 2%;
 }
+/* max-widths calculated assuming 28px side padding on top .ink-grid
+   (Should migrate this to SASS so calculations can be automated)
+   (Also should probably refactor to be less hack-ish) */
 .vw-hack .all-10
 {
 	width: 8vw;
+	max-width: 149px;
 }
 .vw-hack .all-20
 {
 	width: 16vw;
+	max-width: 299px;
 }
 .vw-hack .all-50
 {
 	width: 40vw;
+	max-width: 747px;
 }
 .vw-hack .all-90
 {
 	width: calc(64vw + 40px);
+	max-width: 1235px;
 }
 
 /*.css-main
@@ -76,21 +82,29 @@ body{
 	margin-left: 20px;
 	/*margin-left: 4vw;*/
 }
-.css-mainPagePostDiv .css-tags{
+.css-mainPagePostDiv .css-tags
+{
 	margin-top: 20px;
+	padding-left: 6px;
 	/*margin-top: 4vw;*/
-/*	text-align: center;*/
+	/*text-align: center;*/
 	background-color: rgba(250,250,250,.2);
-	border-radius:0px 5px 5px 0px;
+	border-radius: 0px 5px 5px 0px;
 }
-.vote{
+
+.css-mainPagePostDiv .vote
+{
 	text-align: center;
-/*	margin-top: 2.5%;*/
+	padding-left: 6px;
+	padding-right: 10px;
+	/*margin-top: 2.5%;*/
 }
-.css-mainPagePostDiv h4{
-	color:white;
-	display:inline-block;
-	margin-right:20px;
+/*.css-mainPagePostDiv h4*/
+.css-mainPagePostDiv .vote h4
+{
+	color: white;
+	/*display: inline-block;*/
+	/*margin-right: 20px;*/
 }
 .css-mainPagePostDiv a{
 	color:white;
