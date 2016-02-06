@@ -98,6 +98,8 @@ $argue-grey-background              : #505050;
 
 #voteDiv
 {
+    margin: 20px 0px 20px 0px;
+    
     h4 { margin-bottom: 0.5em; }
 }
 
@@ -180,6 +182,7 @@ $argue-grey-background              : #505050;
 #side-for, #side-against
 {
     height: 60px;
+    text-align: center;
     
     .choose-side
     {
@@ -271,6 +274,7 @@ $argue-grey-background              : #505050;
     #side-against
     {
         left: 50%;
+        // text-align: right;
         
         .change-mind
         {
@@ -374,8 +378,8 @@ $argue-grey-background              : #505050;
 //         visibility: visible;
 //     }
 // }
-#choices.side-chosen-for,
-
+// #choices.side-chosen-for,
+// #choices.side-chosen-against #side-against,
 #champions
 {
     text-align: center;
@@ -600,6 +604,6 @@ $argue-grey-background              : #505050;
 
 #results-news-headlines
 {
-    height: 100%;
+    // height: 100%;
     overflow-y: auto;
 }

@@ -11,7 +11,7 @@ $(function()
             scrollInertia: 1
         });
         $("#results-news-headlines").mCustomScrollbar(
-        {
+        {   // TODO: fix bottom of scroll being slightly cut off
             axis:"y", // vertical
             theme: "minimal-dark",
             scrollInertia: 1
@@ -47,8 +47,6 @@ $(function()
                 $('#downVoteBtn').addClass('red');
             });
         });
-        
-        
         
         //news search button listener
         $('#newsSrchBtn').on('click',function(e){
@@ -95,6 +93,9 @@ $(function()
             var chatOutput = $('#chat-output');
             var chatBox = $('#chat-box-container');
             
+            var aboveNewsResults = $('#above-news-results');
+            var newsResults = $('#results-news-headlines');
+            
             debatePage.height(viewHeight - navHeight);
             // console.log("debatePage.height()", debatePage.height());
             var contentHeight = debatePage.outerHeight();
@@ -109,10 +110,14 @@ $(function()
             // choices.css("margin-bottom", vertMargin.toString()+"px");
             
             chatOutput.height(contentHeight - chatBox.outerHeight());
+            newsResults.height(contentHeight - aboveNewsResults.outerHeight());
+            
             if (e === 'init')
             {
                 chatOutput.mCustomScrollbar("update");
                 chatOutput.mCustomScrollbar("scrollTo", "bottom");
+                
+                newsResults.mCustomScrollbar("update");
             }
         }
         sizeChat('init');

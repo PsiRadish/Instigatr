@@ -2,7 +2,7 @@
 </head>
 <div id="debate-page" class="column-group tiny-quarter-horizontal-gutters small-half-horizontal-gutters medium-horizontal-gutters large-horizontal-gutters xlarge-horizontal-gutters back-flush">
   <input type="hidden" id="pId" name="postId" value='<%= post.id %>' >
-  <section id="take-sides-column" class="large-25 xlarge-25 medium-25 small-40">
+  <section id="take-sides-column" class="large-30 xlarge-30 medium-30 small-40">
     <div id="post-stuff">
       <h1 title="Or Post, whatever.">Subject</h1>
       <div id="post-content-box">
@@ -26,16 +26,16 @@
       <div id="choices" class="subsection">
         <!-- Only one of these headings visible at a time. -->
         <div id="headings-roll">
-          <h3 id="heading-choice-made-left">You Are For!</h3>  <!-- visibility: hidden in CSS -->
+          <h3 id="heading-choice-made-left">You Are <span class="green">For</span>!</h3>  <!-- visibility: hidden in CSS -->
           <h3 id="heading-choice-not-made">Choose a Side?</h3>
-          <h3 id="heading-choice-made-right">You Are Against!</h3>  <!-- visibility: hidden in CSS -->
+          <h3 id="heading-choice-made-right">You Are <span class="red">Against</span>!</h3>  <!-- visibility: hidden in CSS -->
         </div>
         
         <div id="choice-roll">
           
           <div id="wanna-join-for" class="wanna-join">  <!-- visibility: hidden in CSS -->
             <div class="not-queued"
-              <b>Wanna join the debate?</b>
+              <b>Want to join the debate?</b>
               <a class="enter-queue">Enter the queue</a>
             </div>
             <div class="queued hide-all">
@@ -53,15 +53,15 @@
             <a class="change-mind" href="#">Change your mind?</a>  <!-- visibility: hidden in CSS -->
           </div>
           <div id="side-against">
-            <a class="choose-side ink-button red push-right" href="#">
+            <a class="choose-side ink-button red" href="#">
               <i class="fa fa-thumbs-down fa-flip-horizontal"></i> Against!
             </a>
-            <a class="change-mind push-right" href="#">Change your mind?</a>  <!-- visibility: hidden in CSS -->
+            <a class="change-mind" href="#">Change your mind?</a>  <!-- visibility: hidden in CSS -->
           </div>
           
           <div id="wanna-join-against" class="wanna-join">  <!-- visibility: hidden in CSS -->
             <div class="not-queued"
-              <b>Wanna join the debate?</b>
+              <b>Want to join the debate?</b>
               <a class="enter-queue">Enter the queue</a>
             </div>
             <div class="queued hide-all">
@@ -105,7 +105,7 @@
   
   
   <!-- COLUMN 2 -->
-  <section id="argue-column" class="large-35 xlarge-35 medium-35 small-60 tiny-100">
+  <section id="argue-column" class="large-40 xlarge-40 medium-40 small-60 tiny-100">
 
     <!-- <h2>Debate</h2> -->
     <ul id="chat-output" class="scroll">
@@ -137,17 +137,20 @@
 
   </section>
 
-  <section id="news-column" class="large-40 xlarge-40 medium-40">
-  <h2>Related News</h2>
-<!-- testing search queries for news API only -->
-
-    <div class="search-news" id="srchNws">
-      <form class="ink-form srchForm" method="get" action="/posts/<%= post.id %>/show" >
-        <div class="control-group css-nwsSrchDiv">
-          <input id="srchTrm" name="srchTrm" type="text" class="form-control" placeholder="Search">
-          <button type="submit" class="ink-button blue" id="newsSrchBtn"><i class="fa fa-search"></i></button>
-          </div>
-      </form>
+  <section id="news-column" class="large-30 xlarge-30 medium-30">
+    
+    <div id="above-news-results">
+      <h2>Related News</h2>
+      <!-- testing search queries for news API only -->
+    
+      <div class="search-news" id="srchNws">
+        <form class="ink-form srchForm" method="get" action="/posts/<%= post.id %>/show" >
+          <div class="control-group css-nwsSrchDiv">
+            <input id="srchTrm" name="srchTrm" type="text" class="form-control" placeholder="Search">
+            <button type="submit" class="ink-button blue" id="newsSrchBtn"><i class="fa fa-search"></i></button>
+            </div>
+        </form>
+      </div>
     </div>
 
     <div id="results-news-headlines" class="results-news-headlines scroll">
@@ -161,9 +164,10 @@
                         <% var imageThumb = 'http://placehold.it/40x50' %>
                         <% var baseURL = "http://graphics8.nytimes.com/" %>
                         <% var width = Infinity; %>
-
+                        
+                        <!-- Loop through to find the smallest image for use as thumbnail -->
                         <% doc.multimedia.forEach(function(photo){ %>
-                              <%if (photo.width < width) { %>
+                              <% if (photo.width < width) { %>
                                   <% imageThumb = baseURL + photo.url %>
                                   <% width = photo.width; %>
                               <% }; %> <!-- if (image.width) statement -->

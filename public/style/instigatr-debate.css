@@ -183,6 +183,9 @@
   text-align: right;
 }
 
+#voteDiv {
+  margin: 20px 0px 20px 0px;
+}
 #voteDiv h4 {
   margin-bottom: 0.5em;
 }
@@ -241,6 +244,7 @@
 
 #side-for, #side-against {
   height: 60px;
+  text-align: center;
 }
 #side-for .choose-side, #side-against .choose-side {
   width: 108px;
@@ -357,11 +361,9 @@
   opacity: 1;
 }
 
-#choices.side-chosen-for,
 #champions {
   text-align: center;
 }
-#choices.side-chosen-for h5,
 #champions h5 {
   margin: 0;
 }
@@ -515,6 +517,5 @@
 }
 
 #results-news-headlines {
-  height: 100%;
   overflow-y: auto;
 }

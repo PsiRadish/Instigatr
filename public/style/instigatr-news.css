@@ -11,13 +11,14 @@
   display: inline-block;
 }
 
-#voteDiv{
-	margin:20px 0px 20px 0px;
-}
 .thumbNail
 {
 /*  min-height:50px;*/
   display:inline;
+}
+.thumbNail > img
+{
+  margin-bottom: 5px;
 }
 .article
 {
@@ -27,10 +28,13 @@
 
 }
 
-.article-container {
-  height: 150px;
+.article-container
+{
+  /*height: 150px;*/
+  max-height: 150px;
   border-top: 1px solid black;
   padding-top: 5px;
+  overflow: hidden;
 }
 
 
