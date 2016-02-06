@@ -109,8 +109,8 @@ $(function()
             // postStuff.css("margin-bottom", vertMargin.toString()+"px");
             // choices.css("margin-bottom", vertMargin.toString()+"px");
             
-            chatOutput.height(contentHeight - chatBox.outerHeight());
-            newsResults.height(contentHeight - aboveNewsResults.outerHeight());
+            chatOutput.height(contentHeight - chatBox.outerHeight(true));
+            newsResults.height(contentHeight - aboveNewsResults.outerHeight(true));
             
             if (e === 'init')
             {

@@ -106,20 +106,20 @@
   
   <!-- COLUMN 2 -->
   <section id="argue-column" class="large-40 xlarge-40 medium-40 small-60 tiny-100">
-
+    
     <!-- <h2>Debate</h2> -->
     <ul id="chat-output" class="scroll">
-
+      
       <!-- <li class="debate-message message-for">
         <h6 class="author">asynca</h6>
         <span>You are dumb.</span>
       </li>
-
+      
       <li class="debate-message message-against">
         <h6 class="author">TerriblePerson</h6>
         <span>I <em>am</em> dumb.</span>
       </li> -->
-
+      
       <% post.messages.forEach(function(message) { %>
         <li class="debate-message message-<%= message.side %>">
           <h6 class="author"><%= message.user.name %></h6>
@@ -128,15 +128,15 @@
       <% }); %>
       <!-- <hr> -->
     </ul>
-
+    
     <div id="chat-box-container">
       <form>
         <textarea id="chat-box" class="chat-scroll" disabled="disabled"></textarea>
       </form>
     </div>
-
+  
   </section>
-
+  
   <section id="news-column" class="large-30 xlarge-30 medium-30">
     
     <div id="above-news-results">
@@ -152,43 +152,52 @@
         </form>
       </div>
     </div>
-
+    
     <div id="results-news-headlines" class="results-news-headlines scroll">
       <div class="column-group" id="newsListings">
        <% if (typeof newsJSON !== "undefined") { %>
           <% if (newsJSON.response){ %> <!-- NYT Headlines -->
-               <% newsJSON.response.docs.forEach(function(doc) {  %>
-                    <div class="article-container">
-                      <div class="thumbNail all-20">
-
-                        <% var imageThumb = 'http://placehold.it/40x50' %>
-                        <% var baseURL = "http://graphics8.nytimes.com/" %>
-                        <% var width = Infinity; %>
-                        
-                        <!-- Loop through to find the smallest image for use as thumbnail -->
-                        <% doc.multimedia.forEach(function(photo){ %>
-                              <% if (photo.width < width) { %>
-                                  <% imageThumb = baseURL + photo.url %>
-                                  <% width = photo.width; %>
-                              <% }; %> <!-- if (image.width) statement -->
-                        <% }) %> <!-- end forEach Loop -->
-
-                        <img src="<%= imageThumb %>">
-
-                      </div>
-
-                      <div class="article all-80">
-                          <p><a href="<%- doc.web_url %>" target="_blank">
-                          <b><%- doc.headline.main %></b><br>
-                          <%- doc.snippet %></a></p>
-                      </div>
+          
+              <!-- For each article found -->
+              <% newsJSON.response.docs.forEach(function(doc) {  %>
+                <div class="article-container">
+                  
+                  <% var articleWidth = 100; %>
+                  
+                  <% var imageThumb = null %>
+                  <% var baseURL = "http://graphics8.nytimes.com/" %>
+                  <% var minWidth = Infinity; %>
+                  
+                  <!-- Loop through images to find the smallest for use as thumbnail -->
+                  <% doc.multimedia.forEach(function(photo){ %>
+                        <% if (photo.width < minWidth) { %>
+                            <% minWidth = photo.width; %>
+                            <% imageThumb = baseURL + photo.url %>
+                        <% }; %> <!-- if (image.width) statement -->
+                  <% }) %> <!-- end forEach Loop -->
+                  
+                  <% if (imageThumb) { %>
+                  
+                    <div class="thumbNail all-15">
+                      <img src="<%= imageThumb %>">
                     </div>
-               <% }) %> <!-- end forEach Loop -->
+                    
+                    <% articleWidth = 85; %>
+                    
+                  <% } %>
+                  
+                  <div class="article all-<%= articleWidth %>">
+                      <p><a href="<%- doc.web_url %>" target="_blank">
+                      <b><%- doc.headline.main %></b><br>
+                      <%- doc.snippet %></a></p>
+                  </div>
+                </div>
+              <% }) %> <!-- end forEach Loop -->
            <% } %> <!-- end if(newsJSON.response) statement -->
        <% } %> <!-- end if(typeof) statement -->
        </div>
     </div>
-
+  
   <!-- end testing search queries for news API -->
   </section>
 
