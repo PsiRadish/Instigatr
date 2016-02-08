@@ -1,46 +1,9 @@
-
-<!-- <div class="fullscreen-bg">
-    <video loop muted autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video">
-        <source src="http://webm.land/media/W5Ty.webm" type="video/webm">
-    </video>
-</div> -->
-
 <div class="column-group">
   <div class="all-100" id="mainPagePostCol">
 <% postsSort.forEach(function(post){ %>
-  <div class="css-mainPagePostDiv">
-    <div class="column-group vw-hack">
-    
-      <div class="all-10 vote">
-        <h4>Total vote  </h4>
-        <h4><%= post.totalRating() %></h4>
-      </div>
-      <div class="all-50 post css-text">
-        <a href="/posts/<%= post.id %>/show"><%= post.text %></a>
-        <span class="author">
-          <%= post.user.name %>
-        </span>
-      </div>
-      <!-- <div class="author all-10">
-      <!--%= post.user.name %>
-      </div> -->
-      <div class="all-20 css-text">
-        <p><%= post.usersFor.length %> agree.</p>
-        <p><%= post.usersAgainst.length %> disagree.</p>
-        <p><%= post.messages.length %> messages.</p>
-      </div>
-      <div class="all-10 goToLink"><a href="/posts/<%= post.id %>/show"><i class="fa fa-arrow-right"></i></a></div>
-    </div>
-    
-    <div class="column-group vw-hack">
-      <div class="all-10"> <!-- padding --> </div>
-      <div class="css-tags all-90">
-        <% post.tags.forEach(function(tag){ %>
-          <a href="/tags/<%= tag.id %>">#<%= tag.name %></a>
-        <% }) %>
-      </div>
-    </div>
-  </div>
+
+  <% include ../shared/post.ejs %>
+
 <% }) %>
 </div>
 </div>
