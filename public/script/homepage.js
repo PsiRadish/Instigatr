@@ -6,16 +6,28 @@ $(function(){
 	var fadet = function(elem){
 		elem.fadeIn(300);
 	};
-
-
-	if($('.ink-grid').height()<$(window).height()){
-		var marTop = $(window).height()-$('.ink-grid').height()-$('.js-footerSelect').height();
-		$('.js-footerSelect').css('margin-top',marTop);
+	
+	function positionFooter()
+	{
+		var inkGridHeight = $('.ink-grid').height();
+		var footerHeight = $('.js-footerSelect').height();
+		var windowHeight = $(window).height();
+		
+		if ((inkGridHeight + footerHeight) < windowHeight)
+		{
+			var marginTop = windowHeight - (inkGridHeight + footerHeight);
+			$('.js-footerSelect').css('margin-top', marginTop);
+		}
+		else
+		{
+			$('.js-footerSelect').css('margin-top', 0);
+		}
 	}
+	positionFooter();
+    // do it again on resize
+    $(window).resize(positionFooter);
 
 	//listeners for user option icons
-
-
 	$('.js-usrIconPncl').on('mouseover',function(){
 		$('.js-usrTxtPncl').fadeIn(200);
 	});
