@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+  
   <title>
       Instigatr
       <% if (typeof titleSuffix != 'undefined'){ %>
@@ -10,13 +10,11 @@
   </title>
   
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>
-  
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
     <link rel="stylesheet" type="text/css" href="/style/instigatr-ink-main.css">
   <script src="//code.jquery.com/jquery.js"></script>
-
+  
   <script src="/socket.io/socket.io.js"></script>
-
+  
   <!-- scrollbar plugin http://manos.malihu.gr/jquery-custom-content-scroller/ -->
   <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.concat.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.min.css">
@@ -30,85 +28,89 @@
   <!--<link rel="stylesheet" type="text/scss" href="/style/backgroundvideo.css">-->
   <!-- <link rel="stylesheet" type="text/scss" href="/style/backgroundvideo.css"> -->
   <link rel="stylesheet" type="text/css" href="/style/aboutpage.css">
-
+  
   <!-- adding stylesheet for News Headlines -->
-  <link rel="stylesheet" type="text/css" href="/style/instigatr-news.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/style/instigatr-news.css"> -->
 
 
 </head>
 <body>
+
 <div class="ink-grid">
   <nav class="ink-navigation css-navBar">
     <ul class="horizontal menu black">
-    <li class="heading"><a class="ink-label red css-label" href="/"><strong>INSTIGATR</strong></a></li>
+      <li class="heading"><a class="ink-label red css-label" href="/"><strong>INSTIGATR</strong></a></li>
       <li><a href="/">Popular</a></li>
-
+      
       <li><a href="/posts/<%= Math.ceil(Math.random()*postsLngth) %>/show" class="css-nBLink">Random</a></li>
-
+      
       <li><a href="/chronological">Archive</a>
-
+        
         <ul class="submenu archiveDD">
           <li><a href="/chronological">Chronological</a></li>
           <li><a href="/allTimeTop">All Time Top Ranked</a></li>
         </ul>
       </li>
-
+      
       <ul class="push-right css-dropdownLogin">
-      <li>
-      <form class="ink-form srchTagForm" method="get" action="/tags/search/" >
-        <div class="control-group css-tagSrchDiv">
-          <input id="srchTagTrm" name="q" type="text" class="form-control" placeholder="Search by tag!">
-          <button href="/tags/search/" type="submit" class="ink-button blue" id="tagSrchBtn"><i class="fa fa-search srchIcon"></i></button>
-          </div>
-      </form>
-      </li>
-      <% if(!currentUser){ %>
-      <li><a href="#">Login/Signup</a>
-        <ul class="submenu css-loginDDItems">
-        <form class="ink-form" method="post" action="/auth/login">
-          <div class="control-group">
-            <li><div class="control"><input type="text" name="email" id="emailinpt" placeholder="E-mail"><br></div></li>
-            <li><div class="control"><input type="password" name="password" id="passinpt" placeholder="Password"><br></div></li>
-            <li class="separator-above">
-            <div class="control">
-            <button href="" type="submit" class="ink-button blue css-loginBtn" id="loginBtn">Login!</button>
-            <button class="ink-button blue css-loginBtn" id="signupBtn">Signup!</button>
+        <li>
+          <form class="ink-form srchTagForm" method="get" action="/tags/search/" >
+            <div class="control-group">
+              <input id="tag-search-term" name="q" type="text" class="form-control" placeholder="Search by tag!">
+              <button href="/tags/search/" type="submit" class="ink-button blue" id="tag-search-button"><i class="fa fa-search"></i></button>
             </div>
-            </li>
-          </div>
-        </form>
-      </ul>
-      </li>
-      <% include ./shared/signup.ejs %>
-      <% }else{ %>
-
-        <li class="usrNm"><a href="#"><%= currentUser.name %>  <i class="fa fa-plus"></i></a>
-          <ul class="submenu usrOptions" style="background-color:rgba(50,50,50,.9);">
-            <li class="js-usrIconPncl"><a href=""><i class="css-usrIconPncl fa fa-pencil"></i><span class="css-usrIconPncl">Create Post</span></a></li>
-            <li class="js-usrIconBook"><a href="/users"><i class="css-usrIconBook fa fa-book"></i><span class="css-usrIconBook">Your Posts</span></a></li>
-            <li class="js-usrIconWrench"><a href=""><i class="css-usrIconWrench fa fa-wrench"></i><span class="css-usrIconWrench">Account Settings</span></a></li>
-            <li class="js-usrIconSO"><a href="/auth/logout"><i class="css-usrIconSO fa fa-sign-out"></i><span class="css-usrIconSO">Sign Out</span></a></li>
-          </ul>
+          </form>
         </li>
-      <% include ./shared/usrOptions.ejs %>
-      <% } %>
-    </ul>
+        <% if (!currentUser) { %>
+          <li><a href="#">Login/Signup</a>
+            <ul class="submenu css-login-dropdown-items">
+              <form class="ink-form" method="post" action="/auth/login">
+                <div class="control-group">
+                  <li><div class="control"><input type="text" name="email" id="email-input" placeholder="E-mail"></div></li>
+                  <li><div class="control"><input type="password" name="password" id="password-input" placeholder="Password"></div></li>
+                  <li class="separator-above">
+                  <div class="control">
+                    <button href="" type="submit" class="ink-button blue css-login-button" id="loginBtn">Login!</button>
+                    <!-- <button class="ink-button blue css-login-button" id="signupBtn">Signup!</button> -->
+                    <span class="push-right">Not a member? <a href="#" id="signup-link">Signup!</a></span>
+                  </div>
+                  </li>
+                </div>
+              </form>
+            </ul>
+          </li>
+          <% include ./shared/signup.ejs %>
+        <% } else { %>
+        
+          <li class="usrNm"><a href="#"><%= currentUser.name %>  <i class="fa fa-gear"></i></a>
+            <ul class="submenu usrOptions" style="background-color:rgba(50,50,50,.9);">
+              <li class="js-usrIconPncl"><a href=""><i class="css-usrIconPncl fa fa-pencil"></i><span class="css-usrIconPncl">Create Post</span></a></li>
+              <li class="js-usrIconBook"><a href="/users"><i class="css-usrIconBook fa fa-book"></i><span class="css-usrIconBook">Your Posts</span></a></li>
+              <li class="js-usrIconWrench"><a href=""><i class="css-usrIconWrench fa fa-wrench"></i><span class="css-usrIconWrench">Account Settings</span></a></li>
+              <li class="js-usrIconSO"><a href="/auth/logout"><i class="css-usrIconSO fa fa-sign-out"></i><span class="css-usrIconSO">Sign Out</span></a></li>
+            </ul>
+          </li>
+          <% include ./shared/usrOptions.ejs %>
+        <% } %>
+      </ul>
     </ul>
   </nav>
 
-<%- body %>
-  </div>
-	<div id="modalBlock">
-	</div>
-    <footer class="content-drawer js-footerSelect">
-            <div class="ink-grid">
-                <ul class="unstyled inline foot">
-                    <li class="active" id="aboutLink"><a href="/about" style="color:red">About</a></li>
-                    <li><a href="https://github.com/PsiRadish/Instigatr"<i class="fa fa-github fa-3x" style="color:red"></a></li>
-
-                </ul>
-            </div>
-        </footer>
+  <%- body %>
+  
 </div>
+  
+<div id="modalBlock">
+</div>
+  
+<footer class="content-drawer js-footerSelect">
+  <div class="ink-grid">
+    <ul class="unstyled inline foot">
+      <li class="active" id="aboutLink"><a href="/about" style="color:red">About</a></li>
+      <li><a href="https://github.com/PsiRadish/Instigatr"<i class="fa fa-github fa-2x" style="color:red"></a></li>
+    </ul>
+  </div>
+</footer>
+  
 </body>
 </html>

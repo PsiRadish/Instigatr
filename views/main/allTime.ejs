@@ -1,9 +1,12 @@
-<div class="column-group">
-  <div class="all-100">
-<% postsSort.forEach(function(post){ %>
-  
-  <% include ../shared/post.ejs %>
-  
-<% }) %>
+<div class="css-index-head">
+  <h1>All Time Top Ranked</h1>
 </div>
+<div class="column-group">
+  <div class="all-100" id="mainPagePostCol">
+    <% postsSort.forEach(function(post){ %>
+      
+      <% include ../shared/post.ejs %>
+      
+    <% }) %>
+  </div>
 </div>

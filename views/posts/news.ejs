@@ -1,0 +1,42 @@
+      <div class="column-group" id="js-news-listings">
+        <% if (typeof newsJSON !== "undefined") { %>
+          <% if (newsJSON.response){ %> <!-- NYT Headlines -->
+            
+            <!-- For each article found -->
+            <% newsJSON.response.docs.forEach(function(doc) {  %>
+              <div class="article-container">
+                
+                <% var articleWidth = 100; %>
+                
+                <% var imageThumb = null %>
+                <% var baseURL = "http://graphics8.nytimes.com/" %>
+                <% var minWidth = Infinity; %>
+                
+                <!-- Loop through images to find the smallest for use as thumbnail -->
+                <% doc.multimedia.forEach(function(photo){ %>
+                    <% if (photo.width < minWidth) { %>
+                        <% minWidth = photo.width; %>
+                        <% imageThumb = baseURL + photo.url %>
+                    <% }; %> <!-- if (image.width) statement -->
+                <% }) %> <!-- end forEach Loop -->
+                
+                <% if (imageThumb) { %>
+                
+                  <div class="thumbNail all-15">
+                    <img src="<%= imageThumb %>">
+                  </div>
+                  
+                  <% articleWidth = 85; %>
+                  
+                <% } %>
+                
+                <div class="article all-<%= articleWidth %>">
+                    <p><a href="<%- doc.web_url %>" target="_blank">
+                    <b><%- doc.headline.main %></b><br>
+                    <%- doc.snippet %></a></p>
+                </div>
+              </div>
+            <% }) %> <!-- end forEach Loop -->
+          <% } %> <!-- end if(newsJSON.response) statement -->
+        <% } %> <!-- end if(typeof) statement -->
+      </div>

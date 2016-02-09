@@ -18,7 +18,7 @@ $(function()
         });
         
         // up and downvote functionality
-        $('#upVoteBtn').on('click',function(e){
+        $('#up-vote-button').on('click',function(e){
             e.preventDefault();
             var id = $('#pId').val();
             var val = 1;
@@ -29,11 +29,11 @@ $(function()
             }).done(function(){
                 // console.log(id);
                 // console.log(vote);
-                $('#upVoteBtn').addClass('green');
-                $('#downVoteBtn').removeClass('red');
+                $('#up-vote-button').addClass('green');
+                $('#down-vote-button').removeClass('red');
             });
         });
-        $('#downVoteBtn').on('click',function(e){
+        $('#down-vote-button').on('click',function(e){
             e.preventDefault();
             var id = $('#pId').val();
             var val = -1;
@@ -43,34 +43,28 @@ $(function()
                 data:{'val':val,'postId':id}
             }).done(function(){
                 // console.log(vote);
-                $('#upVoteBtn').removeClass('green');
-                $('#downVoteBtn').addClass('red');
+                $('#up-vote-button').removeClass('green');
+                $('#down-vote-button').addClass('red');
             });
         });
         
         //news search button listener
-        $('#newsSrchBtn').on('click',function(e){
+        $('#news-search-button').on('click',function(e)
+        {
             e.preventDefault();
-            var srchTrm = $('#srchTrm').val();
-            var news = $.ajax({
-                url:'/posts/news',
-                method:'GET',
-                data: {'q':srchTrm}
-            }).done(function(){
-                // console.log(news.responseJSON);
-                var imgOne = "";
-                if(news.responseJSON.response.docs[0].multimedia[0]){
-                    imgOne = "<img src='http://graphics8.nytimes.com/"+news.responseJSON.response.docs[0].multimedia[0].url+"'>"
-                }
-                $('#newsListings').html('<div class="article-container"><div class="thumbNail all-20">'+imgOne+'</div><div class="article all-80"><p><a href="'+news.responseJSON.response.docs[0].web_url+'" target="_blank"><b>'+ news.responseJSON.response.docs[0].headline.main +'</b><br>'+news.responseJSON.response.docs[0].snippet+'</a></p></div></div>');
+            var searchTerm = $('#news-search-term').val();
+            var response = $.ajax(
+            {
+                url: '/posts/news',
+                method: 'GET',
+                data: { q: searchTerm }
+            }).done(function()
+            {
+                // Back-end responds with html for a whole new page containing the results of the news search.
+                // Append this response to an empty div in memory, so se can use jQuery find to just get #js-news-listings out.
+                var newsListingsHTML = $('<div/>').append(response.responseText).find('#js-news-listings').html();
                 
-                for(i=1;i<8;i++){
-                    var img = "<img src='http://placehold.it/40x50'>";
-                    if(news.responseJSON.response.docs[i].multimedia[0]){
-                        var img = "<img src='http://graphics8.nytimes.com/"+news.responseJSON.response.docs[i].multimedia[0].url+"'>"
-                    };
-                    $('#newsListings').append('<div class="article-container"><div class="thumbNail all-20">'+img+'</div><div class="article all-80"><p><a href="'+news.responseJSON.response.docs[i].web_url+'" target="_blank"><b>'+ news.responseJSON.response.docs[i].headline.main +'</b><br>'+news.responseJSON.response.docs[i].snippet+'</a></p></div></div>');
-                }
+                $('#js-news-listings').html(newsListingsHTML); // replace #js-news-listings in DOM with the new #js-news-listings from back-end
             });
         });
         

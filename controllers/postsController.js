@@ -36,7 +36,7 @@ router.get('/:id/show', function(req, res)
         [
             db.user,
             db.tag,
-//          db.message
+            // db.message
             {
                 model: db.message,
                 include: [db.user]
@@ -50,10 +50,10 @@ router.get('/:id/show', function(req, res)
     {
         if (post)
         {
-                    var   tagsArr=[]
-                    post.tags.map(function(tag){
-                        tagsArr.push(tag.name);
-                    });
+            var tagsArr = []
+            post.tags.map(function(tag){
+                tagsArr.push(tag.name);
+            });
             if(tagsArr[0]){
                     var searchTerm = tagsArr.join();
                     console.log('*********************************************');
@@ -70,10 +70,10 @@ router.get('/:id/show', function(req, res)
                 var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
 
                 var queryData = {
-                q: searchTerm,
-                pages:10,
-                sort:'newest',
-                'api-key':process.env.NYT_API_KEY,
+                    q: searchTerm,
+                    pages:10,
+                    sort:'newest',
+                    'api-key':process.env.NYT_API_KEY,
                 }
                 // news API call
                 request({
@@ -108,26 +108,33 @@ router.get('/:id/show', function(req, res)
     });
 });
 
-router.get('/news',function(req, res){
+router.get('/news',function(req, res)
+{
     var searchTerm = req.query.q;
     var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
-                    var queryData = {
-                    q: searchTerm,
-                    pages:7,
-                    sort:'newest',
-                    'api-key':process.env.NYT_API_KEY,
-                    }
-                    // news API call
-                    request({
-                        url:url,
-                        qs:queryData
-                    }, function(error, response, data){
-                        var newsJSON = JSON.parse(data);
-                        // console.log(newsJSON.response.docs[0]);
-                        searchTerm = null;
-                        // searchTerm_Alchemy = null;
-                        res.send(newsJSON);
-                    });
+    var queryData = 
+    {
+        q: searchTerm,
+        pages: 7,
+        sort: 'newest',
+        'api-key': process.env.NYT_API_KEY,
+    }
+    // news API call
+    request(
+    {
+        url: url,
+        qs: queryData
+    }, function(error, response, data)
+    {
+        var newsJSON = JSON.parse(data);
+        // console.log(newsJSON.response.docs[0]);
+        searchTerm = null;
+        // searchTerm_Alchemy = null;
+        // res.send(newsJSON);
+        
+        // return rendered HTML that will be injected into page
+        res.render("posts/news.ejs", {newsJSON: newsJSON, layout: 'ajaxLayout'});
+    });
 });
 
 

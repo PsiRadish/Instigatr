@@ -4,22 +4,21 @@
   <input type="hidden" id="pId" name="postId" value='<%= post.id %>' >
   <section id="take-sides-column" class="large-30 xlarge-30 medium-30 small-40">
     <div id="post-stuff">
-      <h1 title="Or Post, whatever.">Subject</h1>
+      <h1>Subject</h1>
       <div id="post-content-box">
-        <!-- <p id="debate-subject">Elsanna OTP FTW!!!!!!!!!1111</p> -->
         <p id="debate-subject"><%= post.text %></p>
-        <b class="author"><%= post.user.name %></b>
+        <span class="author"><%= post.user.name %></span>
       </div>
     </div>
     
     <div id="must-be-logged-in" class="disabled">
       <div id="voteDiv" class="column-group">
-      <h4>Vote on the quality of this debate!</h4>
+        <h4>Vote on the quality of this debate!</h4>
         <div class="all-50">
-            <button class="ink-button push-right" id="upVoteBtn"><i class="fa fa-chevron-up"></i></button>
+            <button class="ink-button push-right" id="up-vote-button"><i class="fa fa-chevron-up"></i></button>
         </div>
         <div class="all-50">
-           <button class="ink-button push-left" id="downVoteBtn"><i class="fa fa-chevron-down"></i></button>
+           <button class="ink-button push-left" id="down-vote-button"><i class="fa fa-chevron-down"></i></button>
         </div>
       </div>
       
@@ -141,64 +140,24 @@
     
     <div id="above-news-results">
       <h2>Related News</h2>
-      <!-- testing search queries for news API only -->
-    
-      <div class="search-news" id="srchNws">
-        <form class="ink-form srchForm" method="get" action="/posts/<%= post.id %>/show" >
-          <div class="control-group css-nwsSrchDiv">
-            <input id="srchTrm" name="srchTrm" type="text" class="form-control" placeholder="Search">
-            <button type="submit" class="ink-button blue" id="newsSrchBtn"><i class="fa fa-search"></i></button>
-            </div>
-        </form>
-      </div>
+      
+      <form class="ink-form" method="get" action="/posts/<%= post.id %>/show" >
+        <div id="news-search" class="control-group">
+          <div class="control append-button" role="search">
+            <span><input id="news-search-term" type="text" placeholder="Search"></span>
+            <button class="ink-button blue" id="news-search-button"><i class="fa fa-search"></i></button>
+          </div>
+        </div>
+      </form>
     </div>
     
-    <div id="results-news-headlines" class="results-news-headlines scroll">
-      <div class="column-group" id="newsListings">
-       <% if (typeof newsJSON !== "undefined") { %>
-          <% if (newsJSON.response){ %> <!-- NYT Headlines -->
-          
-              <!-- For each article found -->
-              <% newsJSON.response.docs.forEach(function(doc) {  %>
-                <div class="article-container">
-                  
-                  <% var articleWidth = 100; %>
-                  
-                  <% var imageThumb = null %>
-                  <% var baseURL = "http://graphics8.nytimes.com/" %>
-                  <% var minWidth = Infinity; %>
-                  
-                  <!-- Loop through images to find the smallest for use as thumbnail -->
-                  <% doc.multimedia.forEach(function(photo){ %>
-                        <% if (photo.width < minWidth) { %>
-                            <% minWidth = photo.width; %>
-                            <% imageThumb = baseURL + photo.url %>
-                        <% }; %> <!-- if (image.width) statement -->
-                  <% }) %> <!-- end forEach Loop -->
-                  
-                  <% if (imageThumb) { %>
-                  
-                    <div class="thumbNail all-15">
-                      <img src="<%= imageThumb %>">
-                    </div>
-                    
-                    <% articleWidth = 85; %>
-                    
-                  <% } %>
-                  
-                  <div class="article all-<%= articleWidth %>">
-                      <p><a href="<%- doc.web_url %>" target="_blank">
-                      <b><%- doc.headline.main %></b><br>
-                      <%- doc.snippet %></a></p>
-                  </div>
-                </div>
-              <% }) %> <!-- end forEach Loop -->
-           <% } %> <!-- end if(newsJSON.response) statement -->
-       <% } %> <!-- end if(typeof) statement -->
-       </div>
+    <!-- <div id="results-news-headlines" class="results-news-headlines scroll"> -->
+    <div id="results-news-headlines" class="scroll">
+      
+      <% include ./news.ejs %>
+      
     </div>
   
-  <!-- end testing search queries for news API -->
   </section>
 
 </div>
