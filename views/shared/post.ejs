@@ -1,33 +1,33 @@
-  <div class="css-mainPagePostDiv">
+  <div class="css-debate-card">
   
-    <div class="column-group vw-hack">
+    <div class="card-row">
       
-      <div class="all-10 vote">
+      <div class="card-item debate-rating">
         <!-- <header>Rating</header> -->
-        <h3><%= post.totalRating() %></h3>
+        <h3 title="Rating"><%= post.totalRating() %></h3>
       </div>
       
-      <div class="all-50 post css-text">
+      <div class="card-item card-text subject">
         <a href="/posts/<%= post.id %>/show"><%= post.text %></a>
         <span class="author">
           <%= post.user.name %>
         </span>
       </div>
       
-      <div class="all-20 css-text">
+      <div class="card-item card-text debate-data">
         <p><%= post.usersFor.length %> agree.</p>
         <p><%= post.usersAgainst.length %> disagree.</p>
         <p><%= post.messages.length %> messages.</p>
       </div>
       
-      <div class="all-10 goToLink"><a href="/posts/<%= post.id %>/show"><i class="fa fa-arrow-right"></i></a></div>
+      <div class="card-item go-to-link"><a href="/posts/<%= post.id %>/show"><i class="fa fa-arrow-right"></i></a></div>
     
     </div>
-    <div class="column-group vw-hack">
+    <div class="card-row">
       
-      <div class="all-10"> <!-- padding --> </div>
+      <!-- <div class="card-item tag-padding"> </div> -->
       
-      <div class="css-tags all-90">
+      <div class="card-item debate-tags">
         <% post.tags.forEach(function(tag){ %>
           <a href="/tags/<%= tag.id %>">#<%= tag.name %></a>
         <% }) %>

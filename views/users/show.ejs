@@ -1,12 +1,12 @@
 <div class="css-index-head">
-  <h1>Your posts</h1>
+  <h1>My Posts</h1>
 </div>
 <div class="column-group">
-  <div class="all-100" id="mainPagePostCol">
-  <% posts.forEach(function(post){ %>
+  <div class="all-100" id="post-index-column">
+    <% posts.forEach(function(post){ %>
 
-    <% include ../shared/post.ejs %>
-    
-  <% }) %>
+      <% include ../shared/post.ejs %>
+      
+    <% }) %>
   </div>
 </div>

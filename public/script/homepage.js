@@ -28,43 +28,43 @@ $(function(){
     $(window).resize(positionFooter);
 
 	//listeners for user option icons
-	$('.js-usrIconPncl').on('mouseover',function(){
+	$('.js-user-create-post').on('mouseover',function(){
 		$('.js-usrTxtPncl').fadeIn(200);
 	});
-	$('.js-usrIconPncl').on('mouseout',function(){
+	$('.js-user-create-post').on('mouseout',function(){
 		$('.js-usrTxtPncl').fadeOut(0)
 	});
-	$('.js-usrIconPncl').on('click',function(e){
+	$('.js-user-create-post').on('click',function(e){
 		e.preventDefault();
 		$('body').css('overflow','hidden');
 		$('#modalBlock').fadeIn(0);
 		$('#newPost').fadeIn(200)
 	});
 
-	$('.js-usrIconBook').on('mouseover',function(){
+	$('.js-user-my-posts').on('mouseover',function(){
 		$('.js-usrTxtBook').fadeIn(200);
 	});
-	$('.js-usrIconBook').on('mouseout',function(){
+	$('.js-user-my-posts').on('mouseout',function(){
 		$('.js-usrTxtBook').fadeOut(0)
 	});
 
-	$('.js-usrIconWrench').on('mouseover',function(){
+	$('.js-user-account').on('mouseover',function(){
 		$('.js-usrTxtWrench').fadeIn(200);
 	});
-	$('.js-usrIconWrench').on('mouseout',function(){
+	$('.js-user-account').on('mouseout',function(){
 		$('.js-usrTxtWrench').fadeOut(0)
 	});
-	$('.js-usrIconWrench').on('click',function(e){
+	$('.js-user-account').on('click',function(e){
 		e.preventDefault();
 		$('body').css('overflow','hidden');
 		$('#modalBlock').fadeIn(0);
 		$('#settings').fadeIn(200);
 	});
 
-	$('.js-usrIconSO').on('mouseover',function(){
+	$('.js-user-signout').on('mouseover',function(){
 		$('.js-usrTxtSO').fadeIn(200);
 	});
-	$('.js-usrIconSO').on('mouseout',function(){
+	$('.js-user-signout').on('mouseout',function(){
 		$('.js-usrTxtSO').fadeOut(0)
 	});
 
@@ -176,7 +176,7 @@ $(function(){
 			console.log(posts);
 			for (i = 0; i < posts.responseJSON.postsSort.length; i++)
 			{
-				var npdiv = ('<div class="css-mainPagePostDiv"><div class="column-group vw-hack"><div class="all-10 vote"><h4>Total vote</h4><h4>' + posts.responseJSON.ratings[i] + '</h4></div><div class="all-50 post css-text"><a href="/posts/'+posts.responseJSON.postsSort[i].id+'/show">'+posts.responseJSON.postsSort[i].text+'</a><span class="author">'+posts.responseJSON.postsSort[i].user.name+'</span></div><div class="all-20 css-text"><p>'+posts.responseJSON.postsSort[i].usersFor.length+' agree.</p><p>'+posts.responseJSON.postsSort[i].usersAgainst.length+' disagree.</p><p>' + posts.responseJSON.postsSort[i].messages.length + ' messages.</p></div><div class="all-10 goToLink"><a href="/posts/' + posts.responseJSON.postsSort[i].id + '/show"><i class="fa fa-arrow-right"></i></a></div></div><div class="column-group vw-hack"><div class="all-10"></div><div class="css-tags all-90">');
+				var npdiv = ('<div class="css-debate-card"><div class="column-group vw-hack"><div class="all-10 vote"><h4>Total vote</h4><h4>' + posts.responseJSON.ratings[i] + '</h4></div><div class="all-50 post css-text"><a href="/posts/'+posts.responseJSON.postsSort[i].id+'/show">'+posts.responseJSON.postsSort[i].text+'</a><span class="author">'+posts.responseJSON.postsSort[i].user.name+'</span></div><div class="all-20 css-text"><p>'+posts.responseJSON.postsSort[i].usersFor.length+' agree.</p><p>'+posts.responseJSON.postsSort[i].usersAgainst.length+' disagree.</p><p>' + posts.responseJSON.postsSort[i].messages.length + ' messages.</p></div><div class="all-10 go-to-link"><a href="/posts/' + posts.responseJSON.postsSort[i].id + '/show"><i class="fa fa-arrow-right"></i></a></div></div><div class="column-group vw-hack"><div class="all-10"></div><div class="debate-tags all-90">');
 				
 				for (j = 0; j < posts.responseJSON.postsSort[i].tags.length; j++)
 				{
@@ -184,7 +184,7 @@ $(function(){
 				};
 				
 				npdiv = npdiv.concat('</div></div></div>');
-				$('#mainPagePostCol').append(npdiv);
+				$('#post-index-column').append(npdiv);
 			}
 		});
 		

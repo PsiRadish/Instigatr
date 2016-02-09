@@ -3,347 +3,413 @@
 
 // vars
 
-$tag-search-height	: 32px;
+$tag-search-top-margin      : 5px;
+$tag-search-left-margin     : 6px;
+$tag-search-height          : 32px;
+$tag-search-border-radius   : 6px;
+$tag-search-max-width       : 240px;
+
+$index-text-padding         : 6px;
+$index-item-padding         : 20px;
+$index-rating-width         : calc(0.75em * 3 + #{$index-item-padding});
+$index-data-width           : 7.5em;
+$index-arrow-size           : 35px;
+$index-arrow-lmargin-ratio  : 0.8;
+$index-arrow-rmargin-ratio  : 0.5;
+$index-arrow-sizewide-ratio : 0.85714285714285714285714285714286;
+
+$index-card-subject-width   : calc(80vw - (0.75em * 3 + #{$index-item-padding} * 2 + #{$index-data-width} + #{$index-arrow-size * ($index-arrow-sizewide-ratio + $index-arrow-lmargin-ratio + $index-arrow-rmargin-ratio)}));
+$index-card-subject-maxwidth: calc(1384px - (0.75em * 3 + #{$index-item-padding} * 2 + #{$index-data-width} + #{$index-arrow-size * ($index-arrow-sizewide-ratio + $index-arrow-lmargin-ratio + $index-arrow-rmargin-ratio)}));
+
 
 body 
 {
-	/*background-image: url(../staticNewsBkgrnd.png);*/
-	background-image: url(../staticNewsBkgrnd.jpg);
-	background-position: right top;
-	background-attachment: fixed;
+    /*background-image: url(../staticNewsBkgrnd.png);*/
+    background-image: url(../staticNewsBkgrnd.jpg);
+    background-position: right top;
+    background-attachment: fixed;
 }
-.archiveDD 
+
+.archive-dropdown 
 {
-	width: 13vw;
+    width: 13vw;
 }
-.css-mainPagePostDiv
+
+.css-debate-card
 {
-	background-color: rgba(60,60,60,1);
-	margin-top: 5vh;
-	margin-bottom: 2vh;
-	color: white;
-	font-size: 16px;
-	border-radius: 10px 40px 40px 0px;
-	min-height: 10vh;
-	overflow: hidden;
-	
-	display: inline-block;
+    background-color: #3C3C3C;
+    margin-top: $index-item-padding;
+    
+    color: white;
+    font-size: 16px;
+    border-radius: 10px 40px 40px 0px;
+    // min-height: 10vh;
+    overflow: hidden;
+    
+    display: inline-block;
+    
+    &:last-child
+    {
+        margin-bottom: $index-item-padding;
+    }
+    
+    // div
+    .card-row
+    {
+        // display: inline;
+        margin-top: $index-item-padding; /*TODO: make responsive*/
+        
+        .card-item
+        {
+            float: left;
+            // clear: none;
+        }
+    }
+    .card-row::before,
+    .card-row::after
+    {
+        content: " ";
+        display: table;
+    }
+    .card-row::after
+    {
+        clear: both;
+    }
 }
-.css-mainPagePostDiv div
+
+.card-text 
 {
-	display: inline;
-	margin-top: 20px; /*TODO: make responsive*/
+    background-color: rgba(160,160,160,.5);
+    border-radius: 7px 5px 7px 0px;
+    // min-height: 10vh;
+    // padding-bottom: $index-text-padding;
+    padding: $index-text-padding;
+    
+    > p
+    {
+        margin-bottom: 3px;
+        
+        &:last-child
+        {
+            margin-bottom: 0;
+        }
+    }
 }
+
+// .card-text + .card-text
+// {
+//  margin-left: 20px;
+// }
+
 /* max-widths calculated assuming 28px side padding on top .ink-grid
    (Should migrate this to SASS so calculations can be automated)
    (Also should probably refactor to be less hack-ish) */
-.vw-hack .all-10
+// .debate-rating,
+// .tag-padding,
+
+.debate-rating
 {
-	width: 8vw;
-	max-width: 149px;
+    text-align: center;
+    padding-top: $index-text-padding;
+    // padding-left: 10px;
+    // padding-right: 10px;
+    // margin-top: 2.5%;
+    width: $index-rating-width;
 }
-.vw-hack .all-20
+.debate-rating > header
 {
-	width: 16vw;
-	max-width: 299px;
-}
-.vw-hack .all-50
-{
-	width: 40vw;
-	max-width: 747px;
-}
-.vw-hack .all-90
-{
-	width: calc(64vw + 40px);
-	max-width: 1235px;
+    margin-bottom: 0.5em;
+    font-size: 16px;
 }
 
-/*.css-main
-.author 
+.card-text.subject
 {
-	text-align: center;
-	vertical-align: bottom;
-}*/
-.css-text 
-{
-	background-color: rgba(160,160,160,.5);
-	border-radius: 7px 5px 7px 0px;
-	min-height: 10vh;
-}
-.post.css-text
-{
-	padding: 6px;
-	min-height: 96px;
-	position: relative;
-}
-.post.css-text .author
-{
-	/*text-align: right;*/
-	font-size: 95%;
-	font-weight: bold;
-	display: inline-block;
-	position: absolute;
-	right: 6px;
-	bottom: 6px;
-}
-.css-text p 
-{
-	margin: 3px 0px 0px 5px;
-}
-.css-text + .css-text, .css-text + .goToLink
-{
-	margin-left: 20px;
-	/*margin-left: 4vw;*/
-}
-.css-mainPagePostDiv .css-tags
-{
-	margin-top: 20px;
-	padding-left: 6px;
-	/*margin-top: 4vw;*/
-	/*text-align: center;*/
-	background-color: rgba(250,250,250,.2);
-	border-radius: 0px 5px 5px 0px;
+    width: $index-card-subject-width;
+    max-width: $index-card-subject-maxwidth;
+    
+    padding: $index-text-padding;
+    min-height: 96px;
+    position: relative;
+    
+    .author
+    {
+        // text-align: right;
+        font-size: 95%;
+        font-weight: bold;
+        display: inline-block;
+        position: absolute;
+        right: $index-text-padding;
+        bottom: $index-text-padding;
+    }
 }
 
-.css-mainPagePostDiv .vote
+.card-text.debate-data
 {
-	text-align: center;
-	padding-top: 6px;
-	padding-left: 6px;
-	padding-right: 10px;
-	/*margin-top: 2.5%;*/
+    width: $index-data-width;
+    margin-left: $index-item-padding;
+    // max-width: 299px;
 }
-.css-mainPagePostDiv .vote > header
+
+.go-to-link
 {
-	margin-bottom: 0.5em;
-	font-size: 16px;
+    // width: 8vw;
+    // max-width: 149px;
+    font-size: $index-arrow-size;
+    
+    margin-left: #{$index-arrow-lmargin-ratio}em;
+    margin-right: #{$index-arrow-rmargin-ratio}em;
+    
+    text-align: center;
 }
-.css-mainPagePostDiv h1,
-.css-mainPagePostDiv h2,
-.css-mainPagePostDiv h3,
-.css-mainPagePostDiv h4,
-.css-mainPagePostDiv h5,
-.css-mainPagePostDiv h6,
-.css-mainPagePostDiv header
+
+.debate-tags
 {
-	color: white;
-	/*display: inline-block;*/
-	/*margin-right: 20px;*/
+    // width: calc(64vw + 40px);
+    width: 100%;
+    // max-width: 1235px;
+    
+    // margin-top: 20px;
+    margin-left: $index-rating-width;
+    padding-left: $index-text-padding;
+    // text-align: center;
+    background-color: rgba(250,250,250,.2);
+    border-radius: 0px 5px 5px 0px;
 }
-.css-mainPagePostDiv a 
+
+.css-debate-card h1,
+.css-debate-card h2,
+.css-debate-card h3,
+.css-debate-card h4,
+.css-debate-card h5,
+.css-debate-card h6,
+.css-debate-card header
 {
-	color: white;
-	text-decoration: none;
+    color: white;
+    /*display: inline-block;*/
+    /*margin-right: 20px;*/
 }
-.css-mainPagePostDiv span 
+.css-debate-card a 
 {
-	margin-left: 5%;
+    color: white;
+    text-decoration: none;
+}
+.css-debate-card span 
+{
+    margin-left: 5%;
 }
 .css-label 
 {
-	font-size: 16px;
+    font-size: 16px;
 }
 .css-navBar 
 {
-	font-size: 16px;
+    font-size: 16px;
 }
-.css-dropdownLogin 
+.css-dropdown-login 
 {
-	font-size: 14px;
-	margin-right: 30px;
+    // font-size: 14px;
+    margin-right: 30px;
 }
 .css-login-button 
 {
-	height: 30px;
-	padding-top: 5px;
+    height: 30px;
+    padding-top: 5px;
 }
 .css-login-dropdown-items 
 {
-	right: 0;
-	border-radius: 3px;
+    font-size: 14px;
+    right: 0;
+    border-radius: 3px;
 }
 .css-login-dropdown-items .control 
 {
-	width: 300px;
+    width: 300px;
 }
 #signup-link
 {
-	padding: 0;
-	display: inline;
-	@include link-colors($link-color, $link-hover-color, $link-active-color, $link-visited-color, $link-focus-color);
+    padding: 0;
+    display: inline;
+    @include link-colors($link-color, $link-hover-color, $link-active-color, $link-visited-color, $link-focus-color);
 }
 
-.goToLink
+.user-options 
 {
-	font-size: 40px;
-	text-align: center;
-	/*margin-left: calc(10% - 20px);*/
+    right: 0;
+    text-align: right;
+    width: 16vw;
+    border-radius: 5px;
 }
-.usrOptions 
+.user-options i 
 {
-	right: 0;
-	text-align: right;
-	width: 16vw;
-	border-radius: 5px;
+    display: inline;
+    font-size: 20px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    text-shadow: 5px 2px 5px rgba(0,0,0,.7);
 }
-.usrOptions i 
+.user-options a 
 {
-	display: inline;
-	font-size: 20px;
-	margin-top: 12px;
-	margin-bottom: 8px;
-	text-shadow: 5px 2px 5px rgba(0,0,0,.7);
+    display: block;
 }
-.usrOptions a 
+.user-options span
 {
-	display: block;
+    font-size: 20px;
+    text-shadow: 5px 2px 5px rgba(0,0,0,.7);
 }
-.usrOptions span 
+// .css-homeSidebar a 
+// {
+//  text-decoration: none;
+// }
+.css-user-create-post
 {
-	font-size: 20px;
-	text-shadow: 5px 2px 5px rgba(0,0,0,.7);
+    color: red;
 }
-.css-homeSidebar a 
+.css-user-my-posts 
 {
-	text-decoration: none;
+    color: #3232ff;
 }
-.css-usrIconPncl 
+.css-user-account 
 {
-	color: red;
+    color: green;
 }
-.css-usrIconBook 
+.css-user-signout 
 {
-	color: blue;
+    color: orange;
 }
-.css-usrIconWrench 
+.modal-view 
 {
-	color: green;
-}
-.css-usrIconSO 
-{
-	color: orange;
-}
-.modalView 
-{
-	background-color: rgba(250,250,250,.95);
-	z-index: 1;
-	height: 63vh;
-	width: 60vw;
-	display: none;
-	position: absolute;
-	top: 14vh;
-	left: 20vw;
-	border-radius: 7px;
-	text-align: center;
+    background-color: rgba(250,250,250,.95);
+    z-index: 1;
+    height: 63vh;
+    width: 60vw;
+    display: none;
+    position: absolute;
+    top: 14vh;
+    left: 20vw;
+    border-radius: 7px;
+    text-align: center;
 }
 #signup input 
 {
-	width: 80%;
+    width: 80%;
 }
 #signup p 
 {
-	margin-top: 5px;
+    margin-top: 5px;
 }
 #modalBlock 
 {
-	position: absolute;
-	height: 100vh;
-	width: 100vw;
-	top: 0vh;
-	left: 0vw;
-	background-color: rgba(100,100,100,.3);
-	z-index: .5;
-	display: none;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    top: 0vh;
+    left: 0vw;
+    background-color: rgba(100,100,100,.3);
+    z-index: .5;
+    display: none;
 }
 .sUClose 
 {
-	margin-right: 10px;
-	margin-top: 3px;
+    margin-right: 10px;
+    margin-top: 3px;
 }
 #newPost textarea 
 {
-	height: 28vh;
-	width: 80%;
+    height: 28vh;
+    width: 80%;
 }
 #newPost input 
 {
-	width: 80%;
+    width: 80%;
 }
 #settings input 
 {
-	width: 80%;
+    width: 80%;
 }
 .css-index-head 
 {
-	background-color: rgba(60,60,60,1);
-	border-radius: 0px 0px 6px 6px;
-	text-align: center;
-	margin-top: -3px;
+    background-color: rgba(60,60,60,1);
+    border-radius: 0px 0px 6px 6px;
+    text-align: center;
+    margin-top: -3px;
+    
+    h1 
+    {
+        color: white;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-bottom: 0;
+    }
 }
-.css-index-head h1 
-{
-	color: white;
-	padding-top: 10px;
-	padding-bottom: 10px;
-}
+
 .alert 
 {
-	background-color: rgba(250,200,170,.6);
-	z-index: 1.1;
-	height: 15vh;
-	width: 40vw;
-	display: none;
-	position: absolute;
-	top: 15vh;
-	left: 20vw;
-	border-radius: 7px;
-	text-align: center;
+    background-color: rgba(250,200,170,.6);
+    z-index: 1.1;
+    height: 15vh;
+    width: 40vw;
+    display: none;
+    position: absolute;
+    top: 15vh;
+    left: 20vw;
+    border-radius: 7px;
+    text-align: center;
 }
 .alert h3 
 {
-	margin-top: 6%;
-	color: white;
+    margin-top: 6%;
+    color: white;
 }
 .moarDiv 
 {
-	background-color: rgba(60,60,60,.8);
-	border-radius: 24px 24px 0px 0px;
-	text-align: center;
-	left: 0vw;
+    background-color: rgba(60,60,60,.8);
+    border-radius: 24px 24px 0px 0px;
+    text-align: center;
+    left: 0vw;
 }
 .moarDiv h3 
 {
-	color: white;
-	margin-bottom: 0px;
-	padding: 10px;
+    color: white;
+    margin-bottom: 0px;
+    padding: 10px;
 }
 .moarDiv a 
 {
-	text-decoration: none;
+    text-decoration: none;
 }
-.srchTagForm 
+#tag-search
 {
-	margin-top: 5px;
-	margin-bottom: -15px;
+    margin-top: $tag-search-top-margin;
+    margin-left: $tag-search-left-margin;
+    margin-bottom: 0;
+    font-size: 14px;
+    // max-width: $tag-search-max-width;
 }
 #tag-search-term
 {
-	height: $tag-search-height;
-	border-radius: 9999px 0 0 9999px;
+    height: $tag-search-height;
+    // border-radius: 9999px 0 0 9999px;
+    border-radius: $tag-search-border-radius 0 0 0;
 }
 #tag-search-button
 {
-	height: $tag-search-height;
-	border-radius: 0 9999px 9999px 0;
+    height: $tag-search-height;
+    // border-radius: 0 9999px 9999px 0;
+    border-radius: 0 $tag-search-border-radius $tag-search-border-radius 0;
+    
+    .fa-search
+    {
+        vertical-align: top;
+    }
 }
 
 footer
 {
-	background-color: rgba(0, 0, 0, 0.7);
-	text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    text-align: center;
 }
 .foot 
 {
-	margin-top: 0px;
-	margin-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }

@@ -1,15 +1,15 @@
 <div class="column-group">
-  <div class="all-100" id="mainPagePostCol">
-<% postsSort.forEach(function(post){ %>
+  <div class="all-100" id="post-index-column">
+    <% postsSort.forEach(function(post){ %>
 
-  <% include ../shared/post.ejs %>
+      <% include ../shared/post.ejs %>
 
-<% }) %>
+    <% }) %>
+  </div>
 </div>
-</div>
 
-	<div class="moarDiv">
-	<a href="" id="loadMoar"><h3>Load more posts</h3></a>
-	</div>
+<div class="moarDiv">
+  <a href="" id="loadMoar"><h3>Load more posts</h3></a>
+</div>
 
 
