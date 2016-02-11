@@ -24,9 +24,11 @@ $grid-max-width: 1440px !default;
  */
 
 $grid-breakpoints: (
-    ('screen', 'xlarge', 1261px, null, 2em, 1.08em, false),
-    ('screen', 'large', 961px, 1260px, 1.75em, 1.05em, true),
-    ('screen', 'medium', 641px, 960px, 1.5em, 1em, false),
-    ('screen', 'small', 321px, 640px, 1.25em, .98em, false),
-    ('screen', 'tiny', null, 320px, 1em, .97em, false)
+    ('screen', 'xlarge', 1261px, null,   2em,    16px, false, 2em,    80vw),
+    ('screen', 'large',  961px,  1260px, 1.75em, 16px, true,  1.33em, 87vw),
+    // ('screen', 'himed',  751px,  960px, 1.75em,  16px, true,  1em,    90vw),
+    // ('screen', 'lomed',  641px,  750px,  1.5em,  15px, false, 0.67em, 93vw),
+    ('screen', 'medium', 641px,  960px,  1.5em,  15px, false, 0.67em, 93vw),
+    ('screen', 'small',  321px,  640px,  1.25em, 14px, false, 0,      100%),
+    ('screen', 'tiny',   null,   320px,  1em,    14px, false, 0,      100%)
 );

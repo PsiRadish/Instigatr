@@ -1980,10 +1980,15 @@ th {
   td.show-xlarge {
     display: table-cell;
   }
+
+  body::before {
+    content: "xlarge";
+    display: none;
+  }
 }
 @media screen and (min-width: 961px) and (max-width: 1260px) {
   .ink-grid {
-    padding: 0 1.75em;
+    padding: 0 1.33em;
   }
 
   .column-group > [class*=large-] {
@@ -2819,10 +2824,15 @@ th {
   td.show-large {
     display: table-cell;
   }
+
+  body::before {
+    content: "large";
+    display: none;
+  }
 }
 @media screen and (min-width: 641px) and (max-width: 960px) {
   .ink-grid {
-    padding: 0 1.5em;
+    padding: 0 0.67em;
   }
 
   .column-group > [class*=medium-] {
@@ -3658,10 +3668,15 @@ th {
   td.show-medium {
     display: table-cell;
   }
+
+  body::before {
+    content: "medium";
+    display: none;
+  }
 }
 @media screen and (min-width: 321px) and (max-width: 640px) {
   .ink-grid {
-    padding: 0 1.25em;
+    padding: 0 0;
   }
 
   .column-group > [class*=small-] {
@@ -4497,10 +4512,15 @@ th {
   td.show-small {
     display: table-cell;
   }
+
+  body::before {
+    content: "small";
+    display: none;
+  }
 }
 @media screen and (max-width: 320px) {
   .ink-grid {
-    padding: 0 1em;
+    padding: 0 0;
   }
 
   .column-group > [class*=tiny-] {
@@ -5336,10 +5356,15 @@ th {
   td.show-tiny {
     display: table-cell;
   }
+
+  body::before {
+    content: "tiny";
+    display: none;
+  }
 }
 @media screen and (min-width: 1261px) {
   html {
-    font-size: 1.08em;
+    font-size: 16px;
   }
   html:after {
     content: '[{"name":"xlarge", "size":{"min":"1261px","max":""}},{"name":"large", "size":{"min":"961px","max":"1260px"}},{"name":"medium", "size":{"min":"641px","max":"960px"}},{"name":"small", "size":{"min":"321px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
@@ -5348,7 +5373,7 @@ th {
 }
 @media screen and (min-width: 961px) and (max-width: 1260px) {
   html {
-    font-size: 1.05em;
+    font-size: 16px;
   }
   html:after {
     content: '[{"name":"xlarge", "size":{"min":"1261px","max":""}},{"name":"large", "size":{"min":"961px","max":"1260px"}},{"name":"medium", "size":{"min":"641px","max":"960px"}},{"name":"small", "size":{"min":"321px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
@@ -5357,7 +5382,7 @@ th {
 }
 @media screen and (min-width: 641px) and (max-width: 960px) {
   html {
-    font-size: 1em;
+    font-size: 15px;
   }
   html:after {
     content: '[{"name":"xlarge", "size":{"min":"1261px","max":""}},{"name":"large", "size":{"min":"961px","max":"1260px"}},{"name":"medium", "size":{"min":"641px","max":"960px"}},{"name":"small", "size":{"min":"321px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
@@ -5366,7 +5391,7 @@ th {
 }
 @media screen and (min-width: 321px) and (max-width: 640px) {
   html {
-    font-size: 0.98em;
+    font-size: 14px;
   }
   html:after {
     content: '[{"name":"xlarge", "size":{"min":"1261px","max":""}},{"name":"large", "size":{"min":"961px","max":"1260px"}},{"name":"medium", "size":{"min":"641px","max":"960px"}},{"name":"small", "size":{"min":"321px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
@@ -5375,7 +5400,7 @@ th {
 }
 @media screen and (max-width: 320px) {
   html {
-    font-size: 0.97em;
+    font-size: 14px;
   }
   html:after {
     content: '[{"name":"xlarge", "size":{"min":"1261px","max":""}},{"name":"large", "size":{"min":"961px","max":"1260px"}},{"name":"medium", "size":{"min":"641px","max":"960px"}},{"name":"small", "size":{"min":"321px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
@@ -5591,10 +5616,6 @@ th {
   display: none;
 }
 
-.ink-navigation ul.pagination {
-  overflow: hidden;
-  *zoom: 1;
-}
 .ink-navigation ul.pagination li {
   line-height: 1.7;
   float: left;
@@ -5603,6 +5624,13 @@ th {
   padding: 0.5em 1em;
   display: block;
   float: left;
+}
+.ink-navigation ul.pagination::before, .ink-navigation ul.pagination::after {
+  content: " ";
+  display: table;
+}
+.ink-navigation ul.pagination::after {
+  clear: both;
 }
 .ink-navigation ul.pagination.dotted li a {
   display: block;
@@ -5659,10 +5687,6 @@ th {
   content: "\f138";
 }
 
-.ink-navigation .pills {
-  overflow: hidden;
-  *zoom: 1;
-}
 .ink-navigation .pills li {
   overflow: hidden;
   display: block;
@@ -5679,6 +5703,13 @@ th {
 }
 .ink-navigation .pills li.active a, .ink-navigation .pills li.disabled a {
   cursor: default;
+}
+.ink-navigation .pills::before, .ink-navigation .pills::after {
+  content: " ";
+  display: table;
+}
+.ink-navigation .pills::after {
+  clear: both;
 }
 
 .ink-navigation ul {
@@ -5740,7 +5771,7 @@ th {
   line-height: 1.7;
 }
 .ink-navigation ul.menu.horizontal li .control {
-  margin-top: .3em;
+  margin-top: 0.25em;
 }
 .ink-navigation ul.menu.horizontal li ul.submenu {
   min-width: 100%;
@@ -5906,8 +5937,7 @@ html {
 
 body {
   color: #222;
-  font: normal normal normal 14px/1.42857 "Roboto", Arial, Helvetica, sans-serif;
-  font-size: 14px;
+  font: normal normal normal 1em/1.42857 "Roboto", Arial, Helvetica, sans-serif;
 }
 
 .fw-100, .fw-light {
@@ -6016,49 +6046,49 @@ a:hover {
 }
 
 h1 {
-  font-size: 30.8px;
+  font-size: 2.2em;
   margin-top: 0;
   margin-bottom: 0.58442em;
 }
 
 h2 {
-  font-size: 24.5px;
+  font-size: 1.75em;
   margin-top: 0;
   margin-bottom: 0.73469em;
 }
 
 h3 {
-  font-size: 21px;
+  font-size: 1.5em;
   margin-top: 0;
   margin-bottom: 0.85714em;
 }
 
 h4 {
-  font-size: 17.5px;
+  font-size: 1.25em;
   margin-top: 0;
   margin-bottom: 1.02857em;
 }
 
 h5 {
-  font-size: 15.4px;
+  font-size: 1.1em;
   margin-top: 0;
   margin-bottom: 1.16883em;
 }
 
 h6 {
-  font-size: 15.4px;
+  font-size: 1.1em;
   margin-top: 0;
   margin-bottom: 1.16883em;
 }
 
 p {
-  font-size: 14px;
+  font-size: 1em;
   margin-top: 0;
   margin-bottom: 1.28571em;
 }
 
 table {
-  font-size: 14px;
+  font-size: 1em;
   margin-top: 0;
   margin-bottom: 1.28571em;
 }
@@ -6763,6 +6793,11 @@ img {
   -webkit-border-radius: 2px;
   border-radius: 2px;
 }
+.ink-navigation ul.menu li.disabled a,
+.ink-navigation ul.menu li ul.submenu > li.disabled a {
+  cursor: default;
+  pointer-events: none;
+}
 .ink-navigation ul.menu > li {
   font-weight: 300;
 }
@@ -6775,11 +6810,6 @@ img {
 .ink-navigation ul.menu > li.disabled a {
   color: #b3b3b3;
   text-shadow: white 0 1px 0;
-}
-.ink-navigation ul.menu > li.disabled a:hover {
-  cursor: default;
-  background: none;
-  text-decoration: none;
 }
 .ink-navigation ul.menu > li ul.submenu li {
   font-size: .875em;
@@ -6851,35 +6881,27 @@ img {
   -webkit-border-radius: 0;
   border-radius: 0 2px 2px 0;
 }
-.ink-navigation ul.menu.horizontal > li ul.submenu {
+.ink-navigation ul.menu.horizontal > li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
   -moz-border-radius: 0 0 2px 2px;
   -webkit-border-radius: 0;
   border-radius: 0 0 2px 2px;
   background: #fff;
 }
-.ink-navigation ul.menu.horizontal > li ul.submenu li:last-child {
+.ink-navigation ul.menu.horizontal > li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li:last-child {
   -moz-border-radius: 0 0 2px 2px;
   -webkit-border-radius: 0;
   border-radius: 0 0 2px 2px;
 }
-.ink-navigation ul.menu.horizontal > li ul.submenu li:last-child a {
+.ink-navigation ul.menu.horizontal > li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li:last-child a {
   border-bottom: none;
 }
 .ink-navigation ul.menu.white {
   background: white;
 }
-.ink-navigation ul.menu.white li ul.submenu {
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-.ink-navigation ul.menu.white li ul.submenu li a {
-  color: #222;
-}
-.ink-navigation ul.menu.white li ul.submenu li a:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-.ink-navigation ul.menu.white li.disabled a:hover {
-  background: none;
+.ink-navigation ul.menu.white li.disabled a,
+.ink-navigation ul.menu.white li ul.submenu > li.disabled a {
+  cursor: default;
+  pointer-events: none;
 }
 .ink-navigation ul.menu.white li.active {
   background: #e6e6e6;
@@ -6895,21 +6917,23 @@ img {
 .ink-navigation ul.menu.white li a:hover {
   background: #f2f2f2;
 }
+.ink-navigation ul.menu.white li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.ink-navigation ul.menu.white li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a {
+  color: #fff;
+}
+.ink-navigation ul.menu.white li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
 .ink-navigation ul.menu.grey {
   background: #d9d9d9;
 }
-.ink-navigation ul.menu.grey li ul.submenu {
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-.ink-navigation ul.menu.grey li ul.submenu li a {
-  color: #222;
-}
-.ink-navigation ul.menu.grey li ul.submenu li a:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-.ink-navigation ul.menu.grey li.disabled a:hover {
-  background: none;
+.ink-navigation ul.menu.grey li.disabled a,
+.ink-navigation ul.menu.grey li ul.submenu > li.disabled a {
+  cursor: default;
+  pointer-events: none;
 }
 .ink-navigation ul.menu.grey li.active {
   background: #bfbfbf;
@@ -6925,21 +6949,23 @@ img {
 .ink-navigation ul.menu.grey li a:hover {
   background: #cccccc;
 }
+.ink-navigation ul.menu.grey li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.ink-navigation ul.menu.grey li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a {
+  color: #fff;
+}
+.ink-navigation ul.menu.grey li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
 .ink-navigation ul.menu.black {
   background: #1a1a1a;
 }
-.ink-navigation ul.menu.black li ul.submenu {
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-.ink-navigation ul.menu.black li ul.submenu li a {
-  color: #222;
-}
-.ink-navigation ul.menu.black li ul.submenu li a:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-.ink-navigation ul.menu.black li.disabled a:hover {
-  background: none;
+.ink-navigation ul.menu.black li.disabled a,
+.ink-navigation ul.menu.black li ul.submenu > li.disabled a {
+  cursor: default;
+  pointer-events: none;
 }
 .ink-navigation ul.menu.black li.active {
   background: #333333;
@@ -6955,21 +6981,23 @@ img {
 .ink-navigation ul.menu.black li a:hover {
   background: #404040;
 }
-.ink-navigation ul.menu.blue {
-  background: #073a7e;
-}
-.ink-navigation ul.menu.blue li ul.submenu {
+.ink-navigation ul.menu.black li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
-.ink-navigation ul.menu.blue li ul.submenu li a {
+.ink-navigation ul.menu.black li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a {
   color: #222;
 }
-.ink-navigation ul.menu.blue li ul.submenu li a:hover {
+.ink-navigation ul.menu.black li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a:hover {
   background: rgba(0, 0, 0, 0.05);
 }
-.ink-navigation ul.menu.blue li.disabled a:hover {
-  background: none;
+.ink-navigation ul.menu.blue {
+  background: #073a7e;
+}
+.ink-navigation ul.menu.blue li.disabled a,
+.ink-navigation ul.menu.blue li ul.submenu > li.disabled a {
+  cursor: default;
+  pointer-events: none;
 }
 .ink-navigation ul.menu.blue li.active {
   background: #002352;
@@ -6985,21 +7013,23 @@ img {
 .ink-navigation ul.menu.blue li a:hover {
   background: #002e6c;
 }
-.ink-navigation ul.menu.green {
-  background: #4c9220;
-}
-.ink-navigation ul.menu.green li ul.submenu {
+.ink-navigation ul.menu.blue li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
-.ink-navigation ul.menu.green li ul.submenu li a {
+.ink-navigation ul.menu.blue li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a {
   color: #222;
 }
-.ink-navigation ul.menu.green li ul.submenu li a:hover {
+.ink-navigation ul.menu.blue li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a:hover {
   background: rgba(0, 0, 0, 0.05);
 }
-.ink-navigation ul.menu.green li.disabled a:hover {
-  background: none;
+.ink-navigation ul.menu.green {
+  background: #4c9220;
+}
+.ink-navigation ul.menu.green li.disabled a,
+.ink-navigation ul.menu.green li ul.submenu > li.disabled a {
+  cursor: default;
+  pointer-events: none;
 }
 .ink-navigation ul.menu.green li.active {
   background: #356f10;
@@ -7015,21 +7045,23 @@ img {
 .ink-navigation ul.menu.green li a:hover {
   background: #3f8514;
 }
-.ink-navigation ul.menu.orange {
-  background: #f2990d;
-}
-.ink-navigation ul.menu.orange li ul.submenu {
+.ink-navigation ul.menu.green li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
-.ink-navigation ul.menu.orange li ul.submenu li a {
+.ink-navigation ul.menu.green li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a {
   color: #222;
 }
-.ink-navigation ul.menu.orange li ul.submenu li a:hover {
+.ink-navigation ul.menu.green li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a:hover {
   background: rgba(0, 0, 0, 0.05);
 }
-.ink-navigation ul.menu.orange li.disabled a:hover {
-  background: none;
+.ink-navigation ul.menu.orange {
+  background: #f2990d;
+}
+.ink-navigation ul.menu.orange li.disabled a,
+.ink-navigation ul.menu.orange li ul.submenu > li.disabled a {
+  cursor: default;
+  pointer-events: none;
 }
 .ink-navigation ul.menu.orange li.active {
   background: #cc7d00;
@@ -7045,21 +7077,23 @@ img {
 .ink-navigation ul.menu.orange li a:hover {
   background: #e68c00;
 }
-.ink-navigation ul.menu.red {
-  background: #be1c1c;
-}
-.ink-navigation ul.menu.red li ul.submenu {
+.ink-navigation ul.menu.orange li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
-.ink-navigation ul.menu.red li ul.submenu li a {
+.ink-navigation ul.menu.orange li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a {
   color: #222;
 }
-.ink-navigation ul.menu.red li ul.submenu li a:hover {
+.ink-navigation ul.menu.orange li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a:hover {
   background: rgba(0, 0, 0, 0.05);
 }
-.ink-navigation ul.menu.red li.disabled a:hover {
-  background: none;
+.ink-navigation ul.menu.red {
+  background: #be1c1c;
+}
+.ink-navigation ul.menu.red li.disabled a,
+.ink-navigation ul.menu.red li ul.submenu > li.disabled a {
+  cursor: default;
+  pointer-events: none;
 }
 .ink-navigation ul.menu.red li.active {
   background: #9a0d0d;
@@ -7074,6 +7108,205 @@ img {
 }
 .ink-navigation ul.menu.red li a:hover {
   background: #b10f0f;
+}
+.ink-navigation ul.menu.red li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.ink-navigation ul.menu.red li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a {
+  color: #222;
+}
+.ink-navigation ul.menu.red li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+.ink-navigation ul.menu ul.submenu.white {
+  background: white;
+}
+.ink-navigation ul.menu ul.submenu.white li.active {
+  background: #e6e6e6;
+}
+.ink-navigation ul.menu ul.submenu.white li.disabled a {
+  color: #cccccc;
+  text-shadow: white 0 1px 0;
+}
+.ink-navigation ul.menu ul.submenu.white li a {
+  color: #222;
+  text-decoration: none;
+}
+.ink-navigation ul.menu ul.submenu.white li a:hover {
+  background: #f2f2f2;
+}
+.ink-navigation ul.menu ul.submenu.white li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.ink-navigation ul.menu ul.submenu.white li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a {
+  color: #fff;
+}
+.ink-navigation ul.menu ul.submenu.white li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+.ink-navigation ul.menu ul.submenu.grey {
+  background: #d9d9d9;
+}
+.ink-navigation ul.menu ul.submenu.grey li.active {
+  background: #bfbfbf;
+}
+.ink-navigation ul.menu ul.submenu.grey li.disabled a {
+  color: #a6a6a6;
+  text-shadow: #ededed 0 1px 0;
+}
+.ink-navigation ul.menu ul.submenu.grey li a {
+  color: #222;
+  text-decoration: none;
+}
+.ink-navigation ul.menu ul.submenu.grey li a:hover {
+  background: #cccccc;
+}
+.ink-navigation ul.menu ul.submenu.grey li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.ink-navigation ul.menu ul.submenu.grey li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a {
+  color: #fff;
+}
+.ink-navigation ul.menu ul.submenu.grey li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+.ink-navigation ul.menu ul.submenu.black {
+  background: #1a1a1a;
+}
+.ink-navigation ul.menu ul.submenu.black li.active {
+  background: #333333;
+}
+.ink-navigation ul.menu ul.submenu.black li.disabled a {
+  color: #666666;
+  text-shadow: black 0 -1px 0;
+}
+.ink-navigation ul.menu ul.submenu.black li a {
+  color: #fff;
+  text-decoration: none;
+}
+.ink-navigation ul.menu ul.submenu.black li a:hover {
+  background: #404040;
+}
+.ink-navigation ul.menu ul.submenu.black li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.ink-navigation ul.menu ul.submenu.black li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a {
+  color: #222;
+}
+.ink-navigation ul.menu ul.submenu.black li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+.ink-navigation ul.menu ul.submenu.blue {
+  background: #073a7e;
+}
+.ink-navigation ul.menu ul.submenu.blue li.active {
+  background: #002352;
+}
+.ink-navigation ul.menu ul.submenu.blue li.disabled a {
+  color: #000d1f;
+  text-shadow: #004aae 0 1px 0;
+}
+.ink-navigation ul.menu ul.submenu.blue li a {
+  color: #fff;
+  text-decoration: none;
+}
+.ink-navigation ul.menu ul.submenu.blue li a:hover {
+  background: #002e6c;
+}
+.ink-navigation ul.menu ul.submenu.blue li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.ink-navigation ul.menu ul.submenu.blue li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a {
+  color: #222;
+}
+.ink-navigation ul.menu ul.submenu.blue li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+.ink-navigation ul.menu ul.submenu.green {
+  background: #4c9220;
+}
+.ink-navigation ul.menu ul.submenu.green li.active {
+  background: #356f10;
+}
+.ink-navigation ul.menu ul.submenu.green li.disabled a {
+  color: #20420a;
+  text-shadow: #5bbf1c 0 1px 0;
+}
+.ink-navigation ul.menu ul.submenu.green li a {
+  color: #fff;
+  text-decoration: none;
+}
+.ink-navigation ul.menu ul.submenu.green li a:hover {
+  background: #3f8514;
+}
+.ink-navigation ul.menu ul.submenu.green li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.ink-navigation ul.menu ul.submenu.green li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a {
+  color: #222;
+}
+.ink-navigation ul.menu ul.submenu.green li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+.ink-navigation ul.menu ul.submenu.orange {
+  background: #f2990d;
+}
+.ink-navigation ul.menu ul.submenu.orange li.active {
+  background: #cc7d00;
+}
+.ink-navigation ul.menu ul.submenu.orange li.disabled a {
+  color: #995e00;
+  text-shadow: #ffac29 0 1px 0;
+}
+.ink-navigation ul.menu ul.submenu.orange li a {
+  color: #fff;
+  text-decoration: none;
+}
+.ink-navigation ul.menu ul.submenu.orange li a:hover {
+  background: #e68c00;
+}
+.ink-navigation ul.menu ul.submenu.orange li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.ink-navigation ul.menu ul.submenu.orange li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a {
+  color: #222;
+}
+.ink-navigation ul.menu ul.submenu.orange li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+.ink-navigation ul.menu ul.submenu.red {
+  background: #be1c1c;
+}
+.ink-navigation ul.menu ul.submenu.red li.active {
+  background: #9a0d0d;
+}
+.ink-navigation ul.menu ul.submenu.red li.disabled a {
+  color: #6b0909;
+  text-shadow: #eb1717 0 1px 0;
+}
+.ink-navigation ul.menu ul.submenu.red li a {
+  color: #fff;
+  text-decoration: none;
+}
+.ink-navigation ul.menu ul.submenu.red li a:hover {
+  background: #b10f0f;
+}
+.ink-navigation ul.menu ul.submenu.red li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.ink-navigation ul.menu ul.submenu.red li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a {
+  color: #222;
+}
+.ink-navigation ul.menu ul.submenu.red li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) li a:hover {
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .ink-navigation ul.pagination {

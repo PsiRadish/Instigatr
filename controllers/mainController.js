@@ -32,7 +32,7 @@ router.get('/more', function(req, res){
 
 router.get('/chronological', function(req, res){
 	db.post.findAll({include:[db.user, db.vote, db.tag, db.message, { model: db.user, as: 'usersFor' }, { model: db.user, as: 'usersAgainst' }], order:[['createdAt','DESC']]}).then(function(posts){
-			res.render('main/chron.ejs',{posts:posts, titleSuffix: 'Chronological'});
+			res.render('main/chron.ejs',{posts:posts, titleSuffix: 'Latest'});
   });
 });
 
@@ -41,7 +41,7 @@ router.get('/allTimeTop', function(req, res){
 			postsSort = posts.sort(function(a,b){
 				return b.totalRating() - a.totalRating()
 			});
-			res.render('main/allTime.ejs',{posts:postsSort, titleSuffix: 'All Time'});
+			res.render('main/allTime.ejs',{posts:postsSort, titleSuffix: 'All Time Top Ranked'});
   });
 });
 

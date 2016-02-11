@@ -136,6 +136,7 @@
  * Instigatr Mixins
  **/
 #debate-page {
+  font-size: 0.875em;
   background-color: #682828;
   background: linear-gradient(#505050, #5c3c3c 50%, #800000);
 }
@@ -177,7 +178,7 @@
   padding: 6px;
 }
 #post-content-box p {
-  font-size: 15.4px;
+  font-size: 1.1em;
   font-family: Roboto Condensed, Arial Narrow, Arial, Helvetica, sans-serif;
 }
 #post-content-box .author {
@@ -268,7 +269,7 @@
   content: 'You are not logged in.';
   text-shadow: 1px 1px 0 white, -2px 0 white, -1px 1px 0 white, 0px 0 white;
   text-align: center;
-  font-size: 21px;
+  font-size: 1.5em;
   font-weight: bold;
   position: absolute;
   top: 25%;
