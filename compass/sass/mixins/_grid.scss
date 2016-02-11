@@ -900,6 +900,12 @@
                 @include generate-column-group-container($gutter-width, $class-name);
                 @include generate-grid-helper-classes($class-name, $gutter-width);
                 @include generate-visibility-classes($class-name);
+                
+                body::before
+                {
+                    content: $class-name;
+                    display: none;
+                }
             }
         }
         
@@ -910,6 +916,12 @@
                 @include generate-column-group-container($gutter-width, $class-name);
                 @include generate-grid-helper-classes($class-name, $gutter-width);
                 @include generate-visibility-classes($class-name);
+                
+                body::before
+                {
+                    content: $class-name;
+                    display: none;
+                }
             }
         }
         
@@ -920,6 +932,12 @@
                 @include generate-column-group-container($gutter-width,$class-name);
                 @include generate-grid-helper-classes($class-name,$gutter-width);
                 @include generate-visibility-classes($class-name);
+                
+                body::before
+                {
+                    content: $class-name;
+                    display: none;
+                }
             }
         }
 
@@ -930,6 +948,12 @@
                 @include generate-column-group-container($gutter-width,$class-name);
                 @include generate-grid-helper-classes($class-name,$gutter-width);
                 @include generate-visibility-classes($class-name);
+                
+                body::before
+                {
+                    content: $class-name;
+                    display: none;
+                }
             }
         }
     }

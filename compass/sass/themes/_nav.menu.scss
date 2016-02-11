@@ -1,21 +1,30 @@
 // INK:NAVIGATION:MENU
 .#{$navigation-class-name} {
-
-    ul {
+    
+    ul.menu 
+    {    
+        // defines default theme
+        @include nav-menu();
         
-        &.menu {
-
-            // defines default theme
-            @include nav-menu();
-
+        // defines custom themes
+        &.white     { @include nav-menu($white); }
+        &.grey      { @include nav-menu($grey-15); }
+        &.black     { @include nav-menu($grey-90); }
+        &.blue      { @include nav-menu($blue); }
+        &.green     { @include nav-menu($green); }
+        &.orange    { @include nav-menu($orange); }
+        &.red       { @include nav-menu($red); }
+        
+        ul.submenu
+        {
             // defines custom themes
-            &.white     { @include nav-menu($white); }
-            &.grey      { @include nav-menu($grey-15); }
-            &.black     { @include nav-menu($grey-90); }
-            &.blue      { @include nav-menu($blue); }
-            &.green     { @include nav-menu($green); }
-            &.orange    { @include nav-menu($orange); }
-            &.red       { @include nav-menu($red); }
+            &.white     { @include nav-submenu($white); }
+            &.grey      { @include nav-submenu($grey-15); }
+            &.black     { @include nav-submenu($grey-90); }
+            &.blue      { @include nav-submenu($blue); }
+            &.green     { @include nav-submenu($green); }
+            &.orange    { @include nav-submenu($orange); }
+            &.red       { @include nav-submenu($red); }
         }
     }
 }

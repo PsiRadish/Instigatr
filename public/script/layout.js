@@ -26,6 +26,23 @@ $(function(){
 	positionFooter();
     // do it again on resize
     $(window).resize(positionFooter);
+    
+    function collapseCheck()
+    {
+    	if (window.getComputedStyle(document.querySelector('body'), '::after').getPropertyValue('content').replace(/"/g, '') == "collapse")
+    	{
+    		$('#nav-button').removeClass("hide-all");
+    		$('#nav-menu').addClass("submenu");
+    	}
+    	else
+    	{
+    		$('#nav-button').addClass("hide-all");
+    		$('#nav-menu').removeClass("submenu");
+    	}
+    }
+    collapseCheck();
+    // do it again on resize
+    $(window).resize(collapseCheck);
 
 	//listeners for user option icons
 	$('.js-user-create-post').on('mouseover',function(){

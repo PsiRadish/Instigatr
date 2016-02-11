@@ -3,10 +3,10 @@
 
 // vars
 $navbar-font-size           : 1em; // 16px
-$navbar-collapse-point      : 715px;
+$navbar-collapse-point      : 735px;
 
 $tag-search-top-margin      : 0.3125em; // 5px;
-$tag-search-left-margin     : 0.375em; // 6px;
+$tag-search-margin          : 0.375em; // 6px;
 $tag-search-height          : 2em; // 32px
 $tag-search-font-size       : 0.875em; // 14px
 $tag-search-border-radius   : 6px;
@@ -44,6 +44,15 @@ body
     background-image: url(../staticNewsBkgrnd.jpg);
     background-position: right top;
     background-attachment: fixed;
+    
+    @media screen and (max-width: $navbar-collapse-point)
+    {
+        &::after
+        {   // I can look for this in Javascript
+            content: "collapse";
+            display: none;
+        }
+    }
 }
 
 .submenu
@@ -474,36 +483,52 @@ body
     margin-top: 6%;
     color: white;
 }
-.moarDiv 
+.more-button 
 {
-    background-color: rgba(60,60,60,.8);
+    background-color: rgba(60, 60, 60, 0.8);
     border-radius: 24px 24px 0px 0px;
     text-align: center;
     left: 0vw;
+    
+    &:hover
+    {
+        background-color: rgba(60, 60, 60, 1);
+    }
 }
-.moarDiv h3 
+.more-button h3 
 {
     color: white;
     margin-bottom: 0px;
     padding: 10px;
 }
-.moarDiv a 
+.more-button a 
 {
     text-decoration: none;
 }
 #tag-search
 {
-    // margin-top: $tag-search-top-margin;
-    margin-left: $tag-search-left-margin;
+    margin-left: $tag-search-margin;
+    margin-right: $tag-search-margin;
     margin-bottom: 0;
     // max-width: $tag-search-max-width;
+    
+    @at-root ul.submenu &
+    {
+        margin-bottom: $tag-search-margin;
+    }
 }
 #tag-search-term
 {
     font-size: $tag-search-font-size;
     height: $tag-search-height * 1em / $tag-search-font-size;
+    padding: 0.25em 0.1875em;
     // border-radius: 9999px 0 0 9999px;
     border-radius: $tag-search-border-radius 0 0 0;
+    
+    @at-root ul.submenu &
+    {
+        min-width: 10em;
+    }
 }
 #tag-search-button
 {

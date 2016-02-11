@@ -18,7 +18,7 @@ $(function()
     $(window).resize(positionTags);
 
 	var offset = 0;
-	$('#loadMoar').on('click',function(e)
+	$('#load-more').on('click',function(e)
 	{
 		e.preventDefault();
 		

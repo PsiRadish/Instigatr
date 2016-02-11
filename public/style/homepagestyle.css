@@ -138,6 +138,12 @@ body {
   background-position: right top;
   background-attachment: fixed;
 }
+@media screen and (max-width: 735px) {
+  body::after {
+    content: "collapse";
+    display: none;
+  }
+}
 
 .submenu {
   white-space: nowrap;
@@ -475,32 +481,43 @@ body {
   color: white;
 }
 
-.moarDiv {
+.more-button {
   background-color: rgba(60, 60, 60, 0.8);
   border-radius: 24px 24px 0px 0px;
   text-align: center;
   left: 0vw;
 }
+.more-button:hover {
+  background-color: #3c3c3c;
+}
 
-.moarDiv h3 {
+.more-button h3 {
   color: white;
   margin-bottom: 0px;
   padding: 10px;
 }
 
-.moarDiv a {
+.more-button a {
   text-decoration: none;
 }
 
 #tag-search {
   margin-left: 0.375em;
+  margin-right: 0.375em;
   margin-bottom: 0;
+}
+ul.submenu #tag-search {
+  margin-bottom: 0.375em;
 }
 
 #tag-search-term {
   font-size: 0.875em;
   height: 2.28571em;
+  padding: 0.25em 0.1875em;
   border-radius: 6px 0 0 0;
+}
+ul.submenu #tag-search-term {
+  min-width: 10em;
 }
 
 #tag-search-button {

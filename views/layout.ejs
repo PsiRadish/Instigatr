@@ -41,17 +41,19 @@
       <li class="heading"><a id="brand" class="ink-label red" href="/"><strong>INSTIGATR</strong></a></li>
       
       <li>
-        <ul>
-          <li><a href="/">Popular</a></li>
+        <a id="nav-button" class="hide-all" href="#"><i class="fa fa-navicon"></i></a>
+        <ul id="nav-menu" class="black click-only">
+          <!-- <li><a href="/">Popular</a></li> -->
           
-          <li><a href="/chronological">Archive</a>
+          <li><a href="/chronological">Latest</a></li>
+          <li><a href="/allTimeTop">Top Ranked</a></li>
+          
+          <!-- <li><a href="/chronological">Archive</a>
             <ul class="submenu archive-dropdown">
               <li><a href="/chronological">Chronological</a></li>
-              <li><a href="/allTimeTop">All Time Top Ranked</a></li>
-              <!-- <li><a>Small</a></li>
-              <li><a>Tiny</a></li> -->
+              <li class="disabled"><a href="/allTimeTop">All Time Top Ranked</a></li>
             </ul>
-          </li>
+          </li> -->
           
           <li><a href="/posts/<%= Math.ceil(Math.random()*postsLngth) %>/show" class="css-nBLink">Random</a></li>
           
@@ -71,7 +73,7 @@
       <ul class="push-right css-dropdown-login">
         <% if (!currentUser) { %>
           <li><a href="#">Login/Signup</a>
-            <ul class="submenu css-login-dropdown-items">
+            <ul class="submenu click-only css-login-dropdown-items">
               <form class="ink-form" method="post" action="/auth/login">
                 <div class="control-group">
                   <li><div class="control"><input type="text" name="email" id="email-input" placeholder="E-mail"></div></li>
