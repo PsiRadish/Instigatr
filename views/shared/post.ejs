@@ -1,38 +1,51 @@
-  <div class="css-debate-card">
-  
-    <div class="card-row">
-      
-      <div class="card-item debate-rating">
-        <!-- <header>Rating</header> -->
-        <h3 title="Rating"><%= post.totalRating() %></h3>
-      </div>
-      
-      <div class="card-item card-text subject">
-        <a href="/posts/<%= post.id %>/show"><%= post.text %></a>
-        <span class="author">
-          <%= post.user.name %>
-        </span>
-      </div>
-      
-      <div class="card-item card-text debate-data">
-        <p><%= post.usersFor.length %> agree.</p>
-        <p><%= post.usersAgainst.length %> disagree.</p>
-        <p><%= post.messages.length %> messages.</p>
-      </div>
-      
-      <div class="card-item go-to-link"><a href="/posts/<%= post.id %>/show"><i class="fa fa-arrow-right"></i></a></div>
+<div class="debate-listing">
+  <a class="debate-link" href="/posts/<%= post.id %>/show">
+    <div class="css-debate-card">
     
+      <div class="card-row">
+        
+        <div class="card-item debate-rating">
+          <!-- <header>Rating</header> -->
+          <h3 title="Rating"><%= post.totalRating() %></h3>
+        </div>
+        
+        <div class="card-item card-text subject">
+          <%= post.text %>
+          <span class="author">
+            <%= post.user.name %>
+          </span>
+        </div>
+        
+        <div class="card-item card-text debate-data">
+          <p><%= post.usersFor.length %> agree.</p>
+          <p><%= post.usersAgainst.length %> disagree.</p>
+          <p><%= post.messages.length %> messages.</p>
+        </div>
+        
+        <div class="card-item go-to-link"><i class="fa fa-arrow-right"></i></div>
+      
+      </div>
+      <div class="card-row">
+        
+        <!-- <div class="card-item tag-padding"> </div> -->
+        
+        <div class="card-item tags-area">
+          <!-- hidden spans -->
+          <% post.tags.forEach(function(tag){ %>
+            <span>#<%= tag.name %></span>
+          <% }) %>
+        </div>
+      
+      </div>
+      
     </div>
-    <div class="card-row">
-      
-      <!-- <div class="card-item tag-padding"> </div> -->
-      
-      <div class="card-item debate-tags">
-        <% post.tags.forEach(function(tag){ %>
-          <a href="/tags/<%= tag.id %>">#<%= tag.name %></a>
-        <% }) %>
-      </div>
-    
-    </div>
-    
+  </a>
+  <!-- Can't nest anchor elements, so tag links have to go here in the HTML and be CSSed into place on the debate card -->
+  <div class="debate-tags">
+    <% post.tags.forEach(function(tag){ %>
+      <a href="/tags/<%= tag.id %>">
+        <span>#<%= tag.name %></span>
+      </a>
+    <% }) %>
   </div>
+</div>

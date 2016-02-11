@@ -1983,7 +1983,7 @@ th {
 }
 @media screen and (min-width: 961px) and (max-width: 1260px) {
   .ink-grid {
-    padding: 0 1.75em;
+    padding: 0 1.33em;
   }
 
   .column-group > [class*=large-] {
@@ -2822,7 +2822,7 @@ th {
 }
 @media screen and (min-width: 641px) and (max-width: 960px) {
   .ink-grid {
-    padding: 0 1.5em;
+    padding: 0 0.67em;
   }
 
   .column-group > [class*=medium-] {
@@ -3661,7 +3661,7 @@ th {
 }
 @media screen and (min-width: 321px) and (max-width: 640px) {
   .ink-grid {
-    padding: 0 1.25em;
+    padding: 0 0;
   }
 
   .column-group > [class*=small-] {
@@ -4500,7 +4500,7 @@ th {
 }
 @media screen and (max-width: 320px) {
   .ink-grid {
-    padding: 0 1em;
+    padding: 0 0;
   }
 
   .column-group > [class*=tiny-] {
@@ -5339,7 +5339,7 @@ th {
 }
 @media screen and (min-width: 1261px) {
   html {
-    font-size: 1.08em;
+    font-size: 16px;
   }
   html:after {
     content: '[{"name":"xlarge", "size":{"min":"1261px","max":""}},{"name":"large", "size":{"min":"961px","max":"1260px"}},{"name":"medium", "size":{"min":"641px","max":"960px"}},{"name":"small", "size":{"min":"321px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
@@ -5348,7 +5348,7 @@ th {
 }
 @media screen and (min-width: 961px) and (max-width: 1260px) {
   html {
-    font-size: 1.05em;
+    font-size: 16px;
   }
   html:after {
     content: '[{"name":"xlarge", "size":{"min":"1261px","max":""}},{"name":"large", "size":{"min":"961px","max":"1260px"}},{"name":"medium", "size":{"min":"641px","max":"960px"}},{"name":"small", "size":{"min":"321px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
@@ -5357,7 +5357,7 @@ th {
 }
 @media screen and (min-width: 641px) and (max-width: 960px) {
   html {
-    font-size: 1em;
+    font-size: 15px;
   }
   html:after {
     content: '[{"name":"xlarge", "size":{"min":"1261px","max":""}},{"name":"large", "size":{"min":"961px","max":"1260px"}},{"name":"medium", "size":{"min":"641px","max":"960px"}},{"name":"small", "size":{"min":"321px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
@@ -5366,7 +5366,7 @@ th {
 }
 @media screen and (min-width: 321px) and (max-width: 640px) {
   html {
-    font-size: 0.98em;
+    font-size: 14px;
   }
   html:after {
     content: '[{"name":"xlarge", "size":{"min":"1261px","max":""}},{"name":"large", "size":{"min":"961px","max":"1260px"}},{"name":"medium", "size":{"min":"641px","max":"960px"}},{"name":"small", "size":{"min":"321px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
@@ -5375,7 +5375,7 @@ th {
 }
 @media screen and (max-width: 320px) {
   html {
-    font-size: 0.97em;
+    font-size: 14px;
   }
   html:after {
     content: '[{"name":"xlarge", "size":{"min":"1261px","max":""}},{"name":"large", "size":{"min":"961px","max":"1260px"}},{"name":"medium", "size":{"min":"641px","max":"960px"}},{"name":"small", "size":{"min":"321px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
@@ -5740,7 +5740,7 @@ th {
   line-height: 1.7;
 }
 .ink-navigation ul.menu.horizontal li .control {
-  margin-top: .3em;
+  margin-top: 0.25em;
 }
 .ink-navigation ul.menu.horizontal li ul.submenu {
   min-width: 100%;
@@ -5906,8 +5906,7 @@ html {
 
 body {
   color: #222;
-  font: normal normal normal 14px/1.42857 "Roboto", Arial, Helvetica, sans-serif;
-  font-size: 14px;
+  font: normal normal normal 1em/1.42857 "Roboto", Arial, Helvetica, sans-serif;
 }
 
 .fw-100, .fw-light {
@@ -6016,49 +6015,49 @@ a:hover {
 }
 
 h1 {
-  font-size: 30.8px;
+  font-size: 2.2em;
   margin-top: 0;
   margin-bottom: 0.58442em;
 }
 
 h2 {
-  font-size: 24.5px;
+  font-size: 1.75em;
   margin-top: 0;
   margin-bottom: 0.73469em;
 }
 
 h3 {
-  font-size: 21px;
+  font-size: 1.5em;
   margin-top: 0;
   margin-bottom: 0.85714em;
 }
 
 h4 {
-  font-size: 17.5px;
+  font-size: 1.25em;
   margin-top: 0;
   margin-bottom: 1.02857em;
 }
 
 h5 {
-  font-size: 15.4px;
+  font-size: 1.1em;
   margin-top: 0;
   margin-bottom: 1.16883em;
 }
 
 h6 {
-  font-size: 15.4px;
+  font-size: 1.1em;
   margin-top: 0;
   margin-bottom: 1.16883em;
 }
 
 p {
-  font-size: 14px;
+  font-size: 1em;
   margin-top: 0;
   margin-bottom: 1.28571em;
 }
 
 table {
-  font-size: 14px;
+  font-size: 1em;
   margin-top: 0;
   margin-bottom: 1.28571em;
 }

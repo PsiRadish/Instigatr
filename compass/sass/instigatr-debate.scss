@@ -5,6 +5,7 @@
 @import "base";
 
 // vars
+$debate-font-size                   : 0.875em; // 14px
 $debate-msg-border-radius           : 4px;
 $debate-msg-padding                 : 6px;
 $debate-msg-watermark-opacity       : 0.06;
@@ -23,6 +24,8 @@ $argue-grey-background              : #505050;
 // top level debate page column
 #debate-page
 {
+    font-size: $debate-font-size;
+    
     background-color: mix($argue-grey-background, $argue-red-background);
     background: linear-gradient($argue-grey-background, mix($argue-red-background, $argue-grey-background, 25%) 50%, $argue-red-background);
     

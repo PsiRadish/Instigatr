@@ -860,9 +860,10 @@
         $gutter-width:      nth($breakpoint,5);
         $base-font-size:    nth($breakpoint,6);
         $no-media-query:    nth($breakpoint,7);
+        $top-gutter-width:  nth($breakpoint,8); // RADISH
 
         @if $no-media-query {
-              @include generate-grid-container($grid-class-name, $gutter-width);
+              @include generate-grid-container($grid-class-name, $top-gutter-width);
               @include generate-grid-divisions($class-name);
               @include generate-column-group-container($gutter-width,$class-name);
               @include generate-grid-helper-classes($class-name,$gutter-width);
@@ -890,30 +891,31 @@
         $gutter-width:      nth($breakpoint,5);
         $base-font-size:    nth($breakpoint,6);
         $no-media-query:    nth($breakpoint,7);
+        $top-gutter-width:  nth($breakpoint,8); // RADISH
 
         @if $minimum-width and not $maximum-width {
             @media #{$media} and (min-width: $minimum-width) {
-                @include generate-grid-container($grid-class-name, $gutter-width);
+                @include generate-grid-container($grid-class-name, $top-gutter-width);
                 @include generate-grid-divisions($class-name);
-                @include generate-column-group-container($gutter-width,$class-name);
-                @include generate-grid-helper-classes($class-name,$gutter-width);
+                @include generate-column-group-container($gutter-width, $class-name);
+                @include generate-grid-helper-classes($class-name, $gutter-width);
                 @include generate-visibility-classes($class-name);
             }
         }
         
         @if $minimum-width and $maximum-width {
             @media #{$media} and (min-width: $minimum-width) and (max-width: $maximum-width) {
-                @include generate-grid-container($grid-class-name, $gutter-width);
+                @include generate-grid-container($grid-class-name, $top-gutter-width);
                 @include generate-grid-divisions($class-name);
-                @include generate-column-group-container($gutter-width,$class-name);
-                @include generate-grid-helper-classes($class-name,$gutter-width);
+                @include generate-column-group-container($gutter-width, $class-name);
+                @include generate-grid-helper-classes($class-name, $gutter-width);
                 @include generate-visibility-classes($class-name);
             }
         }
         
         @if not $minimum-width and $maximum-width {
             @media #{$media} and (max-width: $maximum-width) {
-                @include generate-grid-container($grid-class-name, $gutter-width);
+                @include generate-grid-container($grid-class-name, $top-gutter-width);
                 @include generate-grid-divisions($class-name);
                 @include generate-column-group-container($gutter-width,$class-name);
                 @include generate-grid-helper-classes($class-name,$gutter-width);
@@ -923,7 +925,7 @@
 
         @if not $minimum-width and not $maximum-width {
             @media #{$media} {
-                @include generate-grid-container($grid-class-name, $gutter-width);
+                @include generate-grid-container($grid-class-name, $top-gutter-width);
                 @include generate-grid-divisions($class-name);
                 @include generate-column-group-container($gutter-width,$class-name);
                 @include generate-grid-helper-classes($class-name,$gutter-width);
