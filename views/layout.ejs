@@ -40,9 +40,9 @@
     <ul class="horizontal menu black">
       <li class="heading"><a id="brand" class="ink-label red" href="/"><strong>INSTIGATR</strong></a></li>
       
-      <li>
-        <a id="nav-button" class="hide-all" href="#"><i class="fa fa-navicon"></i></a>
-        <ul id="nav-menu" class="black click-only">
+      <li class="click-menu-wrapper">
+        <a id="nav-button" class="click-menu-button hide-all" href="#"><i class="fa fa-navicon"></i></a>
+        <ul id="nav-menu" class="black click-menu">
           <!-- <li><a href="/">Popular</a></li> -->
           
           <li><a href="/chronological">Latest</a></li>
@@ -61,46 +61,63 @@
             <form class="ink-form" method="get" action="/tags/search/" >
               <div id="tag-search" class="control-group">
                 <div class="control append-button" role="search">
-                  <span><input id="tag-search-term" name="q" type="text" class="form-control" placeholder="Search by tag"></span>
+                  <span><input id="tag-search-term" name="q" type="text" placeholder="Search by tag"></span>
                   <button href="/tags/search/" type="submit" class="ink-button blue" id="tag-search-button"><i class="fa fa-search"></i></button>
                 </div>
               </div>
             </form>
           </li>
+          
+          <% if (currentUser) { %>
+            <li><a href="" class="js-user-create-post click-menu-clear">Start New</a></li>
+          <% } %>
         </ul>
       </li>
       
       <ul class="push-right css-dropdown-login">
         <% if (!currentUser) { %>
-          <li><a href="#">Login/Signup</a>
-            <ul class="submenu click-only css-login-dropdown-items">
+          <li class="click-menu-wrapper">
+            <a class="click-menu-button" href="#">Login/Signup</a>
+            <ul id="login-ui" class="submenu click-menu">
               <form class="ink-form" method="post" action="/auth/login">
                 <div class="control-group">
                   <li><div class="control"><input type="text" name="email" id="email-input" placeholder="E-mail"></div></li>
                   <li><div class="control"><input type="password" name="password" id="password-input" placeholder="Password"></div></li>
                   <li class="separator-above">
                   <div class="control">
-                    <button href="" type="submit" class="ink-button blue css-login-button" id="loginBtn">Login!</button>
+                    <button id="login-button" type="submit" class="ink-button blue push-left click-menu-clear">Login</button>
+                    <span class="push-right">
+                      Not a member? <a id="signup-link" class="click-menu-clear" href="#">Signup!</a>
+                    </span>
                     <!-- <button class="ink-button blue css-login-button" id="signupBtn">Signup!</button> -->
-                    <span class="push-right">Not a member? <a href="#" id="signup-link">Signup!</a></span>
                   </div>
                   </li>
                 </div>
               </form>
             </ul>
           </li>
-          <% include ./shared/signup.ejs %>
+          <!--% include ./shared/signup.ejs %-->
         <% } else { %>
         
-          <li class="usrNm"><a href="#"><%= currentUser.name %>  <i class="fa fa-gear"></i></a>
-            <ul class="submenu user-options" style="background-color:rgba(50,50,50,.9);">
-              <li class="js-user-create-post"><a href=""><i class="css-user-create-post fa fa-pencil"></i><span class="css-user-create-post">Create Post</span></a></li>
-              <li class="js-user-my-posts"><a href="/users"><i class="css-user-my-posts fa fa-book"></i><span class="css-user-my-posts">My Posts</span></a></li>
-              <li class="js-user-account"><a href=""><i class="css-user-account fa fa-wrench"></i><span class="css-user-account">Account Settings</span></a></li>
-              <li class="js-user-signout"><a href="/auth/logout"><i class="css-user-signout fa fa-sign-out"></i><span class="css-user-signout">Sign Out</span></a></li>
+          <li class="click-menu-wrapper">
+            <a class="click-menu-button" href="#"><%= currentUser.name %>  <i class="fa fa-gear"></i></a>
+            <ul id="user-options" class="submenu click-menu">
+              <li class="js-user-create-post">
+                <a class="click-menu-clear" href=""><i class="css-user-create-post fa fa-pencil"></i><span class="css-user-create-post">Start New Debate</span></a>
+              </li>
+              <li class="js-user-my-posts">
+                <a class="click-menu-clear" href="/users"><i class="css-user-my-posts fa fa-book"></i><span class="css-user-my-posts">My Debates</span></a>
+              </li>
+              <li class="js-user-account">
+                <a class="click-menu-clear" href=""><i class="css-user-account fa fa-wrench"></i><span class="css-user-account">Account Info</span></a>
+              </li>
+              <li class="js-user-signout">
+                <a class="click-menu-clear" href="/auth/logout"><i class="css-user-signout fa fa-sign-out"></i><span class="css-user-signout">Sign Out</span></a>
+              </li>
             </ul>
           </li>
-          <% include ./shared/userOptions.ejs %>
+          <!--% include ./shared/userOptions.ejs %-->
+          
         <% } %>
       </ul>
     </ul>
@@ -110,7 +127,9 @@
   
 </div>
   
-<div id="modalBlock">
+<div id="modal-block">
+  <% include ./shared/signup.ejs %>
+  <% include ./shared/userOptions.ejs %>
 </div>
   
 <footer class="content-drawer js-footerSelect">

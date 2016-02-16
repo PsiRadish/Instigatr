@@ -1,0 +1,6 @@
+BAD CSS IDS AND CLASSES
+  css-navBar    -> css-navbar
+  
+Make Load More button retrieve completed HTML from back-end.
+  
+Change all use of "Post" in user-visible text to "Debate"

@@ -1,53 +1,53 @@
-<div id="newPost" class="modal-view">
-	<a href="#"><i class="fa fa-close push-right sUClose" style="font-size:20px;"></i></a>
-	<h1>Make a new post!</h1>
-    <hr>
-    <form class="ink-form" method="post" action="/posts">
-        <div class="control-group">
-        	<div class="control">
-            <textarea id="postInpt" placeholder="What's your opinion?" name="text"></textarea>
-            <br><br>
-            </div>
-            <div class="control">
-            <input type="text" placeholder="#hashtags separated by commas" name="tags">
-            <br><br>
-            </div>
-            <div class="control">
-            <button type="submit" value="Sign Up" class="ink-button red">Post!</button>
-            <p id="charNot"></p>
-            </div>
-        </div>
-    </form>
+<div id="new-post" class="modal-view">
+	<a href="#"><i class="fa fa-close push-right close-ui"></i></a>
+	<h1>Start New Debate</h1>
+  <hr>
+  <form class="ink-form" method="post" action="/posts">
+    <div class="control-group">
+    	<div class="control">
+        <textarea id="post-input" placeholder="What's your opinion?" name="text"></textarea>
+        <!-- <br><br> -->
+      </div>
+      <div class="control">
+        <input type="text" placeholder="#hashtags separated by commas" name="tags">
+        <!-- <br><br> -->
+      </div>
+      <div class="control">
+        <button type="submit" class="ink-button red">Submit</button>
+        <p id="char-count">600 characters left.</p>
+      </div>
+    </div>
+  </form>
 </div>
 
 <div id="settings" class="modal-view">
 
-    <a href="#"><i class="fa fa-close push-right sUClose" style="font-size:20px;"></i></a>
-    <h1>Edit your account settings!</h1>
-    <hr>
-    <form class="ink-form" method="post" action="/users">
-        <div class="control-group">
-        <label for="exampleInputEmail1">Email</label>
-        <div class="control">
-        <input type="text" name="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-          </div>
-          <div class="control">
-        <label for="exampleInputPassword1">Current Password</label>
-        <div class="control">
-        <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <label for="exampleInputPassword1">Change Password</label>
-        <div class="control">
-        <input type="password" name="newPassword" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <label for="exampleInputPassword1">Re-enter password</label>
-        <div class="control">
-        <input type="password" name="newPasswordCheck" class="form-control" id="exampleInputPassword1" placeholder="Re-enter Password">
+  <a href="#"><i class="fa fa-close push-right close-ui"></i></a>
+  <h1>Edit Account Information</h1>
+  <hr>
+  <form class="ink-form" method="post" action="/users">
+    <div class="control-group">
+      <label for="account-input-email">Email</label>
+      <div class="control">
+        <input type="text" name="email" id="account-input-email" placeholder="Email">
+      </div>
+      <label for="account-input-pass">Current Password</label>
+      <div class="control">
+        <input type="password" name="password" id="account-input-pass" placeholder="Password">
+      </div>
+      <label for="account-input-newpass">New Password?</label>
+      <div class="control">
+        <input type="password" name="newPassword" id="account-input-newpass" placeholder="Password">
+      </div>
+      <label for="account-input-newpass2">Confirm New Password</label>
+      <div class="control">
+        <input type="password" name="newPasswordCheck" id="account-input-newpass2" placeholder="Re-enter Password">
       </div>
       <div class="control">
-      <br>
-     <button type="submit" value="Change Password" class="ink-button green">Save Changes!</button>
+        <!-- <br> -->
+        <button type="submit" value="Change Password" class="ink-button green">Save Changes!</button>
+      </div>
      </div>
-     </div>
-    </form>
+  </form>
+  
 </div>

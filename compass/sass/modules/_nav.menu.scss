@@ -10,19 +10,26 @@
             
             @include pie-clearfix;
             
-            li 
+            li
             {
                 *height: 100%;
                 
                 &:hover
                 {
-                    > ul.submenu
+                    > ul.submenu:not(.click-menu)
+                    {
+                        display: block;
+                    }
+                }
+                &.click-menu-wrapper.click-menu-open
+                {
+                    > ul.submenu.click-menu
                     {
                         display: block;
                     }
                 }
                 
-                ul.submenu 
+                ul.submenu
                 {
                     display: none;
                     position: absolute;
@@ -43,11 +50,8 @@
             // horizontal menus
             &.horizontal 
             {
-                
-                
                 &.scrollable 
                 {
-                    
                     font-size: 0;
                     white-space: nowrap;
                     overflow-x: scroll;
@@ -57,7 +61,6 @@
                     -moz-transition: all 0.5s ease;
                     -o-transition: all 0.5s ease;
                     transition: all 0.5s ease;
-                    
                     
                     li 
                     {

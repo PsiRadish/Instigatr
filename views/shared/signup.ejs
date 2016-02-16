@@ -1,33 +1,32 @@
 <div id="signup" class="modal-view">
-	<a href="#"><i class="fa fa-close push-right sUClose" style="font-size:20px;"></i></a>
-	<h1>Sign up!</h1>
-    <hr>
-    <form class="ink-form" method="post" action="/auth/signup">
+  <a href="#"><i class="fa fa-close push-right close-ui"></i></a>
+  <h1>Sign up!</h1>
+  <hr>
+  <form class="ink-form" method="post" action="/auth/signup">
     <div class="control-group">
-    	<div class="control">
-        <input id="suEmail" type="text" class="form-control" placeholder="Enter your e-mail" name="email">
-        <br><br>
-        </div>
-        <div class="control">
-        <input id="suName" type="text" class="form-control" placeholder="Enter your name" name="name">
-        <br><br>
-        </div>
-        <div class="control">
-        <input id="suPass" type="password" class="form-control" placeholder="Choose a password" name="password">
-        <br><br>
-        </div>
-        <div class="control">
-        <input id="suPas2" type="password" class="form-control" placeholder="Re-type your password" name="password2">
-        <br><br>
-        <div class="control">
-        <button type="submit" value="Sign Up" class="ink-button green" id="sUBtn">Sign Up!</button>
-        </div>
-        <p id="errNot"></p>
+      <div class="control">
+        <input id="signup-input-email" type="text" placeholder="Enter your e-mail" name="email">
+        <!-- <br><br> -->
+      </div>
+      <div class="control">
+        <input id="signup-input-name" type="text" placeholder="Enter your name" name="name">
+        <!-- <br><br> -->
+      </div>
+      <div class="control">
+        <input id="signup-input-pass" type="password" placeholder="Choose a password" name="password">
+        <!-- <br><br> -->
+      </div>
+      <div class="control">
+        <input id="signup-input-pass2" type="password" placeholder="Re-type your password" name="password2">
+        <!-- <br><br> -->
+      </div>
+      <div class="control">
+        <button id="signup-submit-button" type="submit" class="ink-button green">Sign Up</button>
+      </div>
+      <p id="signup-errors"></p>
     </div>
-    </div>
-    </form>
+  </form>
 </div>
 
 <div id="alert" class="alert">
-
 </div>

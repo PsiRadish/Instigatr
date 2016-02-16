@@ -5726,7 +5726,10 @@ th {
 .ink-navigation ul.menu li {
   *height: 100%;
 }
-.ink-navigation ul.menu li:hover > ul.submenu {
+.ink-navigation ul.menu li:hover > ul.submenu:not(.click-menu) {
+  display: block;
+}
+.ink-navigation ul.menu li.click-menu-wrapper.click-menu-open > ul.submenu.click-menu {
   display: block;
 }
 .ink-navigation ul.menu li ul.submenu {
@@ -6917,6 +6920,9 @@ img {
 .ink-navigation ul.menu.white li a:hover {
   background: #f2f2f2;
 }
+.ink-navigation ul.menu.white li.click-menu-wrapper.click-menu-open > a:first-child {
+  background: #f2f2f2;
+}
 .ink-navigation ul.menu.white li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
   background: #000;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -6947,6 +6953,9 @@ img {
   text-decoration: none;
 }
 .ink-navigation ul.menu.grey li a:hover {
+  background: #cccccc;
+}
+.ink-navigation ul.menu.grey li.click-menu-wrapper.click-menu-open > a:first-child {
   background: #cccccc;
 }
 .ink-navigation ul.menu.grey li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
@@ -6981,6 +6990,9 @@ img {
 .ink-navigation ul.menu.black li a:hover {
   background: #404040;
 }
+.ink-navigation ul.menu.black li.click-menu-wrapper.click-menu-open > a:first-child {
+  background: #404040;
+}
 .ink-navigation ul.menu.black li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -7011,6 +7023,9 @@ img {
   text-decoration: none;
 }
 .ink-navigation ul.menu.blue li a:hover {
+  background: #002e6c;
+}
+.ink-navigation ul.menu.blue li.click-menu-wrapper.click-menu-open > a:first-child {
   background: #002e6c;
 }
 .ink-navigation ul.menu.blue li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
@@ -7045,6 +7060,9 @@ img {
 .ink-navigation ul.menu.green li a:hover {
   background: #3f8514;
 }
+.ink-navigation ul.menu.green li.click-menu-wrapper.click-menu-open > a:first-child {
+  background: #3f8514;
+}
 .ink-navigation ul.menu.green li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -7077,6 +7095,9 @@ img {
 .ink-navigation ul.menu.orange li a:hover {
   background: #e68c00;
 }
+.ink-navigation ul.menu.orange li.click-menu-wrapper.click-menu-open > a:first-child {
+  background: #e68c00;
+}
 .ink-navigation ul.menu.orange li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -7107,6 +7128,9 @@ img {
   text-decoration: none;
 }
 .ink-navigation ul.menu.red li a:hover {
+  background: #b10f0f;
+}
+.ink-navigation ul.menu.red li.click-menu-wrapper.click-menu-open > a:first-child {
   background: #b10f0f;
 }
 .ink-navigation ul.menu.red li ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red) {

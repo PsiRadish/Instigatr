@@ -330,19 +330,19 @@ body {
   margin-right: 30px;
 }
 
-.css-login-button {
-  height: 30px;
-  padding-top: 5px;
-}
-
-.css-login-dropdown-items {
+#login-ui {
   font-size: 14px;
   right: 0;
   border-radius: 3px;
 }
 
-.css-login-dropdown-items .control {
+#login-ui .control {
   width: 300px;
+}
+
+#login-button {
+  height: 30px;
+  padding-top: 5px;
 }
 
 #signup-link {
@@ -363,14 +363,15 @@ body {
   color: #9a2665;
 }
 
-.user-options {
+#user-options {
   right: 0;
   text-align: right;
   width: 16vw;
   border-radius: 5px;
+  background-color: rgba(50, 50, 50, 0.9);
 }
 
-.user-options i {
+#user-options i.fa {
   display: inline;
   font-size: 1.25em;
   margin-top: 0.75em;
@@ -378,11 +379,11 @@ body {
   text-shadow: 5px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
-.user-options a {
+#user-options a {
   display: block;
 }
 
-.user-options span {
+#user-options span {
   font-size: 20px;
   text-shadow: 5px 2px 5px rgba(0, 0, 0, 0.7);
 }
@@ -423,7 +424,7 @@ body {
   margin-top: 5px;
 }
 
-#modalBlock {
+#modal-block {
   position: absolute;
   height: 100vh;
   width: 100vw;
@@ -433,17 +434,18 @@ body {
   display: none;
 }
 
-.sUClose {
-  margin-right: 10px;
-  margin-top: 3px;
+.close-ui {
+  font-size: 1.25em;
+  margin-right: 0.5em;
+  margin-top: 0.15em;
 }
 
-#newPost textarea {
+#new-post textarea {
   height: 28vh;
   width: 80%;
 }
 
-#newPost input {
+#new-post input {
   width: 80%;
 }
 

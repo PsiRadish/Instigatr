@@ -183,15 +183,19 @@
                 }
             }
             
-            a 
+            a
             {
                 color: $white;
                 text-decoration: none;
                 
-                &:hover 
+                &:hover
                 {
                     background: lighten($nav-color, 15%);
                 }
+            }
+            &.click-menu-wrapper.click-menu-open > a:first-child
+            {
+                background: lighten($nav-color, 15%);
             }
             
             ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red)
@@ -234,6 +238,10 @@
                     background: darken($nav-color, 5%);
                 }
             }
+            &.click-menu-wrapper.click-menu-open > a:first-child
+            {
+                background: darken($nav-color, 5%);
+            }
             
             ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red)
             { 
@@ -274,6 +282,10 @@
                 {
                     background: darken($nav-color, 5%);
                 }
+            }
+            &.click-menu-wrapper.click-menu-open > a:first-child
+            {
+                background: darken($nav-color, 5%);
             }
             
             ul.submenu:not(.white):not(.grey):not(.black):not(.blue):not(.green):not(.orange):not(.red)
