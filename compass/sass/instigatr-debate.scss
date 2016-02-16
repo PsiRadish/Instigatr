@@ -7,8 +7,8 @@
 // vars
 $debate-font-size                   : 0.875em; // 14px
 $debate-msg-border-radius           : 4px;
-$debate-msg-padding                 : 6px;
-$debate-msg-watermark-opacity       : 0.06;
+$debate-msg-padding                 : 0.428571em; // 6px;
+$debate-msg-watermark-opacity       : 0.08;
 $debate-msg-watermark-size          : 8px; // small font size for centering purposes, will use transform: scale to enlarge
 $debate-msg-watermark-scale         : 6.25;
 // watermarks in the center of their box
@@ -20,6 +20,14 @@ $argue-grey-background              : #505050;
 // watermarks align in the center of the argument column
 // $debate-msg-watermark-for-left      : 62.5%;
 // $debate-msg-watermark-against-left  : 37.5%;
+
+$debate-vertical-breakpoints: (
+    (631px, null,  4, 1.4), // calc(4em * 1.4 + 14px)
+    (541px, 630px, 4, 1.2), // calc(4em * 1.2 + 14px)
+    (451px, 540px, 3, 1.2), // calc(3em * 1.2 + 14px)
+    (361px, 450px, 3, 1),   // calc(3em + 16px)
+    (null,  360px, 2, 1)    // calc(2em + 14px)
+);
 
 // top level debate page column
 #debate-page
@@ -562,7 +570,7 @@ $argue-grey-background              : #505050;
         
         #chat-box
         {
-            height: 60px;
+            // height: 60px;
             width: 100%;
             
             border: 1px solid #999;
@@ -590,6 +598,78 @@ $argue-grey-background              : #505050;
                 &.inQueue
                 {
                     opacity: 0.65;
+                }
+            }
+        }
+    }
+    
+    @each $breakpoint in $debate-vertical-breakpoints
+    {
+        $minimum-height:  nth($breakpoint, 1);
+        $maximum-height:  nth($breakpoint, 2);
+        $rows:            nth($breakpoint, 3);
+        $line-height:     nth($breakpoint, 4);
+        
+        @if $minimum-height and not $maximum-height 
+        {
+            @media screen and (min-height: $minimum-height)
+            {
+                .debate-message, #chat-box
+                {
+                    line-height: $line-height;
+                }
+                
+                #chat-box
+                {
+                    height: calc(#{$rows}em * #{$line-height} + 2 * (#{$debate-msg-padding} + 1px));
+                }
+            }
+        }
+        
+        @if $minimum-height and $maximum-height 
+        {
+            @media screen and (min-height: $minimum-height) and (max-height: $maximum-height)
+            {
+                .debate-message, #chat-box
+                {
+                    line-height: $line-height;
+                }
+                
+                #chat-box
+                {
+                    height: calc(#{$rows}em * #{$line-height} + 2 * (#{$debate-msg-padding} + 1px));
+                }
+            }
+        }
+        
+        @if not $minimum-height and $maximum-height 
+        {
+            @media screen and (max-height: $maximum-height)
+            {
+                .debate-message, #chat-box
+                {
+                    line-height: $line-height;
+                }
+                
+                #chat-box
+                {
+                    height: calc(#{$rows}em * #{$line-height} + 2 * (#{$debate-msg-padding} + 1px));
+                }
+            }
+        }
+        
+        @if not $minimum-height and not $maximum-height
+        {
+            @media screen
+            {
+                .debate-message, #chat-box
+                {
+                    line-height: $line-height;
+                }
+                
+                #chat-box
+                {
+                    height: calc(#{$rows}em * #{$line-height} + 2 * (#{$debate-msg-padding} + 1px));
                 }
             }
         }

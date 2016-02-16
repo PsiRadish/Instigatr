@@ -1,17 +1,12 @@
 $(function()
 {
-	console.log("postIndex");
-	
 	function positionTags()
 	{
-		console.log("positionTags");
-		
 		$('.debate-tags').each(function()
 		{
 			var marginTop = this.offsetHeight * -1;
-			console.log("each", marginTop);
 			this.style.marginTop = marginTop+'px';
-		})
+		});
 	}
 	positionTags();
     // do it again on resize

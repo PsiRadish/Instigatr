@@ -1,18 +1,18 @@
 <div id="new-post" class="modal-view">
 	<a href="#"><i class="fa fa-close push-right close-ui"></i></a>
-	<h1>Start New Debate</h1>
+	<h2>Start New Debate</h2>
   <hr>
   <form class="ink-form" method="post" action="/posts">
     <div class="control-group">
     	<div class="control">
-        <textarea id="post-input" placeholder="What's your opinion?" name="text"></textarea>
+        <textarea id="post-input" placeholder="What's your opinion?" name="text" maxlength="600"></textarea>
         <!-- <br><br> -->
       </div>
       <div class="control">
         <input type="text" placeholder="#hashtags separated by commas" name="tags">
         <!-- <br><br> -->
       </div>
-      <div class="control">
+      <div class="control align-center">
         <button type="submit" class="ink-button red">Submit</button>
         <p id="char-count">600 characters left.</p>
       </div>
@@ -23,7 +23,7 @@
 <div id="settings" class="modal-view">
 
   <a href="#"><i class="fa fa-close push-right close-ui"></i></a>
-  <h1>Edit Account Information</h1>
+  <h2>Account Information</h2>
   <hr>
   <form class="ink-form" method="post" action="/users">
     <div class="control-group">
@@ -43,9 +43,9 @@
       <div class="control">
         <input type="password" name="newPasswordCheck" id="account-input-newpass2" placeholder="Re-enter Password">
       </div>
-      <div class="control">
+      <div class="control align-center">
         <!-- <br> -->
-        <button type="submit" value="Change Password" class="ink-button green">Save Changes!</button>
+        <button type="submit" value="Change Password" class="ink-button green">Save Changes</button>
       </div>
      </div>
   </form>

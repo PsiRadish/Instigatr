@@ -1,5 +1,6 @@
 BAD CSS IDS AND CLASSES
-  css-navBar    -> css-navbar
+  css-navBar        -> css-navbar
+  js-footerSelect   -> js-footer
   
 Make Load More button retrieve completed HTML from back-end.
   

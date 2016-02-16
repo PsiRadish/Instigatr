@@ -22,3 +22,9 @@ $link-visited-color-dark-bg : $link-color-dark-bg;
 $link-active-color-dark-bg  : mix($link-color-dark-bg, red, 50%);
 $link-hover-color-dark-bg   : $orange;
 $link-focus-color-dark-bg   : $link-color-dark-bg;
+
+
+$input-border-radius        : 0.375em; // 6px;
+$input-padding              : 0.375em; // 6px;
+// $input-v-padding            : 0.375em; // 6px;
+// $input-h-padding            : 0.25em // 4px;

@@ -1,4 +1,4 @@
-$(function()
+$(document).ready(function()
 {
 	
 	var faden = function(elem)
@@ -32,36 +32,52 @@ $(function()
     
     function collapseCheck()
     {
-    	if (window.getComputedStyle(document.querySelector('body'), ': : after').getPropertyValue('content').replace(/"/g, '') == "collapse")
+    	$('#nav-button').addClass("hide-all");
+    	$('#nav-menu').removeClass("submenu");
+    	
+    	var navThings = $('#global-nav > ul > *');
+    	var navThingsTotalWidth = 0;
+    	for (var i = 0; i < navThings.length; i++)
+    	{
+    	    navThingsTotalWidth += navThings[i].offsetWidth;
+    	};
+    	
+    	console.log(navThingsTotalWidth, "vs.", $('#global-nav').width());
+    	
+    	// if (window.getComputedStyle(document.querySelector('body'), '::after').getPropertyValue('content').replace(/"/g, '') == "collapse")
+    	if (navThingsTotalWidth > $('#global-nav').width())
     	{
     		$('#nav-button').removeClass("hide-all");
     		$('#nav-menu').addClass("submenu");
     	}
-    	else
-    	{
-    		$('#nav-button').addClass("hide-all");
-    		$('#nav-menu').removeClass("submenu");
-    	}
+    	// else
+    	// {
+    	// 	$('#nav-button').addClass("hide-all");
+    	// 	$('#nav-menu').removeClass("submenu");
+    	// }
     }
     collapseCheck();
     // do it again on resize
     $(window).resize(collapseCheck);
     
     // listener for buttons that open click-menus
-    $('.click-menu-button').click(function(e)
+    var justOpened = null; // for communicating with other listeners
+    $('.click-menu-button').click(function(event)
 	{
-		e.preventDefault();
+		event.preventDefault();
 		
 		var wrapper = $(this).closest('.click-menu-wrapper');
 		
-		if (!wrapper.is('.click-menu-open'))
+		if (!wrapper.is('.click-menu-open')) // not already open
 		{
 			wrapper.addClass("click-menu-open");
+			
+			justOpened = wrapper[0]; // let the topmost listener for this click know NOT to close this menu
 		}
 	});
 	// listener for elements inside click-menus that should cause the menu to close when clicked
-	$('.submenu.click-menu .click-menu-clear').click(function(e)
-	{
+	$('.submenu.click-menu .click-menu-clear').click(function()
+	{		
 		$(this).closest('.click-menu-wrapper').removeClass("click-menu-open");
 	});
 	// listener for ALL clicks, closes open click menus if the click was outside them
@@ -71,16 +87,23 @@ $(function()
 		
 		$('.click-menu-wrapper.click-menu-open').each(function()
 		{
+			if (this == justOpened) // let's NOT close this menu on the same click that opened it
+			{
+				justOpened = null;
+				return;
+			}
 			
-		})
-	    // if (!$(event.target).closest('#menucontainer').length && !$(event.target).is('#menucontainer')) 
-	    // {
-	    //     if ($('#menucontainer').is(":visible")) 
-	    //     {
-	    //         $('#menucontainer').hide()
-	    //     }
-	    // }
+			var wrapper = $(this);
+			var menu = wrapper.find('.submenu.click-menu');
+			
+			if (menu.find(clickTarget).length == 0) // clickTarget not a child of menu
+			{
+				wrapper.removeClass("click-menu-open");
+			}
+		});
+		
 	});
+	// }, true); // useCapture
 	
 	//listeners for user option icons
 	// $('.js-user-create-post').on('mouseover', function()
@@ -207,7 +230,8 @@ $(function()
 			{
 				if (signup.responseJSON.errors)
 				{
-					$('#signup-errors').text(signup.responseJSON.errors[0].message);
+					// $('#signup-errors').text(signup.responseJSON.errors[0].message);
+					$('#signup-errors').html("<p>" + signup.responseJSON.errors[0].message + "</p>");
 				}
 				else
 				{
@@ -221,7 +245,8 @@ $(function()
 			}
 			else
 			{
-				$('#signup-errors').text(signup.responseText);
+				// $('#signup-errors').text(signup.responseText);
+				$('#signup-errors').html("<p>" + signup.responseText + "</p>");
 			};
 		});
 	});
@@ -234,11 +259,10 @@ $(function()
 			$('#char-count').text(left+" characters left.")
 		}
 		// Prevent typing further characters once limit is reached
-		else if (e.keyCode !== 8 && e.keyCode !== 46) // backspace and delete permitted
-		{
-			e.preventDefault();
-		} // TODO: Test using Paste via menu option to still add more text after limit reached
-		  // TODO: Change to just displaying an error message and disabling the submit button once limit is exceeded
+		// else if (e.keyCode !== 8 && e.keyCode !== 46) // backspace and delete permitted
+		// {
+		// 	e.preventDefault();
+		// }
 	})
     
 	//hiding about link ON about page

@@ -27,8 +27,8 @@
   <link rel="stylesheet" type="text/css" href="/style/instigatr-debate.css">
   <link rel="stylesheet" type="text/css" href="/style/homepagestyle.css">
   <link rel="stylesheet" type="text/css" href="/style/aboutpage.css">
-  <script type="text/javascript" src="/script/layout.js"></script>
   <script type="text/javascript" src="/script/postIndex.js"></script>
+  <script type="text/javascript" src="/script/layout.js"></script>
   <!--script type="text/javascript" src="/script/debate.js"></script-->
 
 
@@ -36,7 +36,7 @@
 <body>
 
 <div class="ink-grid">
-  <nav class="ink-navigation css-navBar">
+  <nav id="global-nav" class="ink-navigation">
     <ul class="horizontal menu black">
       <li class="heading"><a id="brand" class="ink-label red" href="/"><strong>INSTIGATR</strong></a></li>
       
@@ -74,23 +74,27 @@
         </ul>
       </li>
       
-      <ul class="push-right css-dropdown-login">
+      <ul class="push-right css-dropdown-login horizontal menu black">
         <% if (!currentUser) { %>
           <li class="click-menu-wrapper">
             <a class="click-menu-button" href="#">Login/Signup</a>
             <ul id="login-ui" class="submenu click-menu">
               <form class="ink-form" method="post" action="/auth/login">
                 <div class="control-group">
-                  <li><div class="control"><input type="text" name="email" id="email-input" placeholder="E-mail"></div></li>
-                  <li><div class="control"><input type="password" name="password" id="password-input" placeholder="Password"></div></li>
-                  <li class="separator-above">
-                  <div class="control">
-                    <button id="login-button" type="submit" class="ink-button blue push-left click-menu-clear">Login</button>
-                    <span class="push-right">
-                      Not a member? <a id="signup-link" class="click-menu-clear" href="#">Signup!</a>
-                    </span>
-                    <!-- <button class="ink-button blue css-login-button" id="signupBtn">Signup!</button> -->
-                  </div>
+                  <li>
+                    <div class="control"><input type="text" name="email" id="email-input" placeholder="E-mail"></div>
+                  </li>
+                  <li>
+                    <div class="control"><input type="password" name="password" id="password-input" placeholder="Password"></div>
+                  </li>
+                  <li>
+                    <div class="control">
+                      <button id="login-button" type="submit" class="ink-button blue push-left click-menu-clear">Login</button>
+                      <span class="push-right">
+                        Not a member? <a id="signup-link" class="click-menu-clear" href="#">Signup!</a>
+                      </span>
+                      <!-- <button class="ink-button blue css-login-button" id="signupBtn">Signup!</button> -->
+                    </div>
                   </li>
                 </div>
               </form>
@@ -135,8 +139,8 @@
 <footer class="content-drawer js-footerSelect">
   <div class="ink-grid">
     <ul class="unstyled inline foot">
-      <li class="active" id="aboutLink"><a href="/about" style="color:red">About</a></li>
-      <li><a href="https://github.com/PsiRadish/Instigatr"<i class="fa fa-github fa-2x" style="color:red"></a></li>
+      <li class="active" id="aboutLink"><a href="/about">About</a></li>
+      <li><a href="https://github.com/PsiRadish/Instigatr"><i class="fa fa-github fa-2x"></i></a></li>
     </ul>
   </div>
 </footer>
