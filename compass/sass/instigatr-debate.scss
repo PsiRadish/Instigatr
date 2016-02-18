@@ -6,6 +6,7 @@
 
 // vars
 $debate-font-size                   : 0.875em; // 14px
+
 $debate-msg-border-radius           : 4px;
 $debate-msg-padding                 : 0.428571em; // 6px;
 $debate-msg-watermark-opacity       : 0.08;
@@ -14,6 +15,9 @@ $debate-msg-watermark-scale         : 6.25;
 // watermarks in the center of their box
 $debate-msg-watermark-for-left      : 50%;
 $debate-msg-watermark-against-left  : 50%;
+
+$debate-rating-width                : 1.875em + $debate-msg-padding; // 32px
+$debate-rating-left-margin          : -1em;    // TODO: make equal to responsive gutter width * -1
 
 $argue-red-background               : #800000;
 $argue-grey-background              : #505050;
@@ -83,6 +87,42 @@ $debate-vertical-breakpoints: (
     overflow: hidden;
 }
 
+#post-stuff
+{
+    @include pie-clearfix();
+    
+    > *
+    {
+        float: left;
+    }
+}
+
+#vote-rating-box
+{
+    text-align: center;
+    margin-left: -1em;
+    width: $debate-rating-width;
+}
+.vote-button
+{
+    background: none;
+    border: none;
+    opacity: 0.5;
+    
+    &:hover
+    {
+        opacity: 1;
+        transform: scale(1.1, 1.1);
+    }
+}
+#total-rating
+{
+    line-height: 1;
+    margin-top: -0.3em;
+    margin-bottom: -0.4em;
+    font-weight: bold;
+}
+
 #post-content-box
 {
     border: 1px solid rgba(black, 0.2);
@@ -90,6 +130,7 @@ $debate-vertical-breakpoints: (
     @include three-round-one-pointy($debate-msg-border-radius);
     background-color: rgba(black, 0.1);
     
+    width: calc(100% - #{$debate-rating-width + $debate-rating-left-margin});
     padding: $debate-msg-padding;
     // margin-bottom: 24px;
     // margin-bottom: 35%;
@@ -108,12 +149,12 @@ $debate-vertical-breakpoints: (
     }
 }
 
-#voteDiv
-{
-    margin: 20px 0px 20px 0px;
+// #vote-rating-box
+// {
+//     margin: 20px 0px 20px 0px;
     
-    h4 { margin-bottom: 0.5em; }
-}
+//     h4 { margin-bottom: 0.5em; }
+// }
 
 #choices
 {

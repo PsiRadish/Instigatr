@@ -28,7 +28,7 @@ $(function()
             
             var debatePage = $('#debate-page');
             
-            var postStuff = $('#post-stuff');
+            // var postStuff = $('#post-stuff');
             var choices = $('#choices');
                 choices.height($('#headings-roll').outerHeight(true) + $('#wanna-join-for').outerHeight(true));
             var yourSide = $('#hows-my-arguing');
@@ -69,43 +69,49 @@ $(function()
         
         
         // get the postID from hidden input value
-        var postId = parseInt($('#post-id').val());
-        // var postId = parseInt(window.location.pathname.split('/')[2]);
+        var postId = parseInt($('#post-id').val());  // parseInt(window.location.pathname.split('/')[2]);
         
         // up and downvote functionality
-        // TODO: get the new rating value to show from AJAX response
-        $('#up-vote-button').on('click', function(e)
+        var upVoteButton = $('#up-vote-button');
+        var downVoteButton = $('#down-vote-button');
+        // listener for both buttons
+        $('#up-vote-button, #down-vote-button').on('click', function(e)
         {
             e.preventDefault();
-            // var id = $('#post-id').val();
-            var val = 1;
-            var newRating = $.ajax(
+            var target = $(e.target);
+            
+            var val = null;
+            
+            // which button was clicked?
+            if (target.closest(upVoteButton).length)        // up
+            {
+                val = 1;    // upvote value
+                upVoteButton.addClass('green');
+                downVoteButton.removeClass('red');
+            }
+            else if (target.closest(downVoteButton).length) // down
+            {
+                val = -1;   // downvote value
+                upVoteButton.removeClass('green');
+                downVoteButton.addClass('red');
+            }
+            
+            var ajaxVote = $.ajax(
             {
                 url: '/posts/vote',
                 method: 'POST',
                 data: {'val': val, 'postId': postId}
             }).done(function()
             {
-                // console.log(newRating);
-                $('#up-vote-button').addClass('green');
-                $('#down-vote-button').removeClass('red');
-            });
-        });
-        $('#down-vote-button').on('click', function(e)
-        {
-            e.preventDefault();
-            // var id = $('#post-id').val();
-            var val = -1;
-            var newRating = $.ajax(
-            {
-                url: '/posts/vote',
-                method: 'POST',
-                data: {'val': val, 'postId': postId}
-            }).done(function()
-            {
-                // console.log(newRating);
-                $('#up-vote-button').removeClass('green');
-                $('#down-vote-button').addClass('red');
+                // console.log("New rating:", ajaxVote.responseJSON.newRating);
+                if (ajaxVote.responseJSON.newRating !== undefined)
+                {
+                    $('#total-rating').text(ajaxVote.responseJSON.newRating);
+                }
+                else
+                {
+                    console.log(ajaxVote.responseText);
+                }
             });
         });
         

@@ -19,7 +19,7 @@ $(function()
 		
 		postOffset += 8;
 		
-		var response = $.ajax(
+		var ajaxMorePosts = $.ajax(
 		{
 			url: '/more',
 			method:'GET',
@@ -42,7 +42,7 @@ $(function()
 			
 			// Back-end responds with html for a whole new page listing the additional posts.
             // Append this response to an empty div in memory, so we can use jQuery find to just get #post-index-column out.
-            var morePostsHTML = $('<div/>').append(response.responseText).find('#post-index-column').html();
+            var morePostsHTML = $('<div/>').append(ajaxMorePosts.responseText).find('#post-index-column').html();
             
             $('#post-index-column').append(morePostsHTML); // add contents of #post-index-column from back-end to #post-index-column in DOM
             

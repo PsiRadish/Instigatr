@@ -166,16 +166,44 @@ router.post('/', function(req, res)
 router.post('/vote', function(req, res)
 {
     var value = parseInt(req.body.val);
-    var postId = req.body.postId;
+    var postId = parseInt(req.body.postId);
+    
+    // console.log("DDDDDDDDEBATE QUALITY VOTE ::: value ", value);
+    console.log("o('.')o .... User", req.currentUser.id, "casting vote value", value);
+    // console.log("DDDDDDDDEBATE QUALITY VOTE ::: postId", postId);
+    
     db.user.findById(req.currentUser.id).then(function(user)
     {
-        // TODO: find the post matching the postId before making a vote for it
-        db.vote.findOrCreate({where: {userId: user.id, postId: postId}}).spread(function(vote, created)
+        if (!user)
         {
-            vote.value = value;
-            vote.save().then(function()
+            res.send("Invalid user ID."); // TODO: proper HTTP error response
+            return;
+        }
+        
+        db.post.findById(postId).then(function(post)
+        {
+            if (!post)
             {
-                res.send(vote);
+                res.send("Invalid post ID."); // TODO: proper HTTP error response
+                return;
+            }
+            
+            db.vote.findOrCreate({where: {userId: user.id, postId: post.id}}).spread(function(vote, created)
+            {
+                if (created) console.log("o(@.@)o .... NEW VOTE CREATED");
+                
+                vote.value = value;
+                vote.save().then(function()
+                {
+                    console.log("o(?.?)o .... Vote", vote.id, "value after save:", value);
+                    
+                    post.totalRating(function(newRating) // get the updated rating (asynchronous)
+                    {
+                        console.log("o(?!_!?)o .. New rating for post", postId, "=", newRating);
+                        
+                        res.send({newRating: newRating});
+                    });
+                });
             });
         });
     });

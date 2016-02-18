@@ -170,11 +170,47 @@
   overflow: hidden;
 }
 
+#post-stuff {
+  *zoom: 1;
+}
+#post-stuff:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#post-stuff > * {
+  float: left;
+}
+
+#vote-rating-box {
+  text-align: center;
+  margin-left: -1em;
+  width: 2.30357em;
+}
+
+.vote-button {
+  background: none;
+  border: none;
+  opacity: 0.5;
+}
+.vote-button:hover {
+  opacity: 1;
+  transform: scale(1.1, 1.1);
+}
+
+#total-rating {
+  line-height: 1;
+  margin-top: -0.3em;
+  margin-bottom: -0.4em;
+  font-weight: bold;
+}
+
 #post-content-box {
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   border-bottom-left-radius: 0;
   background-color: rgba(0, 0, 0, 0.1);
+  width: calc(100% - 1.30357em);
   padding: 0.42857em;
 }
 #post-content-box p {
@@ -183,13 +219,6 @@
 }
 #post-content-box .author {
   text-align: right;
-}
-
-#voteDiv {
-  margin: 20px 0px 20px 0px;
-}
-#voteDiv h4 {
-  margin-bottom: 0.5em;
 }
 
 #choices #headings-roll {

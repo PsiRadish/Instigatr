@@ -2,8 +2,16 @@
 <div id="debate-page" class="column-group tiny-quarter-horizontal-gutters small-half-horizontal-gutters medium-horizontal-gutters large-horizontal-gutters xlarge-horizontal-gutters back-flush">
   <input type="hidden" id="post-id" name="postId" value='<%= post.id %>' >
   <section id="take-sides-column" class="large-30 xlarge-30 medium-30 small-40">
+    <h1>Subject</h1>
+    
     <div id="post-stuff">
-      <h1>Subject</h1>
+      
+      <div id="vote-rating-box">
+        <button id="up-vote-button" class="vote-button fa fa-chevron-up"></button>
+        <p id="total-rating"><%= post.totalRating() %></p>
+        <button id="down-vote-button" class="vote-button fa fa-chevron-down"></button>
+      </div>
+      
       <div id="post-content-box">
         <p id="debate-subject"><%= post.text %></p>
         <span class="author"><%= post.user.name %></span>
@@ -11,7 +19,7 @@
     </div>
     
     <div id="must-be-logged-in" class="disabled">
-      <div id="voteDiv" class="column-group">
+      <!-- <div id="vote-rating-box" class="column-group">
         <h4>Vote on the quality of this debate!</h4>
         <div class="all-50">
             <button class="ink-button push-right" id="up-vote-button"><i class="fa fa-chevron-up"></i></button>
@@ -19,7 +27,7 @@
         <div class="all-50">
            <button class="ink-button push-left" id="down-vote-button"><i class="fa fa-chevron-down"></i></button>
         </div>
-      </div>
+      </div> -->
       
       <div id="choices" class="subsection">
         <!-- Only one of these headings visible at a time. -->

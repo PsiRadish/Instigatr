@@ -378,11 +378,12 @@ footer a:hover .fa {
   float: left;
 }
 
-.card-row::before, .card-row::after, .debate-tags::before, .debate-tags::after {
-  content: " ";
-  display: table;
+.card-row, .debate-tags {
+  *zoom: 1;
 }
-.card-row::after, .debate-tags::after {
+.card-row:after, .debate-tags:after {
+  content: "";
+  display: table;
   clear: both;
 }
 

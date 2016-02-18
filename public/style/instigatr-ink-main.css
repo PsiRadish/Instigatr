@@ -8893,13 +8893,3 @@ span.red {
 .vis-hide {
   visibility: hidden !important;
 }
-
-.clearfix::before,
-.clearfix::after {
-  content: " ";
-  display: table;
-}
-
-.clearfix::after {
-  clear: both;
-}

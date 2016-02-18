@@ -425,7 +425,7 @@ footer
 
 .card-row, .debate-tags
 {
-    @include clearfix();
+    @include pie-clearfix();
 }
 
 .debate-link:hover, .debate-link:active

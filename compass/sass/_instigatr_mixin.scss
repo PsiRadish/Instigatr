@@ -46,19 +46,19 @@
                   $width -$width 0 $color;
 }
 
-@mixin clearfix()
-{
-    &::before,
-    &::after
-    {
-        content: " ";
-        display: table;
-    }
-    &::after
-    {
-        clear: both;
-    }
-}
+// @mixin clearfix()
+// {
+//     &::before,
+//     &::after
+//     {
+//         content: " ";
+//         display: table;
+//     }
+//     &::after
+//     {
+//         clear: both;
+//     }
+// }
 
 // TODO: Ink typography classes converted to mixins
 // .fw-100, .fw-light { font-weight: 100; }
