@@ -42,7 +42,7 @@ $(document).ready(function()
     	    navThingsTotalWidth += navThings[i].offsetWidth;
     	};
     	
-    	console.log(navThingsTotalWidth, "vs.", $('#global-nav').width());
+    	// console.log(navThingsTotalWidth, "vs.", $('#global-nav').width());
     	
     	// if (window.getComputedStyle(document.querySelector('body'), '::after').getPropertyValue('content').replace(/"/g, '') == "collapse")
     	if (navThingsTotalWidth > $('#global-nav').width())

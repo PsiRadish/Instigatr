@@ -8,33 +8,13 @@ var request = require('request');
 // --- POST SHOW
 router.get('/:id/show', function(req, res)
 {
-
-    //news - API call
-    // var searchTerm = 'clinton';
-    // var searchTerm_Alchemy = req.query.z;
-    // console.log("Alchemy search: " + searchTerm_Alchemy);
-
-    // if (searchTerm !== "undefined"){
-    //     var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
-
-    //     var queryData = {
-    //     q: searchTerm,
-    //     pages:10,
-    //     sort:'newest',
-    //     'api-key':process.env.NYT_API_KEY,
-    //     }
-    //  }
-     //else if (searchTerm_Alchemy !== "undefined") {
-    //     console.log("Alchemy works!!!!");
-    // }
-    //end news - API call
-
     db.post.find(
     {
         where: { id: req.params.id },
         include:
         [
             db.user,
+            db.vote,
             db.tag,
             // db.message
             {
@@ -55,47 +35,47 @@ router.get('/:id/show', function(req, res)
                 tagsArr.push(tag.name);
             });
             if(tagsArr[0]){
-                    var searchTerm = tagsArr.join();
-                    console.log('*********************************************');
-                    console.log(searchTerm);
-                    console.log('*********************************************');
-                }else{
-                    console.log('*********************************************');
-                    console.log(post.text);
-                    console.log('*********************************************');
-                    var searchTerm = post.text.slice();
-                }
+                var searchTerm = tagsArr.join();
+                // console.log('*********************************************');
+                // console.log(searchTerm);
+                // console.log('*********************************************');
+            }else{
+                // console.log('*********************************************');
+                // console.log(post.text);
+                // console.log('*********************************************');
+                var searchTerm = post.text.slice();
+            }
 
 
-                var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
+            var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
 
-                var queryData = {
-                    q: searchTerm,
-                    pages:10,
-                    sort:'newest',
-                    'api-key':process.env.NYT_API_KEY,
-                }
-                // news API call
-                request({
-                    url:url,
-                    qs:queryData
-                }, function(error, response, data){
-                    var newsJSON = JSON.parse(data);
-                    // console.log(newsJSON.response.docs[0]);
-                    searchTerm = null;
-                    // searchTerm_Alchemy = null;
-                    res.render("posts/show.ejs", {titleSuffix: post.text, post: post, newsJSON: newsJSON});
-                });
-                // request({
-                //     url:url,
-                //     qs:queryData
-                // }, function(error, response, data){
-                //     var newsJSON = JSON.parse(data);
-                //     // console.log(newsJSON.response.docs[0]);
-                //     // searchTerm_Alchemy = null;
-                //     res.render("posts/show.ejs", {titleSuffix: post.text, post: post, newsJSON: newsJSON});
-                // });
-                // end news API call
+            var queryData = {
+                q: searchTerm,
+                pages: 10,
+                sort: 'newest',
+                'api-key': process.env.NYT_API_KEY,
+            }
+            // news API call
+            request({
+                url: url,
+                qs: queryData
+            }, function(error, response, data){
+                var newsJSON = JSON.parse(data);
+                // console.log(newsJSON.response.docs[0]);
+                searchTerm = null;
+                // searchTerm_Alchemy = null;
+                res.render("posts/showPost.ejs", {titleSuffix: post.text, post: post, newsJSON: newsJSON});
+            });
+            // request({
+            //     url: url,
+            //     qs: queryData
+            // }, function(error, response, data){
+            //     var newsJSON = JSON.parse(data);
+            //     // console.log(newsJSON.response.docs[0]);
+            //     // searchTerm_Alchemy = null;
+            //     res.render("posts/show.ejs", {titleSuffix: post.text, post: post, newsJSON: newsJSON});
+            // });
+            // end news API call
 
         } else
         {
@@ -108,6 +88,7 @@ router.get('/:id/show', function(req, res)
     });
 });
 
+// AJAX request from a debate page for news search results
 router.get('/news',function(req, res)
 {
     var searchTerm = req.query.q;
@@ -132,48 +113,74 @@ router.get('/news',function(req, res)
         // searchTerm_Alchemy = null;
         // res.send(newsJSON);
         
-        // return rendered HTML that will be injected into page
+        // return rendered HTML that will be jQuery'd into page
         res.render("posts/news.ejs", {newsJSON: newsJSON, layout: 'ajaxLayout'});
     });
 });
 
 
-router.post('/',function(req, res){
-    var tagStr = req.body.tags
-    var tagsArr = tagStr.split(',')
-    db.user.findById(req.currentUser.id).then(function(user){
-        user.createPost({
-            text:req.body.text
-        }).then(function(post){
-            for(i=0;i<tagsArr.length;i++){
-                if(tagsArr[i].charAt(0) === '#'){
-                    var tagnm = tagsArr[i].slice(1,tagsArr[i].length)
-                }else{
-                    var tagnm = tagsArr[i]
-                };
-                db.tag.findOrCreate({where:{name:tagnm}}).spread(function(tag,created){
+router.post('/', function(req, res)
+{
+    var tagStr = req.body.tags;
+    // var tagsArr = tagStr.split(',');
+    var tagsArr = tagStr.split(/[,#]/);
+    
+    // filter out empty and whitespace-only strings
+    tagsArr.filter(function(tag)
+    {
+        return tag.trim().length;
+    });
+    
+    db.user.findById(req.currentUser.id).then(function(user)
+    {
+        user.createPost(
+        {
+            text: req.body.text
+        }).then(function(post)
+        {
+            for (i = 0; i < tagsArr.length; i++)
+            {
+                // if (tagsArr[i].charAt(0) === '#')
+                // {
+                //     var tagName = tagsArr[i].slice(1, tagsArr[i].length);
+                // }
+                // else
+                // {
+                //     var tagName = tagsArr[i];
+                // };
+                var tagName = tagsArr[i].trim();
+                
+                db.tag.findOrCreate({where: {name: tagName}}).spread(function(tag, created)
+                {
                     post.addTag(tag);
                 });
             };
+            
             res.redirect('/posts/'+post.id+'/show');
         });
     });
 });
 
-
-router.get('/vote',function(req, res){
-    var value = parseInt(req.query.val);
-    var pid = req.query.postId;
-    db.user.findById(req.currentUser.id).then(function(user){
-                    db.vote.findOrCreate({where:{userId:user.id,postId:pid}}).spread(function(vote,created){
-                        vote.value = value;
-                        vote.save().then(function(){
-                            res.send(vote);
-                        });
-                });
+// up or down vote posted via AJAX
+// router.get('/vote', function(req, res)
+router.post('/vote', function(req, res)
+{
+    var value = parseInt(req.body.val);
+    var postId = req.body.postId;
+    db.user.findById(req.currentUser.id).then(function(user)
+    {
+        // TODO: find the post matching the postId before making a vote for it
+        db.vote.findOrCreate({where: {userId: user.id, postId: postId}}).spread(function(vote, created)
+        {
+            vote.value = value;
+            vote.save().then(function()
+            {
+                res.send(vote);
             });
+        });
+    });
 });
-// db.post.find({where:{id:pid},include:[{model:db.vote, include:[db.user]}]}).then(function(post){
+// db.post.find({where: {id: postId}, include: [{model: db.vote, include: [db.user]}]}).then(function(post){
 
 
 module.exports = router;

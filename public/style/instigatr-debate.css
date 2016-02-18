@@ -630,3 +630,12 @@
 img[src=""] {
   display: none;
 }
+
+.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger:hover:not(.mCSB_dragger_onDrag) .mCSB_dragger_bar {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
+  background-color: rgba(0, 0, 0, 0.5);
+}

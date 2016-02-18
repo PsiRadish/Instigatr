@@ -36,7 +36,7 @@ router.get('/:id', function(req, res)
     {
         // db.post.findAll().then(function(posts)
         // {
-            res.render("tags/show", {tag: tag, titleSuffix: tag.name});
+            res.render("tags/showPostsWithTag.ejs", {tag: tag, titleSuffix: tag.name});
         // });
     });
 });

@@ -4,70 +4,19 @@ $(function()
     {
         // console.log('debate-page');
         
+        // initialize spiffy scrollbars
         $("#chat-output").mCustomScrollbar(
         {
-            axis:"y", // vertical
+            axis: "y", // vertical
             theme: "minimal-dark",
             scrollInertia: 1
         });
         $("#results-news-headlines").mCustomScrollbar(
-        {   // TODO: fix bottom of scroll being slightly cut off
-            axis:"y", // vertical
+        {
+            axis: "y", // vertical
             theme: "minimal-dark",
             scrollInertia: 1
         });
-        
-        // up and downvote functionality
-        $('#up-vote-button').on('click',function(e){
-            e.preventDefault();
-            var id = $('#pId').val();
-            var val = 1;
-            var vote = $.ajax({
-                url:'/posts/vote',
-                method:'GET',
-                data:{'val':val,'postId':id}
-            }).done(function(){
-                // console.log(id);
-                // console.log(vote);
-                $('#up-vote-button').addClass('green');
-                $('#down-vote-button').removeClass('red');
-            });
-        });
-        $('#down-vote-button').on('click',function(e){
-            e.preventDefault();
-            var id = $('#pId').val();
-            var val = -1;
-            var vote = $.ajax({
-                url:'/posts/vote',
-                method:'GET',
-                data:{'val':val,'postId':id}
-            }).done(function(){
-                // console.log(vote);
-                $('#up-vote-button').removeClass('green');
-                $('#down-vote-button').addClass('red');
-            });
-        });
-        
-        //news search button listener
-        $('#news-search-button').on('click',function(e)
-        {
-            e.preventDefault();
-            var searchTerm = $('#news-search-term').val();
-            var response = $.ajax(
-            {
-                url: '/posts/news',
-                method: 'GET',
-                data: { q: searchTerm }
-            }).done(function()
-            {
-                // Back-end responds with html for a whole new page containing the results of the news search.
-                // Append this response to an empty div in memory, so se can use jQuery find to just get #js-news-listings out.
-                var newsListingsHTML = $('<div/>').append(response.responseText).find('#js-news-listings').html();
-                
-                $('#js-news-listings').html(newsListingsHTML); // replace #js-news-listings in DOM with the new #js-news-listings from back-end
-            });
-        });
-        
         
         function sizeChat(e)
         {
@@ -118,23 +67,76 @@ $(function()
         // do it again on resize
         $(window).resize(sizeChat);
         
-        // var userData = $.ajax(
-        // {
-        //     url: '/userData',
-        //     method: 'GET'
-        // }).done(function(userData)
-        // {
-            // console.log("userData keys", Object.keys(userData));
         
+        // get the postID from hidden input value
+        var postId = parseInt($('#post-id').val());
+        // var postId = parseInt(window.location.pathname.split('/')[2]);
+        
+        // up and downvote functionality
+        // TODO: get the new rating value to show from AJAX response
+        $('#up-vote-button').on('click', function(e)
+        {
+            e.preventDefault();
+            // var id = $('#post-id').val();
+            var val = 1;
+            var newRating = $.ajax(
+            {
+                url: '/posts/vote',
+                method: 'POST',
+                data: {'val': val, 'postId': postId}
+            }).done(function()
+            {
+                // console.log(newRating);
+                $('#up-vote-button').addClass('green');
+                $('#down-vote-button').removeClass('red');
+            });
+        });
+        $('#down-vote-button').on('click', function(e)
+        {
+            e.preventDefault();
+            // var id = $('#post-id').val();
+            var val = -1;
+            var newRating = $.ajax(
+            {
+                url: '/posts/vote',
+                method: 'POST',
+                data: {'val': val, 'postId': postId}
+            }).done(function()
+            {
+                // console.log(newRating);
+                $('#up-vote-button').removeClass('green');
+                $('#down-vote-button').addClass('red');
+            });
+        });
+        
+        // news search button listener
+        $('#news-search-button').on('click', function(e)
+        {
+            e.preventDefault();
+            var searchTerm = $('#news-search-term').val();
+            var response = $.ajax(
+            {
+                url: '/posts/news',
+                method: 'GET',
+                data: { q: searchTerm }
+            }).done(function()
+            {
+                // Back-end responds with html for a whole new page containing the results of the news search.
+                // Append this response to an empty div in memory, so we can use jQuery find to just get #js-news-listings out.
+                var newsListingsHTML = $('<div/>').append(response.responseText).find('#js-news-listings').html();
+                
+                $('#js-news-listings').html(newsListingsHTML); // replace #js-news-listings in DOM with the new #js-news-listings from back-end
+            });
+        });
+        
+        // initialize socket.io
         var socket = io();
         
-        var postId = parseInt(window.location.pathname.split('/')[2]);
+        socket.emit('startChat', postId); // let the back-end know what debate we're here to see
         
-        socket.emit('startChat', postId);
         socket.on('startChat_Response', function(userId, side, championFor, championAgainst)
-        {
-            console.log('Received startChat_Response', userId, side);
-            // console.log('userId', userId);
+        {   // B
+            // console.log('Received startChat_Response', userId, side);
             
             $('#champ-for .author').html(championFor || '...');
             $('#champ-against .author').html(championAgainst || '...');
@@ -200,10 +202,10 @@ $(function()
                         $('.wanna-join .queued, .wanna-join .not-queued').addClass('hide-all');
                     }
                 });
-                // SERVER - KICKED
+                // SERVER - KICKED (not actually possible yet)
                 socket.on('kickedFromChampion', function()
-                {   // TODO: An alert popin
-                    disableChatBox('You have been kicked out of your position as speaker.');
+                {   // TODO: An alert pop-in
+                    disableChatBox('Your peers have voted to kick you from the speaker seat.');
                 });
                 
                 // // CLIENT - UP CONFIDENCE IN SPEAKER
@@ -225,16 +227,19 @@ $(function()
                 
                 chatBox.keydown(function(e)
                 {
-                    e = e || event;  // IE compatibility thing of unknownn relevance
+                    e = e || event;  // IE compatibility measure of unknown relevance
+                    
                     // enter key without shift held
                     if (e.keyCode === 13 && !e.shiftKey)
                     {
                         e.preventDefault(); // no newline
+                        // wait for keyup to actually send the text through the socket
                     }
                 });
                 chatBox.keyup(function(e)
                 {
-                    e = e || event;  // IE compatibility thing of unknownn relevance
+                    e = e || event;  // IE compatibility measure of unknown relevance
+                    
                     // enter key without shift held
                     if (e.keyCode === 13 && !e.shiftKey)
                     {

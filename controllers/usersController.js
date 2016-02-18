@@ -20,7 +20,7 @@ router.get('/', function(req, res){
       return b.totalRating() - a.totalRating()
     });
         
-    res.render('users/show.ejs',{postsSort:postsSort,posts:posts});
+    res.render('users/showPostsByUser.ejs',{postsSort: postsSort, posts: posts, titleSuffix: "My Debates"});
   });
 });
 
@@ -29,7 +29,7 @@ router.get('/', function(req, res){
 // });
 
 // UPDATE
-router.post('/',function(req,res) {
+router.post('/',function(req, res) {
 
   db.user.authenticate(req.body.email, req.body.password, function(err, user){
     db.user.find({where: {email: req.body.email}}).then(function(user){

@@ -1,7 +1,9 @@
 BAD CSS IDS AND CLASSES
-  css-navBar        -> css-navbar
   js-footerSelect   -> js-footer
+  pId               -> post-id
   
-Make Load More button retrieve completed HTML from back-end.
-  
-Change all use of "Post" in user-visible text to "Debate"
+_ Make Load More button retrieve completed HTML from back-end.
+_ Center modals vertically via javascript.
+_ Change all use of "Post" in user-visible text to "Debate"
+_ Remove jQuery fadeIn/fadeOut calls that don't seem to be working anyway
+  ? Replace with CSS opacity transitions?
