@@ -105,6 +105,42 @@ $(document).ready(function()
 	});
 	// }, true); // useCapture
 	
+	function positionModal()
+	{
+		var modalShowing = $('.modal-view.modal-showing');
+		
+		if (modalShowing.length)
+		{
+			var windowHeight = $(window).height();
+			var modalHeight = $(modalShowing).outerHeight();
+			
+			var marginTop = Math.max((windowHeight - modalHeight) / 2, 0) + "px";
+			
+			modalShowing.css('margin-top', marginTop);
+		}
+	}
+	positionModal();
+    // do it again on resize
+    $(window).resize(positionModal);
+	
+	function showModal(modalSelector)
+	{
+		$('body').css('overflow', 'hidden');
+		$('#modal-block').fadeIn(0);
+		$(modalSelector).fadeIn(200).addClass("modal-showing");
+		positionModal();
+	}
+	
+	function hideModals()
+	{
+		$('#modal-block').fadeOut(200);
+		$('body').css('overflow', 'auto');
+		$('#signup').fadeOut(200).removeClass("modal-showing");
+		$('#new-post').fadeOut(200).removeClass("modal-showing");
+		$('#settings').fadeOut(200).removeClass("modal-showing");
+	}
+	
+	
 	//listeners for user option icons
 	// $('.js-user-create-post').on('mouseover', function()
 	// {
@@ -117,9 +153,10 @@ $(document).ready(function()
 	$('.js-user-create-post').on('click', function(e)
 	{
 		e.preventDefault();
-		$('body').css('overflow', 'hidden');
-		$('#modal-block').fadeIn(0);
-		$('#new-post').fadeIn(200)
+		// $('body').css('overflow', 'hidden');
+		// $('#modal-block').fadeIn(0);
+		// $('#new-post').fadeIn(200);
+		showModal('#new-post');
 	});
 	
 	// $('.js-user-my-posts').on('mouseover', function()
@@ -142,9 +179,10 @@ $(document).ready(function()
 	$('.js-user-account').on('click', function(e)
 	{
 		e.preventDefault();
-		$('body').css('overflow', 'hidden');
-		$('#modal-block').fadeIn(0);
-		$('#settings').fadeIn(200);
+		// $('body').css('overflow', 'hidden');
+		// $('#modal-block').fadeIn(0);
+		// $('#settings').fadeIn(200);
+		showModal('#settings');
 	});
 	
 	// $('.js-user-signout').on('mouseover', function()
@@ -160,19 +198,21 @@ $(document).ready(function()
 	$('#signup-link').on('click', function(e)
 	{
 		e.preventDefault();
-		$('body').css('overflow', 'hidden');
-		$('#modal-block').fadeIn(0);
-		$('#signup').fadeIn(200);
+		// $('body').css('overflow', 'hidden');
+		// $('#modal-block').fadeIn(0);
+		// $('#signup').fadeIn(200);
+		showModal('#signup');
 	});
 	
 	$('.close-ui').on('click', function(e)
 	{
 		e.preventDefault();
-		$('#modal-block').fadeOut(200);
-		$('body').css('overflow', 'auto');
-		$('#signup').fadeOut(200);
-		$('#new-post').fadeOut(200);
-		$('#settings').fadeOut(200);
+		// $('#modal-block').fadeOut(200);
+		// $('body').css('overflow', 'auto');
+		// $('#signup').fadeOut(200).removeClass("modal-showing");
+		// $('#new-post').fadeOut(200).removeClass("modal-showing");
+		// $('#settings').fadeOut(200).removeClass("modal-showing");
+		hideModals();
 	});
 	
 	$('#login-button').on('click', function(e)
@@ -235,9 +275,10 @@ $(document).ready(function()
 				}
 				else
 				{
-					$('#modal-block').fadeOut(0);
-					$('body').css('overflow', 'auto');
-					$('#signup').fadeOut(0);
+					// $('#modal-block').fadeOut(0);
+					// $('body').css('overflow', 'auto');
+					// $('#signup').fadeOut(0);
+					hideModals();
 					$('#alert').html('<h3>You are signed up and may now login.</h3>');
 					$('#alert').fadeIn(400).delay(2000);
 					$('#alert').fadeOut(700);
@@ -263,7 +304,7 @@ $(document).ready(function()
 		// {
 		// 	e.preventDefault();
 		// }
-	})
+	});
     
 	//hiding about link ON about page
 	if (window.location.pathname == "/about") 

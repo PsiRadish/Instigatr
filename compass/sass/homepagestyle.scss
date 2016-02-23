@@ -193,7 +193,8 @@ body
     // position: absolute;
     // top: 14vh;
     // left: 20vw;
-    margin: 14vh auto;
+    // margin: 14vh auto;
+    margin: 0 auto;
     padding: 1.25em;
     border-radius: 0.4375em; // 7px;
     
@@ -320,6 +321,11 @@ footer
     a:hover .fa
     {
         text-decoration: underline;
+    }
+    
+    .fa-github
+    {
+        transform: none; // so it stops showing on top of modals
     }
 }
 .foot 

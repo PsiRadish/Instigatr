@@ -2,8 +2,8 @@ BAD CSS IDS AND CLASSES
   js-footerSelect   -> js-footer
   pId               -> post-id
   
-_ Make Load More button retrieve completed HTML from back-end.
-_ Center modals vertically via javascript.
+X Make Load More button retrieve completed HTML from back-end.
+X access Heroku database and remove leading/trailing whitespace from tag names, and other bad things
+X Center modals vertically via javascript.
 _ Change all use of "Post" in user-visible text to "Debate"
-_ Remove jQuery fadeIn/fadeOut calls that don't seem to be working anyway
-  ? Replace with CSS opacity transitions?
+? Switch out jQuery fadeIn/fadeOut calls for CSS opacity transitions?

@@ -230,7 +230,7 @@ body {
   width: 22.85714em;
   min-width: 320px;
   display: none;
-  margin: 14vh auto;
+  margin: 0 auto;
   padding: 1.25em;
   border-radius: 0.4375em;
 }
@@ -311,6 +311,9 @@ footer a, footer a:hover {
 }
 footer a:hover .fa {
   text-decoration: underline;
+}
+footer .fa-github {
+  transform: none;
 }
 
 .foot {
