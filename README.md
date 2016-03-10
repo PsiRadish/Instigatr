@@ -7,7 +7,7 @@ A debate app.
 [candlewoodtoby](https://github.com/candlewoodtoby)  
 [mustafa206](https://github.com/mustafa206)  
   
-I (PsiRadish) have since modified much of the work by soren, candlewoodtoby, and mustafa206 on my own.  Go to [this branch](https://github.com/PsiRadish/Instigatr/tree/original-team-effort) to see the project before these modifications.  
+As of February 2016 I (PsiRadish) have significantly modified on my own much of the work originally by soren, candlewoodtoby, and mustafa206.  Go to [this branch](https://github.com/PsiRadish/Instigatr/tree/original-team-effort) to see the project before these modifications.  
 
 ##Explanations of technologies used:
   1. CSS
