@@ -11,17 +11,17 @@ As of February 2016 I (PsiRadish) have significantly modified on my own much of 
 
 ##Explanations of technologies used:
   1. CSS
-    + Ink-grid: CSS framework provides layout grid system
+    + InK Interface Kit: CSS framework, provides layout grid system
     + Compass: CSS authoring framework
     + SASS: CSS extension language
-  2. Socket.io - chat messaging plug-in
-  3. node.js
-  4. NYT API
-  5. jQuery
-  6. jQuery custom content scroller plug-in
-  7. postGreSQL
-  8. Express.js
-  9. Sequelize  
+  2. jQuery
+  2. [jQuery custom content scroller plug-in](http://manos.malihu.gr/jquery-custom-content-scroller/)
+  2. Socket.IO - Socket-based messaging plug-in.
+  2. Node.js
+  2. Express.js
+  2. PostgreSQL
+  2. Sequelize
+  2. New York Times API  
   
 ##General approach taken:
   The team conducted its first meeting brainstorming ideas until finally deciding on a debate app concept.
