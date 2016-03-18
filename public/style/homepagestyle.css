@@ -298,6 +298,10 @@ ul.submenu #tag-search-term {
   vertical-align: top;
 }
 
+#nav-menu:not(.submenu) #tag-search .control.append-button > span {
+  width: auto;
+}
+
 #nav-menu.submenu {
   width: 16em;
 }
@@ -399,12 +403,6 @@ footer .fa-github {
   border-radius: 0.4375em 0.4375em 0.4375em 0;
   padding: 0.375em;
 }
-.card-text > p {
-  margin-bottom: 0.1875em;
-}
-.card-text > p:last-child {
-  margin-bottom: 0;
-}
 
 .debate-rating {
   text-align: center;
@@ -429,7 +427,6 @@ footer .fa-github {
 .card-text.subject .author {
   font-size: 95%;
   font-weight: bold;
-  display: inline-block;
   position: absolute;
   right: 0.375em;
   bottom: 0.375em;
@@ -439,8 +436,12 @@ footer .fa-github {
   width: 7.5em;
   margin-left: 1.25em;
 }
-.debate-data p {
+.debate-data > p {
   font-size: 0.875em;
+  margin-bottom: 0.1875em;
+}
+.debate-data > p:last-child {
+  margin-bottom: 0;
 }
 
 .go-to-link {

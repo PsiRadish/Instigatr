@@ -32,29 +32,18 @@ $(document).ready(function()
     
     function collapseCheck()
     {
+    	// if (window.getComputedStyle(document.querySelector('body'), '::after').getPropertyValue('content').replace(/"/g, '') == "collapse")
+    	
+    	// set navbar to its un-collapsed state
     	$('#nav-button').addClass("hide-all");
     	$('#nav-menu').removeClass("submenu");
     	
-    	var navThings = $('#global-nav > ul > *');
-    	var navThingsTotalWidth = 0;
-    	for (var i = 0; i < navThings.length; i++)
-    	{
-    	    navThingsTotalWidth += navThings[i].offsetWidth;
-    	};
-    	
-    	// console.log(navThingsTotalWidth, "vs.", $('#global-nav').width());
-    	
-    	// if (window.getComputedStyle(document.querySelector('body'), '::after').getPropertyValue('content').replace(/"/g, '') == "collapse")
-    	if (navThingsTotalWidth > $('#global-nav').width())
+    	// navbar and brand button should be same height; if not navbar must have wrapped and needs to collapse
+    	if ($('#global-nav').outerHeight() > $('#brand').outerHeight())
     	{
     		$('#nav-button').removeClass("hide-all");
     		$('#nav-menu').addClass("submenu");
     	}
-    	// else
-    	// {
-    	// 	$('#nav-button').addClass("hide-all");
-    	// 	$('#nav-menu').removeClass("submenu");
-    	// }
     }
     collapseCheck();
     // do it again on resize

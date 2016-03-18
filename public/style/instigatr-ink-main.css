@@ -5615,6 +5615,10 @@ th {
   display: none;
 }
 
+.ink-navigation ul.pagination {
+  overflow: hidden;
+  *zoom: 1;
+}
 .ink-navigation ul.pagination li {
   line-height: 1.7;
   float: left;
@@ -5623,13 +5627,6 @@ th {
   padding: 0.5em 1em;
   display: block;
   float: left;
-}
-.ink-navigation ul.pagination::before, .ink-navigation ul.pagination::after {
-  content: " ";
-  display: table;
-}
-.ink-navigation ul.pagination::after {
-  clear: both;
 }
 .ink-navigation ul.pagination.dotted li a {
   display: block;
@@ -5686,6 +5683,10 @@ th {
   content: "\f138";
 }
 
+.ink-navigation .pills {
+  overflow: hidden;
+  *zoom: 1;
+}
 .ink-navigation .pills li {
   overflow: hidden;
   display: block;
@@ -5702,13 +5703,6 @@ th {
 }
 .ink-navigation .pills li.active a, .ink-navigation .pills li.disabled a {
   cursor: default;
-}
-.ink-navigation .pills::before, .ink-navigation .pills::after {
-  content: " ";
-  display: table;
-}
-.ink-navigation .pills::after {
-  clear: both;
 }
 
 .ink-navigation ul {
@@ -6078,9 +6072,9 @@ h5 {
 }
 
 h6 {
-  font-size: 1.1em;
+  font-size: 1em;
   margin-top: 0;
-  margin-bottom: 1.16883em;
+  margin-bottom: 1.28571em;
 }
 
 p {

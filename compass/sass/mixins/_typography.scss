@@ -54,8 +54,8 @@
   }
 
   h6 {
-    font-size: $h5-font-size;
-    @include text-vertical-spacing($h5-font-size);
+    font-size: $h6-font-size;
+    @include text-vertical-spacing($h6-font-size);
   }
 
   p {

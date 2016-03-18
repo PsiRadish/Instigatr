@@ -301,6 +301,10 @@ body
         vertical-align: top;
     }
 }
+#nav-menu:not(.submenu) #tag-search .control.append-button > span 
+{   // fix uncollapsed width in Chrome and IE
+    width: auto;
+}
 
 #nav-menu.submenu
 {
@@ -448,16 +452,6 @@ footer
     border-radius: 0.4375em 0.4375em 0.4375em 0; // 7px
     
     padding: $index-text-padding;
-    
-    > p
-    {
-        margin-bottom: 0.1875em; // 3px;
-        
-        &:last-child
-        {
-            margin-bottom: 0;
-        }
-    }
 }
 
 // .card-text + .card-text
@@ -499,7 +493,6 @@ footer
         // text-align: right;
         font-size: 95%;
         font-weight: bold;
-        display: inline-block;
         position: absolute;
         right: $index-text-padding;
         bottom: $index-text-padding;
@@ -512,9 +505,15 @@ footer
     margin-left: $index-item-padding;
     // max-width: 299px;
     
-    p
+    > p
     {
         font-size: 0.875em;
+        margin-bottom: 0.1875em; // 3px;
+        
+        &:last-child
+        {
+            margin-bottom: 0;
+        }
     }
 }
 

@@ -40,7 +40,7 @@
         <div id="choice-roll">
           
           <div id="wanna-join-for" class="wanna-join">  <!-- visibility: hidden in CSS -->
-            <div class="not-queued"
+            <div class="not-queued">
               <b>Want to join the debate?</b>
               <a class="enter-queue">Enter the queue</a>
             </div>
@@ -115,16 +115,6 @@
     
     <!-- <h2>Debate</h2> -->
     <ul id="chat-output" class="scroll">
-      
-      <!-- <li class="debate-message message-for">
-        <h6 class="author">asynca</h6>
-        <span>You are dumb.</span>
-      </li>
-      
-      <li class="debate-message message-against">
-        <h6 class="author">TerriblePerson</h6>
-        <span>I <em>am</em> dumb.</span>
-      </li> -->
       
       <% post.messages.forEach(function(message) { %>
         <li class="debate-message message-<%= message.side %>">

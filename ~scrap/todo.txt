@@ -5,6 +5,12 @@ BAD CSS IDS AND CLASSES
 X Make Load More button retrieve completed HTML from back-end.
 X access Heroku database and remove leading/trailing whitespace from tag names, and other bad things
 X Center modals vertically via javascript.
+_ Add Mustafa's linkedin to about page  https://www.linkedin.com/in/mustafa-ahmed-6a8210104
+  _ for "team" branch, too
 _ Use "fq" instead of "q" and http://lucene.apache.org/core/2_9_4/queryparsersyntax.html to make initial news search OR tag names together for more results
 _ Change all use of "Post" in user-visible text to "Debate"
+_ (In a new branch) Move controls for choosing side, entering the queue, etc. to chat box area; chat box only appears when user is allowed to use it
+  _ Rename #take-sides-column to #debate-info-column
+  ? Move login form into shared template and display in chat box area when user not logged in?
 ? Switch out jQuery fadeIn/fadeOut calls for CSS opacity transitions?
+? printer-friendly CSS for debate pages?

@@ -17,7 +17,7 @@ $debate-msg-watermark-for-left      : 50%;
 $debate-msg-watermark-against-left  : 50%;
 
 $debate-rating-width                : 1.875em + $debate-msg-padding; // 32px
-$debate-rating-left-margin          : -1em;    // TODO: make equal to responsive gutter width * -1
+// $debate-rating-left-margin          : -1em;    // TODO: make equal to responsive gutter width * -1
 
 $argue-red-background               : #800000;
 $argue-grey-background              : #505050;
@@ -25,6 +25,7 @@ $argue-grey-background              : #505050;
 // $debate-msg-watermark-for-left      : 62.5%;
 // $debate-msg-watermark-against-left  : 37.5%;
 
+// changes to num rows and line height for chat box, and line height for debate messages, depending on screen height
 $debate-vertical-breakpoints: (
     (631px, null,  4, 1.4), // calc(4em * 1.4 + 14px)
     (541px, 630px, 4, 1.2), // calc(4em * 1.2 + 14px)
@@ -130,22 +131,88 @@ $debate-vertical-breakpoints: (
     @include three-round-one-pointy($debate-msg-border-radius);
     background-color: rgba(black, 0.1);
     
-    width: calc(100% - #{$debate-rating-width + $debate-rating-left-margin});
+    width: calc(100% - #{$debate-rating-width} - 1em);
     padding: $debate-msg-padding;
-    // margin-bottom: 24px;
-    // margin-bottom: 35%;
     
-    // font-size: $h5-font-size;
     p
     {
         font-size: $h5-font-size;
         font-family: $condensed-font-stack;
     }
     
+    position: relative;
     .author
     {
-        // display: block;
-        text-align: right;
+        //text-align: right;
+        font-size: 95%;
+        position: absolute;
+        right: $debate-msg-padding;
+        bottom: $debate-msg-padding;
+    }
+}
+
+@mixin debate-info-responsiveness($breakpoint)
+{
+    $class-name:        nth($breakpoint, 2);
+    $column-padding:    nth($breakpoint, 5) / 2;
+    
+    // Assuming #debate-page has classes "small-half-horizontal-gutters" and "tiny-quarter-horizontal-gutters"...
+    // TODO?: Add selectors somewhere, somehow for ${class-name}-(half|quarter)-horizontal-gutters so I don't have to assume
+    @if $class-name == small
+    {
+        $column-padding: $column-padding / 2;
+    }
+    @else if $class-name == tiny
+    {
+        $column-padding: $column-padding / 4;
+    }
+    
+    #vote-rating-box
+    {
+        margin-left: -1 * $column-padding;
+    }
+    
+    #post-content-box
+    {
+        width: calc(100% - #{$debate-rating-width - $column-padding});
+    }
+}
+@each $breakpoint in $grid-breakpoints
+{
+    $media:             nth($breakpoint,1);
+    $minimum-width:     nth($breakpoint,3);
+    $maximum-width:     nth($breakpoint,4);
+    
+    @if $minimum-width and not $maximum-width 
+    {
+        @media #{$media} and (min-width: $minimum-width)
+        {
+            @include debate-info-responsiveness($breakpoint);
+        }
+    }
+    
+    @if $minimum-width and $maximum-width 
+    {
+        @media #{$media} and (min-width: $minimum-width) and (max-width: $maximum-width)
+        {
+            @include debate-info-responsiveness($breakpoint);
+        }
+    }
+    
+    @if not $minimum-width and $maximum-width 
+    {
+        @media #{$media} and (max-width: $maximum-width)
+        {
+            @include debate-info-responsiveness($breakpoint);
+        }
+    }
+    
+    @if not $minimum-width and not $maximum-width
+    {
+        @media #{$media}
+        {
+            @include debate-info-responsiveness($breakpoint);
+        }
     }
 }
 
@@ -517,7 +584,7 @@ $debate-vertical-breakpoints: (
             
             .author
             {
-                margin-bottom: 9px;
+                margin-bottom: (9/14) * 1em; // 9px
                 text-align: center;
             }
             
