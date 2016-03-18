@@ -9,6 +9,7 @@ _ Add Mustafa's linkedin to about page  https://www.linkedin.com/in/mustafa-ahme
   _ for "team" branch, too
 _ Use "fq" instead of "q" and http://lucene.apache.org/core/2_9_4/queryparsersyntax.html to make initial news search OR tag names together for more results
 _ Change all use of "Post" in user-visible text to "Debate"
+X Javascript a maximum width on hamburger dropdown = $('#global-nav').width() - $('#brand').width()
 _ (In a new branch) Move controls for choosing side, entering the queue, etc. to chat box area; chat box only appears when user is allowed to use it
   _ Rename #take-sides-column to #debate-info-column
   ? Move login form into shared template and display in chat box area when user not logged in?

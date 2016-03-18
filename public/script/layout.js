@@ -34,15 +34,28 @@ $(document).ready(function()
     {
     	// if (window.getComputedStyle(document.querySelector('body'), '::after').getPropertyValue('content').replace(/"/g, '') == "collapse")
     	
+    	var navButton = $('#nav-button');
+    	var navMenu = $('#nav-menu');
+    	var globalNav = $('#global-nav');
+    	var brand = $('#brand');
+    	
     	// set navbar to its un-collapsed state
-    	$('#nav-button').addClass("hide-all");
-    	$('#nav-menu').removeClass("submenu");
+    	navButton.addClass("hide-all");
+    	navMenu.removeClass("submenu");
     	
     	// navbar and brand button should be same height; if not navbar must have wrapped and needs to collapse
-    	if ($('#global-nav').outerHeight() > $('#brand').outerHeight())
+    	if (globalNav.outerHeight() > brand.outerHeight())
     	{
-    		$('#nav-button').removeClass("hide-all");
-    		$('#nav-menu').addClass("submenu");
+    		navButton.removeClass("hide-all");
+    		navMenu.addClass("submenu");
+    		
+    		// while we're here, set max-width on hamburger menu so it can't overflow the screen
+    		navMenu.css('max-width', (globalNav.width() - brand.outerWidth()) + "px");
+    	}
+    	else
+    	{
+    		// clear inline max-width
+    		navMenu.removeAttr('style');
     	}
     }
     collapseCheck();
