@@ -10,6 +10,7 @@ X Add Mustafa's linkedin to about page  https://www.linkedin.com/in/mustafa-ahme
 X Javascript a maximum width on hamburger dropdown = $('#global-nav').width() - $('#brand').width()
 _ (In a new branch) Move controls for choosing side, entering the queue, etc. to chat box area; chat box only appears when user is allowed to use it
   _ Rename #take-sides-column to #debate-info-column
+  ? When chatbox up show buttons for "Stop Arguing" and more(?) in thin column on right
   ? Move login form into shared template and display in chat box area when user not logged in?
 _ Use "fq" instead of "q" and http://lucene.apache.org/core/2_9_4/queryparsersyntax.html to make initial news search OR tag names together for more results
 _ Change all use of "Post" in user-visible text to "Debate"
