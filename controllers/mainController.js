@@ -33,11 +33,6 @@ router.get('/more', function(req, res)
         {
             return b.totalRating() - a.totalRating()
         });
-        // ratings = postsSort.map(function(post)
-        // {
-        //     return post.totalRating();
-        // });
-        // res.send({postsSort: postsSort, ratings: ratings});
         
         // return rendered HTML that will be jQuery'd into page
         res.render("main/home.ejs", {postsSort: postsSort, layout: 'ajaxLayout'});
@@ -46,16 +41,16 @@ router.get('/more', function(req, res)
 
 router.get('/chronological', function(req, res){
     db.post.findAll({include: [db.user, db.vote, db.tag, db.message, { model: db.user, as: 'usersFor' }, { model: db.user, as: 'usersAgainst' }], order: [['createdAt', 'DESC']]}).then(function(posts){
-            res.render('main/chron.ejs', {posts: posts, titleSuffix: 'Latest'});
+        res.render('main/chron.ejs', {posts: posts, titleSuffix: 'Latest'});
   });
 });
 
 router.get('/allTimeTop', function(req, res){
     db.post.findAll({include: [db.user, db.vote, db.tag, db.message, { model: db.user, as: 'usersFor' }, { model: db.user, as: 'usersAgainst' }]}).then(function(posts){
-            postsSort = posts.sort(function(a, b){
-                return b.totalRating() - a.totalRating()
-            });
-            res.render('main/allTime.ejs', {posts: postsSort, titleSuffix: 'All Time Top Ranked'});
+        postsSort = posts.sort(function(a, b){
+            return b.totalRating() - a.totalRating();
+        });
+        res.render('main/allTime.ejs', {posts: postsSort, titleSuffix: 'All Time Top Ranked'});
   });
 });
 
