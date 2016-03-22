@@ -76,7 +76,7 @@ $debate-vertical-breakpoints: (
 
 // == COLUMN 1 ====
 
-#take-sides-column
+#debate-info-column
 {
     border: 1px solid #999;
     background-color: #F8F8F8;
@@ -222,284 +222,6 @@ $debate-vertical-breakpoints: (
     
 //     h4 { margin-bottom: 0.5em; }
 // }
-
-#choices
-{
-    #headings-roll
-    {
-        position: relative;
-        height: 24px;
-        width: 100%;
-        
-        margin-bottom: 0.5em;
-        
-        h3
-        {
-            // display: inline-block;
-            margin-bottom: 0;
-            
-            position: absolute;
-            width: 100%;
-            top: 0%;
-            
-            text-align: center;
-        }
-    }
-    
-    #choice-roll
-    {
-        position: relative;
-        height: 60px;
-        width: 100%;
-        
-        #wanna-join-for, #wanna-join-against,
-        #side-for, #side-against
-        {
-            position: absolute;
-            width: 50%;
-            top: 0%;
-        }
-    }
-    
-    #wanna-join-for, #wanna-join-against
-    {
-        text-align: center;
-        // border-radius: $debate-msg-border-radius;
-        @include three-round-one-pointy($debate-msg-border-radius);
-        
-        padding: 6px;
-        
-        .enter-queue
-        {
-            display: block;
-        }
-    }
-    #wanna-join-for
-    {
-        
-        border: 1px solid rgba($green, 0.2);
-        background-color: rgba($green, 0.1);
-    }
-    #wanna-join-against
-    {
-        
-        border: 1px solid rgba($red, 0.2);
-        background-color: rgba($red, 0.1);
-    }
-}
-
-#heading-choice-made-left,
-#heading-choice-not-made,
-#heading-choice-made-right,
-#wanna-join-for,
-#wanna-join-against,
-#side-for,
-#side-against
-{
-    transition: left 0.5s, padding 0.5s, opacity 0.3s;
-}
-
-#side-for, #side-against
-{
-    height: 60px;
-    text-align: center;
-    
-    .choose-side
-    {
-        width: 108px;
-        padding-left: 11%;
-        padding-right: 11%;
-        max-width: 100%;
-    }
-    .change-mind
-    {
-        display: block;
-    }
-}
-
-#must-be-logged-in.disabled
-{
-    position: relative;
-    
-    h1, h2, h3, h4, h5, h6, a, span, p, button
-    {
-        pointer-events: none;
-        opacity: 0.35;
-    }
-    
-    &:hover::after, &:focus::after, &:active::after
-    {
-        // opacity: 1;
-        content: 'You are not logged in.';
-        // color: red;
-        @include text-outline(1px, white);
-        text-align: center;
-        font-size: $h3-font-size;
-        font-weight: bold;
-        // margin: 0 auto;
-        
-        position: absolute;
-        top: 25%;
-        left: 20%;
-        right: 20%;
-    }
-}
-
-// initiate transition properties when a choice is made
-#choices // no choice made state
-{
-    // margin-bottom: 24px;
-    // visibility: hidden;
-    // &.disabled
-    // {
-
-    // }
-    
-    #heading-choice-made-left
-    {
-        left: -50%;
-        opacity: 0;
-        
-        // visibility: hidden;
-    }
-    #heading-choice-not-made
-    {
-        left: 0%;
-        // @include text-outline(3px, blue);
-    }
-    #heading-choice-made-right
-    {
-        left: 50%;
-        opacity: 0;
-    
-        // visibility: hidden;
-    }
-    
-    #wanna-join-for
-    {
-        left: -50%;
-        opacity: 0;
-    
-        // visibility: hidden;
-    }
-    #side-for
-    {
-        left: 0%;
-        
-        .change-mind
-        {
-            visibility: hidden;
-        }
-    }
-    #side-against
-    {
-        left: 50%;
-        // text-align: right;
-        
-        .change-mind
-        {
-            visibility: hidden;
-        }
-    }
-    #wanna-join-against
-    {
-        left: 100%;
-        opacity: 0;
-    
-        // visibility: hidden;
-    }
-}
-#choices.side-chosen-for // "For!" state
-{
-    #heading-choice-made-left
-    {
-        left: 0%;
-        opacity: 1;
-    }
-    #heading-choice-not-made
-    {
-        left: 50%;
-        opacity: 0;
-    }
-    
-    #wanna-join-for
-    {
-        left: 0%;
-        opacity: 1;
-        
-        // visibility: visible;
-    }
-    #side-for
-    {
-        left: 50%;
-        padding-left: 4%;
-        
-        .choose-side
-        {
-            pointer-events: none;
-        }
-        
-        .change-mind
-        {
-            visibility: visible;
-        }
-    }
-    #side-against
-    {
-        left: 100%;
-        opacity: 0;
-    }
-}
-#choices.side-chosen-against // "Against!" state
-{
-    #heading-choice-made-right
-    {
-        left: 0%;
-        opacity: 1;
-    }
-    #heading-choice-not-made
-    {
-        left: -50%;
-        opacity: 0;
-    }
-    
-    #side-for
-    {
-        left: -50%;
-        opacity: 0;
-    }
-    #side-against
-    {
-        left: 0%;
-        padding-right: 4%;
-        
-        .choose-side
-        {
-            pointer-events: none;
-        }
-        
-        .change-mind
-        {
-            visibility: visible;
-        }
-    }
-    #wanna-join-against
-    {
-        left: 50%;
-        opacity: 1;
-    
-        // visibility: visible;
-    }
-}
-// #choices.side-chosen-against
-// {
-//     & + #champions
-//     {
-//         visibility: visible;
-//     }
-// }
-// #choices.side-chosen-for,
-// #choices.side-chosen-against #side-against,
 #champions
 {
     text-align: center;
@@ -665,16 +387,268 @@ $debate-vertical-breakpoints: (
         }
     }
     
-    #chat-box-container
+    #must-be-logged-in
     {
         padding: $debate-msg-padding;
-        background-color: #DDD;
-        background: linear-gradient(90deg, #BBB, white);
-        
         width: 100%;
         
         position: absolute;
         bottom: 0%;
+        
+        background-color: #DDD; // fallback if gradient not supported (currently the *only* instance of caring about really-old-browser support in the entire project)
+        // background: linear-gradient(90deg, #BBB, white);
+        background: linear-gradient(90deg, #FFF, #BBB 45%, #BBB 55%, #FFF) 50% 0 / 200% 100%;
+        transition: background-position 0.5s;
+        
+        // background gradient shifts when side taken
+        &.side-chosen-for
+        {
+            background-position: 0 0;
+        }
+        &.side-chosen-against
+        {
+            background-position: 100% 0;
+        }
+        
+        #choices
+        {
+            #headings-roll
+            {
+                position: relative;
+                // height: 24px;
+                width: 100%;
+                
+                margin-bottom: 0.5em;
+                
+                .h-roll-padding
+                {
+                    margin-bottom: 0;
+                    visibility: hidden;
+                }
+                
+                .rolling-heading
+                {
+                    // display: inline-block;
+                    margin-bottom: 0;
+                    
+                    position: absolute;
+                    width: 100%;
+                    top: 0%;
+                    
+                    text-align: center;
+                }
+            }
+            
+            #choice-roll
+            {
+                position: relative;
+                height: 60px;
+                width: 100%;
+                
+                #wanna-join-for, #wanna-join-against,
+                #side-for, #side-against
+                {
+                    position: absolute;
+                    width: 50%;
+                    top: 0%;
+                }
+            }
+            
+            #wanna-join-for, #wanna-join-against
+            {
+                text-align: center;
+                // border-radius: $debate-msg-border-radius;
+                @include three-round-one-pointy($debate-msg-border-radius);
+                
+                padding: 6px;
+                
+                .enter-queue
+                {
+                    display: block;
+                }
+            }
+            #wanna-join-for
+            {
+                
+                border: 1px solid rgba($green, 0.2);
+                background-color: rgba($green, 0.12);
+            }
+            #wanna-join-against
+            {
+                
+                border: 1px solid rgba($red, 0.2);
+                background-color: rgba($red, 0.1);
+            }
+            
+            #heading-choice-made-left,
+            #heading-choice-not-made,
+            #heading-choice-made-right,
+            #wanna-join-for,
+            #wanna-join-against,
+            #side-for,
+            #side-against
+            {
+                transition: left 0.5s, padding 0.5s, opacity 0.3s;
+            }
+
+            #side-for, #side-against
+            {
+                height: 4.285714em; // 60px
+                text-align: center;
+                
+                .choose-side
+                {
+                    width: 7.714286em; // 108px
+                    // padding-left: 11%;
+                    // padding-right: 11%;
+                    max-width: 100%;
+                }
+                .change-mind
+                {
+                    display: block;
+                }
+            }
+        }
+
+        // initiate transition properties when a choice is made
+        #choices // no choice made state
+        {    
+            #heading-choice-made-left
+            {
+                left: -50%;
+                opacity: 0;
+                
+                // visibility: hidden;
+            }
+            #heading-choice-not-made
+            {
+                left: 0%;
+                // @include text-outline(3px, blue);
+            }
+            #heading-choice-made-right
+            {
+                left: 50%;
+                opacity: 0;
+            
+                // visibility: hidden;
+            }
+            
+            #wanna-join-for
+            {
+                left: -50%;
+                opacity: 0;
+            
+                // visibility: hidden;
+            }
+            #side-for
+            {
+                left: 0%;
+                
+                .change-mind
+                {
+                    visibility: hidden;
+                }
+            }
+            #side-against
+            {
+                left: 50%;
+                // text-align: right;
+                
+                .change-mind
+                {
+                    visibility: hidden;
+                }
+            }
+            #wanna-join-against
+            {
+                left: 100%;
+                opacity: 0;
+            
+                // visibility: hidden;
+            }
+        }
+        #choices.side-chosen-for // "For!" state
+        {
+            #heading-choice-made-left
+            {
+                left: 0%;
+                opacity: 1;
+            }
+            #heading-choice-not-made
+            {
+                left: 50%;
+                opacity: 0;
+            }
+            
+            #wanna-join-for
+            {
+                left: 0%;
+                opacity: 1;
+                
+                // visibility: visible;
+            }
+            #side-for
+            {
+                left: 50%;
+                padding-left: 4%;
+                
+                .choose-side
+                {
+                    pointer-events: none;
+                }
+                
+                .change-mind
+                {
+                    visibility: visible;
+                }
+            }
+            #side-against
+            {
+                left: 100%;
+                opacity: 0;
+            }
+        }
+        #choices.side-chosen-against // "Against!" state
+        {
+            #heading-choice-made-right
+            {
+                left: 0%;
+                opacity: 1;
+            }
+            #heading-choice-not-made
+            {
+                left: -50%;
+                opacity: 0;
+            }
+            
+            #side-for
+            {
+                left: -50%;
+                opacity: 0;
+            }
+            #side-against
+            {
+                left: 0%;
+                padding-right: 4%;
+                
+                .choose-side
+                {
+                    pointer-events: none;
+                }
+                
+                .change-mind
+                {
+                    visibility: visible;
+                }
+            }
+            #wanna-join-against
+            {
+                left: 50%;
+                opacity: 1;
+            
+                // visibility: visible;
+            }
+        }
         
         #chat-box
         {
@@ -709,6 +683,38 @@ $debate-vertical-breakpoints: (
                 }
             }
         }
+    }
+    #must-be-logged-in.disabled // not logged in
+    {
+        position: relative;
+        
+        h1, h2, h3, h4, h5, h6, a, span, p, button
+        {
+            pointer-events: none;
+            opacity: 0.35;
+        }
+        
+        &:hover::after, &:focus::after, &:active::after
+        {
+            // opacity: 1;
+            content: 'You are not logged in.';
+            // color: red;
+            @include text-outline(1px, white);
+            text-align: center;
+            font-size: $h3-font-size;
+            font-weight: bold;
+            // margin: 0 auto;
+            
+            position: absolute;
+            top: 25%;
+            left: 20%;
+            right: 20%;
+        }
+        
+        // #choices, #chat-box
+        // {
+        //     display: none;
+        // }
     }
     
     @each $breakpoint in $debate-vertical-breakpoints

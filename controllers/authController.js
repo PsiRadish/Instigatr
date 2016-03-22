@@ -4,9 +4,9 @@ var router = express.Router();
 
 //GET /auth/login
 //display login form
-router.get('/login',function(req,res){
+/*router.get('/login',function(req,res){
     res.render('auth/login');
-});
+});*/
 
 //POST /login
 //process login data and login user
@@ -28,9 +28,9 @@ router.post('/login',function(req,res){
 
 //GET /auth/signup
 //display sign up form
-router.get('/signup',function(req,res){
+/*router.get('/signup',function(req,res){
     res.render('auth/signup');
-});
+});*/
 
 //POST /auth/signup
 //create new user in database

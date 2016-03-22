@@ -161,7 +161,7 @@
   margin-top: 19px;
 }
 
-#take-sides-column {
+#debate-info-column {
   border: 1px solid #999;
   background-color: #F8F8F8;
   background: linear-gradient(#ffffff, #eeeeee);
@@ -270,177 +270,6 @@
     width: calc(100% - 2.17857em);
   }
 }
-#choices #headings-roll {
-  position: relative;
-  height: 24px;
-  width: 100%;
-  margin-bottom: 0.5em;
-}
-#choices #headings-roll h3 {
-  margin-bottom: 0;
-  position: absolute;
-  width: 100%;
-  top: 0%;
-  text-align: center;
-}
-#choices #choice-roll {
-  position: relative;
-  height: 60px;
-  width: 100%;
-}
-#choices #choice-roll #wanna-join-for, #choices #choice-roll #wanna-join-against,
-#choices #choice-roll #side-for, #choices #choice-roll #side-against {
-  position: absolute;
-  width: 50%;
-  top: 0%;
-}
-#choices #wanna-join-for, #choices #wanna-join-against {
-  text-align: center;
-  border-radius: 4px;
-  border-bottom-left-radius: 0;
-  padding: 6px;
-}
-#choices #wanna-join-for .enter-queue, #choices #wanna-join-against .enter-queue {
-  display: block;
-}
-#choices #wanna-join-for {
-  border: 1px solid rgba(74, 155, 23, 0.2);
-  background-color: rgba(74, 155, 23, 0.1);
-}
-#choices #wanna-join-against {
-  border: 1px solid rgba(201, 17, 17, 0.2);
-  background-color: rgba(201, 17, 17, 0.1);
-}
-
-#heading-choice-made-left,
-#heading-choice-not-made,
-#heading-choice-made-right,
-#wanna-join-for,
-#wanna-join-against,
-#side-for,
-#side-against {
-  transition: left 0.5s, padding 0.5s, opacity 0.3s;
-}
-
-#side-for, #side-against {
-  height: 60px;
-  text-align: center;
-}
-#side-for .choose-side, #side-against .choose-side {
-  width: 108px;
-  padding-left: 11%;
-  padding-right: 11%;
-  max-width: 100%;
-}
-#side-for .change-mind, #side-against .change-mind {
-  display: block;
-}
-
-#must-be-logged-in.disabled {
-  position: relative;
-}
-#must-be-logged-in.disabled h1, #must-be-logged-in.disabled h2, #must-be-logged-in.disabled h3, #must-be-logged-in.disabled h4, #must-be-logged-in.disabled h5, #must-be-logged-in.disabled h6, #must-be-logged-in.disabled a, #must-be-logged-in.disabled span, #must-be-logged-in.disabled p, #must-be-logged-in.disabled button {
-  pointer-events: none;
-  opacity: 0.35;
-}
-#must-be-logged-in.disabled:hover::after, #must-be-logged-in.disabled:focus::after, #must-be-logged-in.disabled:active::after {
-  content: 'You are not logged in.';
-  text-shadow: 1px 1px 0 white, -2px 0 white, -1px 1px 0 white, 0px 0 white;
-  text-align: center;
-  font-size: 1.5em;
-  font-weight: bold;
-  position: absolute;
-  top: 25%;
-  left: 20%;
-  right: 20%;
-}
-
-#choices #heading-choice-made-left {
-  left: -50%;
-  opacity: 0;
-}
-#choices #heading-choice-not-made {
-  left: 0%;
-}
-#choices #heading-choice-made-right {
-  left: 50%;
-  opacity: 0;
-}
-#choices #wanna-join-for {
-  left: -50%;
-  opacity: 0;
-}
-#choices #side-for {
-  left: 0%;
-}
-#choices #side-for .change-mind {
-  visibility: hidden;
-}
-#choices #side-against {
-  left: 50%;
-}
-#choices #side-against .change-mind {
-  visibility: hidden;
-}
-#choices #wanna-join-against {
-  left: 100%;
-  opacity: 0;
-}
-
-#choices.side-chosen-for #heading-choice-made-left {
-  left: 0%;
-  opacity: 1;
-}
-#choices.side-chosen-for #heading-choice-not-made {
-  left: 50%;
-  opacity: 0;
-}
-#choices.side-chosen-for #wanna-join-for {
-  left: 0%;
-  opacity: 1;
-}
-#choices.side-chosen-for #side-for {
-  left: 50%;
-  padding-left: 4%;
-}
-#choices.side-chosen-for #side-for .choose-side {
-  pointer-events: none;
-}
-#choices.side-chosen-for #side-for .change-mind {
-  visibility: visible;
-}
-#choices.side-chosen-for #side-against {
-  left: 100%;
-  opacity: 0;
-}
-
-#choices.side-chosen-against #heading-choice-made-right {
-  left: 0%;
-  opacity: 1;
-}
-#choices.side-chosen-against #heading-choice-not-made {
-  left: -50%;
-  opacity: 0;
-}
-#choices.side-chosen-against #side-for {
-  left: -50%;
-  opacity: 0;
-}
-#choices.side-chosen-against #side-against {
-  left: 0%;
-  padding-right: 4%;
-}
-#choices.side-chosen-against #side-against .choose-side {
-  pointer-events: none;
-}
-#choices.side-chosen-against #side-against .change-mind {
-  visibility: visible;
-}
-#choices.side-chosen-against #wanna-join-against {
-  left: 50%;
-  opacity: 1;
-}
-
 #champions {
   text-align: center;
 }
@@ -560,15 +389,169 @@
   height: 0.42857em;
   border: none;
 }
-#argue-column #chat-box-container {
+#argue-column #must-be-logged-in {
   padding: 0.42857em;
-  background-color: #DDD;
-  background: linear-gradient(90deg, #bbbbbb, #ffffff);
   width: 100%;
   position: absolute;
   bottom: 0%;
+  background-color: #DDD;
+  background: linear-gradient(90deg, #ffffff, #bbbbbb 45%, #bbbbbb 55%, #ffffff) 50% 0/200% 100%;
+  transition: background-position 0.5s;
 }
-#argue-column #chat-box-container #chat-box {
+#argue-column #must-be-logged-in.side-chosen-for {
+  background-position: 0 0;
+}
+#argue-column #must-be-logged-in.side-chosen-against {
+  background-position: 100% 0;
+}
+#argue-column #must-be-logged-in #choices #headings-roll {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0.5em;
+}
+#argue-column #must-be-logged-in #choices #headings-roll .h-roll-padding {
+  margin-bottom: 0;
+  visibility: hidden;
+}
+#argue-column #must-be-logged-in #choices #headings-roll .rolling-heading {
+  margin-bottom: 0;
+  position: absolute;
+  width: 100%;
+  top: 0%;
+  text-align: center;
+}
+#argue-column #must-be-logged-in #choices #choice-roll {
+  position: relative;
+  height: 60px;
+  width: 100%;
+}
+#argue-column #must-be-logged-in #choices #choice-roll #wanna-join-for, #argue-column #must-be-logged-in #choices #choice-roll #wanna-join-against,
+#argue-column #must-be-logged-in #choices #choice-roll #side-for, #argue-column #must-be-logged-in #choices #choice-roll #side-against {
+  position: absolute;
+  width: 50%;
+  top: 0%;
+}
+#argue-column #must-be-logged-in #choices #wanna-join-for, #argue-column #must-be-logged-in #choices #wanna-join-against {
+  text-align: center;
+  border-radius: 4px;
+  border-bottom-left-radius: 0;
+  padding: 6px;
+}
+#argue-column #must-be-logged-in #choices #wanna-join-for .enter-queue, #argue-column #must-be-logged-in #choices #wanna-join-against .enter-queue {
+  display: block;
+}
+#argue-column #must-be-logged-in #choices #wanna-join-for {
+  border: 1px solid rgba(74, 155, 23, 0.2);
+  background-color: rgba(74, 155, 23, 0.12);
+}
+#argue-column #must-be-logged-in #choices #wanna-join-against {
+  border: 1px solid rgba(201, 17, 17, 0.2);
+  background-color: rgba(201, 17, 17, 0.1);
+}
+#argue-column #must-be-logged-in #choices #heading-choice-made-left,
+#argue-column #must-be-logged-in #choices #heading-choice-not-made,
+#argue-column #must-be-logged-in #choices #heading-choice-made-right,
+#argue-column #must-be-logged-in #choices #wanna-join-for,
+#argue-column #must-be-logged-in #choices #wanna-join-against,
+#argue-column #must-be-logged-in #choices #side-for,
+#argue-column #must-be-logged-in #choices #side-against {
+  transition: left 0.5s, padding 0.5s, opacity 0.3s;
+}
+#argue-column #must-be-logged-in #choices #side-for, #argue-column #must-be-logged-in #choices #side-against {
+  height: 4.285714em;
+  text-align: center;
+}
+#argue-column #must-be-logged-in #choices #side-for .choose-side, #argue-column #must-be-logged-in #choices #side-against .choose-side {
+  width: 7.714286em;
+  max-width: 100%;
+}
+#argue-column #must-be-logged-in #choices #side-for .change-mind, #argue-column #must-be-logged-in #choices #side-against .change-mind {
+  display: block;
+}
+#argue-column #must-be-logged-in #choices #heading-choice-made-left {
+  left: -50%;
+  opacity: 0;
+}
+#argue-column #must-be-logged-in #choices #heading-choice-not-made {
+  left: 0%;
+}
+#argue-column #must-be-logged-in #choices #heading-choice-made-right {
+  left: 50%;
+  opacity: 0;
+}
+#argue-column #must-be-logged-in #choices #wanna-join-for {
+  left: -50%;
+  opacity: 0;
+}
+#argue-column #must-be-logged-in #choices #side-for {
+  left: 0%;
+}
+#argue-column #must-be-logged-in #choices #side-for .change-mind {
+  visibility: hidden;
+}
+#argue-column #must-be-logged-in #choices #side-against {
+  left: 50%;
+}
+#argue-column #must-be-logged-in #choices #side-against .change-mind {
+  visibility: hidden;
+}
+#argue-column #must-be-logged-in #choices #wanna-join-against {
+  left: 100%;
+  opacity: 0;
+}
+#argue-column #must-be-logged-in #choices.side-chosen-for #heading-choice-made-left {
+  left: 0%;
+  opacity: 1;
+}
+#argue-column #must-be-logged-in #choices.side-chosen-for #heading-choice-not-made {
+  left: 50%;
+  opacity: 0;
+}
+#argue-column #must-be-logged-in #choices.side-chosen-for #wanna-join-for {
+  left: 0%;
+  opacity: 1;
+}
+#argue-column #must-be-logged-in #choices.side-chosen-for #side-for {
+  left: 50%;
+  padding-left: 4%;
+}
+#argue-column #must-be-logged-in #choices.side-chosen-for #side-for .choose-side {
+  pointer-events: none;
+}
+#argue-column #must-be-logged-in #choices.side-chosen-for #side-for .change-mind {
+  visibility: visible;
+}
+#argue-column #must-be-logged-in #choices.side-chosen-for #side-against {
+  left: 100%;
+  opacity: 0;
+}
+#argue-column #must-be-logged-in #choices.side-chosen-against #heading-choice-made-right {
+  left: 0%;
+  opacity: 1;
+}
+#argue-column #must-be-logged-in #choices.side-chosen-against #heading-choice-not-made {
+  left: -50%;
+  opacity: 0;
+}
+#argue-column #must-be-logged-in #choices.side-chosen-against #side-for {
+  left: -50%;
+  opacity: 0;
+}
+#argue-column #must-be-logged-in #choices.side-chosen-against #side-against {
+  left: 0%;
+  padding-right: 4%;
+}
+#argue-column #must-be-logged-in #choices.side-chosen-against #side-against .choose-side {
+  pointer-events: none;
+}
+#argue-column #must-be-logged-in #choices.side-chosen-against #side-against .change-mind {
+  visibility: visible;
+}
+#argue-column #must-be-logged-in #choices.side-chosen-against #wanna-join-against {
+  left: 50%;
+  opacity: 1;
+}
+#argue-column #must-be-logged-in #chat-box {
   width: 100%;
   border: 1px solid #999;
   border-radius: 4px;
@@ -579,14 +562,32 @@
   resize: none;
   overflow-y: auto;
 }
-#argue-column #chat-box-container #chat-box:focus {
+#argue-column #must-be-logged-in #chat-box:focus {
   color: black;
 }
-#argue-column #chat-box-container #chat-box[disabled] {
+#argue-column #must-be-logged-in #chat-box[disabled] {
   opacity: 0.3;
 }
-#argue-column #chat-box-container #chat-box[disabled].inQueue {
+#argue-column #must-be-logged-in #chat-box[disabled].inQueue {
   opacity: 0.65;
+}
+#argue-column #must-be-logged-in.disabled {
+  position: relative;
+}
+#argue-column #must-be-logged-in.disabled h1, #argue-column #must-be-logged-in.disabled h2, #argue-column #must-be-logged-in.disabled h3, #argue-column #must-be-logged-in.disabled h4, #argue-column #must-be-logged-in.disabled h5, #argue-column #must-be-logged-in.disabled h6, #argue-column #must-be-logged-in.disabled a, #argue-column #must-be-logged-in.disabled span, #argue-column #must-be-logged-in.disabled p, #argue-column #must-be-logged-in.disabled button {
+  pointer-events: none;
+  opacity: 0.35;
+}
+#argue-column #must-be-logged-in.disabled:hover::after, #argue-column #must-be-logged-in.disabled:focus::after, #argue-column #must-be-logged-in.disabled:active::after {
+  content: 'You are not logged in.';
+  text-shadow: 1px 1px 0 white, -2px 0 white, -1px 1px 0 white, 0px 0 white;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  position: absolute;
+  top: 25%;
+  left: 20%;
+  right: 20%;
 }
 @media screen and (min-height: 631px) {
   #argue-column .debate-message, #argue-column #chat-box {

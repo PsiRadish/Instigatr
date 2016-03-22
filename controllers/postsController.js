@@ -6,7 +6,7 @@ var router = express.Router();
 var request = require('request');
 
 // --- POST SHOW
-router.get('/:id/show', function(req, res)
+router.get('/:id/show', function(req, res, next)
 {
     db.post.find(
     {
@@ -45,10 +45,10 @@ router.get('/:id/show', function(req, res)
                 // console.log('*********************************************');
                 var searchTerm = post.text.slice();
             }
-
-
+            
+            
             var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json';
-
+            
             var queryData = {
                 q: searchTerm,
                 pages: 10,
@@ -76,10 +76,11 @@ router.get('/:id/show', function(req, res)
             //     res.render("posts/show.ejs", {titleSuffix: post.text, post: post, newsJSON: newsJSON});
             // });
             // end news API call
-
+        
         } else
         {
-            res.redirect("/404");
+            // res.redirect("/404");
+            next(); // should fall through to 404 page
         }
     }).catch(function(err)
     {   // TODO: Acquire idea of what kind of errors show up here and something smart to do with them

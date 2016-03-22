@@ -59,9 +59,10 @@ router.get('/about', function(req, res)
     res.render('main/about.ejs', {titleSuffix: 'About'});
 });
 
-router.get('/404', function(req, res)
+router.get('/404', function(req, res, next)
 {
-    res.render('main/404.ejs', {titleSuffix: '404'});
+    // res.render('main/404.ejs', {titleSuffix: '404'});
+    next(); // 404 response handled later
 });
 
 // router.get('/userData', function(req, res)

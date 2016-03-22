@@ -8,12 +8,30 @@ X Center modals vertically via javascript.
 X Add Mustafa's linkedin to about page  https://www.linkedin.com/in/mustafa-ahmed-6a8210104
   _ for "team" branch, too
 X Javascript a maximum width on hamburger dropdown = $('#global-nav').width() - $('#brand').width()
-_ (In a new branch) Move controls for choosing side, entering the queue, etc. to chat box area; chat box only appears when user is allowed to use it
-  _ Rename #take-sides-column to #debate-info-column
-  ? When chatbox up show buttons for "Stop Arguing" and more(?) in thin column on right
-  ? Move login form into shared template and display in chat box area when user not logged in?
+• choice-under-chat
+  X Rename #take-sides-column to #debate-info-column
+  X Move controls for choosing side, entering the queue, etc. to chat box area; chat box only appears when user is allowed to use it
+  _ debate-info-column compacts at "tiny" breakpoint to display above chat message scroll
+    _ "Subject" heading display: none when compact
+    ? (partially?) replaces navbar
+      ! would be easier to implement if every page didn't load every stylesheet
+  • Add to debate-info-column:
+    • live-updating number of agree/disagree (need new socket broadcast)
+      _ Full-size: under subject box
+      _ Compact: left side of subject box under rating widget, with thumb icons instead of words
+    • current champion for each side
+      X Full-size
+      _ Compact: Green box on left side and red box on right side of chat message scroll, containing champ name and thumb up/down icon
+_ modal confirmation to salute or boot
+_ make custom scroll bar draggers always visible on touch devices (unless that's already taken care of?)
+_ Move login form into shared template and display in choice area when user not logged in
+? only link stylesheets on the pages where they apply
+? show buttons for "Stop Arguing" and more(?) in thin column on right of chatbox
 _ Use "fq" instead of "q" and http://lucene.apache.org/core/2_9_4/queryparsersyntax.html to make initial news search OR tag names together for more results
 _ Change all use of "Post" in user-visible text to "Debate"
 _ Move inline styles in about.ejs into stylesheet
 ? Switch out jQuery fadeIn/fadeOut calls for CSS opacity transitions?
 ? printer-friendly CSS for debate pages?
+_ show each champion's "confidence" rating with the audience, with "salute" (upvote) and "boot" (downvote) buttons next to the rating for your own side's champion
+  ? low confidence should theoretically lead to losing your champion spot, somehow
+? inactivity timer to boot idle champions

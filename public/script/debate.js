@@ -34,7 +34,8 @@ $(function()
             var yourSide = $('#hows-my-arguing');
             
             var chatOutput = $('#chat-output');
-            var chatBox = $('#chat-box-container');
+            // var chatBox = $('#chat-box-container');
+            var privilegeBox = $('#must-be-logged-in');
             
             var aboveNewsResults = $('#above-news-results');
             var newsResults = $('#results-news-headlines');
@@ -52,7 +53,8 @@ $(function()
             // postStuff.css("margin-bottom", vertMargin.toString()+"px");
             // choices.css("margin-bottom", vertMargin.toString()+"px");
             
-            chatOutput.height(contentHeight - chatBox.outerHeight(true));
+            // chatOutput.height(contentHeight - chatBox.outerHeight(true));
+            chatOutput.height(contentHeight - privilegeBox.outerHeight(true));
             newsResults.height(contentHeight - aboveNewsResults.outerHeight(true));
             
             if (e === 'init')
@@ -302,7 +304,9 @@ $(function()
             if (side == 'for')
             {
                 $('#choices').addClass('side-chosen-for');
+                $('#must-be-logged-in').addClass('side-chosen-for');
                 $('#choices').removeClass('side-chosen-against');
+                $('#must-be-logged-in').removeClass('side-chosen-against');
                 
                 // console.log("enablin'");
                 // enableChatBox();
@@ -312,7 +316,9 @@ $(function()
             else if (side == 'against')
             {
                 $('#choices').addClass('side-chosen-against');
+                $('#must-be-logged-in').addClass('side-chosen-against');
                 $('#choices').removeClass('side-chosen-for');
+                $('#must-be-logged-in').removeClass('side-chosen-for');
                 
                 // console.log("enablin'");
                 // enableChatBox();
@@ -321,6 +327,7 @@ $(function()
             else if (side == null)
             {
                 $('#choices').removeClass('side-chosen-for side-chosen-against');
+                $('#must-be-logged-in').removeClass('side-chosen-for side-chosen-against');
                 
                 disableChatBox("You have not taken a side.");
             }
@@ -328,11 +335,15 @@ $(function()
         function enableChatBox()
         {
             $('#chat-box').removeAttr('disabled');
+            $('#chat-form').removeClass('hide-all');
+            $('#choices').addClass('hide-all');
             $('#chat-box').html("");
         }
         function disableChatBox(message)
         {
             $('#chat-box').attr('disabled', 'disabled');
+            $('#chat-form').addClass('hide-all');
+            $('#choices').removeClass('hide-all');
             $('#chat-box').html(message);
         }
     }
