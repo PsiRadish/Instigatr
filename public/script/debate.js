@@ -2,59 +2,49 @@ $(function()
 {
     if ($('#debate-page').length) // check we're on a debate page
     {
-        // console.log('debate-page');
-        
+        var mCustomScrollbarElements = $("#chat-output, #results-news-headlines");
         // initialize spiffy scrollbars
-        $("#chat-output").mCustomScrollbar(
+        mCustomScrollbarElements.mCustomScrollbar(
         {
             axis: "y", // vertical
             theme: "minimal-dark",
             scrollInertia: 1
         });
-        $("#results-news-headlines").mCustomScrollbar(
-        {
-            axis: "y", // vertical
-            theme: "minimal-dark",
-            scrollInertia: 1
-        });
-        
-        function sizeChat(e)
+        /*mCustomScrollbarElements.each(function()
+        {   // remove the "overflow: visible" that mCustomScrollbar sets in style attribute for some unknown reason
+            this.attributes.style.value = this.attributes.style.value.replace(" overflow: visible;", '');
+        });*/
+                
+        function sizeThings(e)
         {
             var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-            var navHeight = $('nav').outerHeight();
-            
-            // console.log('viewHeight', viewHeight);
-            // console.log('navHeight', navHeight);
+            var navHeight = $('#global-nav').outerHeight();
             
             var debatePage = $('#debate-page');
             
             // var postStuff = $('#post-stuff');
             var choices = $('#choices');
-                choices.height($('#headings-roll').outerHeight(true) + $('#wanna-join-for').outerHeight(true));
+                // choices.height($('#headings-roll').outerHeight(true) + $('#wanna-join-for').outerHeight(true));
             var yourSide = $('#hows-my-arguing');
             
+            var argueSection = $('#argue-section');
+          console.log("argueSection.height() @31 =", argueSection.height(), argueSection.outerHeight());
             var chatOutput = $('#chat-output');
-            // var chatBox = $('#chat-box-container');
             var privilegeBox = $('#must-be-logged-in');
             
             var aboveNewsResults = $('#above-news-results');
             var newsResults = $('#results-news-headlines');
             
             debatePage.height(viewHeight - navHeight);
-            // console.log("debatePage.height()", debatePage.height());
             var contentHeight = debatePage.outerHeight();
+          console.log(debatePage.height(), "vs", contentHeight);
             
-            // console.log("contentHeight", contentHeight);
+          console.log("argueSection.height() @41 =", argueSection.height(), argueSection.outerHeight());
             
-            // var freeSpace = contentHeight - (postStuff.outerHeight() + choices.outerHeight() + yourSide.outerHeight());
-            // console.log(freeSpace);
-            // var vertMargin = Math.max(freeSpace / 2, 0);
+          console.log("privilegeBox.outerHeight() =", privilegeBox.outerHeight());
             
-            // postStuff.css("margin-bottom", vertMargin.toString()+"px");
-            // choices.css("margin-bottom", vertMargin.toString()+"px");
-            
-            // chatOutput.height(contentHeight - chatBox.outerHeight(true));
-            chatOutput.height(contentHeight - privilegeBox.outerHeight(true));
+            // chatOutput.height(contentHeight - privilegeBox.outerHeight(true));
+            chatOutput.height(argueSection.height() - privilegeBox.outerHeight());
             newsResults.height(contentHeight - aboveNewsResults.outerHeight(true));
             
             if (e === 'init')
@@ -65,9 +55,9 @@ $(function()
                 newsResults.mCustomScrollbar("update");
             }
         }
-        sizeChat('init');
+        sizeThings('init');
         // do it again on resize
-        $(window).resize(sizeChat);
+        $(window).resize(sizeThings);
         
         
         // get the postID from hidden input value
@@ -212,8 +202,8 @@ $(function()
                 });
                 // SERVER - KICKED (not actually possible yet)
                 socket.on('kickedFromChampion', function()
-                {   // TODO: An alert pop-in
-                    disableChatBox('Your peers have voted to kick you from the speaker seat.');
+                {   // TODO: 1) actually implement kicking on the server side so this event can actually occur 2) An alert pop-in when kicked
+                    disableChatBox('Your peers have voted to boot you from the speaker seat.');
                 });
                 
                 // // CLIENT - UP CONFIDENCE IN SPEAKER
@@ -275,7 +265,7 @@ $(function()
             socket.on('chatUpdate', function(authorName, content, side)
             {
                 // console.log('Update data:', update);
-                var chatOutput = $('#chat-output .mCSB_container');
+                var mCSB_chatOutput = $('#chat-output .mCSB_container');
                 
                 var newChatItem = $('<li class="new debate-message message-'+side+'">');
                 var h6 = $('<h6 class="author">').html(authorName);
@@ -284,12 +274,12 @@ $(function()
                 
                 // console.log(newChatItem);
                 
-                chatOutput.append(newChatItem);
+                mCSB_chatOutput.append(newChatItem);
                 
                 setTimeout(function() // wait to remove 'new' class so transition triggers
                 {
                     newChatItem.removeClass('new');
-                    // chatOutput[0].scrollTop = chatOutput[0].scrollHeight;
+                    // mCSB_chatOutput[0].scrollTop = mCSB_chatOutput[0].scrollHeight;
                     $('#chat-output').mCustomScrollbar("update");
                     $('#chat-output').mCustomScrollbar("scrollTo", "bottom");
                 }, 10);
@@ -338,6 +328,7 @@ $(function()
             $('#chat-form').removeClass('hide-all');
             $('#choices').addClass('hide-all');
             $('#chat-box').html("");
+            sizeThings();
         }
         function disableChatBox(message)
         {
@@ -345,6 +336,7 @@ $(function()
             $('#chat-form').addClass('hide-all');
             $('#choices').removeClass('hide-all');
             $('#chat-box').html(message);
+            sizeThings();
         }
     }
 });

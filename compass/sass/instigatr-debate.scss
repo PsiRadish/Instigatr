@@ -26,13 +26,15 @@ $argue-grey-background              : #505050;
 // $debate-msg-watermark-against-left  : 37.5%;
 
 // changes to num rows and line height for chat box, and line height for debate messages, depending on screen height
-$debate-vertical-breakpoints: (
+$argue-vertical-breakpoints: (
     (631px, null,  4, 1.4), // calc(4em * 1.4 + 14px)
     (541px, 630px, 4, 1.2), // calc(4em * 1.2 + 14px)
     (451px, 540px, 3, 1.2), // calc(3em * 1.2 + 14px)
     (361px, 450px, 3, 1),   // calc(3em + 16px)
     (null,  360px, 2, 1)    // calc(2em + 14px)
 );
+
+$choose-side-width                  : 7.714286em; // 108px
 
 // top level debate page column
 #debate-page
@@ -76,7 +78,7 @@ $debate-vertical-breakpoints: (
 
 // == COLUMN 1 ====
 
-#debate-info-column
+#debate-info-section
 {
     border: 1px solid #999;
     background-color: #F8F8F8;
@@ -85,7 +87,7 @@ $debate-vertical-breakpoints: (
     @include three-round-one-pointy($debate-msg-border-radius);
     
     // background: linear-gradient(10deg, $blue, shade($blue, 30%));
-    overflow: hidden;
+    // overflow: hidden;
 }
 
 #post-stuff
@@ -151,71 +153,6 @@ $debate-vertical-breakpoints: (
     }
 }
 
-@mixin debate-info-responsiveness($breakpoint)
-{
-    $class-name:        nth($breakpoint, 2);
-    $column-padding:    nth($breakpoint, 5) / 2;
-    
-    // Assuming #debate-page has classes "small-half-horizontal-gutters" and "tiny-quarter-horizontal-gutters"...
-    // TODO?: Add selectors somewhere, somehow for ${class-name}-(half|quarter)-horizontal-gutters so I don't have to assume
-    @if $class-name == small
-    {
-        $column-padding: $column-padding / 2;
-    }
-    @else if $class-name == tiny
-    {
-        $column-padding: $column-padding / 4;
-    }
-    
-    #vote-rating-box
-    {
-        margin-left: -1 * $column-padding;
-    }
-    
-    #post-content-box
-    {
-        width: calc(100% - #{$debate-rating-width - $column-padding});
-    }
-}
-@each $breakpoint in $grid-breakpoints
-{
-    $media:             nth($breakpoint,1);
-    $minimum-width:     nth($breakpoint,3);
-    $maximum-width:     nth($breakpoint,4);
-    
-    @if $minimum-width and not $maximum-width 
-    {
-        @media #{$media} and (min-width: $minimum-width)
-        {
-            @include debate-info-responsiveness($breakpoint);
-        }
-    }
-    
-    @if $minimum-width and $maximum-width 
-    {
-        @media #{$media} and (min-width: $minimum-width) and (max-width: $maximum-width)
-        {
-            @include debate-info-responsiveness($breakpoint);
-        }
-    }
-    
-    @if not $minimum-width and $maximum-width 
-    {
-        @media #{$media} and (max-width: $maximum-width)
-        {
-            @include debate-info-responsiveness($breakpoint);
-        }
-    }
-    
-    @if not $minimum-width and not $maximum-width
-    {
-        @media #{$media}
-        {
-            @include debate-info-responsiveness($breakpoint);
-        }
-    }
-}
-
 // #vote-rating-box
 // {
 //     margin: 20px 0px 20px 0px;
@@ -232,7 +169,7 @@ $debate-vertical-breakpoints: (
 
 // == COLUMN 2 ====
 
-#argue-column
+#argue-section
 {
     padding: 0;
     // padding-top: 6px;
@@ -244,8 +181,13 @@ $debate-vertical-breakpoints: (
     
     position: relative;
     
+    // display: flex;
+    // flex-direction: column;
+    
     #chat-output
     {
+        // flex: 1;
+        
         overflow-x: hidden;
         overflow-y: auto;
         // max-height: 420px;
@@ -389,6 +331,9 @@ $debate-vertical-breakpoints: (
     
     #must-be-logged-in
     {
+        // flex-grow: 0;
+        // flex-basis: auto;
+        
         padding: $debate-msg-padding;
         width: 100%;
         
@@ -420,12 +365,6 @@ $debate-vertical-breakpoints: (
                 
                 margin-bottom: 0.5em;
                 
-                .h-roll-padding
-                {
-                    margin-bottom: 0;
-                    visibility: hidden;
-                }
-                
                 .rolling-heading
                 {
                     // display: inline-block;
@@ -437,21 +376,24 @@ $debate-vertical-breakpoints: (
                     
                     text-align: center;
                 }
+                // .roll-padding
+                // {
+                //     margin-bottom: 0;
+                // }
             }
-            
             #choice-roll
             {
                 position: relative;
-                height: 60px;
+                // height: 60px;
                 width: 100%;
-                
-                #wanna-join-for, #wanna-join-against,
-                #side-for, #side-against
-                {
-                    position: absolute;
-                    width: 50%;
-                    top: 0%;
-                }
+            }
+            
+            #wanna-join-for, #wanna-join-against,
+            #side-for, #side-against
+            {
+                position: absolute;
+                width: 50%;
+                top: 0%;
             }
             
             #wanna-join-for, #wanna-join-against
@@ -460,7 +402,7 @@ $debate-vertical-breakpoints: (
                 // border-radius: $debate-msg-border-radius;
                 @include three-round-one-pointy($debate-msg-border-radius);
                 
-                padding: 6px;
+                padding: $debate-msg-padding;
                 
                 .enter-queue
                 {
@@ -469,7 +411,6 @@ $debate-vertical-breakpoints: (
             }
             #wanna-join-for
             {
-                
                 border: 1px solid rgba($green, 0.2);
                 background-color: rgba($green, 0.12);
             }
@@ -493,20 +434,57 @@ $debate-vertical-breakpoints: (
 
             #side-for, #side-against
             {
-                height: 4.285714em; // 60px
+                // height: 4.285714em; // 60px
                 text-align: center;
                 
                 .choose-side
                 {
-                    width: 7.714286em; // 108px
-                    // padding-left: 11%;
-                    // padding-right: 11%;
+                    width: $choose-side-width;
                     max-width: 100%;
                 }
                 .change-mind
                 {
                     display: block;
                 }
+            }
+            
+            .roll-padding
+            {
+                visibility: hidden;
+                
+                text-align: center;
+                
+                @include pie-clearfix();
+                
+                > div
+                {
+                    float: left;
+                    width: 50%;
+                }
+                
+                .choose-side-fake
+                {
+                    width: $choose-side-width;
+                    max-width: 100%;
+                }
+                .change-mind-fake, .enter-queue-fake
+                {
+                    display: block;
+                }
+                .wanna-join-fake
+                {
+                    text-align: center;
+                    @include three-round-one-pointy($debate-msg-border-radius);
+                    
+                    padding: $debate-msg-padding;
+                    
+                    border: 1px solid purple;
+                    background-color: rgba(purple, 0.12);
+                }
+            }
+            h3.roll-padding
+            {
+                margin-bottom: 0;
             }
         }
 
@@ -596,7 +574,6 @@ $debate-vertical-breakpoints: (
                 {
                     pointer-events: none;
                 }
-                
                 .change-mind
                 {
                     visibility: visible;
@@ -717,7 +694,7 @@ $debate-vertical-breakpoints: (
         // }
     }
     
-    @each $breakpoint in $debate-vertical-breakpoints
+    @each $breakpoint in $argue-vertical-breakpoints
     {
         $minimum-height:  nth($breakpoint, 1);
         $maximum-height:  nth($breakpoint, 2);
@@ -792,7 +769,7 @@ $debate-vertical-breakpoints: (
 
 // == COLUMN 2 ====
 
-#news-column
+#news-section
 {
     background-color: #F8F8F8;
     
@@ -806,7 +783,7 @@ $debate-vertical-breakpoints: (
     overflow-y: auto;
 }
 
-#news-column
+#news-section
 {
     background-image: url('/paper-texture-75.jpg');
     background-repeat: repeat;
@@ -831,13 +808,19 @@ $debate-vertical-breakpoints: (
 
 .thumbNail
 {
-/*  min-height:50px;*/
   display:inline;
+  
+  > img
+  {
+    margin-bottom: 5px;
+    
+    &[src=""]
+    {
+        display: none;
+    }
+  }
 }
-.thumbNail > img
-{
-  margin-bottom: 5px;
-}
+
 .article
 {
   display:block;
@@ -890,16 +873,122 @@ $debate-vertical-breakpoints: (
     // margin-left: 0;
 }
 
-img[src=""]
+@mixin debate-responsiveness($breakpoint)
 {
-    display: none;
+    $class-name:        nth($breakpoint, 2);
+    $column-padding:    nth($breakpoint, 5) / 2;
+    
+    @if $class-name == small
+    {
+        $column-padding: $column-padding / 2; // Assuming #debate-page has class "small-half-horizontal-gutters"
+                                              // TODO?: Add selectors somewhere, somehow for ${class-name}-(half|quarter)-horizontal-gutters so I don't have to assume
+        
+        #global-footer
+        {
+            display: none;
+        }
+    }
+    @else if $class-name == tiny
+    {
+        $column-padding: $column-padding / 4; // Assuming #debate-page has class "tiny-quarter-horizontal-gutters"...
+                                              // TODO?: Add selectors somewhere, somehow for ${class-name}-(half|quarter)-horizontal-gutters so I don't have to assume
+        
+        // Compact first section and show over chat scroll
+        #debate-page
+        {
+            display: flex;
+            flex-direction: column;
+            
+            #argue-section
+            {
+                flex: 1;
+                overflow: hidden;
+            }
+        }
+        #debate-page > section
+        {
+            height: auto;
+            
+            > h1:first-child
+            {
+                display: none;
+            }
+        }
+        
+        #debate-info-section
+        {
+            padding: $column-padding;
+            
+            #champions
+            {
+                display: none; // TEMPORARY, TODO: Show champion names in colored boxes on left and right side
+            }
+        }
+        
+        #news-section
+        {
+            display: none; // TEMPORARY, TODO: move news into some kind of popout menu
+        }
+        
+        #global-footer
+        {
+            display: none;
+        }
+    }
+    
+    #vote-rating-box
+    {
+        margin-left: -1 * $column-padding;
+    }
+    
+    #post-content-box
+    {
+        width: calc(100% - #{$debate-rating-width - $column-padding});
+    }
+}
+@each $breakpoint in $grid-breakpoints
+{
+    $media:             nth($breakpoint,1);
+    $minimum-width:     nth($breakpoint,3);
+    $maximum-width:     nth($breakpoint,4);
+    
+    @if $minimum-width and not $maximum-width 
+    {
+        @media #{$media} and (min-width: $minimum-width)
+        {
+            @include debate-responsiveness($breakpoint);
+        }
+    }
+    
+    @if $minimum-width and $maximum-width 
+    {
+        @media #{$media} and (min-width: $minimum-width) and (max-width: $maximum-width)
+        {
+            @include debate-responsiveness($breakpoint);
+        }
+    }
+    
+    @if not $minimum-width and $maximum-width 
+    {
+        @media #{$media} and (max-width: $maximum-width)
+        {
+            @include debate-responsiveness($breakpoint);
+        }
+    }
+    
+    @if not $minimum-width and not $maximum-width
+    {
+        @media #{$media}
+        {
+            @include debate-responsiveness($breakpoint);
+        }
+    }
 }
 
-// -- Scrollbar plugin tweaks, not sure if they actually work
+// -- Scrollbar plugin tweaks --
 // dragger bar idle
 // .mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar
 // {
-//     // background-color: #808080;
 //     background-color: rgba(#808080, 0.2);
 // }
 // dragger bar hover
@@ -915,3 +1004,8 @@ img[src=""]
     // background-color: rgba(#808080, 0.5);
     background-color: rgba(#000000, 0.5);
 }
+
+// .mCustomScrollbar::-webkit-scrollbar
+// {
+//     width: 0 !important
+// }
