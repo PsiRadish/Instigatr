@@ -24,8 +24,11 @@ X Javascript a maximum width on hamburger dropdown = $('#global-nav').width() - 
       _ Compact: between current champion for each side, with thumb icons(?) instead of words
         ? thumb icons already next to champ names, so maybe some other icon to indicate how many in the "choir"
 _ modal confirmation to salute or boot
-_ make custom scroll bar draggers always visible on touch devices (unless that's already taken care of?)
+_ disable mCustomScrollbar on touch devices
+  ? or make custom scroll bar draggers always visible on touch devices
 _ Move login form into shared template and display in choice area when user not logged in
+_ Socket.IO broadcast after upvote/downvote persisted
+  • Probably require sending and receiving votes through socket instead of AJAX
 _ convert most px units to em
   • news column
   • ...
