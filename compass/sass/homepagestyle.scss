@@ -20,7 +20,7 @@ $index-text-padding         : 0.375em; // 6px;
 $index-item-padding         : 1.25em; // 20px;
 $index-rating-width         : 2.25em + $index-item-padding; // calc(0.75em * 3 + #{$index-item-padding});
 $index-subject-min-height   : 6em;
-$index-data-width           : 7.5em;
+$index-data-width           : 6.7em; // 7.5em;
 $index-arrow-font-size      : 2.1875em; // 35px;
 $index-arrow-lmargin-ratio  : 0.8;
 $index-arrow-rmargin-ratio  : 0.5;
@@ -465,36 +465,74 @@ footer
     margin-left: $index-item-padding;
     // max-width: 299px;
     
+    display: table;
+    
     > p
     {
         font-size: 0.875em;
-        margin-bottom: 0.1875em; // 3px;
+        // margin-bottom: 0.1875em; // 3px;
+                
+        display: table-row;
         
-        &:last-child
+        > *
         {
-            margin-bottom: 0;
+            padding-bottom: 0.1875em; // 3px;
         }
+        
+        &:last-child > *
+        {
+            // margin-bottom: 0;
+            
+            padding-bottom: 0;
+        }
+    }
+    
+    .number, .word
+    {
+        display: table-cell;
+    }
+    .number
+    {
+        text-align: right;
+    }
+    .word, .symbol
+    {
+        width: 100%;
+    }
+    .symbol
+    {
+        display: none;
     }
 }
 
-// @include at-adhoc-breakpoint($max-width: 430px)
-// {
-//     $index-data-width           : 7.5em;
+@include at-adhoc-breakpoint($max-width: 430px)
+{
+    $index-data-width           : 3.332143em; // 4.132143em; // change
     
-//     $index-card-static-width    : $index-rating-width + $index-item-padding + $index-data-width + $index-arrow-font-size * ($index-arrow-sizewide-ratio + $index-arrow-lmargin-ratio + $index-arrow-rmargin-ratio); // 16.96875em;
-//     $index-card-subject-width   : calc(100% - (#{$index-rating-width} + #{$index-item-padding} + #{$index-data-width} + #{$index-arrow-font-size * ($index-arrow-sizewide-ratio + $index-arrow-lmargin-ratio + $index-arrow-rmargin-ratio)}));
-//     $index-card-subject-maxwidth: calc(#{$grid-max-width} - #{nth(nth($grid-breakpoints, $xlarge-index), $gutter-index) * 2} - #{$index-card-static-width});
+    // recalculation based on change
+    $index-card-static-width    : $index-rating-width + $index-item-padding + $index-data-width + $index-arrow-font-size * ($index-arrow-sizewide-ratio + $index-arrow-lmargin-ratio + $index-arrow-rmargin-ratio); // 16.96875em;
+    $index-card-subject-width   : calc(100% - (#{$index-rating-width} + #{$index-item-padding} + #{$index-data-width} + #{$index-arrow-font-size * ($index-arrow-sizewide-ratio + $index-arrow-lmargin-ratio + $index-arrow-rmargin-ratio)}));
+    $index-card-subject-maxwidth: calc(#{$grid-max-width} - #{nth(nth($grid-breakpoints, $xlarge-index), $gutter-index) * 2} - #{$index-card-static-width});
     
-//     .card-text.subject
-//     {
-//         width: $index-card-subject-width;
-//         max-width: $index-card-subject-maxwidth;
-//     }
-//     .debate-data
-//     {
-//         width: $index-data-width;
-//     }
-// }
+    .card-text.subject
+    {
+        width: $index-card-subject-width;
+        max-width: $index-card-subject-maxwidth;
+    }
+    .debate-data
+    {
+        width: $index-data-width;
+        
+        .word
+        {
+            display: none;
+        }
+        .symbol
+        {
+            display: table-cell;
+        }
+    }
+}
 
 .go-to-link
 {

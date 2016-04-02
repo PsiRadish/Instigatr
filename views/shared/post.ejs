@@ -17,9 +17,13 @@
         </div>
         
         <div class="card-item card-text debate-data">
-          <p><%= post.usersFor.length %> agree.</p>
-          <p><%= post.usersAgainst.length %> disagree.</p>
-          <p><%= post.messages.length %> messages.</p>
+          <p>
+            <span class="number"><%= post.usersFor.length %>&nbsp;</span>      <span class="word">agree.</span><i class="symbol fa fa-thumbs-up"></i>
+          </p><p>
+            <span class="number"><%= post.usersAgainst.length %>&nbsp;</span>  <span class="word">disagree.</span><i class="symbol fa fa-thumbs-o-down"></i>
+          </p><p>
+            <span class="number"><%= post.messages.length %>&nbsp;</span>      <span class="word">messages.</span><i class="symbol fa fa-comments"></i>
+          </p>
         </div>
         
         <div class="card-item go-to-link"><i class="fa fa-arrow-right"></i></div>

@@ -422,8 +422,8 @@ footer .fa-github {
 }
 
 .card-text.subject {
-  width: calc(100% - (3.5em + 1.25em + 7.5em + 4.71997em));
-  max-width: calc(1440px - 4em - 16.96997em);
+  width: calc(100% - (3.5em + 1.25em + 6.7em + 4.71997em));
+  max-width: calc(1440px - 4em - 16.16997em);
   padding: 0.375em;
   min-height: 6em;
   position: relative;
@@ -437,17 +437,49 @@ footer .fa-github {
 }
 
 .debate-data {
-  width: 7.5em;
+  width: 6.7em;
   margin-left: 1.25em;
+  display: table;
 }
 .debate-data > p {
   font-size: 0.875em;
-  margin-bottom: 0.1875em;
+  display: table-row;
 }
-.debate-data > p:last-child {
-  margin-bottom: 0;
+.debate-data > p > * {
+  padding-bottom: 0.1875em;
+}
+.debate-data > p:last-child > * {
+  padding-bottom: 0;
+}
+.debate-data .number, .debate-data .word {
+  display: table-cell;
+}
+.debate-data .number {
+  text-align: right;
+}
+.debate-data .word, .debate-data .symbol {
+  width: 100%;
+}
+.debate-data .symbol {
+  display: none;
 }
 
+@media screen and (max-width: 430px) {
+  .card-text.subject {
+    width: calc(100% - (3.5em + 1.25em + 3.33214em + 4.71997em));
+    max-width: calc(1440px - 4em - 12.80211em);
+  }
+
+  .debate-data {
+    width: 3.33214em;
+  }
+  .debate-data .word {
+    display: none;
+  }
+  .debate-data .symbol {
+    display: table-cell;
+  }
+}
 .go-to-link {
   font-size: 2.1875em;
   margin-left: 0.8em;
