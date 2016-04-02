@@ -57,9 +57,13 @@
  * minimum-width: (pixels|null) the minimum width for the breakpoint 
  * maximum-width: (pixels|null) the maximum width for the breakpoint 
  * gutter-width: (ems) the width for the gutters (space between grid columns) for the breakpoint 
+ * base-font-size: 
  * no-media-query: (true|false) if you need to support IE8 set this to true on a single breakpoint.
  *                 Since IE8 does not support the @media statement leaving one of the breakpoints
  *                 outside a @media query let's you use the grid in IE8.
+ * ADDED BY RADISH
+ * top-gutter-width: (ems) gap between top-most container and screen edges
+ * card-width: (varied) width of debate "cards" on index pages
  *  
  */
 /**
@@ -341,22 +345,22 @@ footer .fa-github {
 .debate-listing, #new-post {
   max-width: calc(1440px - 4em);
 }
-@media screen and (min-width: 1261px) {
+@media screen and (min-width: 1260px) {
   .debate-listing, #new-post {
     width: 80vw;
   }
 }
-@media screen and (min-width: 961px) and (max-width: 1260px) {
+@media screen and (min-width: 960px) and (max-width: 1260px) {
   .debate-listing, #new-post {
     width: 87vw;
   }
 }
-@media screen and (min-width: 641px) and (max-width: 960px) {
+@media screen and (min-width: 640px) and (max-width: 960px) {
   .debate-listing, #new-post {
     width: 93vw;
   }
 }
-@media screen and (min-width: 321px) and (max-width: 640px) {
+@media screen and (min-width: 320px) and (max-width: 640px) {
   .debate-listing, #new-post {
     width: 100%;
   }

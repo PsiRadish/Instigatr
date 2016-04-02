@@ -18,20 +18,13 @@ var app = express();
 var sessionStore = new session.MemoryStore();
 var http = require('http').Server(app);
 var sio = require('socket.io')(http);
-app.set('view engine','ejs');
-
-// Facebook login
-// var FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID;
-// var FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET;
+app.set('view engine', 'ejs');
 
 // ---- MIDDLEWARE ----
 app.use(ejsLayouts);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/public'));
 // app.use(favicon(__dirname + '/public/favicon.ico'));
-// app.use(passport.initialize());
-// app.use(passport.session());
-// app.use(cookieParser());
 var sessionMiddleware = session(
 {
   store: sessionStore,
@@ -44,84 +37,64 @@ app.use(sessionMiddleware);
 app.use(flash());
 
 // auto-load current user into req and res
-app.use(function(req,res,next)
+app.use(function(req, res, next)
 {
-  
-  db.post.findAll().then(function(posts){
-    res.locals.postsLngth = posts.length
-  }).then(function(){
-  
-  res.locals.alerts = req.flash();
-  
-  // req.session.userId = 2; // FOR TESTING ONLY BRO
-  
-  if (req.session.userId)
-  {
-    // console.log("Getting session user from database");
-    // db.user.findById(req.session.userId).then(function(user)
-    db.user.find({where: {id: req.session.userId}, include: [db.vote]}).then(function(user)
-    {
-      // console.log("auto-user", user);
-      if (user)
-      {
-        req.currentUser = user;
-        res.locals.currentUser = user;
-      }
-      else
-      {
-        req.currentUser = false;
-        res.locals.currentUser = false;
-      }
-      next();
-    });
-  } else
-  {
-    if (typeof req.session.userId == 'undefined')
-      req.session.userId = null;
+    db.post.findAll().then(function(posts){
+        res.locals.postsLngth = posts.length
+    }).then(function(){
     
-    req.currentUser = false;
-    res.locals.currentUser = false;
-    next();
-  }
+        res.locals.alerts = req.flash();
+        
+        // req.session.userId = 2; // FOR TESTING ONLY BRO
+        
+        if (req.session.userId)
+        {
+            // console.log("Getting session user from database");
+            // db.user.findById(req.session.userId).then(function(user)
+            db.user.find({where: {id: req.session.userId}, include: [db.vote]}).then(function(user)
+            {
+                // console.log("auto-user", user);
+                if (user)
+                {
+                    req.currentUser = user;
+                    res.locals.currentUser = user;
+                }
+                else
+                {
+                    req.currentUser = false;
+                    res.locals.currentUser = false;
+                }
+                next();
+            });
+        } else
+        {
+            if (typeof req.session.userId == 'undefined')
+                req.session.userId = null;
+            
+            req.currentUser = false;
+            res.locals.currentUser = false;
+            next();
+        }
+    });
 });
-});
 
-// facebook
-
-// passport.serializeUser(function(user, done) {
-//   done(null, user);
-// });
-
-// passport.deserializeUser(function(obj, done) {
-//   done(null, obj);
-// });
-
-// passport.use(new FacebookStrategy({
-//     clientID: FACEBOOK_APP_ID,
-//     clientSecret: FACEBOOK_APP_SECRET,
-//     callbackURL: "http://localhost:3000/auth/facebook/callback"
-//     // callbackURL: "/auth/facebook/callback"
-//   },
-//   function(accessToken, refreshToken, profile, done) {
-//     process.nextTick(function () {
-
-//        return done(null, profile);
-//     });
-//   }
-// ));
-
-// function ensureAuthenticated(req, res, next) {
-//   if (req.isAuthenticated()) { return next(); }
-//   res.redirect('/login');
-// }
-
-app.use('/',require('./controllers/mainController.js'));
-app.use('/auth',require('./controllers/authController.js'));
+app.use('/', require('./controllers/mainController.js'));
+app.use('/auth', require('./controllers/authController.js'));
 
 app.use('/users', require('./controllers/usersController.js'));
 
 app.use('/posts', require('./controllers/postsController.js'));
 app.use('/tags', require('./controllers/tagsController.js'));
+
+// no routes matched
+app.use(function(req, res, next)
+{
+    res.status(404);
+    res.render('main/404.ejs', {titleSuffix: '404'});
+});
+
+// ---- CHAT AND SOCKET.IO STUFF ---- //
+// TODO: Figure out how to put this stuff in a separate file
 
 // DebateChat CLASS
 function DebateChat(post)
