@@ -24,16 +24,15 @@ X Javascript a maximum width on hamburger dropdown = $('#global-nav').width() - 
       _ Compact: between current champion for each side, with thumb icons(?) instead of words
         ? thumb icons already next to champ names, so maybe some other icon to indicate how many in the "choir"
 _ modal confirmation to salute or boot
-_ disable mCustomScrollbar on touch devices
-  ? or make custom scroll bar draggers always visible on touch devices
 _ Move login form into shared template and display in choice area when user not logged in
-_ Socket.IO broadcast after upvote/downvote persisted
-  • Probably require sending and receiving votes through socket instead of AJAX
-_ convert most px units to em
-  • news column
-  • ...
+_ Socket.IO broadcast after upvote/downvote persisted to update displayed value
+  • Probably require sending votes through socket instead of AJAX
+• convert most px units to em
+  _ in news column
+  ? more?
 ? only link stylesheets on the pages where they apply
-? show buttons for "Stop Arguing" and more(?) in thin column on right of chatbox
+_ show buttons for "Stop Arguing" and more(?) in thin column on right of chatbox
+? modify mCustomScrollbar to have separate mouse vs. touch scrollInertia settings
 _ Use "fq" instead of "q" and http://lucene.apache.org/core/2_9_4/queryparsersyntax.html to make initial news search OR tag names together for more results
 _ Change all use of "Post" in user-visible text to "Debate"
 _ Move inline styles in about.ejs into stylesheet

@@ -958,3 +958,129 @@
         }
     }
 }
+
+
+// == RADISH ===
+
+@mixin at-breakpoint($index) // set rules for the one specified breakpoint
+{
+    $breakpoint:        nth($grid-breakpoints, $index);
+    
+    $media:             nth($breakpoint, $media-index);
+    $minimum-width:     nth($breakpoint, $min-width-index);
+    $maximum-width:     nth($breakpoint, $max-width-index);
+    
+    @if $minimum-width and not $maximum-width 
+    {
+        @media #{$media} and (min-width: $minimum-width)
+        {
+            @content;
+        }
+    }
+    
+    @if $minimum-width and $maximum-width 
+    {
+        @media #{$media} and (min-width: $minimum-width) and (max-width: $maximum-width)
+        {
+            @content;
+        }
+    }
+    
+    @if not $minimum-width and $maximum-width 
+    {
+        @media #{$media} and (max-width: $maximum-width)
+        {
+            @content;
+        }
+    }
+    
+    @if not $minimum-width and not $maximum-width
+    {
+        @media #{$media}
+        {
+            @content;
+        }
+    }
+}
+
+$this-breakpoint : null;
+@mixin for-each-breakpoint() // iterate through every breakpoint to set properties using data from $grid-breakpoints
+{
+    @each $breakpoint in $grid-breakpoints
+    {
+        $this-breakpoint:   $breakpoint !global; // store this iteration's breakpoint data in global variable to access it from within @content
+        
+        $media:             nth($breakpoint, $media-index);
+        $minimum-width:     nth($breakpoint, $min-width-index);
+        $maximum-width:     nth($breakpoint, $max-width-index);
+        
+        @if $minimum-width and not $maximum-width 
+        {
+            @media #{$media} and (min-width: $minimum-width)
+            {
+                @content;
+            }
+        }
+        
+        @if $minimum-width and $maximum-width 
+        {
+            @media #{$media} and (min-width: $minimum-width) and (max-width: $maximum-width)
+            {
+                @content;
+            }
+        }
+        
+        @if not $minimum-width and $maximum-width 
+        {
+            @media #{$media} and (max-width: $maximum-width)
+            {
+                @content;
+            }
+        }
+        
+        @if not $minimum-width and not $maximum-width
+        {
+            @media #{$media}
+            {
+                @content;
+            }
+        }
+    }
+    
+    $this-breakpoint: null !global; // reset global variable now we're done with it
+}
+
+@mixin at-adhoc-breakpoint($min-width: null, $max-width: null, $media: "screen") // rules for breakpoint defined right on the spot
+{
+    @if $min-width and not $max-width
+    {
+        @media #{$media} and (min-width: $min-width)
+        {
+            @content;
+        }
+    }
+    
+    @if $min-width and $max-width 
+    {
+        @media #{$media} and (min-width: $min-width) and (max-width: $max-width)
+        {
+            @content;
+        }
+    }
+    
+    @if not $min-width and $max-width 
+    {
+        @media #{$media} and (max-width: $max-width)
+        {
+            @content;
+        }
+    }
+    
+    @if not $min-width and not $max-width
+    {
+        @media #{$media}
+        {
+            @content;
+        }
+    }
+}

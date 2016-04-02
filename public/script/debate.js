@@ -8,7 +8,7 @@ $(function()
         {
             axis: "y", // vertical
             theme: "minimal-dark",
-            scrollInertia: 1
+            scrollInertia: 1    // TODO: modify mCustomScrollbar to have separate mouse vs. touch scrollInertia settings
         });
         /*mCustomScrollbarElements.each(function()
         {   // remove the "overflow: visible" that mCustomScrollbar sets in style attribute for some unknown reason

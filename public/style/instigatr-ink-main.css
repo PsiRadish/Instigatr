@@ -74,9 +74,12 @@
  * minimum-width: (pixels|null) the minimum width for the breakpoint 
  * maximum-width: (pixels|null) the maximum width for the breakpoint 
  * gutter-width: (ems) the width for the gutters (space between grid columns) for the breakpoint 
+ * base-font-size: 
  * no-media-query: (true|false) if you need to support IE8 set this to true on a single breakpoint.
  *                 Since IE8 does not support the @media statement leaving one of the breakpoints
  *                 outside a @media query let's you use the grid in IE8.
+ * ADDED BY RADISH
+ * top-gutter-width: (ems) gap between top-most container and screen edges (through which page body background is seen)
  *  
  */
 /**
@@ -1141,7 +1144,7 @@ th {
   clear: both;
 }
 
-@media screen and (min-width: 1261px) {
+@media screen and (min-width: 1260px) {
   .ink-grid {
     padding: 0 2em;
   }
@@ -1985,7 +1988,7 @@ th {
     display: none;
   }
 }
-@media screen and (min-width: 961px) and (max-width: 1260px) {
+@media screen and (min-width: 960px) and (max-width: 1260px) {
   .ink-grid {
     padding: 0 1.33em;
   }
@@ -2829,7 +2832,7 @@ th {
     display: none;
   }
 }
-@media screen and (min-width: 641px) and (max-width: 960px) {
+@media screen and (min-width: 640px) and (max-width: 960px) {
   .ink-grid {
     padding: 0 0.67em;
   }
@@ -3673,7 +3676,7 @@ th {
     display: none;
   }
 }
-@media screen and (min-width: 321px) and (max-width: 640px) {
+@media screen and (min-width: 320px) and (max-width: 640px) {
   .ink-grid {
     padding: 0 0;
   }
@@ -5361,39 +5364,39 @@ th {
     display: none;
   }
 }
-@media screen and (min-width: 1261px) {
+@media screen and (min-width: 1260px) {
   html {
     font-size: 16px;
   }
   html:after {
-    content: '[{"name":"xlarge", "size":{"min":"1261px","max":""}},{"name":"large", "size":{"min":"961px","max":"1260px"}},{"name":"medium", "size":{"min":"641px","max":"960px"}},{"name":"small", "size":{"min":"321px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
+    content: '[{"name":"xlarge", "size":{"min":"1260px","max":""}},{"name":"large", "size":{"min":"960px","max":"1260px"}},{"name":"medium", "size":{"min":"640px","max":"960px"}},{"name":"small", "size":{"min":"320px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
     display: none;
   }
 }
-@media screen and (min-width: 961px) and (max-width: 1260px) {
+@media screen and (min-width: 960px) and (max-width: 1260px) {
   html {
     font-size: 16px;
   }
   html:after {
-    content: '[{"name":"xlarge", "size":{"min":"1261px","max":""}},{"name":"large", "size":{"min":"961px","max":"1260px"}},{"name":"medium", "size":{"min":"641px","max":"960px"}},{"name":"small", "size":{"min":"321px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
+    content: '[{"name":"xlarge", "size":{"min":"1260px","max":""}},{"name":"large", "size":{"min":"960px","max":"1260px"}},{"name":"medium", "size":{"min":"640px","max":"960px"}},{"name":"small", "size":{"min":"320px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
     display: none;
   }
 }
-@media screen and (min-width: 641px) and (max-width: 960px) {
+@media screen and (min-width: 640px) and (max-width: 960px) {
   html {
     font-size: 15px;
   }
   html:after {
-    content: '[{"name":"xlarge", "size":{"min":"1261px","max":""}},{"name":"large", "size":{"min":"961px","max":"1260px"}},{"name":"medium", "size":{"min":"641px","max":"960px"}},{"name":"small", "size":{"min":"321px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
+    content: '[{"name":"xlarge", "size":{"min":"1260px","max":""}},{"name":"large", "size":{"min":"960px","max":"1260px"}},{"name":"medium", "size":{"min":"640px","max":"960px"}},{"name":"small", "size":{"min":"320px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
     display: none;
   }
 }
-@media screen and (min-width: 321px) and (max-width: 640px) {
+@media screen and (min-width: 320px) and (max-width: 640px) {
   html {
     font-size: 14px;
   }
   html:after {
-    content: '[{"name":"xlarge", "size":{"min":"1261px","max":""}},{"name":"large", "size":{"min":"961px","max":"1260px"}},{"name":"medium", "size":{"min":"641px","max":"960px"}},{"name":"small", "size":{"min":"321px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
+    content: '[{"name":"xlarge", "size":{"min":"1260px","max":""}},{"name":"large", "size":{"min":"960px","max":"1260px"}},{"name":"medium", "size":{"min":"640px","max":"960px"}},{"name":"small", "size":{"min":"320px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
     display: none;
   }
 }
@@ -5402,7 +5405,7 @@ th {
     font-size: 14px;
   }
   html:after {
-    content: '[{"name":"xlarge", "size":{"min":"1261px","max":""}},{"name":"large", "size":{"min":"961px","max":"1260px"}},{"name":"medium", "size":{"min":"641px","max":"960px"}},{"name":"small", "size":{"min":"321px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
+    content: '[{"name":"xlarge", "size":{"min":"1260px","max":""}},{"name":"large", "size":{"min":"960px","max":"1260px"}},{"name":"medium", "size":{"min":"640px","max":"960px"}},{"name":"small", "size":{"min":"320px","max":"640px"}},{"name":"tiny", "size":{"min":"","max":"320px"}}]';
     display: none;
   }
 }

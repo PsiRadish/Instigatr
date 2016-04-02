@@ -873,15 +873,44 @@ $choose-side-width                  : 7.714286em; // 108px
     // margin-left: 0;
 }
 
-@mixin debate-responsiveness($breakpoint)
+// -- Scrollbar plugin tweaks --
+// dragger bar idle
+// .mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar
+// {
+// }
+// dragger bar hover
+.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger:hover:not(.mCSB_dragger_onDrag) .mCSB_dragger_bar
 {
-    $class-name:        nth($breakpoint, 2);
-    $column-padding:    nth($breakpoint, 5) / 2;
+    background-color: rgba(#000000, 0.3);
+}
+// dragger bar click/drag
+.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar
+{
+    background-color: rgba(#000000, 0.5);
+}
+
+
+// Responsiveness
+@include for-each-breakpoint()
+{
+    $class-name:        nth($this-breakpoint, $class-name-index);
+    $column-padding:    nth($this-breakpoint, $gutter-index) / 2;
+    
+    #vote-rating-box
+    {
+        margin-left: -1 * $column-padding;
+    }
+    
+    #post-content-box
+    {
+        width: calc(100% - #{$debate-rating-width - $column-padding});
+    }
     
     @if $class-name == small
     {
         $column-padding: $column-padding / 2; // Assuming #debate-page has class "small-half-horizontal-gutters"
-                                              // TODO?: Add selectors somewhere, somehow for ${class-name}-(half|quarter)-horizontal-gutters so I don't have to assume
+                                              // TODO?: Add selectors somewhere, somehow for ${class-name}-(half|quarter)-horizontal-gutters so I don't have to assume?
         
         #global-footer
         {
@@ -891,7 +920,7 @@ $choose-side-width                  : 7.714286em; // 108px
     @else if $class-name == tiny
     {
         $column-padding: $column-padding / 4; // Assuming #debate-page has class "tiny-quarter-horizontal-gutters"...
-                                              // TODO?: Add selectors somewhere, somehow for ${class-name}-(half|quarter)-horizontal-gutters so I don't have to assume
+                                              // TODO?: Add selectors somewhere, somehow for ${class-name}-(half|quarter)-horizontal-gutters so I don't have to assume?
         
         // Compact first section and show over chat scroll
         #debate-page
@@ -935,77 +964,4 @@ $choose-side-width                  : 7.714286em; // 108px
             display: none;
         }
     }
-    
-    #vote-rating-box
-    {
-        margin-left: -1 * $column-padding;
-    }
-    
-    #post-content-box
-    {
-        width: calc(100% - #{$debate-rating-width - $column-padding});
-    }
 }
-@each $breakpoint in $grid-breakpoints
-{
-    $media:             nth($breakpoint,1);
-    $minimum-width:     nth($breakpoint,3);
-    $maximum-width:     nth($breakpoint,4);
-    
-    @if $minimum-width and not $maximum-width 
-    {
-        @media #{$media} and (min-width: $minimum-width)
-        {
-            @include debate-responsiveness($breakpoint);
-        }
-    }
-    
-    @if $minimum-width and $maximum-width 
-    {
-        @media #{$media} and (min-width: $minimum-width) and (max-width: $maximum-width)
-        {
-            @include debate-responsiveness($breakpoint);
-        }
-    }
-    
-    @if not $minimum-width and $maximum-width 
-    {
-        @media #{$media} and (max-width: $maximum-width)
-        {
-            @include debate-responsiveness($breakpoint);
-        }
-    }
-    
-    @if not $minimum-width and not $maximum-width
-    {
-        @media #{$media}
-        {
-            @include debate-responsiveness($breakpoint);
-        }
-    }
-}
-
-// -- Scrollbar plugin tweaks --
-// dragger bar idle
-// .mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar
-// {
-//     background-color: rgba(#808080, 0.2);
-// }
-// dragger bar hover
-.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger:hover:not(.mCSB_dragger_onDrag) .mCSB_dragger_bar
-{
-    background-color: rgba(#000000, 0.3);
-}
-// dragger bar click/drag
-.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
-.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar
-{
-    // background-color: #808080;
-    // background-color: rgba(#808080, 0.5);
-    background-color: rgba(#000000, 0.5);
-}
-
-// .mCustomScrollbar::-webkit-scrollbar
-// {
-//     width: 0 !important
-// }

@@ -17,18 +17,53 @@ $grid-max-width: 1440px !default;
  * minimum-width: (pixels|null) the minimum width for the breakpoint 
  * maximum-width: (pixels|null) the maximum width for the breakpoint 
  * gutter-width: (ems) the width for the gutters (space between grid columns) for the breakpoint 
+ * base-font-size: 
  * no-media-query: (true|false) if you need to support IE8 set this to true on a single breakpoint.
  *                 Since IE8 does not support the @media statement leaving one of the breakpoints
  *                 outside a @media query let's you use the grid in IE8.
+ * ADDED BY RADISH
+ * top-gutter-width: (ems) gap between top-most container and screen edges
+ * card-width: (varied) width of debate "cards" on index pages
  *  
  */
 
+// $grid-breakpoints: (
+//     ('screen', 'xlarge', 1261px, null,   2em,    16px, false, 2em,    80vw),
+//     ('screen', 'large',  961px,  1260px, 1.75em, 16px, true,  1.33em, 87vw),
+//     ('screen', 'medium', 641px,  960px,  1.5em,  15px, false, 0.67em, 93vw),
+//     ('screen', 'small',  321px,  640px,  1.25em, 14px, false, 0,      100%),
+//     ('screen', 'tiny',   null,   320px,  1em,    14px, false, 0,      100%)
+// );
+
+// RADISH: No gaps between breakpoints, because it IS possible to fall between the 1 pixel gap at some DPI settings, and consequently have no breakpoints apply.
 $grid-breakpoints: (
-    ('screen', 'xlarge', 1261px, null,   2em,    16px, false, 2em,    80vw),
-    ('screen', 'large',  961px,  1260px, 1.75em, 16px, true,  1.33em, 87vw),
- // ('screen', 'himed',  751px,  960px, 1.75em,  16px, true,  1em,    90vw),
- // ('screen', 'lomed',  641px,  750px,  1.5em,  15px, false, 0.67em, 93vw),
-    ('screen', 'medium', 641px,  960px,  1.5em,  15px, false, 0.67em, 93vw),
-    ('screen', 'small',  321px,  640px,  1.25em, 14px, false, 0,      100%),
+    ('screen', 'xlarge', 1260px, null,   2em,    16px, false, 2em,    80vw),
+    ('screen', 'large',  960px,  1260px, 1.75em, 16px, true,  1.33em, 87vw),
+    ('screen', 'medium', 640px,  960px,  1.5em,  15px, false, 0.67em, 93vw),
+    ('screen', 'small',  320px,  640px,  1.25em, 14px, false, 0,      100%),
     ('screen', 'tiny',   null,   320px,  1em,    14px, false, 0,      100%)
 );
+
+// RADISH: descriptive vars for $grid-breakpoints indexes
+$xlarge-index:  1;
+$large-index:   2;
+$medium-index:  3;
+$small-index:   4;
+$tiny-index:    5;
+// RADISH: and sub-indexes
+$media-index:       1;
+$class-name-index:  2;
+$min-width-index:   3;
+$max-width-index:   4;
+$gutter-index:      5;
+$font-size-index:   6;
+$no-query-index:    7;
+$top-gutter-index:  8;
+$card-width-index:  9;
+
+// RADISH: breakpoint plugin parameter vars
+// $xlarge : nth(nth($grid-breakpoints, 1), 3);
+// $large  : nth(nth($grid-breakpoints, 2), 3) nth(nth($grid-breakpoints, 2), 4);
+// $medium : nth(nth($grid-breakpoints, 3), 3) nth(nth($grid-breakpoints, 3), 4);
+// $small  : nth(nth($grid-breakpoints, 4), 3) nth(nth($grid-breakpoints, 4), 4);
+// $tiny   : max-width nth(nth($grid-breakpoints, 5), 4);

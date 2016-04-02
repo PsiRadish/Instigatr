@@ -60,9 +60,13 @@
  * minimum-width: (pixels|null) the minimum width for the breakpoint 
  * maximum-width: (pixels|null) the maximum width for the breakpoint 
  * gutter-width: (ems) the width for the gutters (space between grid columns) for the breakpoint 
+ * base-font-size: 
  * no-media-query: (true|false) if you need to support IE8 set this to true on a single breakpoint.
  *                 Since IE8 does not support the @media statement leaving one of the breakpoints
  *                 outside a @media query let's you use the grid in IE8.
+ * ADDED BY RADISH
+ * top-gutter-width: (ems) gap between top-most container and screen edges
+ * card-width: (varied) width of debate "cards" on index pages
  *  
  */
 /**
@@ -687,7 +691,16 @@
   border-radius: 0 9999px 9999px 0;
 }
 
-@media screen and (min-width: 1261px) {
+.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger:hover:not(.mCSB_dragger_onDrag) .mCSB_dragger_bar {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (min-width: 1260px) {
   #vote-rating-box {
     margin-left: -1em;
   }
@@ -696,7 +709,7 @@
     width: calc(100% - 1.30357em);
   }
 }
-@media screen and (min-width: 961px) and (max-width: 1260px) {
+@media screen and (min-width: 960px) and (max-width: 1260px) {
   #vote-rating-box {
     margin-left: -0.875em;
   }
@@ -705,7 +718,7 @@
     width: calc(100% - 1.42857em);
   }
 }
-@media screen and (min-width: 641px) and (max-width: 960px) {
+@media screen and (min-width: 640px) and (max-width: 960px) {
   #vote-rating-box {
     margin-left: -0.75em;
   }
@@ -714,20 +727,28 @@
     width: calc(100% - 1.55357em);
   }
 }
-@media screen and (min-width: 321px) and (max-width: 640px) {
-  #global-footer {
-    display: none;
-  }
-
+@media screen and (min-width: 320px) and (max-width: 640px) {
   #vote-rating-box {
-    margin-left: -0.3125em;
+    margin-left: -0.625em;
   }
 
   #post-content-box {
-    width: calc(100% - 1.99107em);
+    width: calc(100% - 1.67857em);
+  }
+
+  #global-footer {
+    display: none;
   }
 }
 @media screen and (max-width: 320px) {
+  #vote-rating-box {
+    margin-left: -0.5em;
+  }
+
+  #post-content-box {
+    width: calc(100% - 1.80357em);
+  }
+
   #debate-page {
     display: flex;
     flex-direction: column;
@@ -758,20 +779,4 @@
   #global-footer {
     display: none;
   }
-
-  #vote-rating-box {
-    margin-left: -0.125em;
-  }
-
-  #post-content-box {
-    width: calc(100% - 2.17857em);
-  }
-}
-.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger:hover:not(.mCSB_dragger_onDrag) .mCSB_dragger_bar {
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
-.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
-.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
-  background-color: rgba(0, 0, 0, 0.5);
 }
