@@ -41,3 +41,4 @@ _ Move inline styles in about.ejs into stylesheet
 _ show each champion's "confidence" rating with the audience, with "salute" (upvote) and "boot" (downvote) buttons next to the rating for your own side's champion
   ? low confidence should theoretically lead to losing your champion spot, somehow
 ? inactivity timer to boot idle champions
+_ remove leading and trailing whitespace from new usernames on signup (with warning?)

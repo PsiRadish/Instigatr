@@ -23,8 +23,8 @@
   <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.concat.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.min.css">
   <script type="text/javascript" src="https://ink.global.ssl.fastly.net/3.1.9/js/ink-all.js"></script>
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
-  <link rel="stylesheet" type="text/css" href="//cdn.ink.sapo.pt/3.1.10/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" type="text/css" href="//cdn.ink.sapo.pt/3.1.10/css/font-awesome.min.css"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="/style/instigatr-ink-main.css">
   <link rel="stylesheet" type="text/css" href="/style/instigatr-debate.css">
   <link rel="stylesheet" type="text/css" href="/style/homepagestyle.css">
@@ -32,7 +32,9 @@
   <script type="text/javascript" src="/script/postIndex.js"></script>
   <script type="text/javascript" src="/script/layout.js"></script>
   <!--script type="text/javascript" src="/script/debate.js"></script-->
-
+  
+  <!-- <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#C91111" /> -->
 
 </head>
 <body>
@@ -71,9 +73,14 @@
           </li>
           
           <% if (currentUser) { %>
-            <li><a href="" class="js-user-create-post click-menu-clear">Start New</a></li>
+            <li><a href="#" class="js-user-create-post click-menu-clear">Start New</a></li>
           <% } %>
         </ul>
+      </li>
+      
+      <!-- Fullscreen button -->
+      <li id="fullscreen-button" class="hide-all">
+        <a href="#"><i class="fa fa-arrows-alt"></i></a>
       </li>
       
       <ul class="push-right css-dropdown-login horizontal menu black">

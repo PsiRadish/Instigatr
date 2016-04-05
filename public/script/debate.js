@@ -1,7 +1,9 @@
+
 $(function()
 {
-    if ($('#debate-page').length) // check we're on a debate page
-    {
+    // if ($('#debate-page').length) // check we're on a debate page
+    // {
+        
         var mCustomScrollbarElements = $("#chat-output, #results-news-headlines");
         // initialize spiffy scrollbars
         mCustomScrollbarElements.mCustomScrollbar(
@@ -28,7 +30,7 @@ $(function()
             var yourSide = $('#hows-my-arguing');
             
             var argueSection = $('#argue-section');
-          console.log("argueSection.height() @31 =", argueSection.height(), argueSection.outerHeight());
+          // console.log("argueSection.height() @31 =", argueSection.height(), argueSection.outerHeight());
             var chatOutput = $('#chat-output');
             var privilegeBox = $('#must-be-logged-in');
             
@@ -37,11 +39,11 @@ $(function()
             
             debatePage.height(viewHeight - navHeight);
             var contentHeight = debatePage.outerHeight();
-          console.log(debatePage.height(), "vs", contentHeight);
+          // console.log(debatePage.height(), "vs", contentHeight);
             
-          console.log("argueSection.height() @41 =", argueSection.height(), argueSection.outerHeight());
+          // console.log("argueSection.height() @41 =", argueSection.height(), argueSection.outerHeight());
             
-          console.log("privilegeBox.outerHeight() =", privilegeBox.outerHeight());
+          // console.log("privilegeBox.outerHeight() =", privilegeBox.outerHeight());
             
             // chatOutput.height(contentHeight - privilegeBox.outerHeight(true));
             chatOutput.height(argueSection.height() - privilegeBox.outerHeight());
@@ -58,6 +60,52 @@ $(function()
         sizeThings('init');
         // do it again on resize
         $(window).resize(sizeThings);
+        
+        
+        // Fullscreen button for mobile
+        if (MOBILE) // global defined in layout.js
+        {
+            $("#fullscreen-button").removeClass("hide-all");
+            
+            $("#fullscreen-button > a").click(function(e)
+            {
+                e.preventDefault();
+                
+                var doc = window.document;
+                var docElement = doc.documentElement;
+                
+                var requestFullscreen = docElement.requestFullscreen || docElement.mozRequestFullScreen || docElement.webkitRequestFullScreen || docElement.msRequestFullscreen;
+                
+                if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement)
+                {
+                    requestFullscreen.call(docElement);
+                    
+                    $("#fullscreen-button").addClass("hide-all"); // hide button again
+                }
+            });
+            
+            $(document).bind('webkitfullscreenchange mozfullscreenchange fullscreenchange', function()
+            {
+                var doc = window.document;
+                
+                var debug = "fullscreenchange";
+                
+                // show fullscreen button again if no longer fullscreen
+                if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement)
+                {
+                    $("#fullscreen-button").removeClass("hide-all");
+                    setTimeout(function()
+                    {
+                        window.scrollTo(0, 0);
+                    }, 10);
+                    
+                    debug += " : off, button restored";
+                }
+                
+                // fakeMessage(debug);
+                console.log(debug);
+            });
+        }
         
         
         // get the postID from hidden input value
@@ -338,5 +386,31 @@ $(function()
             $('#chat-box').html(message);
             sizeThings();
         }
-    }
+    // }
 });
+
+/*function fakeMessage(content)
+{
+    authorName = " DEBUG ";
+    side = "for";
+    
+    // console.log('Update data:', update);
+    var mCSB_chatOutput = $('#chat-output .mCSB_container');
+    
+    var newChatItem = $('<li class="new debate-message message-'+side+'">');
+    var h6 = $('<h6 class="author">').html(authorName);
+    newChatItem.append(h6);
+    newChatItem.append($('<span>'+content+'</span>'));
+    
+    // console.log(newChatItem);
+    
+    mCSB_chatOutput.append(newChatItem);
+    
+    setTimeout(function() // wait to remove 'new' class so transition triggers
+    {
+        newChatItem.removeClass('new');
+        // mCSB_chatOutput[0].scrollTop = mCSB_chatOutput[0].scrollHeight;
+        $('#chat-output').mCustomScrollbar("update");
+        $('#chat-output').mCustomScrollbar("scrollTo", "bottom");
+    }, 10);
+}*/
