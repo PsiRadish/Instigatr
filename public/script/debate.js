@@ -10,10 +10,11 @@ $(function()
         {
             axis: "y", // vertical
             theme: "minimal-dark",
-            scrollInertia: 1    // TODO: modify mCustomScrollbar to have separate mouse vs. touch scrollInertia settings
+            mouseWheel: { preventDefault: true }, // prevent whole window from scrolling when content can't scroll anymore
+            scrollInertia: 1  // TODO: modify mCustomScrollbar to have separate mouse vs. touch scrollInertia settings?
         });
         /*mCustomScrollbarElements.each(function()
-        {   // remove the "overflow: visible" that mCustomScrollbar sets in style attribute for some unknown reason
+        {   // remove the "overflow: visible" that mCustomScrollbar sets in style attribute
             this.attributes.style.value = this.attributes.style.value.replace(" overflow: visible;", '');
         });*/
                 
