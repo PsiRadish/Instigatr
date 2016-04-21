@@ -1,15 +1,11 @@
 var db = require('./models');
 var async = require('async');
 var express = require('express');
-// var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var ejsLayouts = require('express-ejs-layouts');
 var session = require('express-session');
 var flash = require('connect-flash');
-// var favicon = require('serve-favicon');
-// var passport = require('passport')
-// var FacebookStrategy = require('passport-facebook').Strategy
 
 // require('./stampedLog.js');
 
@@ -19,6 +15,19 @@ var sessionStore = new session.MemoryStore();
 var http = require('http').Server(app);
 var sio = require('socket.io')(http);
 app.set('view engine', 'ejs');
+
+// Redirect http to https on production
+if (process.env.NODE_ENV === 'production')
+{
+    app.use(function(req, res, next) 
+    {   console.log("x-forwarded-proto", req.headers['x-forwarded-proto']);
+        if (req.headers['x-forwarded-proto'] !== 'https') 
+        {
+            return res.redirect(301, ['https://', req.get('Host'), req.url].join(''));
+        }
+        return next();
+    });
+}
 
 // ---- MIDDLEWARE ----
 app.use(ejsLayouts);
@@ -154,9 +163,6 @@ DebateChat.prototype.getPlaceInLine = function(user, side)
     });
     
     return findex;
-    // if (findex == -1)
-    //     return null;
-    // return getOrdinal(findex + 1);
 }
 DebateChat.prototype.getChampName = function(side)
 {
@@ -215,27 +221,8 @@ DebateChat.prototype.checkUpdateLine = function(side)
     }
     
     // UPDATE PLACE IN LINE
-    // debateChat.sockets.forEach(function(loopSocket)
     this.socketsInLine[side].forEach(function(lineSocket)
     {
-        /* front of line and no champ
-        if (i == 0 && this.champion[side] == null)
-        {   // promotion
-            this.champion[side] = this.socketsInLine[side].shift().user;
-            this.votesOnChampion[side] = {}; // reset confidence votes
-            lineSocket.inLine = false;
-            
-            lineSocket.emit('becomeChampion', lineSocket.side);
-            sio.to(this.postId).emit('champUpdate', this.getChampName('for'), this.getChampName('against'));
-            
-            // and now we start all over
-            // handleLineShift(side);
-            return;
-        }
-        else
-        {   // just update place in line
-            lineSocket.emit('updateQueue', getOrdinal(this.getPlaceInLine(lineSocket.user, lineSocket.side) + 1), lineSocket.side);
-        } */
         lineSocket.emit('updateQueue', getOrdinal(this.getPlaceInLine(lineSocket.user, lineSocket.side) + 1), lineSocket.side);
     });
 }
