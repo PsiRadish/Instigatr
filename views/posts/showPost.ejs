@@ -71,13 +71,14 @@
       <div id="choices">
         
         <div id="headings-roll">
-          <!-- INVISIBLE PADDING HEADING, just reserves space for absolutely-positioned headings below -->
-          <h3 class="roll-padding">visibility: hidden OMG</h3>
+          <h3 class="roll-padding">visibility: hidden OMG</h3> <!-- INVISIBLE PADDING HEADING: Makes space for one of the real, absolutely-positioned headings below
+                                                                    TODO: Either retrieve height of real heading(s) in JS and add to margin-top of #choice-roll,
+                                                                          or make sure the invisible padding stuff won't be read by a screen reader -->
           
           <!-- Only one of these headings visible at a time. -->
-          <h3 id="heading-choice-made-left" class="rolling-heading">You Are <span class="green">For</span>!</h3>  <!-- visibility: hidden in CSS -->
+          <h3 id="heading-choice-made-left" class="rolling-heading">You Are <span class="green">For</span>!</h3>
           <h3 id="heading-choice-not-made" class="rolling-heading">Choose a Side?</h3>
-          <h3 id="heading-choice-made-right" class="rolling-heading">You Are <span class="red">Against</span>!</h3>  <!-- visibility: hidden in CSS -->
+          <h3 id="heading-choice-made-right" class="rolling-heading">You Are <span class="red">Against</span>!</h3>
         </div>
         
         <div id="choice-roll">
@@ -182,5 +183,10 @@
   </section>
 
 </div>
+
+<!-- scrollbar plugin http://manos.malihu.gr/jquery-custom-content-scroller/ -->
+  <!-- src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.concat.min.js" -->
+  <!-- src="/script/jquery.mCustomScrollbar.concat.js" -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.concat.min.js"></script>
 
 <script type="text/javascript" src="/script/debate.js"></script>
