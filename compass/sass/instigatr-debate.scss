@@ -172,12 +172,10 @@ $choose-side-width                  : 7.714286em; // 108px
 #argue-section
 {
     padding: 0;
-    // padding-top: 6px;
+    overflow-x: hidden;
     
     // background-color: mix($argue-grey-background, $argue-red-background);
     // background: linear-gradient($argue-grey-background, mix($argue-red-background, $argue-grey-background, 25%) 50%, $argue-red-background);
-    
-    // max-height: 480px;
     
     position: relative;
     
@@ -188,7 +186,6 @@ $choose-side-width                  : 7.714286em; // 108px
     {
         // flex: 1;
         
-        overflow-x: hidden;
         overflow-y: auto;
         // max-height: 420px;
         
