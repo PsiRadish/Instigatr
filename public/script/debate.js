@@ -46,6 +46,9 @@ $(function()
                 var doc = window.document;
                 var docElement = doc.documentElement;
                 
+                // restrict scale range for fullscreen in hopes in makes shit stop being stupid
+                $('meta[name="viewport"]')[0].content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0';
+                
                 var requestFullscreen = docElement.requestFullscreen || docElement.mozRequestFullScreen || docElement.webkitRequestFullScreen || docElement.msRequestFullscreen;
                 
                 if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement)
@@ -67,8 +70,10 @@ $(function()
                     
                     setTimeout(function()
                     {
-                        window.scrollTo(0, 0);
-                    }, 10);
+                        window.scrollTo(0, 0); // wish this would fix page alignment coming back from fullscreen :/
+                        // restore scale range now we're leaving fullscreen
+                        $('meta[name="viewport"]')[0].content = 'width=device-width, minimum-scale=1.0, maximum-scale=5.0, initial-scale=1.0';
+                    }, 100);
                 }
                 
                 // console.log(debug);
