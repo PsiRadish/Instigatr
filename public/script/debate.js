@@ -3,9 +3,79 @@ $(function()
 {
         var mCustomScrollbarElements = $("#chat-output, #results-news-headlines");
         
-        if (!MOBILE)
+        if (MOBILE) // global defined in layout.js
         {
-            // initialize spiffy scrollbars for desktop
+            // display scroll hint arrows on mobile in case browser doesn't show a scroll dragger
+            $('.scrollhint').removeClass("hide-all");
+            
+            $('#chat-output').on("scroll", function()
+            {
+                var chatOutput = $('#chat-output');
+                var topHints = $('.scrollhint.top');
+                var bottomHints = $('.scrollhint.bottom');
+                
+                // if (chatOutput[0].scrollTop != chatOutput[0].scrollHeight) // not at the bottom
+                if (chatOutput[0].scrollTop + chatOutput[0].clientHeight != chatOutput[0].scrollHeight) // not at the bottom
+                {
+                    if (chatOutput[0].scrollTop == 0) // at the top
+                        topHints.addClass("scrollmaxed"); // hide scroll-up hints
+                    
+                    bottomHints.removeClass("scrollmaxed");
+                }
+                if (chatOutput[0].scrollTop != 0) // not at the top
+                {
+                    // if (chatOutput[0].scrollTop == chatOutput[0].scrollHeight) // at the bottom
+                    if (chatOutput[0].scrollTop + chatOutput[0].clientHeight == chatOutput[0].scrollHeight) // at the bottom
+                        bottomHints.addClass("scrollmaxed"); // hide scroll-down hints
+                    
+                    topHints.removeClass("scrollmaxed");
+                }
+                
+                // console.log("chatOutput[0].scrollHeight", chatOutput[0].scrollHeight);
+                // console.log("chatOutput[0].scrollTop", chatOutput[0].scrollTop);
+                // console.log("chatOutput[0].clientHeight", chatOutput[0].clientHeight);
+            });
+            
+            // Fullscreen button for mobile
+            $("#fullscreen-button").removeClass("hide-all");
+            
+            $("#fullscreen-button > a").click(function(e)
+            {
+                e.preventDefault();
+                
+                var doc = window.document;
+                var docElement = doc.documentElement;
+                
+                var requestFullscreen = docElement.requestFullscreen || docElement.mozRequestFullScreen || docElement.webkitRequestFullScreen || docElement.msRequestFullscreen;
+                
+                if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement)
+                {                    
+                    requestFullscreen.call(docElement);
+                    
+                    $("#fullscreen-button").addClass("hide-all"); // hide button again
+                }
+            });
+            
+            $(document).bind('webkitfullscreenchange mozfullscreenchange fullscreenchange', function()
+            {
+                var doc = window.document;
+                
+                // show fullscreen button again if no longer fullscreen
+                if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement)
+                {
+                    $("#fullscreen-button").removeClass("hide-all");
+                    
+                    setTimeout(function()
+                    {
+                        window.scrollTo(0, 0);
+                    }, 10);
+                }
+                
+                // console.log(debug);
+            });
+        }
+        else
+        {   // initialize spiffy scrollbars for desktop
             mCustomScrollbarElements.mCustomScrollbar(
             {
                 axis: "y", // vertical
@@ -54,6 +124,21 @@ $(function()
             chatOutput.height(argueSection.height() - privilegeBox.outerHeight());
             newsResults.height(contentHeight - aboveNewsResults.outerHeight(true));
             
+            $('.scrollhint.left').css(
+            {
+                "left": argueSection[0].getClientRects()[0].left + "px",
+                "margin-left": argueSection.outerWidth() / 10 - $('.scrollhint').width() + "px"
+            });
+            $('.scrollhint.right').css(
+            {
+                "left": argueSection[0].getClientRects()[0].right + "px",
+                "margin-left": argueSection.outerWidth() / -10 + "px"
+            });
+            $('.scrollhint.bottom').css(
+            {
+                "top": privilegeBox[0].getClientRects()[0].top - $('.scrollhint').height() + "px"
+            });
+            
             if (e === 'init')
             {
                 // chatOutput.mCustomScrollbar("update");
@@ -65,55 +150,7 @@ $(function()
         }
         sizeThings('init');
         // do it again on resize
-        $(window).resize(sizeThings);
-        
-        
-        // Fullscreen button for mobile
-        if (MOBILE) // global defined in layout.js
-        {
-            $("#fullscreen-button").removeClass("hide-all");
-            
-            $("#fullscreen-button > a").click(function(e)
-            {
-                e.preventDefault();
-                
-                console.log();
-                
-                var doc = window.document;
-                var docElement = doc.documentElement;
-                
-                var requestFullscreen = docElement.requestFullscreen || docElement.mozRequestFullScreen || docElement.webkitRequestFullScreen || docElement.msRequestFullscreen;
-                
-                if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement)
-                {
-                    console.log("BEFORE FULLSCREEN");
-                    logWidths();
-                    
-                    requestFullscreen.call(docElement);
-                    
-                    $("#fullscreen-button").addClass("hide-all"); // hide button again
-                }
-            });
-            
-            $(document).bind('webkitfullscreenchange mozfullscreenchange fullscreenchange', function()
-            {
-                var doc = window.document;
-                
-                // show fullscreen button again if no longer fullscreen
-                if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement)
-                {
-                    $("#fullscreen-button").removeClass("hide-all");
-                    
-                    setTimeout(function()
-                    {
-                        window.scrollTo(0, 0);
-                    }, 10);
-                }
-                
-                // console.log(debug);
-            });
-        }
-        
+        $(window).resize(sizeThings);        
         
         // get the postID from hidden input value
         var postId = parseInt($('#post-id').val());  // parseInt(window.location.pathname.split('/')[2]);
@@ -390,6 +427,18 @@ $(function()
             sizeThings();
         }
 });
+
+function logWidths()
+{
+    console.log("document.documentElement.clientWidth", document.documentElement.clientWidth, "window.innerWidth", window.innerWidth);
+    console.log("navWidth", $('#global-nav').outerWidth());
+    
+    console.log("debatePage width", $('#debate-page').outerWidth());
+    
+    console.log("argueSection width", $('#argue-section').outerWidth());
+    console.log("chatOutput width", $('#chat-output').outerWidth());
+    console.log("privilegeBox width", $('#must-be-logged-in').outerWidth());
+}
 
 /*function fakeMessage(content)
 {
