@@ -1,23 +1,38 @@
 
 $(function()
 {
-    // if ($('#debate-page').length) // check we're on a debate page
-    // {
-        
         var mCustomScrollbarElements = $("#chat-output, #results-news-headlines");
-        // initialize spiffy scrollbars
-        mCustomScrollbarElements.mCustomScrollbar(
+        
+        if (!MOBILE)
         {
-            axis: "y", // vertical
-            theme: "minimal-dark",
-            mouseWheel: { preventDefault: true }, // prevent whole window from scrolling when content can't scroll anymore
-            scrollInertia: 1  // TODO: modify mCustomScrollbar to have separate mouse vs. touch scrollInertia settings?
-        });
-        /*mCustomScrollbarElements.each(function()
-        {   // remove the "overflow: visible" that mCustomScrollbar sets in style attribute
-            this.attributes.style.value = this.attributes.style.value.replace(" overflow: visible;", '');
-        });*/
-                
+            // initialize spiffy scrollbars for desktop
+            mCustomScrollbarElements.mCustomScrollbar(
+            {
+                axis: "y", // vertical
+                theme: "minimal-dark",
+                mouseWheel: { preventDefault: true }, // prevent whole window from scrolling when content can't scroll anymore
+                scrollInertia: 0 // 1
+            });
+            /*mCustomScrollbarElements.each(function()
+            {   // remove the "overflow: visible" that mCustomScrollbar sets in style attribute
+                this.attributes.style.value = this.attributes.style.value.replace(" overflow: visible;", '');
+            });*/
+        }
+        function scrollChatToBottom()
+        {
+            var chatOutput = $('#chat-output');
+            
+            if (!MOBILE) // mCustomScrollbar scroll
+            {
+                chatOutput.mCustomScrollbar("update");
+                chatOutput.mCustomScrollbar("scrollTo", "bottom");
+            }
+            else // vanilla JS scroll
+            {
+                chatOutput[0].scrollTop = chatOutput[0].scrollHeight;
+            }
+        }
+        
         function sizeThings(e)
         {
             var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
@@ -25,13 +40,7 @@ $(function()
             
             var debatePage = $('#debate-page');
             
-            // var postStuff = $('#post-stuff');
-            var choices = $('#choices');
-                // choices.height($('#headings-roll').outerHeight(true) + $('#wanna-join-for').outerHeight(true));
-            var yourSide = $('#hows-my-arguing');
-            
             var argueSection = $('#argue-section');
-          // console.log("argueSection.height() @31 =", argueSection.height(), argueSection.outerHeight());
             var chatOutput = $('#chat-output');
             var privilegeBox = $('#must-be-logged-in');
             
@@ -40,11 +49,6 @@ $(function()
             
             debatePage.height(viewHeight - navHeight);
             var contentHeight = debatePage.outerHeight();
-          // console.log(debatePage.height(), "vs", contentHeight);
-            
-          // console.log("argueSection.height() @41 =", argueSection.height(), argueSection.outerHeight());
-            
-          // console.log("privilegeBox.outerHeight() =", privilegeBox.outerHeight());
             
             // chatOutput.height(contentHeight - privilegeBox.outerHeight(true));
             chatOutput.height(argueSection.height() - privilegeBox.outerHeight());
@@ -52,10 +56,11 @@ $(function()
             
             if (e === 'init')
             {
-                chatOutput.mCustomScrollbar("update");
-                chatOutput.mCustomScrollbar("scrollTo", "bottom");
+                // chatOutput.mCustomScrollbar("update");
+                // chatOutput.mCustomScrollbar("scrollTo", "bottom");
+                scrollChatToBottom();
                 
-                newsResults.mCustomScrollbar("update");
+                if (!MOBILE) newsResults.mCustomScrollbar("update");
             }
         }
         sizeThings('init');
@@ -72,6 +77,8 @@ $(function()
             {
                 e.preventDefault();
                 
+                console.log();
+                
                 var doc = window.document;
                 var docElement = doc.documentElement;
                 
@@ -79,6 +86,9 @@ $(function()
                 
                 if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement)
                 {
+                    console.log("BEFORE FULLSCREEN");
+                    logWidths();
+                    
                     requestFullscreen.call(docElement);
                     
                     $("#fullscreen-button").addClass("hide-all"); // hide button again
@@ -89,22 +99,18 @@ $(function()
             {
                 var doc = window.document;
                 
-                var debug = "fullscreenchange";
-                
                 // show fullscreen button again if no longer fullscreen
                 if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement)
                 {
                     $("#fullscreen-button").removeClass("hide-all");
+                    
                     setTimeout(function()
                     {
                         window.scrollTo(0, 0);
                     }, 10);
-                    
-                    debug += " : off, button restored";
                 }
                 
-                // fakeMessage(debug);
-                console.log(debug);
+                // console.log(debug);
             });
         }
         
@@ -313,24 +319,20 @@ $(function()
             // NEW CHAT MESSAGE
             socket.on('chatUpdate', function(authorName, content, side)
             {
-                // console.log('Update data:', update);
-                var mCSB_chatOutput = $('#chat-output .mCSB_container');
+                var chatAppend = (MOBILE) ? $('#chat-output') : $('#chat-output .mCSB_container');
                 
+                // TODO?: somehow generate the html via back-end template
                 var newChatItem = $('<li class="new debate-message message-'+side+'">');
                 var h6 = $('<h6 class="author">').html(authorName);
                 newChatItem.append(h6);
                 newChatItem.append($('<span>'+content+'</span>'));
                 
-                // console.log(newChatItem);
+                chatAppend.append(newChatItem);
                 
-                mCSB_chatOutput.append(newChatItem);
-                
-                setTimeout(function() // wait to remove 'new' class so transition triggers
+                window.setTimeout(function() // wait to remove 'new' class so transition triggers
                 {
                     newChatItem.removeClass('new');
-                    // mCSB_chatOutput[0].scrollTop = mCSB_chatOutput[0].scrollHeight;
-                    $('#chat-output').mCustomScrollbar("update");
-                    $('#chat-output').mCustomScrollbar("scrollTo", "bottom");
+                    scrollChatToBottom();
                 }, 10);
             });
         });
@@ -342,10 +344,10 @@ $(function()
             
             if (side == 'for')
             {
-                $('#choices').addClass('side-chosen-for');
-                $('#must-be-logged-in').addClass('side-chosen-for');
-                $('#choices').removeClass('side-chosen-against');
-                $('#must-be-logged-in').removeClass('side-chosen-against');
+                $('#choices').addClass('side-chosen-for').removeClass('side-chosen-against');
+                $('#must-be-logged-in').addClass('side-chosen-for').removeClass('side-chosen-against');
+                // $('#choices').removeClass('side-chosen-against');
+                // $('#must-be-logged-in').removeClass('side-chosen-against');
                 
                 // console.log("enablin'");
                 // enableChatBox();
@@ -354,10 +356,10 @@ $(function()
             }
             else if (side == 'against')
             {
-                $('#choices').addClass('side-chosen-against');
-                $('#must-be-logged-in').addClass('side-chosen-against');
-                $('#choices').removeClass('side-chosen-for');
-                $('#must-be-logged-in').removeClass('side-chosen-for');
+                $('#choices').addClass('side-chosen-against').removeClass('side-chosen-for');
+                $('#must-be-logged-in').addClass('side-chosen-against').removeClass('side-chosen-for');
+                // $('#choices').removeClass('side-chosen-for');
+                // $('#must-be-logged-in').removeClass('side-chosen-for');
                 
                 // console.log("enablin'");
                 // enableChatBox();
@@ -373,21 +375,20 @@ $(function()
         }
         function enableChatBox()
         {
-            $('#chat-box').removeAttr('disabled');
+            $('#chat-box').removeAttr('disabled').html("");
             $('#chat-form').removeClass('hide-all');
             $('#choices').addClass('hide-all');
-            $('#chat-box').html("");
+            // $('#chat-box').html("");
             sizeThings();
         }
         function disableChatBox(message)
         {
-            $('#chat-box').attr('disabled', 'disabled');
+            $('#chat-box').attr('disabled', 'disabled').html(message);
             $('#chat-form').addClass('hide-all');
             $('#choices').removeClass('hide-all');
-            $('#chat-box').html(message);
+            // $('#chat-box').html(message);
             sizeThings();
         }
-    // }
 });
 
 /*function fakeMessage(content)
@@ -396,7 +397,7 @@ $(function()
     side = "for";
     
     // console.log('Update data:', update);
-    var mCSB_chatOutput = $('#chat-output .mCSB_container');
+    var chatAppend = (MOBILE) ? $('#chat-output') : $('#chat-output .mCSB_container');
     
     var newChatItem = $('<li class="new debate-message message-'+side+'">');
     var h6 = $('<h6 class="author">').html(authorName);
@@ -405,13 +406,21 @@ $(function()
     
     // console.log(newChatItem);
     
-    mCSB_chatOutput.append(newChatItem);
+    chatAppend.append(newChatItem);
     
-    setTimeout(function() // wait to remove 'new' class so transition triggers
+    window.setTimeout(function() // wait to remove 'new' class so transition triggers
     {
         newChatItem.removeClass('new');
-        // mCSB_chatOutput[0].scrollTop = mCSB_chatOutput[0].scrollHeight;
-        $('#chat-output').mCustomScrollbar("update");
-        $('#chat-output').mCustomScrollbar("scrollTo", "bottom");
+        var chatOutput = $('#chat-output');
+        
+        if (!MOBILE) // mCustomScrollbar scroll
+        {
+            chatOutput.mCustomScrollbar("update");
+            chatOutput.mCustomScrollbar("scrollTo", "bottom");
+        }
+        else // vanilla JS scroll
+        {
+            chatOutput[0].scrollTop = chatOutput[0].scrollHeight;
+        }
     }, 10);
 }*/
